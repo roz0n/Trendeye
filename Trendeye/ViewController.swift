@@ -6,11 +6,11 @@
 //
 
 import UIKit
-import CoreML
 import Vision
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TEClassifierDelegate {
     
+    let classifier = TEClassifierManager()
     let imagePicker = UIImagePickerController()
     
     let displayImage: UIImageView = {
@@ -29,6 +29,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.delegate = self
         imagePicker.sourceType = .camera
         imagePicker.allowsEditing = false
+        classifier.delegate = self
         
         configureLayout()
         configureGestures()
@@ -48,38 +49,24 @@ extension ViewController {
                 fatalError("Failure converting image")
             }
             
-            processImage(userImage)
+            classifier.processImage(userImage)
         }
         
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
-    func processImage(_ image: CIImage) {
-        // TODO: Check the init method for the model and reafactor this method
-        guard let model = try? VNCoreMLModel(for: TrendClassifier(configuration: MLModelConfiguration.init()).model) else {
-            fatalError("Failure loading CoreML model")
-        }
-        
-        let visionReq = VNCoreMLRequest(model: model) { (request, error) in
-            if error != nil {
-                print("Error processing image")
-                return
-            }
-            
-            guard let results = request.results as? [VNClassificationObservation] else {
-                fatalError("Model failed to process image")
-            }
-            
-            print("Results: \(results)")
-        }
-        
-        let visionHandler = VNImageRequestHandler(ciImage: image)
-        
-        do {
-            try visionHandler.perform([visionReq])
-        } catch {
-            print("Error classifying image")
-        }
+}
+
+// MARK: - Classifier Delegate
+
+extension ViewController {
+    
+    func didFinishProcessing(_: TEClassifierManager, results: [VNClassificationObservation]) {
+        print("RESULTS: \(results)")
+    }
+    
+    func didError(_: TEClassifierManager, error: Error?) {
+        print("ERROR: \(error)")
     }
     
 }
