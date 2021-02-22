@@ -9,6 +9,14 @@ import UIKit
 import CoreML
 import Vision
 
+// TODO: Use this
+
+enum TEClassifierError: Error {
+    case modelError
+    case imageError
+    case processError
+}
+
 protocol TEClassifierDelegate {
     func didFinishProcessing(_: TEClassifierManager, results: [VNClassificationObservation])
     func didError(_: TEClassifierManager, error: Error?)
