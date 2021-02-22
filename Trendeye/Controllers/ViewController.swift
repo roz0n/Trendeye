@@ -21,10 +21,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     let displayImage: UIImageView = {
         let view = UIImageView()
-        
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemRed
-        
         return view
     }()
     
@@ -39,6 +37,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         configureLayout()
         configureGestures()
+        
+        let resultsVC = ResultsViewController()
+        present(resultsVC, animated: true, completion: nil)
     }
     
 }
@@ -66,13 +67,16 @@ extension ViewController {
 
 extension ViewController {
     
-    func didFinishProcessing(_: TEClassifierManager?, results: [VNClassificationObservation]) {
+    func didFinishProcessing(_ sender: TEClassifierManager?, results: [VNClassificationObservation]) {
         if !results.isEmpty {
             self.results = results
         }
+        
+        let resultsVC = ResultsViewController()
+        present(resultsVC, animated: true, completion: nil)
     }
     
-    func didError(_: TEClassifierManager?, error: Error?) {
+    func didError(_ sender: TEClassifierManager?, error: Error?) {
         switch error as! TEClassifierError {
             case .modelError:
                 print("Failed to initialize model")

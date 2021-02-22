@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		234E9CCE25E372B300F82F50 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E9CCD25E372B300F82F50 /* ResultsViewController.swift */; };
+		234E9CD225E3757200F82F50 /* ResultsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E9CD125E3757200F82F50 /* ResultsPanel.swift */; };
 		23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3825E2EE2100241206 /* AppDelegate.swift */; };
 		23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3A25E2EE2100241206 /* SceneDelegate.swift */; };
 		23F80A3D25E2EE2100241206 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3C25E2EE2100241206 /* ViewController.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		234E9CCD25E372B300F82F50 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		234E9CD125E3757200F82F50 /* ResultsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsPanel.swift; sourceTree = "<group>"; };
 		23F80A3525E2EE2100241206 /* Trendeye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trendeye.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23F80A3825E2EE2100241206 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23F80A3A25E2EE2100241206 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +43,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		234E9CD025E3750D00F82F50 /* ResultsView */ = {
+			isa = PBXGroup;
+			children = (
+				234E9CD125E3757200F82F50 /* ResultsPanel.swift */,
+			);
+			path = ResultsView;
+			sourceTree = "<group>";
+		};
 		23F80A2C25E2EE2100241206 = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				23F80A3C25E2EE2100241206 /* ViewController.swift */,
+				234E9CCD25E372B300F82F50 /* ResultsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -97,6 +110,7 @@
 		23F80A5A25E339D600241206 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				234E9CD025E3750D00F82F50 /* ResultsView */,
 				23F80A4325E2EE2400241206 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
@@ -180,10 +194,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				23F80A3D25E2EE2100241206 /* ViewController.swift in Sources */,
+				234E9CD225E3757200F82F50 /* ResultsPanel.swift in Sources */,
 				23F80A5625E32F0E00241206 /* TEClassifierManager.swift in Sources */,
 				23F80A4F25E2EEA400241206 /* TrendClassifier.mlmodel in Sources */,
 				23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */,
 				23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */,
+				234E9CCE25E372B300F82F50 /* ResultsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

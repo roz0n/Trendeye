@@ -16,8 +16,8 @@ enum TEClassifierError: Error {
 }
 
 protocol TEClassifierDelegate {
-    func didFinishProcessing(_: TEClassifierManager?, results: [VNClassificationObservation])
-    func didError(_: TEClassifierManager?, error: Error?)
+    func didFinishProcessing(_ sender: TEClassifierManager?, results: [VNClassificationObservation])
+    func didError(_ sender: TEClassifierManager?, error: Error?)
 }
 
 class TEClassifierManager {
