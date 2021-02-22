@@ -43,9 +43,43 @@ extension ViewController {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             displayImage.image = image
+            
+            guard let userImage = CIImage(image: image) else {
+                fatalError("Failure converting image")
+            }
+            
+            processImage(userImage)
         }
         
         imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    func processImage(_ image: CIImage) {
+        // TODO: Check the init method for the model and reafactor this method
+        guard let model = try? VNCoreMLModel(for: TrendClassifier(configuration: MLModelConfiguration.init()).model) else {
+            fatalError("Failure loading CoreML model")
+        }
+        
+        let visionReq = VNCoreMLRequest(model: model) { (request, error) in
+            if error != nil {
+                print("Error processing image")
+                return
+            }
+            
+            guard let results = request.results as? [VNClassificationObservation] else {
+                fatalError("Model failed to process image")
+            }
+            
+            print("Results: \(results)")
+        }
+        
+        let visionHandler = VNImageRequestHandler(ciImage: image)
+        
+        do {
+            try visionHandler.perform([visionReq])
+        } catch {
+            print("Error classifying image")
+        }
     }
     
 }
