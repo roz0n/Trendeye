@@ -11,7 +11,13 @@ import Vision
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TEClassifierDelegate {
     
     let classifier = TEClassifierManager()
-    let imagePicker = UIImagePickerController()
+    let picker = UIImagePickerController()
+    
+    var results: [VNClassificationObservation]? {
+        didSet {
+            print("Classification successful")
+        }
+    }
     
     let displayImage: UIImageView = {
         let view = UIImageView()
@@ -26,9 +32,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         self.view.backgroundColor = .systemPurple
         
-        imagePicker.delegate = self
-        imagePicker.sourceType = .camera
-        imagePicker.allowsEditing = false
+        picker.delegate = self
+        picker.sourceType = .camera
+        picker.allowsEditing = false
         classifier.delegate = self
         
         configureLayout()
@@ -44,15 +50,14 @@ extension ViewController {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             displayImage.image = image
-            
-            guard let userImage = CIImage(image: image) else {
-                fatalError("Failure converting image")
-            }
-            
-            classifier.processImage(userImage)
         }
         
-        imagePicker.dismiss(animated: true, completion: nil)
+        guard let userImage = CIImage(image: displayImage.image!) else {
+            fatalError("Failure converting image")
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+        classifier.processImage(userImage)
     }
     
 }
@@ -61,12 +66,21 @@ extension ViewController {
 
 extension ViewController {
     
-    func didFinishProcessing(_: TEClassifierManager, results: [VNClassificationObservation]) {
-        print("RESULTS: \(results)")
+    func didFinishProcessing(_: TEClassifierManager?, results: [VNClassificationObservation]) {
+        if !results.isEmpty {
+            self.results = results
+        }
     }
     
-    func didError(_: TEClassifierManager, error: Error?) {
-        print("ERROR: \(error)")
+    func didError(_: TEClassifierManager?, error: Error?) {
+        switch error as! TEClassifierError {
+            case .modelError:
+                print("Failed to initialize model")
+            case .processError:
+                print("Vision request failed")
+            case .handlerError:
+                print("Image request handler failed")
+        }
     }
     
 }
@@ -81,7 +95,7 @@ private extension ViewController {
     }
     
     @objc func cameraButtonTapped() {
-        present(imagePicker, animated: true, completion: nil)
+        present(picker, animated: true, completion: nil)
     }
     
 }
@@ -92,7 +106,6 @@ private extension ViewController {
     
     func configureLayout() {
         view.addSubview(displayImage)
-        
         NSLayoutConstraint.activate([
             displayImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             displayImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),

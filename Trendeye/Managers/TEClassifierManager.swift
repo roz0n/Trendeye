@@ -9,17 +9,15 @@ import UIKit
 import CoreML
 import Vision
 
-// TODO: Use this
-
 enum TEClassifierError: Error {
     case modelError
-    case imageError
     case processError
+    case handlerError
 }
 
 protocol TEClassifierDelegate {
-    func didFinishProcessing(_: TEClassifierManager, results: [VNClassificationObservation])
-    func didError(_: TEClassifierManager, error: Error?)
+    func didFinishProcessing(_: TEClassifierManager?, results: [VNClassificationObservation])
+    func didError(_: TEClassifierManager?, error: Error?)
 }
 
 class TEClassifierManager {
@@ -28,35 +26,31 @@ class TEClassifierManager {
     
     func processImage(_ image: CIImage) {
         let configuration = MLModelConfiguration()
+        let visionHandler = VNImageRequestHandler(ciImage: image)
         
-        guard let model = try? VNCoreMLModel(for: TrendClassifier(configuration: configuration).model) else {
-            // Failure loading CoreML model
-            self.delegate?.didError(self, error: nil)
+        guard let mlModel = try? VNCoreMLModel(for: TrendClassifier(configuration: configuration).model) else {
+            self.delegate?.didError(self, error: TEClassifierError.modelError)
             return
         }
         
-        let visionReq = VNCoreMLRequest(model: model) { [weak self] (request, error) in
+        let visionRequest = VNCoreMLRequest(model: mlModel) { [weak self] (request, error) in
             guard error == nil else {
-                self?.delegate?.didError(self!, error: error!);
+                self?.delegate?.didError(self, error: error!);
                 return
             }
             
             guard let results = request.results as? [VNClassificationObservation] else {
-                // Model failed to process image
-                self?.delegate?.didError(self!, error: nil)
+                self?.delegate?.didError(self, error: TEClassifierError.processError)
                 return
             }
             
-            self?.delegate?.didFinishProcessing(self!, results: results)
+            self?.delegate?.didFinishProcessing(self, results: results)
         }
         
-        let visionHandler = VNImageRequestHandler(ciImage: image)
-        
         do {
-            try visionHandler.perform([visionReq])
+            try visionHandler.perform([visionRequest])
         } catch {
-            // Failed to proccess
-            self.delegate?.didError(self, error: nil)
+            self.delegate?.didError(self, error: TEClassifierError.handlerError)
         }
     }
     

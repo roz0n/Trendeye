@@ -58,13 +58,12 @@
 		23F80A3725E2EE2100241206 /* Trendeye */ = {
 			isa = PBXGroup;
 			children = (
+				23F80A5B25E339F600241206 /* MLModels */,
+				23F80A5925E339C300241206 /* Controllers */,
+				23F80A5A25E339D600241206 /* Views */,
+				23F80A5825E339B400241206 /* Application */,
 				23F80A5425E32EBC00241206 /* Managers */,
-				23F80A3825E2EE2100241206 /* AppDelegate.swift */,
-				23F80A3A25E2EE2100241206 /* SceneDelegate.swift */,
-				23F80A3C25E2EE2100241206 /* ViewController.swift */,
 				23F80A4125E2EE2400241206 /* Assets.xcassets */,
-				23F80A4325E2EE2400241206 /* LaunchScreen.storyboard */,
-				23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */,
 				23F80A4625E2EE2400241206 /* Info.plist */,
 			);
 			path = Trendeye;
@@ -76,6 +75,39 @@
 				23F80A5525E32F0E00241206 /* TEClassifierManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		23F80A5825E339B400241206 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				23F80A3825E2EE2100241206 /* AppDelegate.swift */,
+				23F80A3A25E2EE2100241206 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		23F80A5925E339C300241206 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				23F80A3C25E2EE2100241206 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		23F80A5A25E339D600241206 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				23F80A4325E2EE2400241206 /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		23F80A5B25E339F600241206 /* MLModels */ = {
+			isa = PBXGroup;
+			children = (
+				23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */,
+			);
+			path = MLModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
