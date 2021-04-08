@@ -35,11 +35,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         picker.allowsEditing = false
         classifier.delegate = self
         
-        configureLayout()
+//        configureLayout()
         configureGestures()
         
-        let resultsVC = ResultsViewController()
-        present(resultsVC, animated: true, completion: nil)
+//        let resultsVC = ResultsViewController()
+//        present(resultsVC, animated: true, completion: nil)
     }
     
 }

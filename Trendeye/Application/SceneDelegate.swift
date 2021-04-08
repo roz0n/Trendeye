@@ -18,7 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         
-        let root = ViewController()
+//        let root = ViewController()
+//        let nc = UINavigationController(rootViewController: root)
+        
+        let root = CameraViewController()
         let nc = UINavigationController(rootViewController: root)
         
         root.navigationItem.title = "Trendeye"
