@@ -8,10 +8,10 @@
 import UIKit
 import AVKit
 
-class CameraViewController: UIViewController {
+class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     var captureSession: AVCaptureSession!
-    var stillImageOutput: AVCapturePhotoOutput!
+    var imageOutput: AVCapturePhotoOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var controlsView = CameraControlsView()
     
@@ -19,12 +19,16 @@ class CameraViewController: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 16
+        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         return view
     }()
     
     override func viewDidLoad() {
-        layoutCameraView()
-        layoutControlsView()
+        view.backgroundColor = .white
+        applyAllLayouts()
+        applyAllGestures()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,6 +45,18 @@ class CameraViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
         captureSession.stopRunning()
+    }
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        // If image data is nil, return
+        // If not, we can proccess it as raw data by calling AVCapturePhoto's `fileDataRepresentation()` method and intializing a new UIImage
+        guard let imageData = photo.fileDataRepresentation() else { return }
+        let image = UIImage(data: imageData)
+        
+        // Set a UIImage thumbnail if needed or present in the UI and adjust its aspect ratio
+        let thumbnail = controlsView.galleryThumbnail
+        thumbnail.image = image
+        thumbnail.contentMode = .scaleAspectFill
     }
     
 }
@@ -70,12 +86,13 @@ fileprivate extension CameraViewController {
             // Create new input device
             let input = try AVCaptureDeviceInput(device: rearCamera)
             // Attach output to the capture session
-            stillImageOutput = AVCapturePhotoOutput()
+            imageOutput = AVCapturePhotoOutput()
             
-            let canInputOutputWithDevice = captureSession.canAddInput(input) && captureSession.canAddOutput(stillImageOutput)
+            let canInputOutputWithDevice = captureSession.canAddInput(input) && captureSession.canAddOutput(imageOutput)
+            
             if canInputOutputWithDevice {
                 captureSession.addInput(input)
-                captureSession.addOutput(stillImageOutput)
+                captureSession.addOutput(imageOutput)
                 configureLivePreview()
             }
         } catch let error {
@@ -84,7 +101,7 @@ fileprivate extension CameraViewController {
     }
     
     /**
-     This method allows us to actually display what the camera sees on the screen by outputting it to a UIView.
+     This method displays what the camera sees on the screen by outputting it to a UIView.
      */
     func configureLivePreview() {
         // Set the video preview layer to an AVCaptureVideoPreviewLayer with the session attached
@@ -109,9 +126,36 @@ fileprivate extension CameraViewController {
     
 }
 
+// MARK: - Gestures
+
+extension CameraViewController {
+    
+    func applyAllGestures() {
+        configureShootGesture()
+    }
+    
+    func configureShootGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(shootButtonTapped))
+        let button = controlsView.shootButton
+        button?.addGestureRecognizer(tap)
+    }
+    
+    @objc func shootButtonTapped() {
+        print("Tapped!")
+        let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+        imageOutput.capturePhoto(with: settings, delegate: self)
+    }
+    
+}
+
 // MARK: - Layout
 
 fileprivate extension CameraViewController {
+    
+    func applyAllLayouts() {
+        layoutCameraView()
+        layoutControlsView()
+    }
     
     func layoutCameraView() {
         view.addSubview(cameraView)
@@ -125,7 +169,7 @@ fileprivate extension CameraViewController {
     func layoutControlsView() {
         view.addSubview(controlsView)
         NSLayoutConstraint.activate([
-            controlsView.topAnchor.constraint(equalTo: cameraView.bottomAnchor),
+            controlsView.topAnchor.constraint(equalTo: cameraView.bottomAnchor, constant: 20),
             controlsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             controlsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             controlsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
