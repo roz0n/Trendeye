@@ -9,6 +9,8 @@ import UIKit
 
 class CameraViewController: UIViewController {
     
+    var controlsView = CameraControlsView()
+    
     var cameraView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -16,12 +18,9 @@ class CameraViewController: UIViewController {
         return view
     }()
     
-    var controlsView: CameraControlsView!
-    
     override func viewDidLoad() {
-        self.view.backgroundColor = .systemPink
-        configureCameraView()
-        configureControlsView()
+        layoutCameraView()
+        layoutControlsView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,7 +39,7 @@ class CameraViewController: UIViewController {
 
 fileprivate extension CameraViewController {
     
-    func configureCameraView() {
+    func layoutCameraView() {
         view.addSubview(cameraView)
         NSLayoutConstraint.activate([
             cameraView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -49,8 +48,7 @@ fileprivate extension CameraViewController {
         ])
     }
     
-    func configureControlsView() {
-        controlsView = CameraControlsView()
+    func layoutControlsView() {
         view.addSubview(controlsView)
         NSLayoutConstraint.activate([
             controlsView.topAnchor.constraint(equalTo: cameraView.bottomAnchor),
