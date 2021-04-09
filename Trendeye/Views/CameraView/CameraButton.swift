@@ -19,9 +19,7 @@ class CameraButton: UIButton {
     }
     
     override func layoutSubviews() {
-//        super.layoutSubviews()
-//        layer.cornerRadius = frame.width / 2;
-//        layer.masksToBounds = true
+        super.layoutSubviews()
     }
     
 }
