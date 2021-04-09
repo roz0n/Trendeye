@@ -59,20 +59,30 @@ class CameraControlsView: UIView {
     }
     
     fileprivate func configureButtons() {
+        let shootButtonIcon = UIImage(systemName: "camera.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 28, weight: .medium))
+        let flipButtonIcon = UIImage(systemName: "arrow.triangle.2.circlepath", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .medium))
+        let flashButtonIcon = UIImage(systemName: "bolt.slash.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .medium))
+        
         shootButton = CameraButton(type: .system)
-        shootButton.setTitle("SH", for: .normal)
+        shootButton.setTitle("Shoot", for: .application)
         shootButton.setTitleColor(.white, for: .normal)
         shootButton.backgroundColor = .black
+        shootButton.setImage(shootButtonIcon, for: .normal)
+        shootButton.tintColor = .white
         
         flipButton = CameraButton(type: .system)
-        flipButton.setTitle("FL", for: .normal)
+        flipButton.setTitle("Flip", for: .application)
         flipButton.setTitleColor(.white, for: .normal)
         flipButton.backgroundColor = .black
+        flipButton.setImage(flipButtonIcon, for: .normal)
+        flipButton.tintColor = .white
         
         flashButton = CameraButton(type: .system)
-        flashButton.setTitle("FS", for: .normal)
+        flashButton.setTitle("Flash", for: .application)
         flashButton.setTitleColor(.white, for: .normal)
         flashButton.backgroundColor = .black
+        flashButton.setImage(flashButtonIcon, for: .normal)
+        flashButton.tintColor = .white
     }
     
     fileprivate func configureThumbnail() {

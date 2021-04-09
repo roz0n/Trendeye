@@ -19,9 +19,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 16
-        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         return view
     }()
     
@@ -141,7 +138,6 @@ extension CameraViewController {
     }
     
     @objc func shootButtonTapped() {
-        print("Tapped!")
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         imageOutput.capturePhoto(with: settings, delegate: self)
     }
