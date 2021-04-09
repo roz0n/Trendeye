@@ -18,4 +18,10 @@ class CameraButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        layer.cornerRadius = frame.width / 2;
+//        layer.masksToBounds = true
+    }
+    
 }

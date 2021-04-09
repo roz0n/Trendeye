@@ -14,6 +14,9 @@ class CameraControlsView: UIView {
     var flashButton: CameraButton!
     
     var primaryButtonsContainer: UIStackView = {
+        /**
+         Contains the "Shoot" button
+         */
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
@@ -24,10 +27,13 @@ class CameraControlsView: UIView {
     }()
     
     var secondaryButtonsContainer: UIStackView = {
+        /**
+         Contains the "Flip" and "Flash" buttons
+         */
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
-        stack.spacing = 1
+        stack.spacing = 0
         stack.distribution = .fillEqually
         return stack
     }()
@@ -35,7 +41,7 @@ class CameraControlsView: UIView {
     var previewContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemTeal
+        view.backgroundColor = .systemYellow
         return view
     }()
     
@@ -48,10 +54,10 @@ class CameraControlsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemGreen
         translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .systemYellow
         
-        configureButtons()
+        applyAllConfigurations()
         applyAllLayouts()
     }
     
@@ -59,22 +65,31 @@ class CameraControlsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureButtons() {
+    fileprivate func applyAllConfigurations() {
+        configureButtons()
+        configureThumbnail()
+    }
+    
+    fileprivate func configureButtons() {
         shootButton = CameraButton(type: .system)
-        flipButton = CameraButton(type: .system)
-        flashButton = CameraButton(type: .system)
-        
-        shootButton.setTitle("Shoot", for: .normal)
+        shootButton.setTitle("SH", for: .normal)
         shootButton.setTitleColor(.white, for: .normal)
         shootButton.backgroundColor = .systemBlue
         
-        flipButton.setTitle("Flip", for: .normal)
+        flipButton = CameraButton(type: .system)
+        flipButton.setTitle("FL", for: .normal)
         flipButton.setTitleColor(.white, for: .normal)
         flipButton.backgroundColor = .systemRed
         
-        flashButton.setTitle("Flash", for: .normal)
+        flashButton = CameraButton(type: .system)
+        flashButton.setTitle("FS", for: .normal)
         flashButton.setTitleColor(.white, for: .normal)
-        flashButton.backgroundColor = .systemRed
+        flashButton.backgroundColor = .systemGreen
+    }
+    
+    fileprivate func configureThumbnail() {
+        galleryThumbnail.layer.cornerRadius = 24
+        galleryThumbnail.layer.masksToBounds = true
     }
     
 }
@@ -90,27 +105,29 @@ fileprivate extension CameraControlsView {
     }
     
     func layoutContainers() {
+        let screenWidth = UIScreen.main.bounds.width
+        let halfScreenWidth = (screenWidth / 2)
+        
         addSubview(previewContainer)
         addSubview(primaryButtonsContainer)
         
         NSLayoutConstraint.activate([
             previewContainer.topAnchor.constraint(equalTo: self.topAnchor),
             previewContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            previewContainer.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2),
+            previewContainer.widthAnchor.constraint(equalToConstant: halfScreenWidth),
             previewContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             primaryButtonsContainer.topAnchor.constraint(equalTo: self.topAnchor),
             primaryButtonsContainer.leadingAnchor.constraint(equalTo: previewContainer.trailingAnchor),
-            primaryButtonsContainer.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2),
+            primaryButtonsContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             primaryButtonsContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
     }
     
     func layoutThumbnail() {
         previewContainer.addSubview(galleryThumbnail)
-        
         NSLayoutConstraint.activate([
-            galleryThumbnail.centerXAnchor.constraint(equalTo: previewContainer.centerXAnchor),
             galleryThumbnail.centerYAnchor.constraint(equalTo: previewContainer.centerYAnchor),
+            galleryThumbnail.leadingAnchor.constraint(equalTo: previewContainer.leadingAnchor, constant: 20),
             galleryThumbnail.heightAnchor.constraint(equalToConstant: 100),
             galleryThumbnail.widthAnchor.constraint(equalToConstant: 100),
         ])
@@ -123,7 +140,12 @@ fileprivate extension CameraControlsView {
         primaryButtonsContainer.addArrangedSubview(secondaryButtonsContainer)
         
         NSLayoutConstraint.activate([
-            
+            //            shootButton.heightAnchor.constraint(equalToConstant: 100),
+                        shootButton.widthAnchor.constraint(equalToConstant: 100),
+            //            flipButton.heightAnchor.constraint(equalToConstant: 50),
+            //            flipButton.widthAnchor.constraint(equalToConstant: 50),
+            //            flashButton.heightAnchor.constraint(equalToConstant: 50),
+            //            flashButton.widthAnchor.constraint(equalToConstant: 50),
         ])
     }
     

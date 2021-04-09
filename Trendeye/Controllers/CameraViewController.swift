@@ -52,10 +52,10 @@ fileprivate extension CameraViewController {
         view.addSubview(controlsView)
         NSLayoutConstraint.activate([
             controlsView.topAnchor.constraint(equalTo: cameraView.bottomAnchor),
-            controlsView.leadingAnchor.constraint(equalTo: cameraView.leadingAnchor),
-            controlsView.trailingAnchor.constraint(equalTo: cameraView.trailingAnchor),
+            controlsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            controlsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            controlsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             controlsView.heightAnchor.constraint(equalToConstant: 160),
-            controlsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
