@@ -19,9 +19,6 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
-        //        view.clipsToBounds = true
-        //        view.layer.cornerRadius = 26
-        //        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         return view
     }()
     

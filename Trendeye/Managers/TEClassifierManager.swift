@@ -11,12 +11,12 @@ import Vision
 
 enum TEClassifierError: Error {
     case modelError
-    case processError
+    case classificationError
     case handlerError
 }
 
 protocol TEClassifierDelegate {
-    func didFinishProcessing(_ sender: TEClassifierManager?, results: [VNClassificationObservation])
+    func didFinishClassifying(_ sender: TEClassifierManager?, results: [VNClassificationObservation])
     func didError(_ sender: TEClassifierManager?, error: Error?)
 }
 
@@ -24,7 +24,7 @@ class TEClassifierManager {
     
     var delegate: TEClassifierDelegate?
     
-    func processImage(_ image: CIImage) {
+    func classifyImage(_ image: CIImage) {
         let configuration = MLModelConfiguration()
         let visionHandler = VNImageRequestHandler(ciImage: image)
         
@@ -40,11 +40,11 @@ class TEClassifierManager {
             }
             
             guard let results = request.results as? [VNClassificationObservation] else {
-                self?.delegate?.didError(self, error: TEClassifierError.processError)
+                self?.delegate?.didError(self, error: TEClassifierError.classificationError)
                 return
             }
             
-            self?.delegate?.didFinishProcessing(self, results: results)
+            self?.delegate?.didFinishClassifying(self, results: results)
         }
         
         do {

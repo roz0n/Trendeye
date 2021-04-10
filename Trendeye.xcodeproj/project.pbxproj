@@ -12,13 +12,11 @@
 		23131ADB2621504A00FFF2B3 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131ADA2621504A00FFF2B3 /* ConfirmationViewController.swift */; };
 		23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131ADE2621563500FFF2B3 /* ConfirmationControlsView.swift */; };
 		23131AE22621586C00FFF2B3 /* ConfirmationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AE12621586C00FFF2B3 /* ConfirmationButton.swift */; };
-		234E9CCE25E372B300F82F50 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E9CCD25E372B300F82F50 /* ResultsViewController.swift */; };
-		234E9CD225E3757200F82F50 /* ResultsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E9CD125E3757200F82F50 /* ResultsPanel.swift */; };
+		23131AE826216A2D00FFF2B3 /* ClassifierViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AE726216A2D00FFF2B3 /* ClassifierViewController.swift */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3825E2EE2100241206 /* AppDelegate.swift */; };
 		23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3A25E2EE2100241206 /* SceneDelegate.swift */; };
-		23F80A3D25E2EE2100241206 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3C25E2EE2100241206 /* ViewController.swift */; };
 		23F80A4225E2EE2400241206 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4125E2EE2400241206 /* Assets.xcassets */; };
 		23F80A4525E2EE2400241206 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4325E2EE2400241206 /* LaunchScreen.storyboard */; };
 		23F80A4F25E2EEA400241206 /* TrendClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */; };
@@ -31,14 +29,12 @@
 		23131ADA2621504A00FFF2B3 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		23131ADE2621563500FFF2B3 /* ConfirmationControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationControlsView.swift; sourceTree = "<group>"; };
 		23131AE12621586C00FFF2B3 /* ConfirmationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationButton.swift; sourceTree = "<group>"; };
-		234E9CCD25E372B300F82F50 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
-		234E9CD125E3757200F82F50 /* ResultsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsPanel.swift; sourceTree = "<group>"; };
+		23131AE726216A2D00FFF2B3 /* ClassifierViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierViewController.swift; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23F80A3525E2EE2100241206 /* Trendeye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trendeye.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23F80A3825E2EE2100241206 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23F80A3A25E2EE2100241206 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		23F80A3C25E2EE2100241206 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		23F80A4125E2EE2400241206 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		23F80A4425E2EE2400241206 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		23F80A4625E2EE2400241206 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,12 +79,12 @@
 			path = ConfirmationView;
 			sourceTree = "<group>";
 		};
-		234E9CD025E3750D00F82F50 /* ResultsView */ = {
+		23131AEB26216A4B00FFF2B3 /* LaunchScreen */ = {
 			isa = PBXGroup;
 			children = (
-				234E9CD125E3757200F82F50 /* ResultsPanel.swift */,
+				23F80A4325E2EE2400241206 /* LaunchScreen.storyboard */,
 			);
-			path = ResultsView;
+			path = LaunchScreen;
 			sourceTree = "<group>";
 		};
 		23F80A2C25E2EE2100241206 = {
@@ -113,7 +109,7 @@
 				23F80A5825E339B400241206 /* Application */,
 				23131AD5261FE65800FFF2B3 /* Extensions */,
 				23F80A5425E32EBC00241206 /* Managers */,
-				23F80A5B25E339F600241206 /* MLModels */,
+				23F80A5B25E339F600241206 /* Models */,
 				23F80A5925E339C300241206 /* Controllers */,
 				23F80A5A25E339D600241206 /* Views */,
 				23F80A4125E2EE2400241206 /* Assets.xcassets */,
@@ -142,10 +138,9 @@
 		23F80A5925E339C300241206 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				23F80A3C25E2EE2100241206 /* ViewController.swift */,
-				234E9CCD25E372B300F82F50 /* ResultsViewController.swift */,
 				23A009D5261FBD5C007A091D /* CameraViewController.swift */,
 				23131ADA2621504A00FFF2B3 /* ConfirmationViewController.swift */,
+				23131AE726216A2D00FFF2B3 /* ClassifierViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -153,20 +148,19 @@
 		23F80A5A25E339D600241206 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				23131AEB26216A4B00FFF2B3 /* LaunchScreen */,
 				23131ADD262155F700FFF2B3 /* ConfirmationView */,
 				23131AD0261FC5D600FFF2B3 /* CameraView */,
-				234E9CD025E3750D00F82F50 /* ResultsView */,
-				23F80A4325E2EE2400241206 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		23F80A5B25E339F600241206 /* MLModels */ = {
+		23F80A5B25E339F600241206 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */,
 			);
-			path = MLModels;
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,12 +232,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23F80A3D25E2EE2100241206 /* ViewController.swift in Sources */,
 				23131AD7261FE66400FFF2B3 /* UIView+Ext.swift in Sources */,
 				23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */,
 				23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */,
 				23131AE22621586C00FFF2B3 /* ConfirmationButton.swift in Sources */,
-				234E9CD225E3757200F82F50 /* ResultsPanel.swift in Sources */,
 				23F80A5625E32F0E00241206 /* TEClassifierManager.swift in Sources */,
 				23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */,
 				23131ADB2621504A00FFF2B3 /* ConfirmationViewController.swift in Sources */,
@@ -251,7 +243,7 @@
 				23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */,
 				23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */,
 				23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */,
-				234E9CCE25E372B300F82F50 /* ResultsViewController.swift in Sources */,
+				23131AE826216A2D00FFF2B3 /* ClassifierViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -46,12 +46,13 @@ final class ConfirmationViewController: UIViewController {
     }
     
     @objc func handleAcceptTap() {
-        // TODO: Proccess image
-        print("Tapped accept")
+        // TODO: Kick over to the classifier view controller and proccess the image
+        let classifierViewController = ClassifierViewController(with: selectedPhoto)
+        present(classifierViewController, animated: true, completion: nil)
     }
     
     @objc func handleDenyTap() {
-        // TODO: It appears that the capture session restarts when we do this
+        // TODO: It appears that the capture session restarts when we do this. Not sure how to fix it at this time...
         navigationController?.popViewController(animated: true)
     }
     
