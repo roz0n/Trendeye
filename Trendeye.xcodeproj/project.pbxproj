@@ -12,7 +12,8 @@
 		23131ADB2621504A00FFF2B3 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131ADA2621504A00FFF2B3 /* ConfirmationViewController.swift */; };
 		23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131ADE2621563500FFF2B3 /* ConfirmationControlsView.swift */; };
 		23131AE22621586C00FFF2B3 /* ConfirmationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AE12621586C00FFF2B3 /* ConfirmationButton.swift */; };
-		23131AE826216A2D00FFF2B3 /* ClassifierViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AE726216A2D00FFF2B3 /* ClassifierViewController.swift */; };
+		23131AF526219D6A00FFF2B3 /* ClassifierViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AF426219D6A00FFF2B3 /* ClassifierViewController.swift */; };
+		23131AF926219DAC00FFF2B3 /* ClassifierResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AF826219DAC00FFF2B3 /* ClassifierResultCell.swift */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3825E2EE2100241206 /* AppDelegate.swift */; };
@@ -29,7 +30,8 @@
 		23131ADA2621504A00FFF2B3 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		23131ADE2621563500FFF2B3 /* ConfirmationControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationControlsView.swift; sourceTree = "<group>"; };
 		23131AE12621586C00FFF2B3 /* ConfirmationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationButton.swift; sourceTree = "<group>"; };
-		23131AE726216A2D00FFF2B3 /* ClassifierViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierViewController.swift; sourceTree = "<group>"; };
+		23131AF426219D6A00FFF2B3 /* ClassifierViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierViewController.swift; sourceTree = "<group>"; };
+		23131AF826219DAC00FFF2B3 /* ClassifierResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierResultCell.swift; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23F80A3525E2EE2100241206 /* Trendeye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trendeye.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,8 +92,17 @@
 		23131AF226218F5100FFF2B3 /* ClassifierView */ = {
 			isa = PBXGroup;
 			children = (
+				23131AF726219D7C00FFF2B3 /* Cells */,
 			);
 			path = ClassifierView;
+			sourceTree = "<group>";
+		};
+		23131AF726219D7C00FFF2B3 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				23131AF826219DAC00FFF2B3 /* ClassifierResultCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		23F80A2C25E2EE2100241206 = {
@@ -147,7 +158,7 @@
 			children = (
 				23A009D5261FBD5C007A091D /* CameraViewController.swift */,
 				23131ADA2621504A00FFF2B3 /* ConfirmationViewController.swift */,
-				23131AE726216A2D00FFF2B3 /* ClassifierViewController.swift */,
+				23131AF426219D6A00FFF2B3 /* ClassifierViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -240,18 +251,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23131AF526219D6A00FFF2B3 /* ClassifierViewController.swift in Sources */,
 				23131AD7261FE66400FFF2B3 /* UIView+Ext.swift in Sources */,
 				23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */,
 				23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */,
 				23131AE22621586C00FFF2B3 /* ConfirmationButton.swift in Sources */,
 				23F80A5625E32F0E00241206 /* TEClassifierManager.swift in Sources */,
 				23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */,
+				23131AF926219DAC00FFF2B3 /* ClassifierResultCell.swift in Sources */,
 				23131ADB2621504A00FFF2B3 /* ConfirmationViewController.swift in Sources */,
 				23F80A4F25E2EEA400241206 /* TrendClassifier.mlmodel in Sources */,
 				23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */,
 				23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */,
 				23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */,
-				23131AE826216A2D00FFF2B3 /* ClassifierViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

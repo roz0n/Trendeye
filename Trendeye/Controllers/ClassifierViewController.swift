@@ -8,25 +8,10 @@
 import UIKit
 import Vision
 
-// TODO: On second thought, this whole thing needs to be a UITableViewController... ugh
-
-final class ClassifierViewController: UIViewController, UIScrollViewDelegate, TEClassifierDelegate {
+final class ClassifierViewController: UITableViewController, TEClassifierDelegate {
     
     var classifier = TEClassifierManager()
     var photo: UIImage!
-    
-    var scrollContainer: UIScrollView = {
-        let view = UIScrollView()
-        view.backgroundColor = .systemIndigo
-        return view
-    }()
-    
-    var photoView: UIImageView = {
-        let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemYellow
-        return view
-    }()
     
     var results: [VNClassificationObservation]? {
         didSet {
@@ -37,10 +22,6 @@ final class ClassifierViewController: UIViewController, UIScrollViewDelegate, TE
     init(with photo: UIImage) {
         super.init(nibName: nil, bundle: nil)
         self.photo = photo
-        photoView.image = photo
-        photoView.contentMode = .scaleAspectFill
-        configureScrollView()
-        applyLayouts()
     }
     
     required init?(coder: NSCoder) {
@@ -51,9 +32,18 @@ final class ClassifierViewController: UIViewController, UIScrollViewDelegate, TE
         applyConfigurations()
         removePreviousViewController()
     }
-    
+
     override func viewDidLoad() {
-        view.backgroundColor = .white
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.register(ClassifierResultCell.self, forCellReuseIdentifier: ClassifierResultCell.reuseIdentifier)
+        tableView.backgroundColor = .systemIndigo
+        
         classifier.delegate = self
         beginClassification(of: photo)
     }
@@ -66,11 +56,6 @@ final class ClassifierViewController: UIViewController, UIScrollViewDelegate, TE
         let leftItem = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(handleCloseClassifier))
         navigationItem.leftBarButtonItem = leftItem
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(handleSaveClassification))
-    }
-    
-    fileprivate func configureScrollView() {
-        scrollContainer.delegate = self
-        scrollContainer.isScrollEnabled = true
     }
     
     @objc func handleCloseClassifier() {
@@ -101,7 +86,71 @@ final class ClassifierViewController: UIViewController, UIScrollViewDelegate, TE
         guard let image = CIImage(image: photo) else { return }
         classifier.classifyImage(image)
     }
-    
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 100
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ClassifierResultCell.reuseIdentifier, for: indexPath)
+        cell.textLabel?.text = "\(indexPath.row)"
+
+        return cell
+    }
+
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+        
     // MARK: - TEClassifierDelegate
     
     func didFinishClassifying(_ sender: TEClassifierManager?, results: [VNClassificationObservation]) {
@@ -131,28 +180,5 @@ final class ClassifierViewController: UIViewController, UIScrollViewDelegate, TE
             }
         }
     }
-    
+
 }
-
-// MARK: - Layout
-
-fileprivate extension ClassifierViewController {
-    
-    func applyLayouts() {
-        layoutPhotoView()
-    }
-    
-    func layoutPhotoView() {
-        view.addSubview(scrollContainer)
-        scrollContainer.frame = self.view.bounds
-        scrollContainer.addSubview(photoView)
-        
-        NSLayoutConstraint.activate([
-            photoView.topAnchor.constraint(equalTo: scrollContainer.topAnchor),
-            photoView.heightAnchor.constraint(equalToConstant: 240),
-            photoView.widthAnchor.constraint(equalTo: scrollContainer.widthAnchor)
-        ])
-    }
-    
-}
-
