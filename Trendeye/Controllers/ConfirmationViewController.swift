@@ -23,6 +23,7 @@ final class ConfirmationViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.hidesBackButton = true
         applyAllConfigurations()
+        applyAllGestures()
         applyAllLayouts()
     }
     
@@ -33,6 +34,25 @@ final class ConfirmationViewController: UIViewController {
     fileprivate func configurePhotoView() {
         photoView.image = selectedPhoto
         photoView.contentMode = .scaleAspectFill
+    }
+    
+    // MARK: - Gestures
+    
+    func applyAllGestures() {
+        let acceptButton = controlsView.acceptButton
+        let denyButton = controlsView.denyButton
+        acceptButton?.addTarget(self, action: #selector(handleAcceptTap), for: .touchUpInside)
+        denyButton?.addTarget(self, action: #selector(handleDenyTap), for: .touchUpInside)
+    }
+    
+    @objc func handleAcceptTap() {
+        // TODO: Proccess image
+        print("Tapped accept")
+    }
+    
+    @objc func handleDenyTap() {
+        // TODO: It appears that the capture session restarts when we do this
+        navigationController?.popViewController(animated: true)
     }
     
 }

@@ -42,12 +42,13 @@ class ConfirmationControlsView: UIView {
         // TODO: Refactor
         let acceptButtonIcon = UIImage(systemName: "hand.thumbsup.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))
         let denyButtonIcon = UIImage(systemName: "hand.thumbsdown.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))
-
+        
         acceptButton = ConfirmationButton(type: .system)
         acceptButton.setTitle("Accept", for: .application)
         acceptButton.backgroundColor = .systemGreen
         acceptButton.setImage(acceptButtonIcon, for: .normal)
         acceptButton.tintColor = .black
+        
         
         denyButton = ConfirmationButton(type: .system)
         denyButton.setTitle("Deny", for: .application)

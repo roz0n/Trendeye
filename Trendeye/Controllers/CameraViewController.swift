@@ -19,9 +19,9 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
-//        view.clipsToBounds = true
-//        view.layer.cornerRadius = 26
-//        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        //        view.clipsToBounds = true
+        //        view.layer.cornerRadius = 26
+        //        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         return view
     }()
     
@@ -70,6 +70,23 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
         
         navigationItem.hidesBackButton = true
         navigationController?.pushViewController(confirmationViewController, animated: true)
+    }
+    
+    // MARK: - Gestures
+    
+    func applyAllGestures() {
+        configureShootGesture()
+    }
+    
+    func configureShootGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(shootButtonTapped))
+        let button = controlsView.shootButton
+        button?.addGestureRecognizer(tap)
+    }
+    
+    @objc func shootButtonTapped() {
+        let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+        imageOutput.capturePhoto(with: settings, delegate: self)
     }
     
 }
@@ -135,27 +152,6 @@ fileprivate extension CameraViewController {
                 self?.videoPreviewLayer.frame = (self?.cameraView.frame)!
             }
         }
-    }
-    
-}
-
-// MARK: - Gestures
-
-fileprivate extension CameraViewController {
-    
-    func applyAllGestures() {
-        configureShootGesture()
-    }
-    
-    func configureShootGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(shootButtonTapped))
-        let button = controlsView.shootButton
-        button?.addGestureRecognizer(tap)
-    }
-    
-    @objc func shootButtonTapped() {
-        let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-        imageOutput.capturePhoto(with: settings, delegate: self)
     }
     
 }
