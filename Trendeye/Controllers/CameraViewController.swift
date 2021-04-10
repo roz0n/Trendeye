@@ -8,7 +8,7 @@
 import UIKit
 import AVKit
 
-class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
+final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     var captureSession: AVCaptureSession!
     var imageOutput: AVCapturePhotoOutput!
@@ -19,6 +19,9 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
+//        view.clipsToBounds = true
+//        view.layer.cornerRadius = 26
+//        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         return view
     }()
     
@@ -54,6 +57,19 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         let thumbnail = controlsView.galleryThumbnail
         thumbnail.image = image
         thumbnail.contentMode = .scaleAspectFill
+        
+        if let image = image {
+            presentPhotoConfirmation(with: image)
+        }
+    }
+    
+    func presentPhotoConfirmation(with photo: UIImage) {
+        let confirmationViewController = ConfirmationViewController()
+        confirmationViewController.selectedPhoto = photo
+        confirmationViewController.navigationItem.title = "Confirm Photo"
+        
+        navigationItem.backButtonTitle = "Back"
+        navigationController?.pushViewController(confirmationViewController, animated: true)
     }
     
 }
@@ -125,7 +141,7 @@ fileprivate extension CameraViewController {
 
 // MARK: - Gestures
 
-extension CameraViewController {
+fileprivate extension CameraViewController {
     
     func applyAllGestures() {
         configureShootGesture()

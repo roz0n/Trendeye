@@ -59,9 +59,9 @@ class CameraControlsView: UIView {
     }
     
     fileprivate func configureButtons() {
-        let shootButtonIcon = UIImage(systemName: "camera.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 28, weight: .medium))
-        let flipButtonIcon = UIImage(systemName: "arrow.triangle.2.circlepath", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .medium))
-        let flashButtonIcon = UIImage(systemName: "bolt.slash.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .medium))
+        let shootButtonIcon = UIImage(systemName: "camera.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))
+        let flipButtonIcon = UIImage(systemName: "arrow.triangle.2.circlepath", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .medium))
+        let flashButtonIcon = UIImage(systemName: "bolt.slash.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .medium))
         
         shootButton = CameraButton(type: .system)
         shootButton.setTitle("Shoot", for: .application)
@@ -136,7 +136,6 @@ fileprivate extension CameraControlsView {
     
     func layoutThumbnail() {
         previewContainer.addSubview(galleryThumbnail)
-        
         NSLayoutConstraint.activate([
             galleryThumbnail.centerYAnchor.constraint(equalTo: previewContainer.centerYAnchor),
             galleryThumbnail.leadingAnchor.constraint(equalTo: previewContainer.leadingAnchor, constant: 20),
