@@ -46,9 +46,10 @@ final class ConfirmationViewController: UIViewController {
     }
     
     @objc func handleAcceptTap() {
-        // TODO: Kick over to the classifier view controller and proccess the image
         let classifierViewController = ClassifierViewController(with: selectedPhoto)
-        present(classifierViewController, animated: true, completion: nil)
+        classifierViewController.navigationItem.hidesBackButton = true
+        classifierViewController.title = "Powered by Trendlist.org"
+        navigationController?.pushViewController(classifierViewController, animated: true)
     }
     
     @objc func handleDenyTap() {
@@ -61,6 +62,7 @@ final class ConfirmationViewController: UIViewController {
 // MARK: - Layout
 
 fileprivate extension ConfirmationViewController {
+    
     // TODO: These constraints will need work.
     // NOTE: Should this even be another view controller? Or should we just transform the CameraViewController to display new buttons?
     
