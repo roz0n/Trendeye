@@ -87,6 +87,13 @@
 			path = LaunchScreen;
 			sourceTree = "<group>";
 		};
+		23131AF226218F5100FFF2B3 /* ClassifierView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ClassifierView;
+			sourceTree = "<group>";
+		};
 		23F80A2C25E2EE2100241206 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				23131AEB26216A4B00FFF2B3 /* LaunchScreen */,
+				23131AF226218F5100FFF2B3 /* ClassifierView */,
 				23131ADD262155F700FFF2B3 /* ConfirmationView */,
 				23131AD0261FC5D600FFF2B3 /* CameraView */,
 			);

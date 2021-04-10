@@ -53,7 +53,7 @@ class CameraControlsView: UIView {
         return view
     }()
     
-    fileprivate func applyAllConfigurations() {
+    fileprivate func applyConfigurations() {
         configureButtons()
         configureThumbnail()
     }
@@ -96,8 +96,8 @@ class CameraControlsView: UIView {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
         
-        applyAllConfigurations()
-        applyAllLayouts()
+        applyConfigurations()
+        applyLayouts()
     }
     
     required init?(coder: NSCoder) {
@@ -112,7 +112,7 @@ fileprivate extension CameraControlsView {
     
     // TODO: These constraints are a mess, but they work for now
     
-    func applyAllLayouts() {
+    func applyLayouts() {
         layoutContainers()
         layoutThumbnail()
         layoutButtons()

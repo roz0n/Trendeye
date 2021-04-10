@@ -24,7 +24,7 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
     
     override func viewDidLoad() {
         view.backgroundColor = .white
-        applyAllLayouts()
+        applyLayouts()
         applyAllGestures()
     }
     
@@ -157,7 +157,7 @@ fileprivate extension CameraViewController {
 
 fileprivate extension CameraViewController {
     
-    func applyAllLayouts() {
+    func applyLayouts() {
         layoutCameraView()
         layoutControlsView()
     }

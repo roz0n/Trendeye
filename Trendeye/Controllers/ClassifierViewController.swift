@@ -8,10 +8,25 @@
 import UIKit
 import Vision
 
-final class ClassifierViewController: UIViewController, TEClassifierDelegate {
+// TODO: On second thought, this whole thing needs to be a UITableViewController... ugh
+
+final class ClassifierViewController: UIViewController, UIScrollViewDelegate, TEClassifierDelegate {
     
     var classifier = TEClassifierManager()
     var photo: UIImage!
+    
+    var scrollContainer: UIScrollView = {
+        let view = UIScrollView()
+        view.backgroundColor = .systemIndigo
+        return view
+    }()
+    
+    var photoView: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemYellow
+        return view
+    }()
     
     var results: [VNClassificationObservation]? {
         didSet {
@@ -22,6 +37,10 @@ final class ClassifierViewController: UIViewController, TEClassifierDelegate {
     init(with photo: UIImage) {
         super.init(nibName: nil, bundle: nil)
         self.photo = photo
+        photoView.image = photo
+        photoView.contentMode = .scaleAspectFill
+        configureScrollView()
+        applyLayouts()
     }
     
     required init?(coder: NSCoder) {
@@ -34,7 +53,7 @@ final class ClassifierViewController: UIViewController, TEClassifierDelegate {
     }
     
     override func viewDidLoad() {
-        view.backgroundColor = .systemIndigo
+        view.backgroundColor = .white
         classifier.delegate = self
         beginClassification(of: photo)
     }
@@ -49,12 +68,17 @@ final class ClassifierViewController: UIViewController, TEClassifierDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(handleSaveClassification))
     }
     
+    fileprivate func configureScrollView() {
+        scrollContainer.delegate = self
+        scrollContainer.isScrollEnabled = true
+    }
+    
     @objc func handleCloseClassifier() {
         navigationController?.popViewController(animated: true)
     }
     
     @objc func handleSaveClassification() {
-        print("Tapped save!")
+        print("Tapped share!")
     }
     
     fileprivate func presentAlert(title: String, message: String, actionTitle: String) {
@@ -69,12 +93,9 @@ final class ClassifierViewController: UIViewController, TEClassifierDelegate {
     fileprivate func removePreviousViewController() {
         guard let navigationController = self.navigationController else { return }
         var allControllers = navigationController.viewControllers
-        
         allControllers.remove(at: (allControllers.count - 2 ))
         navigationController.viewControllers = allControllers
     }
-    
-    // MARK: - Classification Helpers
     
     fileprivate func beginClassification(of photo: UIImage) {
         guard let image = CIImage(image: photo) else { return }
@@ -112,3 +133,26 @@ final class ClassifierViewController: UIViewController, TEClassifierDelegate {
     }
     
 }
+
+// MARK: - Layout
+
+fileprivate extension ClassifierViewController {
+    
+    func applyLayouts() {
+        layoutPhotoView()
+    }
+    
+    func layoutPhotoView() {
+        view.addSubview(scrollContainer)
+        scrollContainer.frame = self.view.bounds
+        scrollContainer.addSubview(photoView)
+        
+        NSLayoutConstraint.activate([
+            photoView.topAnchor.constraint(equalTo: scrollContainer.topAnchor),
+            photoView.heightAnchor.constraint(equalToConstant: 240),
+            photoView.widthAnchor.constraint(equalTo: scrollContainer.widthAnchor)
+        ])
+    }
+    
+}
+

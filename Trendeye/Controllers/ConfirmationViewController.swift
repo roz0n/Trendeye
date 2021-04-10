@@ -22,12 +22,12 @@ final class ConfirmationViewController: UIViewController {
     override func viewDidLoad() {
         view.backgroundColor = .white
         navigationItem.hidesBackButton = true
-        applyAllConfigurations()
+        applyConfigurations()
         applyAllGestures()
-        applyAllLayouts()
+        applyLayouts()
     }
     
-    fileprivate func applyAllConfigurations() {
+    fileprivate func applyConfigurations() {
         configurePhotoView()
     }
     
@@ -62,11 +62,10 @@ final class ConfirmationViewController: UIViewController {
 // MARK: - Layout
 
 fileprivate extension ConfirmationViewController {
-    
     // TODO: These constraints will need work.
     // NOTE: Should this even be another view controller? Or should we just transform the CameraViewController to display new buttons?
     
-    func applyAllLayouts() {
+    func applyLayouts() {
         layoutPhotoView()
         layoutControlsView()
     }

@@ -24,8 +24,8 @@ class ConfirmationControlsView: UIView {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
-        applyAllConfigurations()
-        applyAllLayouts()
+        applyConfigurations()
+        applyLayouts()
     }
     
     required init?(coder: NSCoder) {
@@ -34,7 +34,7 @@ class ConfirmationControlsView: UIView {
     
     // MARK: - Configuration
     
-    fileprivate func applyAllConfigurations() {
+    fileprivate func applyConfigurations() {
         configureButtons()
     }
     
@@ -63,7 +63,7 @@ class ConfirmationControlsView: UIView {
 
 fileprivate extension ConfirmationControlsView {
     
-    func applyAllLayouts() {
+    func applyLayouts() {
         layoutButtons()
     }
     
