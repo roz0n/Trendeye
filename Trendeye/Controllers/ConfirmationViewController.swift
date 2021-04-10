@@ -61,7 +61,6 @@ final class ConfirmationViewController: UIViewController {
 // MARK: - Layout
 
 fileprivate extension ConfirmationViewController {
-    
     // TODO: These constraints will need work.
     // NOTE: Should this even be another view controller? Or should we just transform the CameraViewController to display new buttons?
     

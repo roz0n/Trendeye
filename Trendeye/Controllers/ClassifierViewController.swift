@@ -48,7 +48,10 @@ final class ClassifierViewController: UIViewController, TEClassifierDelegate {
         
         if !results.isEmpty {
             self.results = results
-            print("Success!")
+            
+            results.forEach({
+                print("Identifier: \($0.identifier)   ||   Confidence: \($0.confidence)")
+            })
         } else {
             // Present something as results came back empty... maybe a UIAlert?
         }
