@@ -20,7 +20,8 @@ final class ConfirmationViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
-        view.backgroundColor = .systemPink
+        view.backgroundColor = .white
+        navigationItem.hidesBackButton = true
         applyAllConfigurations()
         applyAllLayouts()
     }
@@ -40,6 +41,9 @@ final class ConfirmationViewController: UIViewController {
 
 fileprivate extension ConfirmationViewController {
     
+    // TODO: These constraints will need work.
+    // NOTE: Should this even be another view controller? Or should we just transform the CameraViewController to display new buttons?
+    
     func applyAllLayouts() {
         layoutPhotoView()
         layoutControlsView()
@@ -51,7 +55,7 @@ fileprivate extension ConfirmationViewController {
             photoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             photoView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             photoView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            photoView.heightAnchor.constraint(equalToConstant: 545)
+            photoView.heightAnchor.constraint(equalToConstant: 510)
         ])
     }
     

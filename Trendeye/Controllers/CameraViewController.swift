@@ -68,7 +68,7 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
         confirmationViewController.selectedPhoto = photo
         confirmationViewController.navigationItem.title = "Confirm Photo"
         
-        navigationItem.backButtonTitle = "Back"
+        navigationItem.hidesBackButton = true
         navigationController?.pushViewController(confirmationViewController, animated: true)
     }
     

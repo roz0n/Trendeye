@@ -59,6 +59,8 @@ class CameraControlsView: UIView {
     }
     
     fileprivate func configureButtons() {
+        // TODO: Refactor
+        
         let shootButtonIcon = UIImage(systemName: "camera.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))
         let flipButtonIcon = UIImage(systemName: "arrow.triangle.2.circlepath", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .medium))
         let flashButtonIcon = UIImage(systemName: "bolt.slash.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .medium))

@@ -16,15 +16,14 @@ class ConfirmationControlsView: UIView {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
-        stack.distribution = .equalSpacing
-        stack.backgroundColor = .systemPurple
+        stack.distribution = .equalCentering
         return stack
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .systemGray
+        backgroundColor = .white
         applyAllConfigurations()
         applyAllLayouts()
     }
@@ -40,10 +39,21 @@ class ConfirmationControlsView: UIView {
     }
     
     fileprivate func configureButtons() {
+        // TODO: Refactor
+        let acceptButtonIcon = UIImage(systemName: "hand.thumbsup.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))
+        let denyButtonIcon = UIImage(systemName: "hand.thumbsdown.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))
+
         acceptButton = ConfirmationButton(type: .system)
-        acceptButton.setTitle("YES", for: .normal)
+        acceptButton.setTitle("Accept", for: .application)
+        acceptButton.backgroundColor = .systemGreen
+        acceptButton.setImage(acceptButtonIcon, for: .normal)
+        acceptButton.tintColor = .black
+        
         denyButton = ConfirmationButton(type: .system)
-        denyButton.setTitle("NO", for: .normal)
+        denyButton.setTitle("Deny", for: .application)
+        denyButton.backgroundColor = .systemRed
+        denyButton.setImage(denyButtonIcon, for: .normal)
+        denyButton.tintColor = .black
     }
     
 }
@@ -57,10 +67,14 @@ fileprivate extension ConfirmationControlsView {
     }
     
     func layoutButtons() {
-        buttonsContainer.addArrangedSubview(acceptButton)
         buttonsContainer.addArrangedSubview(denyButton)
+        buttonsContainer.addArrangedSubview(acceptButton)
         addSubview(buttonsContainer)
-        buttonsContainer.fillOther(view: self)
+        NSLayoutConstraint.activate([
+            buttonsContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 60),
+            buttonsContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -60),
+            buttonsContainer.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
     }
     
 }
