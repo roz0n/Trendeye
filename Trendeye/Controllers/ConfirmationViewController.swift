@@ -23,7 +23,7 @@ final class ConfirmationViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.hidesBackButton = true
         applyConfigurations()
-        applyAllGestures()
+        applyGestures()
         applyLayouts()
     }
     
@@ -38,7 +38,7 @@ final class ConfirmationViewController: UIViewController {
     
     // MARK: - Gestures
     
-    func applyAllGestures() {
+    func applyGestures() {
         let acceptButton = controlsView.acceptButton
         let denyButton = controlsView.denyButton
         acceptButton?.addTarget(self, action: #selector(handleAcceptTap), for: .touchUpInside)

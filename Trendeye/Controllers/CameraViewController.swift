@@ -25,7 +25,7 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
     override func viewDidLoad() {
         view.backgroundColor = .white
         applyLayouts()
-        applyAllGestures()
+        applyGestures()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,7 +71,7 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
     
     // MARK: - Gestures
     
-    func applyAllGestures() {
+    func applyGestures() {
         configureShootGesture()
     }
     
