@@ -49,6 +49,7 @@ final class ConfirmationViewController: UIViewController {
         let classifierViewController = ClassifierViewController(with: selectedPhoto)
         classifierViewController.navigationItem.hidesBackButton = true
         classifierViewController.title = "Trend Analysis"
+        classifierViewController.navigationItem.backButtonTitle = "Back"
         navigationController?.pushViewController(classifierViewController, animated: true)
     }
     

@@ -43,7 +43,7 @@ class ClassifierResultCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        applyAllLayouts()
+        applyLayouts()
     }
     
     required init?(coder: NSCoder) {
@@ -56,7 +56,7 @@ class ClassifierResultCell: UITableViewCell {
 
 fileprivate extension ClassifierResultCell {
     
-    func applyAllLayouts() {
+    func applyLayouts() {
         layoutContainer()
         layoutLabels()
     }

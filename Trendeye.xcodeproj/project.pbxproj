@@ -17,6 +17,7 @@
 		23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */; };
 		23131B042622F63600FFF2B3 /* TEClassifierIdentityLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B032622F63600FFF2B3 /* TEClassifierIdentityLabels.swift */; };
 		23131B072622F67600FFF2B3 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B062622F67600FFF2B3 /* K.swift */; };
+		23131B0B2623863200FFF2B3 /* ClassifierTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B0A2623863200FFF2B3 /* ClassifierTableHeaderView.swift */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3825E2EE2100241206 /* AppDelegate.swift */; };
@@ -38,6 +39,7 @@
 		23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		23131B032622F63600FFF2B3 /* TEClassifierIdentityLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEClassifierIdentityLabels.swift; sourceTree = "<group>"; };
 		23131B062622F67600FFF2B3 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		23131B0A2623863200FFF2B3 /* ClassifierTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierTableHeaderView.swift; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23F80A3525E2EE2100241206 /* Trendeye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trendeye.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				23131AF726219D7C00FFF2B3 /* Cells */,
+				23131B0A2623863200FFF2B3 /* ClassifierTableHeaderView.swift */,
 			);
 			path = ClassifierView;
 			sourceTree = "<group>";
@@ -118,6 +121,13 @@
 				23131B062622F67600FFF2B3 /* K.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		23131B09262385D800FFF2B3 /* CategoryView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CategoryView;
 			sourceTree = "<group>";
 		};
 		23F80A2C25E2EE2100241206 = {
@@ -184,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				23131AEB26216A4B00FFF2B3 /* LaunchScreen */,
+				23131B09262385D800FFF2B3 /* CategoryView */,
 				23131AF226218F5100FFF2B3 /* ClassifierView */,
 				23131ADD262155F700FFF2B3 /* ConfirmationView */,
 				23131AD0261FC5D600FFF2B3 /* CameraView */,
@@ -268,6 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23131B0B2623863200FFF2B3 /* ClassifierTableHeaderView.swift in Sources */,
 				23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */,
 				23131AF526219D6A00FFF2B3 /* ClassifierViewController.swift in Sources */,
 				23131B042622F63600FFF2B3 /* TEClassifierIdentityLabels.swift in Sources */,

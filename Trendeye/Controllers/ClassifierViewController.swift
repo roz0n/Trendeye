@@ -13,6 +13,7 @@ import Vision
 final class ClassifierViewController: UITableViewController, TEClassifierDelegate {
     
     var classifier = TEClassifierManager()
+    var tableHeader = ClassifierTableHeaderView()
     var photo: UIImage!
     
     var results: [VNClassificationObservation]? {
@@ -20,42 +21,6 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
             print("Classification successful!")
         }
     }
-    
-    var tableHeaderContainer: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        return stack
-    }()
-    
-    var tableHeaderPhoto: UIImageView = {
-        let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    var tableHeaderDescription: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.backgroundColor = .white
-        return stack
-    }()
-    
-    var descriptionHeader: UILabel = {
-        let label = UILabel()
-        label.text = "About the analysis"
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        return label
-    }()
-    
-    var descriptionText: UITextView = {
-        let view = UITextView()
-        view.text = "Duis hendrerit molestie velit sit amet gravida. Cras faucibus tincidunt erat, quis tristique arcu pharetra ut."
-        view.textContainer.maximumNumberOfLines = 0
-        view.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 10)
-        view.textContainer.lineFragmentPadding = 0
-        return view
-    }()
     
     var tableViewFooter: UITextView = {
         let view = UITextView()
@@ -99,22 +64,11 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     
     fileprivate func applyConfigurations() {
         configureNavigationItems()
-        configureTableHeaderDescription()
     }
     
     fileprivate func configureNavigationItems() {
-        let leftItem = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(handleCloseClassifier))
-        navigationItem.leftBarButtonItem = leftItem
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(handleCloseClassifier))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(handleSaveClassification))
-    }
-    
-    fileprivate func configureTableHeaderDescription() {
-        tableHeaderDescription.addArrangedSubview(descriptionHeader)
-        tableHeaderDescription.addArrangedSubview(descriptionText)
-        
-        // NOTE: This will clip with a dynamic type size as the table header is statically sized and should be dynamically sized
-        tableHeaderDescription.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-        tableHeaderDescription.isLayoutMarginsRelativeArrangement = true
     }
     
     @objc func handleCloseClassifier() {
@@ -145,6 +99,7 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
             if name == controllerToRemove {
                 allControllers.remove(at: index)
                 navigationController.viewControllers = allControllers
+                break
             }
         }
     }
@@ -186,11 +141,8 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        tableHeaderPhoto.image = photo
-        tableHeaderContainer.addArrangedSubview(tableHeaderPhoto)
-        tableHeaderContainer.addArrangedSubview(tableHeaderDescription)
-        tableHeaderDescription.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        return tableHeaderContainer
+        tableHeader.tableHeaderPhoto.image = photo
+        return tableHeader
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
