@@ -21,14 +21,19 @@ final class ConfirmationViewController: UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = .white
-        navigationItem.hidesBackButton = true
         applyConfigurations()
         applyGestures()
         applyLayouts()
     }
     
     fileprivate func applyConfigurations() {
+        configureNavigation()
         configurePhotoView()
+    }
+    
+    fileprivate func configureNavigation() {
+        navigationItem.hidesBackButton = true
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     fileprivate func configurePhotoView() {

@@ -15,7 +15,6 @@
 		23131AF526219D6A00FFF2B3 /* ClassifierViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AF426219D6A00FFF2B3 /* ClassifierViewController.swift */; };
 		23131AF926219DAC00FFF2B3 /* ClassifierResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AF826219DAC00FFF2B3 /* ClassifierResultCell.swift */; };
 		23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */; };
-		23131B042622F63600FFF2B3 /* TEClassifierIdentityLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B032622F63600FFF2B3 /* TEClassifierIdentityLabels.swift */; };
 		23131B072622F67600FFF2B3 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B062622F67600FFF2B3 /* K.swift */; };
 		23131B0B2623863200FFF2B3 /* ClassifierTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B0A2623863200FFF2B3 /* ClassifierTableHeaderView.swift */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
@@ -37,7 +36,6 @@
 		23131AF426219D6A00FFF2B3 /* ClassifierViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierViewController.swift; sourceTree = "<group>"; };
 		23131AF826219DAC00FFF2B3 /* ClassifierResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierResultCell.swift; sourceTree = "<group>"; };
 		23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
-		23131B032622F63600FFF2B3 /* TEClassifierIdentityLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEClassifierIdentityLabels.swift; sourceTree = "<group>"; };
 		23131B062622F67600FFF2B3 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		23131B0A2623863200FFF2B3 /* ClassifierTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierTableHeaderView.swift; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -117,7 +115,6 @@
 		23131B022622F62300FFF2B3 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				23131B032622F63600FFF2B3 /* TEClassifierIdentityLabels.swift */,
 				23131B062622F67600FFF2B3 /* K.swift */,
 			);
 			path = Constants;
@@ -149,8 +146,8 @@
 		23F80A3725E2EE2100241206 /* Trendeye */ = {
 			isa = PBXGroup;
 			children = (
-				23131B022622F62300FFF2B3 /* Constants */,
 				23F80A5825E339B400241206 /* Application */,
+				23131B022622F62300FFF2B3 /* Constants */,
 				23131AD5261FE65800FFF2B3 /* Extensions */,
 				23F80A5425E32EBC00241206 /* Managers */,
 				23F80A5B25E339F600241206 /* Models */,
@@ -282,7 +279,6 @@
 				23131B0B2623863200FFF2B3 /* ClassifierTableHeaderView.swift in Sources */,
 				23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */,
 				23131AF526219D6A00FFF2B3 /* ClassifierViewController.swift in Sources */,
-				23131B042622F63600FFF2B3 /* TEClassifierIdentityLabels.swift in Sources */,
 				23131AD7261FE66400FFF2B3 /* UIView+Ext.swift in Sources */,
 				23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */,
 				23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */,

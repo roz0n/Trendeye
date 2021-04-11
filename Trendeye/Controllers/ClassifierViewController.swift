@@ -63,12 +63,14 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     }
     
     fileprivate func applyConfigurations() {
-        configureNavigationItems()
+        configureNavigation()
     }
     
-    fileprivate func configureNavigationItems() {
+    fileprivate func configureNavigation() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(handleCloseClassifier))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(handleSaveClassification))
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
     }
     
     @objc func handleCloseClassifier() {
@@ -131,11 +133,13 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let result = results?[indexPath.row]
-        let category = TEClassifierIdentityLabels[result!.identifier]
+        let category = TEClassifierManager.shared.indentifiers[result!.identifier]
         let categoryViewController = CategoryViewController()
         
         categoryViewController.title = category
-        categoryViewController.categoryName = category
+        categoryViewController.name = category
+        // TODO: This is a placeholder
+        categoryViewController.descriptionText = "This typography trend consists of placing words on the sides of the format. Composition seems so avant-garde, but it has one major disadvantage. It forced people to read in four different directions. which can be fun, but not everytime. \n"
         navigationController?.pushViewController(categoryViewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
