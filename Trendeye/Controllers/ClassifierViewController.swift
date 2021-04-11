@@ -15,13 +15,14 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     
     var results: [VNClassificationObservation]? {
         didSet {
-            print("Classification successful")
+            print("Classification successful!")
         }
     }
     
     init(with photo: UIImage) {
         super.init(nibName: nil, bundle: nil)
         self.photo = photo
+        overwriteTableStyle()
     }
     
     required init?(coder: NSCoder) {
@@ -35,9 +36,14 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(ClassifierResultCell.self, forCellReuseIdentifier: ClassifierResultCell.reuseIdentifier)
         classifier.delegate = self
         beginClassification(of: photo)
+    }
+    
+    fileprivate func overwriteTableStyle() {
+        let table = UITableView(frame: self.tableView.frame, style: .grouped)
+        table.register(ClassifierResultCell.self, forCellReuseIdentifier: ClassifierResultCell.reuseIdentifier)
+        self.tableView = table
     }
     
     fileprivate func applyConfigurations() {
@@ -79,7 +85,7 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
         classifier.classifyImage(image)
     }
     
-    // MARK: - Table view data source
+    // MARK: - Table View
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -90,10 +96,20 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ClassifierResultCell.reuseIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ClassifierResultCell.reuseIdentifier, for: indexPath) as! ClassifierResultCell
         let result = results?[indexPath.row]
-        cell.textLabel?.text = "\(result!.identifier) /// \(result!.confidence)"
+        cell.resultData = result
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = .systemOrange
+        return view
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 350
     }
     
     // MARK: - TEClassifierDelegate
