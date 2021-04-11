@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController(rootViewController: cameraViewController)
         
         cameraViewController.navigationItem.title = "Trendeye"
+        navigationController.navigationBar.tintColor = .black
         
         window = UIWindow(frame: scene.coordinateSpace.bounds)
         window?.windowScene = scene

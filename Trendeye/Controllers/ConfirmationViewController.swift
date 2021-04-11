@@ -48,7 +48,7 @@ final class ConfirmationViewController: UIViewController {
     @objc func handleAcceptTap() {
         let classifierViewController = ClassifierViewController(with: selectedPhoto)
         classifierViewController.navigationItem.hidesBackButton = true
-        classifierViewController.title = "Powered by Trendlist.org"
+        classifierViewController.title = "Trend Analysis"
         navigationController?.pushViewController(classifierViewController, animated: true)
     }
     

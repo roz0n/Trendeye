@@ -11,27 +11,33 @@ import Vision
 class ClassifierResultCell: UITableViewCell {
     
     static let reuseIdentifier = "ClassifierResultCell"
-    var resultData: VNClassificationObservation!
+    
+    var resultData: VNClassificationObservation! {
+        didSet {
+            identifierLabel.text = TEClassifierIdentityLabels[resultData.identifier]
+            confidenceLabel.text = "\(TEClassifierManager.shared.convertConfidenceToPercent(resultData.confidence))%"
+        }
+    }
     
     var contentContainer: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
-        stack.backgroundColor = .systemTeal
         return stack
     }()
     
     var identifierLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .systemGreen
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         return label
     }()
     
     var confidenceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .systemRed
+        label.textAlignment = .center
+        label.font = UIFont.monospacedSystemFont(ofSize: 18, weight: .medium)
         return label
     }()
     
@@ -61,12 +67,12 @@ fileprivate extension ClassifierResultCell {
     }
     
     func layoutLabels() {
-        // TODO: Move to constants
         let cellHeight: CGFloat = 72
         contentContainer.addArrangedSubview(identifierLabel)
         contentContainer.addArrangedSubview(confidenceLabel)
         NSLayoutConstraint.activate([
             identifierLabel.heightAnchor.constraint(equalToConstant: cellHeight),
+            identifierLabel.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor, constant: 20),
             confidenceLabel.heightAnchor.constraint(equalToConstant: cellHeight),
             confidenceLabel.widthAnchor.constraint(equalToConstant: 82)
         ])
