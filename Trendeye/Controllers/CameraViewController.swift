@@ -36,6 +36,9 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         configureCaptureSession()
+        
+        // NOTE: Important that this happens here or else the capture session flickers when we return to this view
+        videoPreviewLayer.frame = self.cameraView.frame
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -143,11 +146,6 @@ fileprivate extension CameraViewController {
         // Start the capture session on a background thread
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             self?.captureSession.startRunning()
-            
-            // Once the session has started, set the preview layer's frame to that of the container UIView on the main thread
-            DispatchQueue.main.async {
-                self?.videoPreviewLayer.frame = (self?.cameraView.frame)!
-            }
         }
     }
     

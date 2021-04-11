@@ -135,7 +135,6 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
         let result = results?[indexPath.row]
         let category = TEClassifierManager.shared.indentifiers[result!.identifier]
         let categoryViewController = CategoryViewController()
-        
         categoryViewController.title = category
         categoryViewController.name = category
         // TODO: This is a placeholder
