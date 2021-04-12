@@ -33,7 +33,6 @@ class CameraControlsView: UIView {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
-        stack.spacing = 1
         stack.distribution = .equalCentering
         return stack
     }()
@@ -65,9 +64,9 @@ class CameraControlsView: UIView {
         let shootButtonIcon = UIImage(systemName: "camera.fill",
                                       withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))
         let flipButtonIcon = UIImage(systemName: "arrow.triangle.2.circlepath",
-                                     withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .medium))
+                                     withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))
         let flashButtonIcon = UIImage(systemName: "bolt.slash.fill",
-                                      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .medium))
+                                      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))
         
         shootButton = CameraButton(type: .system)
         shootButton.setTitle("Shoot", for: .application)
@@ -112,12 +111,12 @@ class CameraControlsView: UIView {
 // MARK: - Layout
 
 fileprivate extension CameraControlsView {
-    // TODO: These constraints are a mess, but they work for now
+    // These constraints are a but wonky, but they work for now
     
     func applyLayouts() {
         layoutContainers()
-        layoutThumbnail()
-        layoutButtons()
+        layoutGalleryButton()
+        layoutCameraButtons()
     }
     
     func layoutContainers() {
@@ -138,7 +137,7 @@ fileprivate extension CameraControlsView {
         ])
     }
     
-    func layoutThumbnail() {
+    func layoutGalleryButton() {
         previewContainer.addSubview(galleryButton)
         NSLayoutConstraint.activate([
             galleryButton.centerYAnchor.constraint(equalTo: previewContainer.centerYAnchor),
@@ -148,19 +147,19 @@ fileprivate extension CameraControlsView {
         ])
     }
     
-    func layoutButtons() {
+    func layoutCameraButtons() {
         secondaryButtonsContainer.addArrangedSubview(flipButton)
         secondaryButtonsContainer.addArrangedSubview(flashButton)
         primaryButtonsContainer.addArrangedSubview(shootButton)
         primaryButtonsContainer.addArrangedSubview(secondaryButtonsContainer)
-        
+
         NSLayoutConstraint.activate([
             shootButton.heightAnchor.constraint(equalToConstant: 100),
             shootButton.widthAnchor.constraint(equalToConstant: 100),
-            flipButton.heightAnchor.constraint(equalToConstant: 50),
-            flipButton.widthAnchor.constraint(equalToConstant: 50),
-            flashButton.heightAnchor.constraint(equalToConstant: 50),
-            flashButton.widthAnchor.constraint(equalToConstant: 50),
+            flipButton.heightAnchor.constraint(equalToConstant: 42),
+            flipButton.widthAnchor.constraint(equalToConstant: 42),
+            flashButton.heightAnchor.constraint(equalToConstant: 42),
+            flashButton.widthAnchor.constraint(equalToConstant: 42),
         ])
     }
     
