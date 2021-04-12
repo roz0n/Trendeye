@@ -8,13 +8,12 @@
 import UIKit
 import AVKit
 
-final class CameraViewController: UIViewController, UIGestureRecognizerDelegate, AVCapturePhotoCaptureDelegate {
+final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     var captureSession: AVCaptureSession!
     var imageOutput: AVCapturePhotoOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var controlsView = CameraControlsView()
-    
     var shootGesture: UITapGestureRecognizer?
     
     var cameraView: UIView = {
@@ -37,11 +36,7 @@ final class CameraViewController: UIViewController, UIGestureRecognizerDelegate,
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        configureCaptureSession()
-        
-        // NOTE: Important that this happens here or else the capture session flickers when we return to this view
-        videoPreviewLayer.frame = cameraView.frame
-        videoPreviewLayer.zPosition = 1
+        applyConfigurations()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -50,13 +45,33 @@ final class CameraViewController: UIViewController, UIGestureRecognizerDelegate,
         captureSession.stopRunning()
     }
     
+    fileprivate func applyConfigurations() {
+        configureCaptureSession()
+        configureVideoPreview()
+    }
+    
+    fileprivate func configureVideoPreview() {
+        /**
+         NOTE: It's important that this configuration happens inside `viewDidAppear` or else the frame growth animation occurs over the live preview a second time when we navigate back to this view.
+         */
+        videoPreviewLayer.frame = cameraView.frame
+        videoPreviewLayer.zPosition = 1
+    }
+    
+    fileprivate func presentPhotoConfirmation(with photo: UIImage) {
+        let confirmationViewController = ConfirmationViewController()
+        confirmationViewController.selectedPhoto = photo
+        confirmationViewController.navigationItem.title = "Confirm Photo"
+        navigationItem.hidesBackButton = true
+        navigationController?.pushViewController(confirmationViewController, animated: true)
+    }
+    
+    // MARK: - Photo output and image picker
+    
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        // If image data is nil, return
-        // If not, we can proccess it as raw data by calling AVCapturePhoto's `fileDataRepresentation()` method and intializing a new UIImage
         guard let imageData = photo.fileDataRepresentation() else { return }
-        let image = UIImage(data: imageData)
         
-        // Set a UIImage thumbnail if needed or present in the UI and adjust its aspect ratio
+        let image = UIImage(data: imageData)
         let thumbnail = controlsView.galleryThumbnail
         thumbnail.image = image
         thumbnail.contentMode = .scaleAspectFill
@@ -66,24 +81,14 @@ final class CameraViewController: UIViewController, UIGestureRecognizerDelegate,
         }
     }
     
-    func presentPhotoConfirmation(with photo: UIImage) {
-        let confirmationViewController = ConfirmationViewController()
-        confirmationViewController.selectedPhoto = photo
-        confirmationViewController.navigationItem.title = "Confirm Photo"
-        
-        navigationItem.hidesBackButton = true
-        navigationController?.pushViewController(confirmationViewController, animated: true)
-    }
-    
     // MARK: - Gestures
     
-    func applyGestures() {
+    fileprivate func applyGestures() {
         configureShootGesture()
     }
     
-    func configureShootGesture() {
+    fileprivate func configureShootGesture() {
         shootGesture = UITapGestureRecognizer(target: self, action: #selector(shootButtonTapped))
-        shootGesture?.delegate = self
         controlsView.shootButton.addGestureRecognizer(shootGesture!)
     }
     
@@ -92,9 +97,6 @@ final class CameraViewController: UIViewController, UIGestureRecognizerDelegate,
         imageOutput.capturePhoto(with: settings, delegate: self)
     }
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return true
-    }
 }
 
 // MARK: - Capture Session Configuration
