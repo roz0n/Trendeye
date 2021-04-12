@@ -8,12 +8,14 @@
 import UIKit
 import AVKit
 
-final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
+final class CameraViewController: UIViewController, UIGestureRecognizerDelegate, AVCapturePhotoCaptureDelegate {
     
     var captureSession: AVCaptureSession!
     var imageOutput: AVCapturePhotoOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var controlsView = CameraControlsView()
+    
+    var shootGesture: UITapGestureRecognizer?
     
     var cameraView: UIView = {
         let view = UIView()
@@ -38,7 +40,8 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
         configureCaptureSession()
         
         // NOTE: Important that this happens here or else the capture session flickers when we return to this view
-        videoPreviewLayer.frame = self.cameraView.frame
+        videoPreviewLayer.frame = cameraView.frame
+        videoPreviewLayer.zPosition = 1
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -79,9 +82,9 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
     }
     
     func configureShootGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(shootButtonTapped))
-        let button = controlsView.shootButton
-        button?.addGestureRecognizer(tap)
+        shootGesture = UITapGestureRecognizer(target: self, action: #selector(shootButtonTapped))
+        shootGesture?.delegate = self
+        controlsView.shootButton.addGestureRecognizer(shootGesture!)
     }
     
     @objc func shootButtonTapped() {
@@ -89,6 +92,9 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
         imageOutput.capturePhoto(with: settings, delegate: self)
     }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return true
+    }
 }
 
 // MARK: - Capture Session Configuration
@@ -156,27 +162,28 @@ fileprivate extension CameraViewController {
 fileprivate extension CameraViewController {
     
     func applyLayouts() {
-        layoutCameraView()
-        layoutControlsView()
+        layoutCamera()
+        layoutControls()
     }
     
-    func layoutCameraView() {
+    func layoutCamera() {
         view.addSubview(cameraView)
         NSLayoutConstraint.activate([
             cameraView.topAnchor.constraint(equalTo: view.topAnchor),
             cameraView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             cameraView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            cameraView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
-    func layoutControlsView() {
-        view.addSubview(controlsView)
+    func layoutControls() {
+        cameraView.addSubview(controlsView)
+        controlsView.layer.zPosition = 2
         NSLayoutConstraint.activate([
-            controlsView.topAnchor.constraint(equalTo: cameraView.bottomAnchor, constant: 20),
             controlsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             controlsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            controlsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            controlsView.heightAnchor.constraint(equalToConstant: 160),
+            controlsView.heightAnchor.constraint(equalToConstant: 125),
+            controlsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24)
         ])
     }
     

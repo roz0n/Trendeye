@@ -68,23 +68,23 @@ class CameraControlsView: UIView {
         shootButton = CameraButton(type: .system)
         shootButton.setTitle("Shoot", for: .application)
         shootButton.setTitleColor(.white, for: .normal)
-        shootButton.backgroundColor = .black
+        shootButton.backgroundColor = .white
         shootButton.setImage(shootButtonIcon, for: .normal)
-        shootButton.tintColor = .white
+        shootButton.tintColor = .black
         
         flipButton = CameraButton(type: .system)
         flipButton.setTitle("Flip", for: .application)
         flipButton.setTitleColor(.white, for: .normal)
-        flipButton.backgroundColor = .black
+        flipButton.backgroundColor = .white
         flipButton.setImage(flipButtonIcon, for: .normal)
-        flipButton.tintColor = .white
+        flipButton.tintColor = .black
         
         flashButton = CameraButton(type: .system)
         flashButton.setTitle("Flash", for: .application)
         flashButton.setTitleColor(.white, for: .normal)
-        flashButton.backgroundColor = .black
+        flashButton.backgroundColor = .white
         flashButton.setImage(flashButtonIcon, for: .normal)
-        flashButton.tintColor = .white
+        flashButton.tintColor = .black
     }
     
     fileprivate func configureThumbnail() {
