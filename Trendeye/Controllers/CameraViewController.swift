@@ -8,13 +8,14 @@
 import UIKit
 import AVKit
 
-final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
+final class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate {
     
     var captureSession: AVCaptureSession!
     var imageOutput: AVCapturePhotoOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var controlsView = CameraControlsView()
     var shootGesture: UITapGestureRecognizer?
+    var picker = UIImagePickerController()
     
     var cameraView: UIView = {
         let view = UIView()
@@ -27,6 +28,7 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
         view.backgroundColor = .white
         applyLayouts()
         applyGestures()
+        configurePicker()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,10 +54,20 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
     
     fileprivate func configureVideoPreview() {
         /**
-         NOTE: It's important that this configuration happens inside `viewDidAppear` or else the frame growth animation occurs over the live preview a second time when we navigate back to this view.
+         NOTE: This configuration must be set within `viewDidAppear` or else the frame growth animation
+         occurs over the live preview a second time when we navigate back to this view.
          */
         videoPreviewLayer.frame = cameraView.frame
         videoPreviewLayer.zPosition = 1
+    }
+    
+    fileprivate func configurePicker() {
+        /**
+         NOTE: This configuration must be set within `viewDidLoad`.
+         */
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = false
     }
     
     fileprivate func presentPhotoConfirmation(with photo: UIImage) {
@@ -66,7 +78,7 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
         navigationController?.pushViewController(confirmationViewController, animated: true)
     }
     
-    // MARK: - Photo output and image picker
+    // MARK: - AVSession Photo Output & Image Picker Selection
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation() else { return }
@@ -81,10 +93,19 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
         }
     }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            presentPhotoConfirmation(with: image)
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
     // MARK: - Gestures
     
     fileprivate func applyGestures() {
         configureShootGesture()
+        configurePickerGesture()
     }
     
     fileprivate func configureShootGesture() {
@@ -92,9 +113,19 @@ final class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegat
         controlsView.shootButton.addGestureRecognizer(shootGesture!)
     }
     
+    fileprivate func configurePickerGesture() {
+        let pickerGesture = UITapGestureRecognizer(target: self, action: #selector(pickerButtonTapped))
+        controlsView.flashButton.addGestureRecognizer(pickerGesture)
+    }
+    
     @objc func shootButtonTapped() {
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         imageOutput.capturePhoto(with: settings, delegate: self)
+    }
+    
+    @objc func pickerButtonTapped() {
+        picker.modalPresentationStyle = .fullScreen
+        present(picker, animated: true, completion: nil)
     }
     
 }
