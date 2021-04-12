@@ -44,13 +44,15 @@ class CameraControlsView: UIView {
         return view
     }()
     
-    var galleryThumbnail: UIImageView = {
-        let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        view.layer.borderWidth = 4
-        view.layer.borderColor = UIColor(red: 0.875, green: 0.875, blue: 0.875, alpha: 1).cgColor
-        return view
+    var galleryButton: UIButton = {
+        let button = UIButton()
+        let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .medium)
+        let icon = UIImage(systemName: "photo.on.rectangle.angled", withConfiguration: config)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .white
+        button.backgroundColor = .clear
+        button.setImage(icon, for: .normal)
+        return button
     }()
     
     fileprivate func applyConfigurations() {
@@ -60,10 +62,12 @@ class CameraControlsView: UIView {
     
     fileprivate func configureButtons() {
         // TODO: Refactor
-        
-        let shootButtonIcon = UIImage(systemName: "camera.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))
-        let flipButtonIcon = UIImage(systemName: "arrow.triangle.2.circlepath", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .medium))
-        let flashButtonIcon = UIImage(systemName: "bolt.slash.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .medium))
+        let shootButtonIcon = UIImage(systemName: "camera.fill",
+                                      withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))
+        let flipButtonIcon = UIImage(systemName: "arrow.triangle.2.circlepath",
+                                     withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .medium))
+        let flashButtonIcon = UIImage(systemName: "bolt.slash.fill",
+                                      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .medium))
         
         shootButton = CameraButton(type: .system)
         shootButton.setTitle("Shoot", for: .application)
@@ -88,14 +92,13 @@ class CameraControlsView: UIView {
     }
     
     fileprivate func configureThumbnail() {
-        galleryThumbnail.layer.cornerRadius = 24
-        galleryThumbnail.layer.masksToBounds = true
+        galleryButton.layer.cornerRadius = 24
+        galleryButton.layer.masksToBounds = true
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        
         applyConfigurations()
         applyLayouts()
     }
@@ -109,7 +112,6 @@ class CameraControlsView: UIView {
 // MARK: - Layout
 
 fileprivate extension CameraControlsView {
-    
     // TODO: These constraints are a mess, but they work for now
     
     func applyLayouts() {
@@ -137,12 +139,12 @@ fileprivate extension CameraControlsView {
     }
     
     func layoutThumbnail() {
-        previewContainer.addSubview(galleryThumbnail)
+        previewContainer.addSubview(galleryButton)
         NSLayoutConstraint.activate([
-            galleryThumbnail.centerYAnchor.constraint(equalTo: previewContainer.centerYAnchor),
-            galleryThumbnail.leadingAnchor.constraint(equalTo: previewContainer.leadingAnchor, constant: 20),
-            galleryThumbnail.heightAnchor.constraint(equalToConstant: 100),
-            galleryThumbnail.widthAnchor.constraint(equalToConstant: 100),
+            galleryButton.centerYAnchor.constraint(equalTo: previewContainer.centerYAnchor),
+            galleryButton.leadingAnchor.constraint(equalTo: previewContainer.leadingAnchor),
+            galleryButton.heightAnchor.constraint(equalToConstant: 100),
+            galleryButton.widthAnchor.constraint(equalToConstant: 100),
         ])
     }
     

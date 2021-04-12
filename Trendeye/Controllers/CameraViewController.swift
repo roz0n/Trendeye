@@ -82,11 +82,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation() else { return }
-        
         let image = UIImage(data: imageData)
-        let thumbnail = controlsView.galleryThumbnail
-        thumbnail.image = image
-        thumbnail.contentMode = .scaleAspectFill
         
         if let image = image {
             presentPhotoConfirmation(with: image)
@@ -115,7 +111,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     
     fileprivate func configurePickerGesture() {
         let pickerGesture = UITapGestureRecognizer(target: self, action: #selector(pickerButtonTapped))
-        controlsView.flashButton.addGestureRecognizer(pickerGesture)
+        controlsView.galleryButton.addGestureRecognizer(pickerGesture)
     }
     
     @objc func shootButtonTapped() {
@@ -175,11 +171,8 @@ fileprivate extension CameraViewController {
     func configureLivePreview() {
         // Set the video preview layer to an AVCaptureVideoPreviewLayer with the session attached
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        // Configure how to resize the layer's output
         videoPreviewLayer.videoGravity = .resizeAspectFill
-        // Fix the orientation to portrait
         videoPreviewLayer.connection?.videoOrientation = .portrait
-        // Add the layer as a sublayer
         cameraView.layer.addSublayer(videoPreviewLayer)
         
         // Start the capture session on a background thread
