@@ -152,6 +152,10 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
         return tableViewFooter
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 72
+    }
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 350
     }

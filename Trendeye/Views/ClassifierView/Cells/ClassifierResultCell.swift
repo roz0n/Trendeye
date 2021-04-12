@@ -30,6 +30,7 @@ class ClassifierResultCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+//        label.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         return label
     }()
     
@@ -67,13 +68,15 @@ fileprivate extension ClassifierResultCell {
     }
     
     func layoutLabels() {
-        let cellHeight: CGFloat = 72
         contentContainer.addArrangedSubview(identifierLabel)
         contentContainer.addArrangedSubview(confidenceLabel)
+        
+        contentContainer.backgroundColor = .systemTeal
+        identifierLabel.backgroundColor = .systemPink
+        
         NSLayoutConstraint.activate([
-            identifierLabel.heightAnchor.constraint(equalToConstant: cellHeight),
+//            contentContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             identifierLabel.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor, constant: 20),
-            confidenceLabel.heightAnchor.constraint(equalToConstant: cellHeight),
             confidenceLabel.widthAnchor.constraint(equalToConstant: 82)
         ])
     }

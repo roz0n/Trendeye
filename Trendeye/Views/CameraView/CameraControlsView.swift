@@ -49,7 +49,7 @@ class CameraControlsView: UIView {
         let icon = UIImage(systemName: "photo.on.rectangle.angled", withConfiguration: config)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
-        button.backgroundColor = .clear
+//        button.backgroundColor = UIColor(red: 0.094, green: 0.094, blue: 0.094, alpha: 0.35)
         button.setImage(icon, for: .normal)
         return button
     }()
@@ -71,28 +71,30 @@ class CameraControlsView: UIView {
         shootButton = CameraButton(type: .system)
         shootButton.setTitle("Shoot", for: .application)
         shootButton.setTitleColor(.white, for: .normal)
-        shootButton.backgroundColor = .white
+        shootButton.backgroundColor = UIColor(red: 0.094, green: 0.094, blue: 0.094, alpha: 0.35)
         shootButton.setImage(shootButtonIcon, for: .normal)
-        shootButton.tintColor = .black
+        shootButton.tintColor = .white
         
         flipButton = CameraButton(type: .system)
         flipButton.setTitle("Flip", for: .application)
         flipButton.setTitleColor(.white, for: .normal)
-        flipButton.backgroundColor = .white
+        flipButton.backgroundColor = UIColor(red: 0.094, green: 0.094, blue: 0.094, alpha: 0.35)
         flipButton.setImage(flipButtonIcon, for: .normal)
-        flipButton.tintColor = .black
+        flipButton.tintColor = .white
         
         flashButton = CameraButton(type: .system)
         flashButton.setTitle("Flash", for: .application)
         flashButton.setTitleColor(.white, for: .normal)
-        flashButton.backgroundColor = .white
+        flashButton.backgroundColor = UIColor(red: 0.094, green: 0.094, blue: 0.094, alpha: 0.35)
         flashButton.setImage(flashButtonIcon, for: .normal)
-        flashButton.tintColor = .black
+        flashButton.tintColor = .white
     }
     
     fileprivate func configureThumbnail() {
-        galleryButton.layer.cornerRadius = 24
-        galleryButton.layer.masksToBounds = true
+//        galleryButton.layer.cornerRadius = 24
+//        galleryButton.layer.masksToBounds = true
+//        galleryButton.makeCircular()
+//        galleryButton.backgroundColor = UIColor(red: 0.094, green: 0.094, blue: 0.094, alpha: 0.35)
     }
     
     override init(frame: CGRect) {
