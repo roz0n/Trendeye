@@ -71,21 +71,21 @@ class CameraControlsView: UIView {
         shootButton = CameraButton(type: .system)
         shootButton.setTitle("Shoot", for: .application)
         shootButton.setTitleColor(.white, for: .normal)
-        shootButton.backgroundColor = UIColor(red: 0.094, green: 0.094, blue: 0.094, alpha: 0.35)
+        shootButton.backgroundColor = K.Colors.TransparentButtons
         shootButton.setImage(shootButtonIcon, for: .normal)
         shootButton.tintColor = .white
         
         flipButton = CameraButton(type: .system)
         flipButton.setTitle("Flip", for: .application)
         flipButton.setTitleColor(.white, for: .normal)
-        flipButton.backgroundColor = UIColor(red: 0.094, green: 0.094, blue: 0.094, alpha: 0.35)
+        flipButton.backgroundColor = K.Colors.TransparentButtons
         flipButton.setImage(flipButtonIcon, for: .normal)
         flipButton.tintColor = .white
         
         flashButton = CameraButton(type: .system)
         flashButton.setTitle("Flash", for: .application)
         flashButton.setTitleColor(.white, for: .normal)
-        flashButton.backgroundColor = UIColor(red: 0.094, green: 0.094, blue: 0.094, alpha: 0.35)
+        flashButton.backgroundColor = K.Colors.TransparentButtons
         flashButton.setImage(flashButtonIcon, for: .normal)
         flashButton.tintColor = .white
     }
