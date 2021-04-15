@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Needed to save photos you take</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Needed to take photos of your design</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -24,6 +20,18 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Needed to take photos of your design</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Needed to save photos you take</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Satoshi-Regular.otf</string>
+		<string>Satoshi-Medium.otf</string>
+		<string>Satoshi-Light.otf</string>
+		<string>Satoshi-Black.otf</string>
+		<string>Satoshi-Bold.otf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -52,16 +60,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Satoshi-Regular.otf</string>
-		<string>Satoshi-Medium.otf</string>
-		<string>Satoshi-Light.otf</string>
-		<string>Satoshi-Black.otf</string>
-		<string>Satoshi-Bold.otf</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>

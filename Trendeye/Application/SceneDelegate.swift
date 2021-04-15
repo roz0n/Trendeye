@@ -67,7 +67,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     fileprivate func configureNavigationBarFonts() {
         UINavigationBar.appearance().largeTitleTextAttributes = [
-            NSAttributedString.Key.font: AppFonts.Satoshi.font(face: .black, size: 34)!
+            NSAttributedString.Key.font: AppFonts.Satoshi.font(face: .black, size: 30)!,
         ]
         UINavigationBar.appearance().titleTextAttributes = [
             NSAttributedString.Key.font: AppFonts.Satoshi.font(face: .black, size: 17)!
