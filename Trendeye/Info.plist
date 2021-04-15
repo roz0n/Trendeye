@@ -55,6 +55,14 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Satoshi-Regular.otf</string>
+		<string>Satoshi-Medium.otf</string>
+		<string>Satoshi-Light.otf</string>
+		<string>Satoshi-Black.otf</string>
+		<string>Satoshi-Bold.otf</string>
+	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -17,6 +17,12 @@
 		23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */; };
 		23131B072622F67600FFF2B3 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B062622F67600FFF2B3 /* K.swift */; };
 		23131B0B2623863200FFF2B3 /* ClassifierTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B0A2623863200FFF2B3 /* ClassifierTableHeaderView.swift */; };
+		232AA37D2627F79000E5E8A1 /* TEFontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA37C2627F79000E5E8A1 /* TEFontManager.swift */; };
+		232AA3852628091C00E5E8A1 /* Satoshi-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3802628091C00E5E8A1 /* Satoshi-Light.otf */; };
+		232AA3862628091C00E5E8A1 /* Satoshi-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3812628091C00E5E8A1 /* Satoshi-Black.otf */; };
+		232AA3872628091C00E5E8A1 /* Satoshi-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3822628091C00E5E8A1 /* Satoshi-Bold.otf */; };
+		232AA3882628091C00E5E8A1 /* Satoshi-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3832628091C00E5E8A1 /* Satoshi-Medium.otf */; };
+		232AA3892628091C00E5E8A1 /* Satoshi-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3842628091C00E5E8A1 /* Satoshi-Regular.otf */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3825E2EE2100241206 /* AppDelegate.swift */; };
@@ -38,6 +44,12 @@
 		23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		23131B062622F67600FFF2B3 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		23131B0A2623863200FFF2B3 /* ClassifierTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierTableHeaderView.swift; sourceTree = "<group>"; };
+		232AA37C2627F79000E5E8A1 /* TEFontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEFontManager.swift; sourceTree = "<group>"; };
+		232AA3802628091C00E5E8A1 /* Satoshi-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Light.otf"; sourceTree = "<group>"; };
+		232AA3812628091C00E5E8A1 /* Satoshi-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Black.otf"; sourceTree = "<group>"; };
+		232AA3822628091C00E5E8A1 /* Satoshi-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Bold.otf"; sourceTree = "<group>"; };
+		232AA3832628091C00E5E8A1 /* Satoshi-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Medium.otf"; sourceTree = "<group>"; };
+		232AA3842628091C00E5E8A1 /* Satoshi-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Regular.otf"; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23F80A3525E2EE2100241206 /* Trendeye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trendeye.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +139,26 @@
 			path = CategoryView;
 			sourceTree = "<group>";
 		};
+		232AA36F2627EEA900E5E8A1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				232AA3702627EECF00E5E8A1 /* Satoshi */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		232AA3702627EECF00E5E8A1 /* Satoshi */ = {
+			isa = PBXGroup;
+			children = (
+				232AA3812628091C00E5E8A1 /* Satoshi-Black.otf */,
+				232AA3822628091C00E5E8A1 /* Satoshi-Bold.otf */,
+				232AA3802628091C00E5E8A1 /* Satoshi-Light.otf */,
+				232AA3832628091C00E5E8A1 /* Satoshi-Medium.otf */,
+				232AA3842628091C00E5E8A1 /* Satoshi-Regular.otf */,
+			);
+			path = Satoshi;
+			sourceTree = "<group>";
+		};
 		23F80A2C25E2EE2100241206 = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +185,7 @@
 				23F80A5B25E339F600241206 /* Models */,
 				23F80A5925E339C300241206 /* Controllers */,
 				23F80A5A25E339D600241206 /* Views */,
+				232AA36F2627EEA900E5E8A1 /* Fonts */,
 				23F80A4125E2EE2400241206 /* Assets.xcassets */,
 				23F80A4625E2EE2400241206 /* Info.plist */,
 			);
@@ -163,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				23F80A5525E32F0E00241206 /* TEClassifierManager.swift */,
+				232AA37C2627F79000E5E8A1 /* TEFontManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -265,7 +299,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				23F80A4525E2EE2400241206 /* LaunchScreen.storyboard in Resources */,
+				232AA3862628091C00E5E8A1 /* Satoshi-Black.otf in Resources */,
+				232AA3882628091C00E5E8A1 /* Satoshi-Medium.otf in Resources */,
 				23F80A4225E2EE2400241206 /* Assets.xcassets in Resources */,
+				232AA3872628091C00E5E8A1 /* Satoshi-Bold.otf in Resources */,
+				232AA3892628091C00E5E8A1 /* Satoshi-Regular.otf in Resources */,
+				232AA3852628091C00E5E8A1 /* Satoshi-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +317,7 @@
 			files = (
 				23131B0B2623863200FFF2B3 /* ClassifierTableHeaderView.swift in Sources */,
 				23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */,
+				232AA37D2627F79000E5E8A1 /* TEFontManager.swift in Sources */,
 				23131AF526219D6A00FFF2B3 /* ClassifierViewController.swift in Sources */,
 				23131AD7261FE66400FFF2B3 /* UIView+Ext.swift in Sources */,
 				23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */,
