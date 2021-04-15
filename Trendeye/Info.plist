@@ -21,9 +21,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Needed to take photos of your design</string>
+	<string>Access to your camera is needed to take photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Needed to save photos you take</string>
+	<string>Access to your photo library is needed to upload photos</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Satoshi-Regular.otf</string>
