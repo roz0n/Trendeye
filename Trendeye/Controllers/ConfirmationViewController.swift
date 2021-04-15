@@ -24,6 +24,8 @@ final class ConfirmationViewController: UIViewController {
         applyLayouts()
     }
     
+    // MARK: - Configurations
+    
     fileprivate func applyConfigurations() {
         configureNavigation()
         configurePhotoView()
@@ -56,13 +58,12 @@ final class ConfirmationViewController: UIViewController {
     @objc func handleAcceptTap() {
         let classifierViewController = ClassifierViewController(with: selectedPhoto)
         classifierViewController.navigationItem.hidesBackButton = true
-        classifierViewController.title = "Trend Analysis"
+        classifierViewController.title = "Analysis"
         classifierViewController.navigationItem.backButtonTitle = "Back"
         navigationController?.pushViewController(classifierViewController, animated: true)
     }
     
     @objc func handleDenyTap() {
-        // TODO: It appears that the capture session restarts when we do this. Not sure how to fix it at this time...
         navigationController?.popViewController(animated: true)
     }
     
@@ -71,7 +72,6 @@ final class ConfirmationViewController: UIViewController {
 // MARK: - Layout
 
 fileprivate extension ConfirmationViewController {
-    // TODO: These constraints will need work.
     // NOTE: Should this even be another view controller? Or should we just transform the CameraViewController to display new buttons?
     
     func applyLayouts() {
