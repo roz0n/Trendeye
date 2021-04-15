@@ -19,15 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         let cameraViewController = CameraViewController()
-        let navigationController = UINavigationController(rootViewController: cameraViewController)        
-        navigationController.navigationBar.tintColor = .black
+        let navigationController = UINavigationController(rootViewController: cameraViewController)
+        navigationController.view.backgroundColor = K.Colors.NavigationBar
         
         window = UIWindow(frame: scene.coordinateSpace.bounds)
         window?.windowScene = scene
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         
-        applyGlobalConfigurations()
+        applyConfigurations()
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -61,17 +61,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // MARK: - Global Configurations
     
-    fileprivate func applyGlobalConfigurations() {
-        configureNavigationBarFonts()
+    fileprivate func applyConfigurations() {
+        configureNavigationBar()
     }
     
-    fileprivate func configureNavigationBarFonts() {
+    fileprivate func configureNavigationBar() {
+        // MARK: - Fonts
         UINavigationBar.appearance().largeTitleTextAttributes = [
             NSAttributedString.Key.font: AppFonts.Satoshi.font(face: .black, size: 30)!,
         ]
         UINavigationBar.appearance().titleTextAttributes = [
             NSAttributedString.Key.font: AppFonts.Satoshi.font(face: .black, size: 17)!
         ]
+        
+        // MARK: - Navigation Bar
+        UINavigationBar.appearance().backgroundColor = K.Colors.NavigationBar
+        UINavigationBar.appearance().barTintColor = K.Colors.NavigationBar
+        
+        UINavigationBar.appearance().compactAppearance?.backgroundColor = K.Colors.NavigationBar
+        UINavigationBar.appearance().standardAppearance.backgroundColor = K.Colors.NavigationBar
+        UINavigationBar.appearance().scrollEdgeAppearance?.backgroundColor = K.Colors.NavigationBar
+        
+        UINavigationBar.appearance().tintColor = K.Colors.IconColor
+        UINavigationBar.appearance().isTranslucent = false
     }
     
 }

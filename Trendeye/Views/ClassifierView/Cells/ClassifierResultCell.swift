@@ -45,10 +45,22 @@ class ClassifierResultCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         applyLayouts()
+        applyConfigurations()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Configurations
+    
+    fileprivate func applyConfigurations() {
+        configureStyles()
+    }
+    
+    fileprivate func configureStyles() {
+        // backgroundColor = K.Colors.Black
+        backgroundColor = .black
     }
     
 }
@@ -71,8 +83,8 @@ fileprivate extension ClassifierResultCell {
         contentContainer.addArrangedSubview(identifierLabel)
         contentContainer.addArrangedSubview(confidenceLabel)
         
-        contentContainer.backgroundColor = .systemTeal
-        identifierLabel.backgroundColor = .systemPink
+//        contentContainer.backgroundColor = .systemTeal
+//        identifierLabel.backgroundColor = .systemPink
         
         NSLayoutConstraint.activate([
 //            contentContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),

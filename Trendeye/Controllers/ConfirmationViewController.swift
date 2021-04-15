@@ -15,12 +15,10 @@ final class ConfirmationViewController: UIViewController {
     var photoView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBlue
         return view
     }()
     
     override func viewDidLoad() {
-        view.backgroundColor = .white
         applyConfigurations()
         applyGestures()
         applyLayouts()
@@ -29,6 +27,11 @@ final class ConfirmationViewController: UIViewController {
     fileprivate func applyConfigurations() {
         configureNavigation()
         configurePhotoView()
+        configureStyles()
+    }
+    
+    fileprivate func configureStyles() {
+        view.backgroundColor = K.Colors.Background
     }
     
     fileprivate func configureNavigation() {

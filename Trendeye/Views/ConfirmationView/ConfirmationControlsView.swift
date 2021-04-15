@@ -23,7 +23,6 @@ class ConfirmationControlsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .white
         applyConfigurations()
         applyLayouts()
     }
@@ -36,6 +35,11 @@ class ConfirmationControlsView: UIView {
     
     fileprivate func applyConfigurations() {
         configureButtons()
+        configureStyles()
+    }
+    
+    fileprivate func configureStyles() {
+        backgroundColor = K.Colors.Background
     }
     
     fileprivate func configureButtons() {
@@ -45,16 +49,16 @@ class ConfirmationControlsView: UIView {
         
         acceptButton = ConfirmationButton(type: .system)
         acceptButton.setTitle("Accept", for: .application)
-        acceptButton.backgroundColor = .systemGreen
+        acceptButton.backgroundColor = K.Colors.Green
         acceptButton.setImage(acceptButtonIcon, for: .normal)
-        acceptButton.tintColor = .black
+        acceptButton.tintColor = K.Colors.Black
         
         
         denyButton = ConfirmationButton(type: .system)
         denyButton.setTitle("Deny", for: .application)
-        denyButton.backgroundColor = .systemRed
+        denyButton.backgroundColor = K.Colors.Red
         denyButton.setImage(denyButtonIcon, for: .normal)
-        denyButton.tintColor = .black
+        denyButton.tintColor = K.Colors.Black
     }
     
 }

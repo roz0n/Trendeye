@@ -51,7 +51,6 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         classifier.delegate = self
         beginClassification(of: photo)
     }
@@ -64,6 +63,12 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     
     fileprivate func applyConfigurations() {
         configureNavigation()
+        configureStyles()
+    }
+    
+    fileprivate func configureStyles() {
+        view.backgroundColor = K.Colors.Background
+        tableView.backgroundColor = K.Colors.Background
     }
     
     fileprivate func configureNavigation() {
