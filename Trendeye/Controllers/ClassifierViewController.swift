@@ -32,6 +32,7 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         applyConfigurations()
         removePreviousViewController()
     }
@@ -60,8 +61,10 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     fileprivate func configureNavigation() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(handleCloseClassifier))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(handleSaveClassification))
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
+
+        // LARGE TITLE CODE
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationItem.largeTitleDisplayMode = .always
     }
     
     @objc func handleCloseClassifier() {

@@ -77,13 +77,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // MARK: - Navigation Bar
         UINavigationBar.appearance().backgroundColor = K.Colors.NavigationBar
         UINavigationBar.appearance().barTintColor = K.Colors.NavigationBar
-        
-        UINavigationBar.appearance().compactAppearance?.backgroundColor = K.Colors.NavigationBar
-        UINavigationBar.appearance().standardAppearance.backgroundColor = K.Colors.NavigationBar
-        UINavigationBar.appearance().scrollEdgeAppearance?.backgroundColor = K.Colors.NavigationBar
-        
         UINavigationBar.appearance().tintColor = K.Colors.IconColor
+        UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().compactAppearance?.backgroundColor = K.Colors.NavigationBar
+        UINavigationBar.appearance().compactAppearance?.shadowImage = UIImage()
+        UINavigationBar.appearance().standardAppearance.backgroundColor = K.Colors.NavigationBar
+        UINavigationBar.appearance().standardAppearance.shadowImage = UIImage()
+        UINavigationBar.appearance().scrollEdgeAppearance?.backgroundColor = K.Colors.NavigationBar
+        UINavigationBar.appearance().scrollEdgeAppearance?.shadowImage = UIImage()
     }
     
 }

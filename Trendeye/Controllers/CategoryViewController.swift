@@ -52,8 +52,10 @@ class CategoryViewController: UIViewController {
     }
     
     fileprivate func configureNavigation() {
-        view.backgroundColor = .white
-        navigationItem.largeTitleDisplayMode = .never
+        view.backgroundColor = K.Colors.ViewBackground
+        
+        // LARGE TITLE CODE
+//        navigationItem.largeTitleDisplayMode = .never
     }
     
     fileprivate func configureDescription() {
