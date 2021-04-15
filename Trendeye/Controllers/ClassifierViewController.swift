@@ -8,12 +8,11 @@
 import UIKit
 import Vision
 
-// TODO: Break up the header and footer views into their own files
-
 final class ClassifierViewController: UITableViewController, TEClassifierDelegate {
     
     var classifier = TEClassifierManager()
     var tableHeader = ClassifierTableHeaderView()
+    var tableFooter = ClassifierTableFooterView()
     var photo: UIImage!
     
     var results: [VNClassificationObservation]? {
@@ -21,19 +20,6 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
             print("Classification successful!")
         }
     }
-    
-    var tableViewFooter: UITextView = {
-        let view = UITextView()
-        view.text = "Powered by data from TrendList.org"
-        view.font = UIFont.boldSystemFont(ofSize: 14)
-        view.textAlignment = .center
-        view.textContainer.maximumNumberOfLines = 1
-        view.textContainerInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
-        view.textContainer.lineFragmentPadding = 0
-        view.backgroundColor = .clear
-        view.alpha = 0.35
-        return view
-    }()
     
     init(with photo: UIImage) {
         super.init(nibName: nil, bundle: nil)
@@ -58,7 +44,7 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     fileprivate func overwriteTableStyle() {
         let table = UITableView(frame: self.tableView.frame, style: .grouped)
         table.register(ClassifierResultCell.self, forCellReuseIdentifier: ClassifierResultCell.reuseIdentifier)
-        self.tableView = table
+        tableView = table
     }
     
     fileprivate func applyConfigurations() {
@@ -154,7 +140,7 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return tableViewFooter
+        return tableFooter
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
