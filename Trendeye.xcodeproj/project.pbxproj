@@ -23,6 +23,7 @@
 		232AA3872628091C00E5E8A1 /* Satoshi-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3822628091C00E5E8A1 /* Satoshi-Bold.otf */; };
 		232AA3882628091C00E5E8A1 /* Satoshi-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3832628091C00E5E8A1 /* Satoshi-Medium.otf */; };
 		232AA3892628091C00E5E8A1 /* Satoshi-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3842628091C00E5E8A1 /* Satoshi-Regular.otf */; };
+		232AA38C2628098800E5E8A1 /* Fontshare EULA.txt in Resources */ = {isa = PBXBuildFile; fileRef = 232AA38B2628098800E5E8A1 /* Fontshare EULA.txt */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3825E2EE2100241206 /* AppDelegate.swift */; };
@@ -50,6 +51,7 @@
 		232AA3822628091C00E5E8A1 /* Satoshi-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Bold.otf"; sourceTree = "<group>"; };
 		232AA3832628091C00E5E8A1 /* Satoshi-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Medium.otf"; sourceTree = "<group>"; };
 		232AA3842628091C00E5E8A1 /* Satoshi-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Regular.otf"; sourceTree = "<group>"; };
+		232AA38B2628098800E5E8A1 /* Fontshare EULA.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Fontshare EULA.txt"; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23F80A3525E2EE2100241206 /* Trendeye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trendeye.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,6 +157,7 @@
 				232AA3802628091C00E5E8A1 /* Satoshi-Light.otf */,
 				232AA3832628091C00E5E8A1 /* Satoshi-Medium.otf */,
 				232AA3842628091C00E5E8A1 /* Satoshi-Regular.otf */,
+				232AA38B2628098800E5E8A1 /* Fontshare EULA.txt */,
 			);
 			path = Satoshi;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23F80A4525E2EE2400241206 /* LaunchScreen.storyboard in Resources */,
+				232AA38C2628098800E5E8A1 /* Fontshare EULA.txt in Resources */,
 				232AA3862628091C00E5E8A1 /* Satoshi-Black.otf in Resources */,
 				232AA3882628091C00E5E8A1 /* Satoshi-Medium.otf in Resources */,
 				23F80A4225E2EE2400241206 /* Assets.xcassets in Resources */,
