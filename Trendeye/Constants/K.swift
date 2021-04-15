@@ -16,10 +16,15 @@ struct K {
         static let Green = UIColor(named: "Green")
         static let Red = UIColor(named: "Red")
         static let White = UIColor(named: "White")
-        static let Background = UIColor(named: "ViewBackground")
+        static let ViewBackground = UIColor(named: "ViewBackground")
         static let NavigationBar = UIColor(named: "NavigationBar")
         static let IconColor = UIColor(named: "IconTint")
         static let TransparentButtons = UIColor(named: "TransparentButtons")
+    }
+    
+    struct Icons {
+        static let Accept = "checkmark"
+        static let Deny = "xmark"
     }
     
 }

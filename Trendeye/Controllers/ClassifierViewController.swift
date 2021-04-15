@@ -67,8 +67,8 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     }
     
     fileprivate func configureStyles() {
-        view.backgroundColor = K.Colors.Background
-        tableView.backgroundColor = K.Colors.Background
+        view.backgroundColor = K.Colors.ViewBackground
+        tableView.backgroundColor = K.Colors.ViewBackground
     }
     
     fileprivate func configureNavigation() {

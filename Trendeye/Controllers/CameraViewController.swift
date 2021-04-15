@@ -20,12 +20,10 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     var cameraView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
         return view
     }()
     
     override func viewDidLoad() {
-        view.backgroundColor = .white
         applyLayouts()
         applyGestures()
         configurePicker()
@@ -48,8 +46,13 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     fileprivate func applyConfigurations() {
+        configureStyles()
         configureCaptureSession()
         configureVideoPreview()
+    }
+    
+    fileprivate func configureStyles() {
+        view.backgroundColor = K.Colors.ViewBackground
     }
     
     fileprivate func configureVideoPreview() {

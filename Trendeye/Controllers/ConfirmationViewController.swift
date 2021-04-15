@@ -31,7 +31,7 @@ final class ConfirmationViewController: UIViewController {
     }
     
     fileprivate func configureStyles() {
-        view.backgroundColor = K.Colors.Background
+        view.backgroundColor = K.Colors.NavigationBar
     }
     
     fileprivate func configureNavigation() {
