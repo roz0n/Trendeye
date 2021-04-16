@@ -28,7 +28,6 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         applyLayouts()
         applyGestures()
         configurePicker()
-        
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     

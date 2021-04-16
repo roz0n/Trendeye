@@ -12,6 +12,20 @@ final class ConfirmationViewController: UIViewController {
     var selectedPhoto: UIImage!
     var controlsView = ConfirmationControlsView()
     
+    var headerView: UIView = {
+        let header = UIView()
+        header.translatesAutoresizingMaskIntoConstraints = false
+        header.backgroundColor = K.Colors.NavigationBar
+        return header
+    }()
+    
+    var headerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Confirm Photo"
+        return label
+    }()
+    
     var photoView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -19,8 +33,16 @@ final class ConfirmationViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
+        applyStyles()
         applyConfigurations()
-        applyLayouts()        
+        applyLayouts()
+    }
+    
+    fileprivate func applyStyles() {
+        view.backgroundColor = K.Colors.ViewBackground
+        headerView.backgroundColor = K.Colors.ViewBackground
+        headerLabel.font = AppFonts.Satoshi.font(face: .black, size: 17)
+        headerLabel.textAlignment = .center
     }
     
     // MARK: - Configurations
@@ -28,11 +50,6 @@ final class ConfirmationViewController: UIViewController {
     fileprivate func applyConfigurations() {
         configureNavigation()
         configurePhotoView()
-        configureStyles()
-    }
-    
-    fileprivate func configureStyles() {
-        view.backgroundColor = K.Colors.NavigationBar
     }
     
     fileprivate func configureNavigation() {
@@ -41,7 +58,9 @@ final class ConfirmationViewController: UIViewController {
     
     fileprivate func configurePhotoView() {
         photoView.image = selectedPhoto
-        photoView.contentMode = .scaleAspectFill
+        photoView.contentMode = .scaleAspectFit
+        photoView.backgroundColor = .systemTeal
+        photoView.clipsToBounds = true
     }
     
 }
@@ -49,20 +68,30 @@ final class ConfirmationViewController: UIViewController {
 // MARK: - Layout
 
 fileprivate extension ConfirmationViewController {
-    // NOTE: Should this even be another view controller? Or should we just transform the CameraViewController to display new buttons?
     
     func applyLayouts() {
+        layoutHeaderView()
         layoutPhotoView()
         layoutControlsView()
+    }
+    
+    func layoutHeaderView() {
+        headerView.addSubview(headerLabel)
+        headerLabel.fillOther(view: headerView)
+        view.addSubview(headerView)
+        NSLayoutConstraint.activate([
+            headerView.topAnchor.constraint(equalTo: view.topAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 100),
+            headerView.widthAnchor.constraint(equalTo: view.widthAnchor)
+        ])
     }
     
     func layoutPhotoView() {
         view.addSubview(photoView)
         NSLayoutConstraint.activate([
-            photoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            photoView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            photoView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            photoView.heightAnchor.constraint(equalToConstant: 510)
+            photoView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            photoView.heightAnchor.constraint(equalToConstant: 545),
+            photoView.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
     }
     
@@ -70,9 +99,8 @@ fileprivate extension ConfirmationViewController {
         view.addSubview(controlsView)
         NSLayoutConstraint.activate([
             controlsView.topAnchor.constraint(equalTo: photoView.bottomAnchor),
-            controlsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            controlsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            controlsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            controlsView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            controlsView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
         ])
     }
     

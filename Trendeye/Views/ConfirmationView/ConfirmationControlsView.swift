@@ -33,7 +33,7 @@ class ConfirmationControlsView: UIView {
     }
     
     fileprivate func applyStyles() {
-        backgroundColor = K.Colors.NavigationBar
+        backgroundColor = K.Colors.ViewBackground
     }
     
     fileprivate func createButton(title: String, bg: UIColor?, icon: UIImage?, tint: UIColor?) -> UIButton {
@@ -74,8 +74,8 @@ fileprivate extension ConfirmationControlsView {
         buttonsContainer.addArrangedSubview(acceptButton)
         addSubview(buttonsContainer)
         NSLayoutConstraint.activate([
-            buttonsContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: buttonPadding),
-            buttonsContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(buttonPadding)),
+            buttonsContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 60),
+            buttonsContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -60),
             buttonsContainer.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
