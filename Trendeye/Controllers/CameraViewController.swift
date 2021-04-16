@@ -16,7 +16,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     var controlsView = CameraControlsView()
     var shootGesture: UITapGestureRecognizer?
     var picker = UIImagePickerController()
-    var currentPhoto: UIImage?
+    var currentImage: UIImage?
     
     var cameraView: UIView = {
         let view = UIView()
@@ -111,7 +111,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     
     @objc func handleAcceptTap() {
         dismiss(animated: false) { [weak self] in
-            let classifierViewController = ClassifierViewController(with: (self?.currentPhoto)!)
+            let classifierViewController = ClassifierViewController(with: (self?.currentImage)!)
             classifierViewController.navigationItem.hidesBackButton = true
             classifierViewController.title = "Analysis"
             self?.navigationController?.pushViewController(classifierViewController, animated: true)
@@ -120,7 +120,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     
     @objc func handleDenyTap() {
         dismiss(animated: false) { [weak self] in
-            self?.currentPhoto = nil
+            self?.currentImage = nil
             self?.videoPreviewLayer.isHidden = false
             self?.captureSession.startRunning()
         }
@@ -133,7 +133,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         let image = UIImage(data: imageData)
         
         if let image = image {
-            currentPhoto = image
+            currentImage = image
             presentPhotoConfirmation(with: image)
         }
     }

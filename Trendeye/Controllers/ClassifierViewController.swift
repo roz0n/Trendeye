@@ -93,10 +93,8 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ClassifierResultCell.reuseIdentifier, for: indexPath) as! ClassifierResultCell
         let result = results?[indexPath.row]
-        
         cell.resultData = result
         cell.accessoryType = .disclosureIndicator
-        
         return cell
     }
     
@@ -113,7 +111,7 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        tableHeader.tableHeaderPhoto.image = photo
+        tableHeader.image = photo
         return tableHeader
     }
     

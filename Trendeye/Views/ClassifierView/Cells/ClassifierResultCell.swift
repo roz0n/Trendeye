@@ -19,26 +19,21 @@ class ClassifierResultCell: UITableViewCell {
         }
     }
     
-    var contentContainer: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .horizontal
-        return stack
-    }()
-    
     var identifierLabel: UILabel = {
         let label = UILabel()
+        let fontSize: CGFloat = 18
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-//        label.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        label.lineBreakMode = .byTruncatingTail
+        label.font = AppFonts.Satoshi.font(face: .bold, size: fontSize)
         return label
     }()
     
     var confidenceLabel: UILabel = {
         let label = UILabel()
+        let fontSize: CGFloat = 18
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.font = UIFont.monospacedSystemFont(ofSize: 18, weight: .medium)
+        label.font = UIFont.monospacedSystemFont(ofSize: fontSize, weight: .medium)
         return label
     }()
     
@@ -54,7 +49,6 @@ class ClassifierResultCell: UITableViewCell {
     
     
     fileprivate func applyStyles() {
-        // backgroundColor = K.Colors.Black
         backgroundColor = .black
     }
     
@@ -65,28 +59,27 @@ class ClassifierResultCell: UITableViewCell {
 fileprivate extension ClassifierResultCell {
     
     func applyLayouts() {
-        layoutContainer()
         layoutLabels()
     }
     
-    func layoutContainer() {
-        contentView.addSubview(contentContainer)
-        contentContainer.fillOther(view: contentView)
-    }
-    
     func layoutLabels() {
-        contentContainer.addArrangedSubview(identifierLabel)
-        contentContainer.addArrangedSubview(confidenceLabel)
-        
-//        contentContainer.backgroundColor = .systemTeal
-//        identifierLabel.backgroundColor = .systemPink
-        
+        let identifierLabelPadding: CGFloat = 20
+        let confidenceLabelWidth: CGFloat = 82
+        let confidenceLabelPadding: CGFloat = 100
+        contentView.addSubview(identifierLabel)
+        contentView.addSubview(confidenceLabel)
+
         NSLayoutConstraint.activate([
-//            contentContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            identifierLabel.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor, constant: 20),
-            confidenceLabel.widthAnchor.constraint(equalToConstant: 82)
+            identifierLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            identifierLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: identifierLabelPadding),
+            identifierLabel.trailingAnchor.constraint(equalTo: confidenceLabel.leadingAnchor),
+            identifierLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+
+            confidenceLabel.topAnchor.constraint(equalTo: identifierLabel.topAnchor),
+            confidenceLabel.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(confidenceLabelPadding)),
+            confidenceLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            confidenceLabel.widthAnchor.constraint(equalToConstant: confidenceLabelWidth)
         ])
     }
     
 }
-
