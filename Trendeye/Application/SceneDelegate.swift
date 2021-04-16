@@ -77,7 +77,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // MARK: - Navigation Bar
         UINavigationBar.appearance().barTintColor = K.Colors.NavigationBar
         UINavigationBar.appearance().tintColor = K.Colors.IconColor
+        
+        // BUG: Found a bug in UIKit! If this property is toggled to false and you double-tap the navigationBar to scroll back to the top of the scrollView, it creates extra space between the bottom of the navigationBar and the scrollView
         UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().isOpaque = true
     }
     
 }

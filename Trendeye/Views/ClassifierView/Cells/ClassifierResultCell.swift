@@ -49,7 +49,7 @@ class ClassifierResultCell: UITableViewCell {
     
     
     fileprivate func applyStyles() {
-        backgroundColor = .black
+        backgroundColor = K.Colors.NavigationBar
     }
     
 }
@@ -68,13 +68,13 @@ fileprivate extension ClassifierResultCell {
         let confidenceLabelPadding: CGFloat = 100
         contentView.addSubview(identifierLabel)
         contentView.addSubview(confidenceLabel)
-
+        
         NSLayoutConstraint.activate([
             identifierLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             identifierLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: identifierLabelPadding),
             identifierLabel.trailingAnchor.constraint(equalTo: confidenceLabel.leadingAnchor),
             identifierLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-
+            
             confidenceLabel.topAnchor.constraint(equalTo: identifierLabel.topAnchor),
             confidenceLabel.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(confidenceLabelPadding)),
             confidenceLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),

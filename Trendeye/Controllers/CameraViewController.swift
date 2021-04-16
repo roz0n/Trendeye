@@ -63,7 +63,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     fileprivate func applyStyles() {
-        view.backgroundColor = .black
+        view.backgroundColor = K.Colors.ViewBackground
     }
     
     fileprivate func applyConfigurations() {

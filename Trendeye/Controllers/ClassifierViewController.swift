@@ -111,7 +111,7 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        tableHeader.image = photo
+        tableHeader.photoView.image = photo
         return tableHeader
     }
     
