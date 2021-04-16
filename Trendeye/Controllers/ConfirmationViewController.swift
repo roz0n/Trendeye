@@ -38,8 +38,6 @@ final class ConfirmationViewController: UIViewController {
     
     fileprivate func configureNavigation() {
         navigationItem.hidesBackButton = true
-        // LARGE TITLE CODE
-//        navigationItem.largeTitleDisplayMode = .never
     }
     
     fileprivate func configurePhotoView() {

@@ -14,12 +14,7 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     var tableHeader = ClassifierTableHeaderView()
     var tableFooter = ClassifierTableFooterView()
     var photo: UIImage!
-    
-    var results: [VNClassificationObservation]? {
-        didSet {
-            print("Classification successful!")
-        }
-    }
+    var results: [VNClassificationObservation]?
     
     init(with photo: UIImage) {
         super.init(nibName: nil, bundle: nil)
@@ -38,6 +33,7 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         classifier.delegate = self
         beginClassification(of: photo)
     }
@@ -61,10 +57,6 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     fileprivate func configureNavigation() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(handleCloseClassifier))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(handleSaveClassification))
-
-        // LARGE TITLE CODE
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationItem.largeTitleDisplayMode = .always
     }
     
     @objc func handleCloseClassifier() {
