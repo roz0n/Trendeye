@@ -44,7 +44,7 @@ class CameraControlsView: UIView {
     }()
     
     var galleryButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .medium)
         let icon = UIImage(systemName: "photo.on.rectangle.angled", withConfiguration: config)
         button.translatesAutoresizingMaskIntoConstraints = false

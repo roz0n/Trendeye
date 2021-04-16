@@ -45,6 +45,25 @@ class CategoryViewController: UIViewController {
         return label
     }()
     
+    var galleryContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemPink
+        return view
+    }()
+    
+    var trendlistButton: UIButton = {
+        let button = UIButton(type: .system)
+        let fontSize: CGFloat = 18
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("View on Trend List", for: .normal)
+        button.setTitleColor(K.Colors.Black, for: .normal)
+        button.titleLabel?.font = AppFonts.Satoshi.font(face: .black, size: fontSize)
+        button.layer.cornerRadius = 8
+        button.backgroundColor = K.Colors.White
+        return button
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         applyConfigurations()
     }
@@ -64,15 +83,17 @@ class CategoryViewController: UIViewController {
     
     fileprivate func configureDescription() {
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.26
+        let kernValue: CGFloat = -0.15
+        let fontSize: CGFloat = 16
+        paragraphStyle.lineHeightMultiple = 1.25
         
         descriptionView.attributedText = NSMutableAttributedString(
             string: descriptionText ?? "No description available",
             attributes: [
-                NSAttributedString.Key.kern: -0.15,
+                NSAttributedString.Key.kern: kernValue,
                 NSAttributedString.Key.paragraphStyle: paragraphStyle,
                 NSAttributedString.Key.foregroundColor: UIColor.white,
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .medium)])
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize, weight: .medium)])
     }
     
 }
@@ -84,6 +105,8 @@ fileprivate extension CategoryViewController {
     func applyLayouts() {
         layoutDescription()
         layoutLabel()
+        layoutGallery()
+        layoutButton()
     }
     
     func layoutDescription() {
@@ -98,12 +121,34 @@ fileprivate extension CategoryViewController {
     }
     
     func layoutLabel() {
-        let labelYPadding: CGFloat = 10
         let headerXPadding: CGFloat = 1
         view.addSubview(galleryLabel)
         NSLayoutConstraint.activate([
-            galleryLabel.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: labelYPadding),
+            galleryLabel.topAnchor.constraint(equalTo: headerContainer.bottomAnchor),
             galleryLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: headerXPadding)
+        ])
+    }
+    
+    func layoutGallery() {
+        view.addSubview(galleryContainer)
+        NSLayoutConstraint.activate([
+            galleryContainer.topAnchor.constraint(equalTo: galleryLabel.bottomAnchor),
+            galleryContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            galleryContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+        ])
+    }
+    
+    func layoutButton() {
+        let buttonYPadding: CGFloat = 20
+        let buttonXPadding: CGFloat = 14
+        let buttonHeight: CGFloat = 50
+        view.addSubview(trendlistButton)
+        NSLayoutConstraint.activate([
+            trendlistButton.topAnchor.constraint(equalTo: galleryContainer.bottomAnchor, constant: buttonYPadding),
+            trendlistButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: buttonXPadding),
+            trendlistButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(buttonXPadding)),
+            trendlistButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(buttonYPadding)),
+            trendlistButton.heightAnchor.constraint(equalToConstant: buttonHeight)
         ])
     }
     

@@ -8,7 +8,7 @@
 import UIKit
 
 // TODO: This should be a global class called RoundButton that ConfirmationButton and PhotoEnlargeButton inherit from
-
+// TODO: Make this a `system` button
 class PhotoEnlargeButton: UIButton {
     
     var height: CGFloat?

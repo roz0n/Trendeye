@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: Make this a `system` button
 class ConfirmationButton: UIButton {
     
     override init(frame: CGRect) {
