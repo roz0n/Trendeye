@@ -34,38 +34,37 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        applyStyles()
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        applyStyles()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        showCamera()
         applyConfigurations()
-        startCamera()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
-        stopCamera()
+        stopAndHideCamera()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
     
-    public func stopCamera() {
+    public func stopAndHideCamera() {
         view.isHidden = true
         captureSession.stopRunning()
     }
     
-    public func startCamera() {
+    public func showCamera() {
         view.isHidden = false
-        captureSession.startRunning()
     }
     
     fileprivate func applyStyles() {
-        view.backgroundColor = .red
+        view.backgroundColor = .black
     }
     
     fileprivate func applyConfigurations() {
