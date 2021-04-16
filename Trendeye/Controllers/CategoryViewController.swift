@@ -20,21 +20,28 @@ class CategoryViewController: UIViewController {
         return stack
     }()
     
-    var categoryDescriptionView: UITextView = {
+    var descriptionView: UITextView = {
         let view = UITextView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.textContainer.maximumNumberOfLines = 0
-        view.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        view.sizeToFit()
+        view.textContainer.lineBreakMode = .byWordWrapping
         view.isScrollEnabled = false
+        view.backgroundColor = .clear
+        view.sizeToFit()
         return view
     }()
     
-    var sourceLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Source: TrendList.org"
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+    var galleryLabel: UITextView = {
+        let label = UITextView()
+        let fontSize: CGFloat = 18
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textContainer.maximumNumberOfLines = 0
+        label.textContainer.lineBreakMode = .byWordWrapping
+        label.isScrollEnabled = false
+        label.isUserInteractionEnabled = false
         label.backgroundColor = .clear
-        label.alpha = 0.35
+        label.font = AppFonts.Satoshi.font(face: .bold, size: fontSize)
+        label.text = "More like this"
         return label
     }()
     
@@ -57,13 +64,15 @@ class CategoryViewController: UIViewController {
     
     fileprivate func configureDescription() {
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.2
-        categoryDescriptionView.attributedText = NSMutableAttributedString(
+        paragraphStyle.lineHeightMultiple = 1.26
+        
+        descriptionView.attributedText = NSMutableAttributedString(
             string: descriptionText ?? "No description available",
             attributes: [
-                NSAttributedString.Key.kern : -0.15,
-                NSAttributedString.Key.paragraphStyle : paragraphStyle,
-                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16, weight: .regular)])
+                NSAttributedString.Key.kern: -0.15,
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .medium)])
     }
     
 }
@@ -74,16 +83,27 @@ fileprivate extension CategoryViewController {
     
     func applyLayouts() {
         layoutDescription()
+        layoutLabel()
     }
     
     func layoutDescription() {
+        let headerPadding: CGFloat = 14
         view.addSubview(headerContainer)
-        headerContainer.addArrangedSubview(categoryDescriptionView)
-        headerContainer.addArrangedSubview(sourceLabel)
+        headerContainer.addArrangedSubview(descriptionView)
         NSLayoutConstraint.activate([
-            headerContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
-            headerContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 14),
-            headerContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -14)
+            headerContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: headerPadding),
+            headerContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: headerPadding),
+            headerContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(headerPadding))
+        ])
+    }
+    
+    func layoutLabel() {
+        let labelYPadding: CGFloat = 10
+        let headerXPadding: CGFloat = 1
+        view.addSubview(galleryLabel)
+        NSLayoutConstraint.activate([
+            galleryLabel.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: labelYPadding),
+            galleryLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: headerXPadding)
         ])
     }
     
