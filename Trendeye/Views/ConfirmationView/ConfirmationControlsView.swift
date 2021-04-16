@@ -74,8 +74,8 @@ fileprivate extension ConfirmationControlsView {
         buttonsContainer.addArrangedSubview(acceptButton)
         addSubview(buttonsContainer)
         NSLayoutConstraint.activate([
-            buttonsContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 60),
-            buttonsContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -60),
+            buttonsContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: buttonPadding),
+            buttonsContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(buttonPadding)),
             buttonsContainer.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
