@@ -54,8 +54,13 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     }
     
     fileprivate func configureNavigation() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(handleCloseClassifier))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(handleSaveClassification))
+        let iconSize: CGFloat = 18
+        let closeIcon = UIImage(systemName: K.Icons.Close, withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold))
+        let shareIcon = UIImage(systemName: K.Icons.Share, withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(handleCloseClassifier))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: shareIcon, style: .plain, target: self, action: #selector(handleSaveClassification))
+        navigationItem.backButtonTitle = ""
     }
     
     @objc func handleCloseClassifier() {
@@ -102,6 +107,7 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
         let result = results?[indexPath.row]
         let category = TEClassifierManager.shared.indentifiers[result!.identifier]
         let categoryViewController = CategoryViewController()
+        
         categoryViewController.title = category
         categoryViewController.name = category
         // TODO: This is a placeholder

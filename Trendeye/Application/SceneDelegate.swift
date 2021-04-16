@@ -75,8 +75,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         ]
         
         // MARK: - Navigation Bar
+        let iconSize: CGFloat = 18
+        let backButton = UIImage(systemName: K.Icons.Back, withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold))
         UINavigationBar.appearance().barTintColor = K.Colors.NavigationBar
         UINavigationBar.appearance().tintColor = K.Colors.IconColor
+        UINavigationBar.appearance().backIndicatorImage = backButton
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = backButton
         
         // BUG: Found a bug in UIKit! If this property is toggled to false and you double-tap the navigationBar to scroll back to the top of the scrollView, it creates extra space between the bottom of the navigationBar and the scrollView
         UINavigationBar.appearance().isTranslucent = false

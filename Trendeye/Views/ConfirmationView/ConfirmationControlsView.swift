@@ -36,7 +36,7 @@ class ConfirmationControlsView: UIView {
         backgroundColor = K.Colors.ViewBackground
     }
     
-    fileprivate func createButton(title: String, bg: UIColor?, icon: UIImage?, tint: UIColor?) -> UIButton {
+    fileprivate func createButton(title: String, bg: UIColor?, icon: UIImage?, tint: UIColor?) -> ConfirmationButton {
         let button = ConfirmationButton(type: .system)
         button.setTitle(title, for: .application)
         button.backgroundColor = bg
@@ -54,8 +54,8 @@ class ConfirmationControlsView: UIView {
     fileprivate func configureButtons() {
         let acceptIcon = UIImage(systemName: K.Icons.Accept, withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .heavy))
         let denyIcon = UIImage(systemName: K.Icons.Deny, withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .heavy))!
-        acceptButton = createButton(title: "Accept", bg: K.Colors.Green, icon: acceptIcon, tint: K.Colors.Black) as? ConfirmationButton
-        denyButton = createButton(title: "Deny", bg: K.Colors.Red, icon: denyIcon, tint: K.Colors.Black) as? ConfirmationButton
+        acceptButton = createButton(title: "Accept", bg: K.Colors.Green, icon: acceptIcon, tint: K.Colors.Black)
+        denyButton = createButton(title: "Deny", bg: K.Colors.Red, icon: denyIcon, tint: K.Colors.Black)
     }
     
 }

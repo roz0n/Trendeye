@@ -25,6 +25,10 @@ struct K {
     struct Icons {
         static let Accept = "checkmark"
         static let Deny = "xmark"
+        static let Enlarge = "arrow.up.left.and.arrow.down.right"
+        static let Back = "arrow.backward"
+        static let Close = "xmark"
+        static let Share = "square.and.arrow.up"
     }
     
 }
