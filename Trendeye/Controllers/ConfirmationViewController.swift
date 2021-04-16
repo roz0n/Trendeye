@@ -20,8 +20,7 @@ final class ConfirmationViewController: UIViewController {
     
     override func viewDidLoad() {
         applyConfigurations()
-        applyGestures()
-        applyLayouts()
+        applyLayouts()        
     }
     
     // MARK: - Configurations
@@ -43,27 +42,6 @@ final class ConfirmationViewController: UIViewController {
     fileprivate func configurePhotoView() {
         photoView.image = selectedPhoto
         photoView.contentMode = .scaleAspectFill
-    }
-    
-    // MARK: - Gestures
-    
-    func applyGestures() {
-        let acceptButton = controlsView.acceptButton
-        let denyButton = controlsView.denyButton
-        acceptButton?.addTarget(self, action: #selector(handleAcceptTap), for: .touchUpInside)
-        denyButton?.addTarget(self, action: #selector(handleDenyTap), for: .touchUpInside)
-    }
-    
-    @objc func handleAcceptTap() {
-        let classifierViewController = ClassifierViewController(with: selectedPhoto)
-        classifierViewController.navigationItem.hidesBackButton = true
-        classifierViewController.title = "Analysis"
-        classifierViewController.navigationItem.backButtonTitle = "Back"
-        navigationController?.pushViewController(classifierViewController, animated: true)
-    }
-    
-    @objc func handleDenyTap() {
-        navigationController?.popViewController(animated: true)
     }
     
 }

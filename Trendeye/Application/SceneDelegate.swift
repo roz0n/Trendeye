@@ -19,12 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         let cameraViewController = CameraViewController()
-        let navigationController = UINavigationController(rootViewController: cameraViewController)
-        navigationController.view.backgroundColor = K.Colors.NavigationBar
+        let homeNavigationController = UINavigationController(rootViewController: cameraViewController)
+        homeNavigationController.view.backgroundColor = K.Colors.NavigationBar
         
         window = UIWindow(frame: scene.coordinateSpace.bounds)
         window?.windowScene = scene
-        window?.rootViewController = navigationController
+        window?.rootViewController = homeNavigationController
         window?.makeKeyAndVisible()
         
         applyConfigurations()
@@ -75,17 +75,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         ]
         
         // MARK: - Navigation Bar
-        UINavigationBar.appearance().backgroundColor = K.Colors.NavigationBar
         UINavigationBar.appearance().barTintColor = K.Colors.NavigationBar
         UINavigationBar.appearance().tintColor = K.Colors.IconColor
-        UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().compactAppearance?.backgroundColor = K.Colors.NavigationBar
-        UINavigationBar.appearance().compactAppearance?.shadowImage = UIImage()
-        UINavigationBar.appearance().standardAppearance.backgroundColor = K.Colors.NavigationBar
-        UINavigationBar.appearance().standardAppearance.shadowImage = UIImage()
-        UINavigationBar.appearance().scrollEdgeAppearance?.backgroundColor = K.Colors.NavigationBar
-        UINavigationBar.appearance().scrollEdgeAppearance?.shadowImage = UIImage()
     }
     
 }

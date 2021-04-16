@@ -16,6 +16,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     var controlsView = CameraControlsView()
     var shootGesture: UITapGestureRecognizer?
     var picker = UIImagePickerController()
+    var currentPhoto: UIImage?
     
     var cameraView: UIView = {
         let view = UIView()
@@ -27,32 +28,49 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         applyLayouts()
         applyGestures()
         configurePicker()
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        applyStyles()
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         applyConfigurations()
+        startCamera()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        stopCamera()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
+    public func stopCamera() {
+        view.isHidden = true
         captureSession.stopRunning()
     }
     
-    fileprivate func applyConfigurations() {
-        configureStyles()
-        configureCaptureSession()
-        configureVideoPreview()
+    public func startCamera() {
+        view.isHidden = false
+        captureSession.startRunning()
     }
     
-    fileprivate func configureStyles() {
-        view.backgroundColor = K.Colors.ViewBackground
+    fileprivate func applyStyles() {
+        view.backgroundColor = .red
+    }
+    
+    fileprivate func applyConfigurations() {
+        configureCaptureSession()
+        configureVideoPreview()
     }
     
     fileprivate func configureVideoPreview() {
@@ -73,12 +91,41 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         picker.allowsEditing = false
     }
     
+    // MARK: - Confirmation View
+    
     fileprivate func presentPhotoConfirmation(with photo: UIImage) {
         let confirmationViewController = ConfirmationViewController()
+        let acceptButton = confirmationViewController.controlsView.acceptButton
+        let denyButton = confirmationViewController.controlsView.denyButton
+        
+        acceptButton?.addTarget(self, action: #selector(handleAcceptTap), for: .touchUpInside)
+        denyButton?.addTarget(self, action: #selector(handleDenyTap), for: .touchUpInside)
+        
         confirmationViewController.selectedPhoto = photo
         confirmationViewController.navigationItem.title = "Confirm Photo"
-        navigationItem.hidesBackButton = true
-        navigationController?.pushViewController(confirmationViewController, animated: true)
+        confirmationViewController.modalPresentationStyle = .overFullScreen
+        
+        videoPreviewLayer.isHidden = true
+        captureSession.stopRunning()
+        
+        present(confirmationViewController, animated: true, completion: nil)
+    }
+    
+    @objc func handleAcceptTap() {
+        dismiss(animated: false) { [weak self] in
+            let classifierViewController = ClassifierViewController(with: (self?.currentPhoto)!)
+            classifierViewController.navigationItem.hidesBackButton = true
+            classifierViewController.title = "Analysis"
+            self?.navigationController?.pushViewController(classifierViewController, animated: true)
+        }
+    }
+    
+    @objc func handleDenyTap() {
+        dismiss(animated: false) { [weak self] in
+            self?.currentPhoto = nil
+            self?.videoPreviewLayer.isHidden = false
+            self?.captureSession.startRunning()
+        }
     }
     
     // MARK: - AVSession Photo Output & Image Picker Selection
@@ -88,6 +135,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         let image = UIImage(data: imageData)
         
         if let image = image {
+            currentPhoto = image
             presentPhotoConfirmation(with: image)
         }
     }

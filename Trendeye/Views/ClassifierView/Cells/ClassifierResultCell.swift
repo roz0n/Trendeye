@@ -44,21 +44,16 @@ class ClassifierResultCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        applyStyles()
         applyLayouts()
-        applyConfigurations()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Configurations
     
-    fileprivate func applyConfigurations() {
-        configureStyles()
-    }
-    
-    fileprivate func configureStyles() {
+    fileprivate func applyStyles() {
         // backgroundColor = K.Colors.Black
         backgroundColor = .black
     }

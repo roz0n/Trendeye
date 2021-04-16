@@ -19,7 +19,6 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     init(with photo: UIImage) {
         super.init(nibName: nil, bundle: nil)
         self.photo = photo
-        overwriteTableStyle()
     }
     
     required init?(coder: NSCoder) {
@@ -28,8 +27,8 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        applyStyles()
         applyConfigurations()
-        removePreviousViewController()
     }
     
     override func viewDidLoad() {
@@ -38,7 +37,13 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
         beginClassification(of: photo)
     }
     
-    fileprivate func overwriteTableStyle() {
+    fileprivate func applyStyles() {
+        overwriteTableStyles()
+        view.backgroundColor = K.Colors.ViewBackground
+        tableView.backgroundColor = K.Colors.ViewBackground
+    }
+    
+    fileprivate func overwriteTableStyles() {
         let table = UITableView(frame: self.tableView.frame, style: .grouped)
         table.register(ClassifierResultCell.self, forCellReuseIdentifier: ClassifierResultCell.reuseIdentifier)
         tableView = table
@@ -46,12 +51,6 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
     
     fileprivate func applyConfigurations() {
         configureNavigation()
-        configureStyles()
-    }
-    
-    fileprivate func configureStyles() {
-        view.backgroundColor = K.Colors.ViewBackground
-        tableView.backgroundColor = K.Colors.ViewBackground
     }
     
     fileprivate func configureNavigation() {
@@ -74,22 +73,6 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
         }
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
-    }
-    
-    fileprivate func removePreviousViewController() {
-        guard let navigationController = self.navigationController else { return }
-        
-        let controllerToRemove = "ConfirmationViewController"
-        var allControllers = navigationController.viewControllers
-        
-        for (index, controller) in allControllers.enumerated() {
-            let name = String(describing: type(of: controller))
-            if name == controllerToRemove {
-                allControllers.remove(at: index)
-                navigationController.viewControllers = allControllers
-                break
-            }
-        }
     }
     
     fileprivate func beginClassification(of photo: UIImage) {

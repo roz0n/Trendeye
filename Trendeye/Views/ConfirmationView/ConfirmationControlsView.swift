@@ -23,12 +23,17 @@ class ConfirmationControlsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
+        applyStyles()
         applyConfigurations()
         applyLayouts()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    fileprivate func applyStyles() {
+        backgroundColor = K.Colors.NavigationBar
     }
     
     fileprivate func createButton(title: String, bg: UIColor?, icon: UIImage?, tint: UIColor?) -> UIButton {
@@ -44,11 +49,6 @@ class ConfirmationControlsView: UIView {
     
     fileprivate func applyConfigurations() {
         configureButtons()
-        configureStyles()
-    }
-    
-    fileprivate func configureStyles() {
-        backgroundColor = K.Colors.NavigationBar
     }
     
     fileprivate func configureButtons() {
