@@ -103,6 +103,9 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     fileprivate func configureGalleryView() {
+        /**
+         NOTE: This configuration must be set within `viewDidLayoutSubviews` so that constraints for the container are set before performing calculations with the bounds values.
+         */
         let containerWidth = galleryContainer.bounds.size.width
         let containerHeight = galleryContainer.bounds.size.height
         let numberInRow: CGFloat = 3
@@ -111,19 +114,16 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = CGSize(width: (containerWidth / numberInRow) - cellXPadding, height:(containerHeight / numberInRow) - cellYPadding)
-        layout.sectionInset = UIEdgeInsets(top: cellYPadding, left: cellXPadding, bottom: cellYPadding, right: cellXPadding)
+        layout.sectionInset = UIEdgeInsets(top: (cellYPadding / 3), left: cellXPadding, bottom: cellYPadding, right: cellXPadding)
         
         galleryView = CategoryCollectionView(frame: .zero, collectionViewLayout: layout)
-        galleryView.translatesAutoresizingMaskIntoConstraints = false
-        galleryView.backgroundColor = .systemGreen
         galleryView.delegate = self
         galleryView.dataSource = self
-        galleryView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "GalleryCell")
         galleryContainer.addSubview(galleryView)
         galleryView.fillOther(view: galleryContainer)
     }
     
-    // MARK: - Collection View Data Source
+    // MARK: - UICollectionView Methods
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -134,11 +134,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = galleryView.dequeueReusableCell(withReuseIdentifier: "GalleryCell", for: indexPath)
-        cell.layer.cornerRadius = 8
-        cell.layer.borderWidth = 1
-        cell.layer.borderColor = UIColor(named: "BorderColor")?.cgColor
-        cell.backgroundColor = .systemBlue
+        let cell = galleryView.dequeueReusableCell(withReuseIdentifier: CategoryImageCell.reuseIdentifier, for: indexPath) as! CategoryImageCell
         return cell
     }
     
@@ -191,7 +187,7 @@ fileprivate extension CategoryViewController {
         let buttonHeight: CGFloat = 50
         view.addSubview(trendlistButton)
         NSLayoutConstraint.activate([
-            trendlistButton.topAnchor.constraint(equalTo: galleryContainer.bottomAnchor, constant: buttonYPadding),
+            trendlistButton.topAnchor.constraint(equalTo: galleryContainer.bottomAnchor),
             trendlistButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: buttonXPadding),
             trendlistButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(buttonXPadding)),
             trendlistButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(buttonYPadding)),
