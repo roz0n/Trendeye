@@ -20,6 +20,7 @@ struct K {
         static let NavigationBar = UIColor(named: "NavigationBar")
         static let IconColor = UIColor(named: "IconTint")
         static let TransparentButtons = UIColor(named: "TransparentButtons")
+        static let BorderColor = UIColor(named: "BorderColor")
     }
     
     struct Icons {

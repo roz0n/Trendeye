@@ -37,10 +37,23 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         applyStyles()
     }
     
+    func TEMP_PRESENT_CATEGORY() {
+        let cvc = CategoryViewController()
+        cvc.name = "Letterspace"
+        cvc.title = "Letterspace"
+        cvc.descriptionText = """
+        Words divided into individual letters or syllables and arranged randomly. The trend is very popular especially in the last two years.
+        """
+        navigationController?.pushViewController(cvc, animated: true)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showCamera()
         applyConfigurations()
+        
+        // REMOVE:
+        TEMP_PRESENT_CATEGORY()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

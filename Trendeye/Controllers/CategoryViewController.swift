@@ -7,10 +7,11 @@
 
 import UIKit
 
-class CategoryViewController: UIViewController {
+class CategoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var name: String!
     var descriptionText: String?
+    var galleryView: CategoryCollectionView!
     
     var headerContainer: UIStackView = {
         let stack = UIStackView()
@@ -72,6 +73,11 @@ class CategoryViewController: UIViewController {
         applyLayouts()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        configureGalleryView()
+    }
+    
     fileprivate func applyConfigurations() {
         configureNavigation()
         configureDescription()
@@ -94,6 +100,46 @@ class CategoryViewController: UIViewController {
                 NSAttributedString.Key.paragraphStyle: paragraphStyle,
                 NSAttributedString.Key.foregroundColor: UIColor.white,
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize, weight: .medium)])
+    }
+    
+    fileprivate func configureGalleryView() {
+        let containerWidth = galleryContainer.bounds.size.width
+        let containerHeight = galleryContainer.bounds.size.height
+        let numberInRow: CGFloat = 3
+        let cellXPadding: CGFloat = 20
+        let cellYPadding: CGFloat = 30
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = CGSize(width: (containerWidth / numberInRow) - cellXPadding, height:(containerHeight / numberInRow) - cellYPadding)
+        layout.sectionInset = UIEdgeInsets(top: cellYPadding, left: cellXPadding, bottom: cellYPadding, right: cellXPadding)
+        
+        galleryView = CategoryCollectionView(frame: .zero, collectionViewLayout: layout)
+        galleryView.translatesAutoresizingMaskIntoConstraints = false
+        galleryView.backgroundColor = .systemGreen
+        galleryView.delegate = self
+        galleryView.dataSource = self
+        galleryView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "GalleryCell")
+        galleryContainer.addSubview(galleryView)
+        galleryView.fillOther(view: galleryContainer)
+    }
+    
+    // MARK: - Collection View Data Source
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 9
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = galleryView.dequeueReusableCell(withReuseIdentifier: "GalleryCell", for: indexPath)
+        cell.layer.cornerRadius = 8
+        cell.layer.borderWidth = 1
+        cell.layer.borderColor = UIColor(named: "BorderColor")?.cgColor
+        cell.backgroundColor = .systemBlue
+        return cell
     }
     
 }
@@ -122,9 +168,10 @@ fileprivate extension CategoryViewController {
     
     func layoutLabel() {
         let headerXPadding: CGFloat = 1
+        let headerYPadding: CGFloat = 10
         view.addSubview(galleryLabel)
         NSLayoutConstraint.activate([
-            galleryLabel.topAnchor.constraint(equalTo: headerContainer.bottomAnchor),
+            galleryLabel.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: headerYPadding),
             galleryLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: headerXPadding)
         ])
     }
@@ -153,4 +200,3 @@ fileprivate extension CategoryViewController {
     }
     
 }
-
