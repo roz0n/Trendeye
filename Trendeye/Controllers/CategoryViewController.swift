@@ -11,12 +11,21 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     var identifier: String!
     var name: String!
+    var galleryView: CategoryCollectionView!
+    
     var descriptionText: String? {
         didSet {
             configureDescription()
         }
     }
-    var galleryView: CategoryCollectionView!
+    
+    var galleryData: [ProjectImage]? {
+        didSet {
+            if let galleryData = galleryData {
+                configureGalleryImages(images: galleryData)
+            }
+        }
+    }
     
     var headerContainer: UIStackView = {
         let stack = UIStackView()
@@ -71,7 +80,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }()
     
     override func viewWillAppear(_ animated: Bool) {
-        fetchDescription()
+        fetchData()
         applyConfigurations()
     }
     
@@ -83,6 +92,8 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         super.viewDidLayoutSubviews()
         configureGalleryView()
     }
+    
+    // MARK: - Configurations
     
     fileprivate func applyConfigurations() {
         configureView()
@@ -129,6 +140,11 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         galleryView.fillOther(view: galleryContainer)
     }
     
+    fileprivate func configureGalleryImages(images: [ProjectImage]) {
+        let links = images.map { $0.images.small }
+        links.forEach { TEImageCacheManager.shared.fetchAndCacheImage(from: $0) }
+    }
+    
     // MARK: - UICollectionView Methods
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -144,17 +160,35 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         return cell
     }
     
-    // MARK: - Fetch Data
-
+    // MARK: - Data Fetching
+    
+    fileprivate func fetchData() {
+        fetchDescription()
+        fetchImages()
+    }
+    
     fileprivate func fetchDescription() {
         TEDataManager.shared.fetchCategoryDescription(identifier) { [weak self] (descriptionData) in
             self?.handleDescriptionResponse(descriptionData)
         }
     }
     
-    fileprivate func handleDescriptionResponse(_ response: CategoryDescriptionResponse) {
-        DispatchQueue.main.async {
-            self.descriptionText = response.data.description
+    fileprivate func fetchImages() {
+        TEDataManager.shared.fetchCategoryImages(identifier) { [weak self] (imageData) in
+            self?.handleImageResponse(imageData)
+        }
+    }
+    
+    fileprivate func handleDescriptionResponse(_ response: GenericAPIResponse) {
+        DispatchQueue.main.async { [weak self] in
+            // TODO: Cache this data using NSCache preferably
+            self?.descriptionText = response.data.description
+        }
+    }
+    
+    fileprivate func handleImageResponse(_ response: GenericAPIResponse2) {
+        DispatchQueue.main.async { [weak self] in
+            self?.galleryData = response.data
         }
     }
     

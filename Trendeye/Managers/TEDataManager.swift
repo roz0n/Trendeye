@@ -17,7 +17,7 @@ final class TEDataManager {
         return "\(baseUrl)\(resource)/\(endpoint ?? "")"
     }
     
-    func fetchCategoryDescription(_ category: String, completion: @escaping (_ data: CategoryDescriptionResponse) -> Void) {
+    func fetchCategoryDescription(_ category: String, completion: @escaping (_ data: GenericAPIResponse) -> Void) {
         // Fetch the category description
         guard let url = URL(string: getEndpoint("categories/desc", endpoint: category)) else { return }
         
@@ -25,7 +25,7 @@ final class TEDataManager {
             // TODO: Gracefully handle errors using Result type
             if let data = data {
                 do {
-                    let response = try self?.decoder.decode(CategoryDescriptionResponse.self, from: data)
+                    let response = try self?.decoder.decode(GenericAPIResponse.self, from: data)
                     completion(response!)
                 }
                 catch {
@@ -37,8 +37,26 @@ final class TEDataManager {
         }.resume()
     }
     
-    func fetchCategoryImages(_ category: String, completion: @escaping (_ data: Any) -> ()) {
-        // Fetch category images with a limit of 9
+    func fetchCategoryImages(_ category: String, completion: @escaping (_ data: GenericAPIResponse2) -> ()) {
+        var urlComponents = URLComponents(string: getEndpoint("categories", endpoint: category))
+        urlComponents?.queryItems = [
+            URLQueryItem(name: "limit", value: "9")
+        ]
+        
+        if let url = URL(string: (urlComponents?.url!.absoluteString)!) {
+            URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+                if let data = data {
+                    do {
+                        let response = try self?.decoder.decode(GenericAPIResponse2.self, from: data)
+                        completion(response!)
+                    } catch {
+                        print("Error decoding category images", error)
+                    }
+                } else {
+                    print("Error fetching category images")
+                }
+            }.resume()
+        }
     }
     
 }
