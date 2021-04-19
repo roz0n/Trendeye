@@ -12,32 +12,41 @@ final class TECacheManager {
     static let shared = TECacheManager()
     
     let imageCache = NSCache<NSString, UIImage>()
-    let textCache = NSCache<NSString, NSString>()
+    let descriptionCache = NSCache<NSString, NSString>()
+    let decoder = JSONDecoder()
     
     func fetchAndCacheImage(from url: String) {
         let imageKey = url as NSString
         
-        guard let _ = imageCache.object(forKey: imageKey) else {
-            if let data = try? Data.init(contentsOf: URL(string: url)!) {
-                if let image = UIImage(data: data) {
-                    self.imageCache.setObject(image, forKey: imageKey)
-                }
+        // Check if image is already cached before attempting to cache it
+        guard imageCache.object(forKey: imageKey) == nil else { return }
+        
+        if let data = try? Data.init(contentsOf: URL(string: url)!) {
+            // Cache new image
+            if let image = UIImage(data: data) {
+                imageCache.setObject(image, forKey: imageKey)
             }
-            return
         }
     }
     
-    func fetchAndCacheText(from url: String) {
-        let textKey = url as NSString
+    func fetchAndCacheDescription(from url: String) {
+        let descriptionKey = url as NSString
+        var descriptionString: String?
         
-        guard let _ = textCache.object(forKey: textKey) else {
-            if let data = try? Data.init(contentsOf: URL(string: url)!) {
-                // TODO: Use JSON decoder on this text
-                if let text = NSString(data: data, encoding: 4) {
-                    self.textCache.setObject(text, forKey: textKey)
-                }
+        // Check if description is already cached before attempting to cache it
+        guard descriptionCache.object(forKey: descriptionKey) == nil else { return }
+        
+        if let data = try? Data.init(contentsOf: URL(string: url)!) {
+            do {
+                let parsedData = try decoder.decode(GenericAPIResponse.self, from: data)
+                descriptionString = parsedData.data.description
+            } catch let error {
+                print("Error decoding description text to cache:", error)
             }
-            return
+            
+            // Descriptions are optional, as in the API itself might return nil, so check it before caching it
+            guard let stringToCache = descriptionString else { return }
+            descriptionCache.setObject(NSString(string: stringToCache), forKey: descriptionKey)
         }
     }
     
