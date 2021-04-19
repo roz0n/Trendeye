@@ -13,13 +13,18 @@ class CategoryImageCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layer.cornerRadius = 8
-        layer.borderWidth = 1
-        layer.borderColor = K.Colors.BorderColor?.cgColor
+        applyStyles()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+        
+    fileprivate func applyStyles() {
+        contentView.clipsToBounds = true
+        layer.cornerRadius = 8
+        layer.borderWidth = 1
+        layer.borderColor = K.Colors.BorderColor?.cgColor
     }
     
 }

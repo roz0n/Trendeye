@@ -12,6 +12,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     var identifier: String!
     var name: String!
     var galleryView: CategoryCollectionView!
+    var galleryImageKeys: [String]?
     
     var descriptionText: String? {
         didSet {
@@ -80,12 +81,12 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }()
     
     override func viewWillAppear(_ animated: Bool) {
-        fetchData()
         applyConfigurations()
     }
     
     override func viewDidLoad() {
         applyLayouts()
+        fetchData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -93,7 +94,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         configureGalleryView()
     }
     
-    // MARK: - Configurations
+    // MARK: - Configuration
     
     fileprivate func applyConfigurations() {
         configureView()
@@ -142,7 +143,14 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     fileprivate func configureGalleryImages(images: [ProjectImage]) {
         let links = images.map { $0.images.small }
-        links.forEach { TEImageCacheManager.shared.fetchAndCacheImage(from: $0) }
+        galleryImageKeys = links
+        
+        links.forEach {
+            TEImageCacheManager.shared.fetchAndCacheImage(from: $0)
+            DispatchQueue.main.async { [weak self] in
+                self?.galleryView.reloadData()
+            }
+        }
     }
     
     // MARK: - UICollectionView Methods
@@ -157,6 +165,18 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = galleryView.dequeueReusableCell(withReuseIdentifier: CategoryImageCell.reuseIdentifier, for: indexPath) as! CategoryImageCell
+        guard galleryImageKeys != nil && galleryImageKeys!.count > 0 else { return cell }
+        
+        let imageKey = (galleryImageKeys?[indexPath.row])! as NSString
+        let imageData = TEImageCacheManager.shared.cache.object(forKey: imageKey)
+        let imageView = UIImageView(image: imageData)
+        
+        cell.contentView.clipsToBounds = true
+        cell.contentView.addSubview(imageView)
+        
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 8
         return cell
     }
     
