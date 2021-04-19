@@ -6,13 +6,15 @@
 //
 
 import UIKit
+import SafariServices
 
-final class CategoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+final class CategoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SFSafariViewControllerDelegate {
     
     var identifier: String!
     var name: String!
     var galleryView: CategoryCollectionView!
     var galleryImageKeys: [String]?
+    var trendListWebView: SFSafariViewController!
     
     var descriptionText: String? {
         didSet {
@@ -67,7 +69,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         return view
     }()
     
-    var trendlistButton: UIButton = {
+    var trendListButton: UIButton = {
         let button = UIButton(type: .system)
         let fontSize: CGFloat = 18
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -98,6 +100,8 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     fileprivate func applyConfigurations() {
         configureView()
         configureDescription()
+        configureWebView()
+        configureTrendListButton()
     }
     
     fileprivate func configureView() {
@@ -144,11 +148,27 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         galleryImageKeys = links
         
         links.forEach {
-            TEImageCacheManager.shared.fetchAndCacheImage(from: $0)
+            TECacheManager.shared.fetchAndCacheImage(from: $0)
             DispatchQueue.main.async { [weak self] in
                 self?.galleryView.reloadData()
             }
         }
+    }
+    
+    fileprivate func configureWebView() {
+        let url = URL(string: TEDataManager.shared.getEndpoint("trends", endpoint: identifier, type: "web"))
+        trendListWebView = SFSafariViewController(url: url!)
+        trendListWebView.delegate = self
+    }
+    
+    fileprivate func configureTrendListButton() {
+        trendListButton.addTarget(self, action: #selector(handleTrendListButtonTap), for: .touchUpInside)
+    }
+    
+    // MARK: - Gestures
+    
+    @objc func handleTrendListButtonTap() {
+        present(trendListWebView, animated: true, completion: nil)
     }
     
     // MARK: - UICollectionView Methods
@@ -166,7 +186,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         guard galleryImageKeys != nil && galleryImageKeys!.count > 0 else { return cell }
         
         let imageKey = (galleryImageKeys?[indexPath.row])! as NSString
-        let imageData = TEImageCacheManager.shared.cache.object(forKey: imageKey)
+        let imageData = TECacheManager.shared.imageCache.object(forKey: imageKey)
         let imageView = UIImageView(frame: cell.contentView.bounds)
         imageView.image = imageData
         
@@ -260,13 +280,13 @@ fileprivate extension CategoryViewController {
         let buttonYPadding: CGFloat = 20
         let buttonXPadding: CGFloat = 14
         let buttonHeight: CGFloat = 50
-        view.addSubview(trendlistButton)
+        view.addSubview(trendListButton)
         NSLayoutConstraint.activate([
-            trendlistButton.topAnchor.constraint(equalTo: galleryContainer.bottomAnchor, constant: buttonYPadding),
-            trendlistButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: buttonXPadding),
-            trendlistButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(buttonXPadding)),
-            trendlistButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(buttonYPadding)),
-            trendlistButton.heightAnchor.constraint(equalToConstant: buttonHeight)
+            trendListButton.topAnchor.constraint(equalTo: galleryContainer.bottomAnchor, constant: buttonYPadding),
+            trendListButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: buttonXPadding),
+            trendListButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(buttonXPadding)),
+            trendListButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(buttonYPadding)),
+            trendListButton.heightAnchor.constraint(equalToConstant: buttonHeight)
         ])
     }
     

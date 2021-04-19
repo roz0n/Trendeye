@@ -12,9 +12,10 @@ final class TEDataManager {
     static let shared = TEDataManager()
     let decoder = JSONDecoder()
     let baseUrl = "https://unofficial-trendlist.herokuapp.com/"
+    let trendListUrl = "https://www.trendlist.org/"
     
-    func getEndpoint(_ resource: String, endpoint: String?) -> String {
-        return "\(baseUrl)\(resource)/\(endpoint ?? "")"
+    func getEndpoint(_ resource: String, endpoint: String?, type: String? = "api") -> String {
+        return "\(type == "api" ? baseUrl : trendListUrl)\(resource)/\(endpoint ?? "")"
     }
     
     func fetchCategoryDescription(_ category: String, completion: @escaping (_ data: GenericAPIResponse) -> Void) {
