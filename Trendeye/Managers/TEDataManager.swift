@@ -18,11 +18,9 @@ final class TEDataManager {
     }
     
     func fetchCategoryDescription(_ category: String, completion: @escaping (_ data: GenericAPIResponse) -> Void) {
-        // Fetch the category description
         guard let url = URL(string: getEndpoint("categories/desc", endpoint: category)) else { return }
         
         URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-            // TODO: Gracefully handle errors using Result type
             if let data = data {
                 do {
                     let response = try self?.decoder.decode(GenericAPIResponse.self, from: data)

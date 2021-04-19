@@ -64,7 +64,6 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     var galleryContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemPink
         return view
     }()
     
@@ -169,14 +168,14 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         
         let imageKey = (galleryImageKeys?[indexPath.row])! as NSString
         let imageData = TEImageCacheManager.shared.cache.object(forKey: imageKey)
-        let imageView = UIImageView(image: imageData)
+        let imageView = UIImageView(frame: cell.contentView.bounds)
+        imageView.image = imageData
         
-        cell.contentView.clipsToBounds = true
         cell.contentView.addSubview(imageView)
-        
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 8
+        
         return cell
     }
     
