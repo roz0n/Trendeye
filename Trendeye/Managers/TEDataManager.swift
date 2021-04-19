@@ -22,25 +22,25 @@ final class TEDataManager {
     func fetchCategoryDescription(_ category: String, completion: @escaping (_ data: CategoryDescriptionResponse?, _ cachedData: String?) -> Void) {
         guard let url = URL(string: getEndpoint("categories/desc", endpoint: category)) else { return }
         
-        // Check cache for stored description data
+        // MARK: - Category Description Cache Check
         let isCached = TECacheManager.shared.checkIfCached(in: TECacheManager.shared.descriptionCache as! NSCache<AnyObject, AnyObject>, for: url.absoluteString)
 
         guard !isCached else {
-            // Call completion with the cached data
             let cachedData = TECacheManager.shared.descriptionCache.object(forKey: url.absoluteString as NSString)
-            print("The category description is already cached:", cachedData)
             completion(nil, cachedData! as String)
             return
         }
         
-        // Perform network request if data is not cached
+        // MARK: - Category Description Network Request
         URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
             if let data = data {
                 do {
                     defer {
-                        // Once the network request completes successfully, cache the response data after we call the completion handler
-                        TECacheManager.shared.fetchAndCacheDescription(from: url.absoluteString)
+                        if error == nil {
+                            TECacheManager.shared.fetchAndCacheDescription(from: url.absoluteString)
+                        }
                     }
+                    
                     let response = try self?.decoder.decode(CategoryDescriptionResponse.self, from: data)
                     completion(response!, nil)
                 }

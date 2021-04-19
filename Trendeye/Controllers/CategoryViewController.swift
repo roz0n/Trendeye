@@ -207,9 +207,8 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     fileprivate func fetchDescription() {
-        // TODO: Do not perform these calls unless the data is not yet in the cache
-        TEDataManager.shared.fetchCategoryDescription(identifier) { [weak self] (descriptionData, cachedData) in
-            self?.handleDescriptionResponse(descriptionData, cachedData)
+        TEDataManager.shared.fetchCategoryDescription(identifier) { [weak self] (descriptionData, cachedDescriptionData) in
+            self?.handleDescriptionResponse(descriptionData, cachedDescriptionData)
         }
     }
     
@@ -223,12 +222,10 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     fileprivate func handleDescriptionResponse(_ response: CategoryDescriptionResponse?, _ cachedData: String?) {
         DispatchQueue.main.async { [weak self] in
             if response == nil && cachedData != nil {
-                print("Data is cached, use cached data")
-                // Use cached data
+                print("Using cached description data")
                 self?.descriptionText = cachedData
             } else if response != nil && cachedData == nil {
-                print("Data is not cached, use response from network request")
-                // Use data returned from network response
+                print("Using fresh description data")
                 self?.descriptionText = response?.data.description
             }
         }
