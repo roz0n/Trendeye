@@ -39,11 +39,9 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     
     func TEMP_PRESENT_CATEGORY() {
         let cvc = CategoryViewController()
+        cvc.identifier = "letterspace"
         cvc.name = "Letterspace"
         cvc.title = "Letterspace"
-        cvc.descriptionText = """
-        Words divided into individual letters or syllables and arranged randomly. The trend is very popular especially in the last two years.
-        """
         navigationController?.pushViewController(cvc, animated: true)
     }
     

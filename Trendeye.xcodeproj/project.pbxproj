@@ -30,6 +30,8 @@
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23AAC191262AA7A700744651 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC190262AA7A700744651 /* CategoryCollectionView.swift */; };
 		23AAC195262ABEBA00744651 /* CategoryImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC194262ABEBA00744651 /* CategoryImageCell.swift */; };
+		23AAC199262AC18600744651 /* TEDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC198262AC18600744651 /* TEDataManager.swift */; };
+		23AAC19D262ACB6800744651 /* CategoryDataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC19C262ACB6800744651 /* CategoryDataModels.swift */; };
 		23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3825E2EE2100241206 /* AppDelegate.swift */; };
 		23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3A25E2EE2100241206 /* SceneDelegate.swift */; };
 		23F80A4225E2EE2400241206 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4125E2EE2400241206 /* Assets.xcassets */; };
@@ -62,6 +64,8 @@
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23AAC190262AA7A700744651 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
 		23AAC194262ABEBA00744651 /* CategoryImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryImageCell.swift; sourceTree = "<group>"; };
+		23AAC198262AC18600744651 /* TEDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEDataManager.swift; sourceTree = "<group>"; };
+		23AAC19C262ACB6800744651 /* CategoryDataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDataModels.swift; sourceTree = "<group>"; };
 		23F80A3525E2EE2100241206 /* Trendeye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trendeye.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23F80A3825E2EE2100241206 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23F80A3A25E2EE2100241206 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -189,6 +193,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		23AAC19B262ACB1900744651 /* ML */ = {
+			isa = PBXGroup;
+			children = (
+				23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */,
+			);
+			path = ML;
+			sourceTree = "<group>";
+		};
 		23F80A2C25E2EE2100241206 = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +239,7 @@
 			children = (
 				23F80A5525E32F0E00241206 /* TEClassifierManager.swift */,
 				232AA37C2627F79000E5E8A1 /* TEFontManager.swift */,
+				23AAC198262AC18600744651 /* TEDataManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -267,7 +280,8 @@
 		23F80A5B25E339F600241206 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */,
+				23AAC19B262ACB1900744651 /* ML */,
+				23AAC19C262ACB6800744651 /* CategoryDataModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -357,6 +371,7 @@
 				23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */,
 				23131AE22621586C00FFF2B3 /* ConfirmationButton.swift in Sources */,
 				232AA39526298B0D00E5E8A1 /* PhotoEnlargeButton.swift in Sources */,
+				23AAC19D262ACB6800744651 /* CategoryDataModels.swift in Sources */,
 				23F80A5625E32F0E00241206 /* TEClassifierManager.swift in Sources */,
 				23AAC195262ABEBA00744651 /* CategoryImageCell.swift in Sources */,
 				23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */,
@@ -367,6 +382,7 @@
 				23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */,
 				23131B072622F67600FFF2B3 /* K.swift in Sources */,
 				23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */,
+				23AAC199262AC18600744651 /* TEDataManager.swift in Sources */,
 				23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

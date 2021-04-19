@@ -7,10 +7,15 @@
 
 import UIKit
 
-class CategoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+final class CategoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    var identifier: String!
     var name: String!
-    var descriptionText: String?
+    var descriptionText: String? {
+        didSet {
+            configureDescription()
+        }
+    }
     var galleryView: CategoryCollectionView!
     
     var headerContainer: UIStackView = {
@@ -66,6 +71,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     }()
     
     override func viewWillAppear(_ animated: Bool) {
+        fetchDescription()
         applyConfigurations()
     }
     
@@ -79,11 +85,11 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     fileprivate func applyConfigurations() {
-        configureNavigation()
+        configureView()
         configureDescription()
     }
     
-    fileprivate func configureNavigation() {
+    fileprivate func configureView() {
         view.backgroundColor = K.Colors.ViewBackground
     }
     
@@ -136,6 +142,20 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = galleryView.dequeueReusableCell(withReuseIdentifier: CategoryImageCell.reuseIdentifier, for: indexPath) as! CategoryImageCell
         return cell
+    }
+    
+    // MARK: - Fetch Data
+
+    fileprivate func fetchDescription() {
+        TEDataManager.shared.fetchCategoryDescription(identifier) { [weak self] (descriptionData) in
+            self?.handleDescriptionResponse(descriptionData)
+        }
+    }
+    
+    fileprivate func handleDescriptionResponse(_ response: CategoryDescriptionResponse) {
+        DispatchQueue.main.async {
+            self.descriptionText = response.data.description
+        }
     }
     
 }
