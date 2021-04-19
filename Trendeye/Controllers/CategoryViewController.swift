@@ -120,18 +120,17 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     fileprivate func configureGalleryView() {
+        // TODO: Use sizeForItemAt to calculate the cell sizes instead of doing this manually how you've done here
         /**
          NOTE: This configuration must be set within `viewDidLayoutSubviews` so that constraints for the container are set before performing calculations with the bounds values.
          */
-        let containerWidth = galleryContainer.bounds.size.width
         let containerHeight = galleryContainer.bounds.size.height
         let numberInRow: CGFloat = 3
         let cellXPadding: CGFloat = 20
-        let cellYPadding: CGFloat = 30
         
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: (containerWidth / numberInRow) - cellXPadding, height:(containerHeight / numberInRow) - cellYPadding)
-        layout.sectionInset = UIEdgeInsets(top: (cellYPadding / 3), left: cellXPadding, bottom: cellYPadding, right: cellXPadding)
+        layout.estimatedItemSize = CGSize(width: (containerHeight / numberInRow) - 15, height:(containerHeight / numberInRow) - 15)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: cellXPadding, bottom: 0, right: cellXPadding)
         
         galleryView = CategoryCollectionView(frame: .zero, collectionViewLayout: layout)
         galleryView.delegate = self
@@ -217,6 +216,8 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
 
 fileprivate extension CategoryViewController {
     
+    // TODO: The hard coded height values are temporary, check `sizeForItemAt`
+    
     func applyLayouts() {
         layoutDescription()
         layoutLabel()
@@ -231,7 +232,8 @@ fileprivate extension CategoryViewController {
         NSLayoutConstraint.activate([
             headerContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: headerPadding),
             headerContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: headerPadding),
-            headerContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(headerPadding))
+            headerContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(headerPadding)),
+            headerContainer.heightAnchor.constraint(equalToConstant: 140)
         ])
     }
     
@@ -260,7 +262,7 @@ fileprivate extension CategoryViewController {
         let buttonHeight: CGFloat = 50
         view.addSubview(trendlistButton)
         NSLayoutConstraint.activate([
-            trendlistButton.topAnchor.constraint(equalTo: galleryContainer.bottomAnchor),
+            trendlistButton.topAnchor.constraint(equalTo: galleryContainer.bottomAnchor, constant: buttonYPadding),
             trendlistButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: buttonXPadding),
             trendlistButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(buttonXPadding)),
             trendlistButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(buttonYPadding)),
