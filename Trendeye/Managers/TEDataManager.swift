@@ -18,14 +18,14 @@ final class TEDataManager {
         return "\(type == "api" ? baseUrl : trendListUrl)\(resource)/\(endpoint ?? "")"
     }
     
-    func fetchCategoryDescription(_ category: String, completion: @escaping (_ data: GenericAPIResponse) -> Void) {
+    func fetchCategoryDescription(_ category: String, completion: @escaping (_ data: GenericAPIResponse, _ remoteUrl: String) -> Void) {
         guard let url = URL(string: getEndpoint("categories/desc", endpoint: category)) else { return }
         
         URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
             if let data = data {
                 do {
                     let response = try self?.decoder.decode(GenericAPIResponse.self, from: data)
-                    completion(response!)
+                    completion(response!, url.absoluteString)
                 }
                 catch {
                     print("Error decoding category description", error)

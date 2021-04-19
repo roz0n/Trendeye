@@ -186,6 +186,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         guard galleryImageKeys != nil && galleryImageKeys!.count > 0 else { return cell }
         
         let imageKey = (galleryImageKeys?[indexPath.row])! as NSString
+        // TODO: Should caching occur inside the data manager as opposed to the VC? That might lend to better separation of concerns.
         let imageData = TECacheManager.shared.imageCache.object(forKey: imageKey)
         let imageView = UIImageView(frame: cell.contentView.bounds)
         imageView.image = imageData
@@ -206,21 +207,25 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     fileprivate func fetchDescription() {
-        TEDataManager.shared.fetchCategoryDescription(identifier) { [weak self] (descriptionData) in
-            self?.handleDescriptionResponse(descriptionData)
+        // TODO: Do not perform these calls unless the data is not yet in the cache
+        TEDataManager.shared.fetchCategoryDescription(identifier) { [weak self] (descriptionData, remoteUrl) in
+            self?.handleDescriptionResponse(descriptionData, remoteUrl)
         }
     }
     
     fileprivate func fetchImages() {
+        // TODO: Do not perform these calls unless the data is not yet in the cache
         TEDataManager.shared.fetchCategoryImages(identifier) { [weak self] (imageData) in
             self?.handleImageResponse(imageData)
         }
     }
     
-    fileprivate func handleDescriptionResponse(_ response: GenericAPIResponse) {
+    fileprivate func handleDescriptionResponse(_ response: GenericAPIResponse, _ remoteUrl: String) {
         DispatchQueue.main.async { [weak self] in
-            // TODO: Cache this data using NSCache preferably
-            self?.descriptionText = response.data.description
+            // TODO: Should caching occur inside the data manager as opposed to the VC? That might lend to better separation of concerns.
+            TECacheManager.shared.fetchAndCacheText(from: remoteUrl)
+            let textKey = remoteUrl as NSString
+            self?.descriptionText = TECacheManager.shared.textCache.object(forKey: textKey) as String?
         }
     }
     

@@ -23,7 +23,6 @@ final class TECacheManager {
                     self.imageCache.setObject(image, forKey: imageKey)
                 }
             }
-            
             return
         }
     }
@@ -33,11 +32,11 @@ final class TECacheManager {
         
         guard let _ = textCache.object(forKey: textKey) else {
             if let data = try? Data.init(contentsOf: URL(string: url)!) {
-                if let text = NSString(data: data, encoding: 10) {
+                // TODO: Use JSON decoder on this text
+                if let text = NSString(data: data, encoding: 4) {
                     self.textCache.setObject(text, forKey: textKey)
                 }
             }
-            
             return
         }
     }
