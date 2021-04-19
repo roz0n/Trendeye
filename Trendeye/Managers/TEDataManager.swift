@@ -18,13 +18,13 @@ final class TEDataManager {
         return "\(type == "api" ? baseUrl : trendListUrl)\(resource)/\(endpoint ?? "")"
     }
     
-    func fetchCategoryDescription(_ category: String, completion: @escaping (_ data: GenericAPIResponse, _ remoteUrl: String) -> Void) {
+    func fetchCategoryDescription(_ category: String, completion: @escaping (_ data: CategoryDescriptionResponse, _ remoteUrl: String) -> Void) {
         guard let url = URL(string: getEndpoint("categories/desc", endpoint: category)) else { return }
         
         URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
             if let data = data {
                 do {
-                    let response = try self?.decoder.decode(GenericAPIResponse.self, from: data)
+                    let response = try self?.decoder.decode(CategoryDescriptionResponse.self, from: data)
                     completion(response!, url.absoluteString)
                 }
                 catch {
@@ -36,7 +36,7 @@ final class TEDataManager {
         }.resume()
     }
     
-    func fetchCategoryImages(_ category: String, completion: @escaping (_ data: GenericAPIResponse2) -> ()) {
+    func fetchCategoryImages(_ category: String, completion: @escaping (_ data: CategoryImagesResponse) -> ()) {
         var urlComponents = URLComponents(string: getEndpoint("categories", endpoint: category))
         urlComponents?.queryItems = [
             URLQueryItem(name: "limit", value: "9")
@@ -46,7 +46,7 @@ final class TEDataManager {
             URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
                 if let data = data {
                     do {
-                        let response = try self?.decoder.decode(GenericAPIResponse2.self, from: data)
+                        let response = try self?.decoder.decode(CategoryImagesResponse.self, from: data)
                         completion(response!)
                     } catch {
                         print("Error decoding category images", error)

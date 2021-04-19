@@ -220,7 +220,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         }
     }
     
-    fileprivate func handleDescriptionResponse(_ response: GenericAPIResponse, _ remoteUrl: String) {
+    fileprivate func handleDescriptionResponse(_ response: CategoryDescriptionResponse, _ remoteUrl: String) {
         DispatchQueue.main.async { [weak self] in
             // TODO: Should caching occur inside the data manager as opposed to the VC? That might lend to better separation of concerns.
             TECacheManager.shared.fetchAndCacheDescription(from: remoteUrl)
@@ -229,7 +229,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         }
     }
     
-    fileprivate func handleImageResponse(_ response: GenericAPIResponse2) {
+    fileprivate func handleImageResponse(_ response: CategoryImagesResponse) {
         DispatchQueue.main.async { [weak self] in
             self?.galleryData = response.data
         }

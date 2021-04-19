@@ -38,7 +38,7 @@ final class TECacheManager {
         
         if let data = try? Data.init(contentsOf: URL(string: url)!) {
             do {
-                let parsedData = try decoder.decode(GenericAPIResponse.self, from: data)
+                let parsedData = try decoder.decode(CategoryDescriptionResponse.self, from: data)
                 descriptionString = parsedData.data.description
             } catch let error {
                 print("Error decoding description text to cache:", error)
