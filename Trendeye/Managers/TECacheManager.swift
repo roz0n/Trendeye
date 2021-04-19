@@ -15,6 +15,13 @@ final class TECacheManager {
     let descriptionCache = NSCache<NSString, NSString>()
     let decoder = JSONDecoder()
     
+    func checkIfCached(in cache: NSCache<AnyObject, AnyObject>, for key: String) -> Bool {
+        // Receive a cache object and a key (this is usually what we've called the remoteUrl)
+        // If the data is present in the cache, return true, otherwise return nil
+        let item = cache.object(forKey: key as NSString)
+        return item == nil ? false : true
+    }
+    
     func fetchAndCacheImage(from url: String) {
         let imageKey = url as NSString
         
@@ -44,7 +51,7 @@ final class TECacheManager {
                 print("Error decoding description text to cache:", error)
             }
             
-            // Descriptions are optional, as in the API itself might return nil, so check it before caching it
+            // Descriptions are optional, because the API itself might return nil, so check it before caching it
             guard let stringToCache = descriptionString else { return }
             descriptionCache.setObject(NSString(string: stringToCache), forKey: descriptionKey)
         }

@@ -208,8 +208,8 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     fileprivate func fetchDescription() {
         // TODO: Do not perform these calls unless the data is not yet in the cache
-        TEDataManager.shared.fetchCategoryDescription(identifier) { [weak self] (descriptionData, remoteUrl) in
-            self?.handleDescriptionResponse(descriptionData, remoteUrl)
+        TEDataManager.shared.fetchCategoryDescription(identifier) { [weak self] (descriptionData, cachedData) in
+            self?.handleDescriptionResponse(descriptionData, cachedData)
         }
     }
     
@@ -220,12 +220,17 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         }
     }
     
-    fileprivate func handleDescriptionResponse(_ response: CategoryDescriptionResponse, _ remoteUrl: String) {
+    fileprivate func handleDescriptionResponse(_ response: CategoryDescriptionResponse?, _ cachedData: String?) {
         DispatchQueue.main.async { [weak self] in
-            // TODO: Should caching occur inside the data manager as opposed to the VC? That might lend to better separation of concerns.
-            TECacheManager.shared.fetchAndCacheDescription(from: remoteUrl)
-            let textKey = remoteUrl as NSString
-            self?.descriptionText = TECacheManager.shared.descriptionCache.object(forKey: textKey) as String?
+            if response == nil && cachedData != nil {
+                print("Data is cached, use cached data")
+                // Use cached data
+                self?.descriptionText = cachedData
+            } else if response != nil && cachedData == nil {
+                print("Data is not cached, use response from network request")
+                // Use data returned from network response
+                self?.descriptionText = response?.data.description
+            }
         }
     }
     
