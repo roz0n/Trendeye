@@ -1,5 +1,5 @@
 //
-//  TEAPIModels.swift
+//  TENetworkModels.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/17/21.

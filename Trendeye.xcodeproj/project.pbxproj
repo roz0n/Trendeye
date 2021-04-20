@@ -31,7 +31,7 @@
 		23AAC191262AA7A700744651 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC190262AA7A700744651 /* CategoryCollectionView.swift */; };
 		23AAC195262ABEBA00744651 /* CategoryImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC194262ABEBA00744651 /* CategoryImageCell.swift */; };
 		23AAC199262AC18600744651 /* TENetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC198262AC18600744651 /* TENetworkManager.swift */; };
-		23AAC19D262ACB6800744651 /* TEAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC19C262ACB6800744651 /* TEAPIModels.swift */; };
+		23AAC19D262ACB6800744651 /* TENetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC19C262ACB6800744651 /* TENetworkModels.swift */; };
 		23AAC1A1262D00A700744651 /* TECacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1A0262D00A700744651 /* TECacheManager.swift */; };
 		23AAC1AA262E9BC800744651 /* TENetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1A9262E9BC800744651 /* TENetworkError.swift */; };
 		23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3825E2EE2100241206 /* AppDelegate.swift */; };
@@ -67,7 +67,7 @@
 		23AAC190262AA7A700744651 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
 		23AAC194262ABEBA00744651 /* CategoryImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryImageCell.swift; sourceTree = "<group>"; };
 		23AAC198262AC18600744651 /* TENetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TENetworkManager.swift; sourceTree = "<group>"; };
-		23AAC19C262ACB6800744651 /* TEAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEAPIModels.swift; sourceTree = "<group>"; };
+		23AAC19C262ACB6800744651 /* TENetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TENetworkModels.swift; sourceTree = "<group>"; };
 		23AAC1A0262D00A700744651 /* TECacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TECacheManager.swift; sourceTree = "<group>"; };
 		23AAC1A9262E9BC800744651 /* TENetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TENetworkError.swift; sourceTree = "<group>"; };
 		23F80A3525E2EE2100241206 /* Trendeye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trendeye.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -295,7 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				23AAC19B262ACB1900744651 /* ML */,
-				23AAC19C262ACB6800744651 /* TEAPIModels.swift */,
+				23AAC19C262ACB6800744651 /* TENetworkModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -387,7 +387,7 @@
 				23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */,
 				23131AE22621586C00FFF2B3 /* ConfirmationButton.swift in Sources */,
 				232AA39526298B0D00E5E8A1 /* PhotoEnlargeButton.swift in Sources */,
-				23AAC19D262ACB6800744651 /* TEAPIModels.swift in Sources */,
+				23AAC19D262ACB6800744651 /* TENetworkModels.swift in Sources */,
 				23F80A5625E32F0E00241206 /* TEClassifierManager.swift in Sources */,
 				23AAC195262ABEBA00744651 /* CategoryImageCell.swift in Sources */,
 				23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */,

@@ -230,14 +230,16 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     fileprivate func fetchImages() {
         // TODO: Do not perform these calls unless the data is not yet in the cache
-        TENetworkManager.shared.fetchCategoryImages(identifier) { [weak self] (imageData) in
-            self?.handleImageResponse(imageData)
-        }
-    }
-    
-    fileprivate func handleImageResponse(_ response: CategoryImagesResponse) {
-        DispatchQueue.main.async { [weak self] in
-            self?.galleryData = response.data
+        TENetworkManager.shared.fetchCategoryImages(identifier) { [weak self] (result) in
+            DispatchQueue.main.async {
+                switch result {
+                    case .success(let imageData):
+                        print("Successfully fetched image data")
+                        self?.galleryData = imageData.data
+                    case .failure(let error):
+                        print(error)
+                }
+            }
         }
     }
     
