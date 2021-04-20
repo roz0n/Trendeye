@@ -15,18 +15,16 @@ final class TECacheManager {
     let descriptionCache = NSCache<NSString, NSString>()
     let decoder = JSONDecoder()
     
-    func checkIfCached(in cache: NSCache<AnyObject, AnyObject>, for key: String) -> Bool {
+    func cacheCheck(in cache: NSCache<AnyObject, AnyObject>, for key: String) -> Bool {
         return cache.object(forKey: key as NSString) == nil ? false : true
     }
     
     func fetchAndCacheImage(from url: String) {
         let imageKey = url as NSString
         
-        // Check if image is already cached before attempting to cache it
         guard imageCache.object(forKey: imageKey) == nil else { return }
         
         if let data = try? Data.init(contentsOf: URL(string: url)!) {
-            // Cache new image
             if let image = UIImage(data: data) {
                 imageCache.setObject(image, forKey: imageKey)
             }
@@ -37,7 +35,6 @@ final class TECacheManager {
         let descriptionKey = url as NSString
         var descriptionString: String?
         
-        // Check if description is already cached before attempting to cache it
         guard descriptionCache.object(forKey: descriptionKey) == nil else { return }
         
         if let data = try? Data.init(contentsOf: URL(string: url)!) {

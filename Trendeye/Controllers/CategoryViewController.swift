@@ -156,7 +156,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     fileprivate func configureWebView() {
-        let url = URL(string: TEDataManager.shared.getEndpoint("trends", endpoint: identifier, type: "web"))
+        let url = URL(string: TENetworkManager.shared.getEndpoint("trends", endpoint: identifier, type: "web"))
         trendListWebView = SFSafariViewController(url: url!)
         trendListWebView.delegate = self
     }
@@ -207,27 +207,31 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     fileprivate func fetchDescription() {
-        TEDataManager.shared.fetchCategoryDescription(identifier) { [weak self] (descriptionData, cachedDescriptionData) in
-            self?.handleDescriptionResponse(descriptionData, cachedDescriptionData)
+        TENetworkManager.shared.fetchCategoryDescription(identifier) { [weak self] (result, cachedData) in
+            DispatchQueue.main.async {
+                guard cachedData == nil else {
+                    print("Using cached description data")
+                    self?.descriptionText = cachedData
+                    return
+                }
+                
+                switch result {
+                    case .success(let descriptionData):
+                        print("Using fresh description data")
+                        self?.descriptionText = descriptionData.data.description
+                    case .failure(let error):
+                        print("Error fetching description data:", error)
+                    case .none:
+                        fatalError("Unexpected error fetching description data")
+                }
+            }
         }
     }
     
     fileprivate func fetchImages() {
         // TODO: Do not perform these calls unless the data is not yet in the cache
-        TEDataManager.shared.fetchCategoryImages(identifier) { [weak self] (imageData) in
+        TENetworkManager.shared.fetchCategoryImages(identifier) { [weak self] (imageData) in
             self?.handleImageResponse(imageData)
-        }
-    }
-    
-    fileprivate func handleDescriptionResponse(_ response: CategoryDescriptionResponse?, _ cachedData: String?) {
-        DispatchQueue.main.async { [weak self] in
-            if response == nil && cachedData != nil {
-                print("Using cached description data")
-                self?.descriptionText = cachedData
-            } else if response != nil && cachedData == nil {
-                print("Using fresh description data")
-                self?.descriptionText = response?.data.description
-            }
         }
     }
     
