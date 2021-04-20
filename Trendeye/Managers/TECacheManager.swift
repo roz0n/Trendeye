@@ -16,10 +16,7 @@ final class TECacheManager {
     let decoder = JSONDecoder()
     
     func checkIfCached(in cache: NSCache<AnyObject, AnyObject>, for key: String) -> Bool {
-        // Receive a cache object and a key (this is usually what we've called the remoteUrl)
-        // If the data is present in the cache, return true, otherwise return nil
-        let item = cache.object(forKey: key as NSString)
-        return item == nil ? false : true
+        return cache.object(forKey: key as NSString) == nil ? false : true
     }
     
     func fetchAndCacheImage(from url: String) {
