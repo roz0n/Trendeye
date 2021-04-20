@@ -11,9 +11,9 @@ final class TECacheManager {
     
     static let shared = TECacheManager()
     
-    let imageCache = NSCache<NSString, UIImage>()
-    let descriptionCache = NSCache<NSString, NSString>()
-    let decoder = JSONDecoder()
+    lazy var imageCache = NSCache<NSString, UIImage>()
+    lazy var descriptionCache = NSCache<NSString, NSString>()
+    lazy var decoder = JSONDecoder()
     
     func checkCache(in cache: NSCache<AnyObject, AnyObject>, for key: String) -> Bool {
         return cache.object(forKey: key as NSString) == nil ? false : true

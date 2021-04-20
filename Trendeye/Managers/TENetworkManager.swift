@@ -10,8 +10,8 @@ import Foundation
 final class TENetworkManager {
     
     static let shared = TENetworkManager()
+    lazy var decoder = JSONDecoder()
     
-    let decoder = JSONDecoder()
     let baseUrl = "https://unofficial-trendlist.herokuapp.com/"
     let trendListUrl = "https://www.trendlist.org/"
     
