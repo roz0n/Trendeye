@@ -15,7 +15,7 @@ final class TECacheManager {
     let descriptionCache = NSCache<NSString, NSString>()
     let decoder = JSONDecoder()
     
-    func cacheCheck(in cache: NSCache<AnyObject, AnyObject>, for key: String) -> Bool {
+    func checkCache(in cache: NSCache<AnyObject, AnyObject>, for key: String) -> Bool {
         return cache.object(forKey: key as NSString) == nil ? false : true
     }
     

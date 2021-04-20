@@ -13,20 +13,12 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     var identifier: String!
     var name: String!
     var galleryView: CategoryCollectionView!
-    var galleryImageKeys: [String]?
+    var galleryImagesLinks: [String]?
     var trendListWebView: SFSafariViewController!
     
     var descriptionText: String? {
         didSet {
             configureDescription()
-        }
-    }
-    
-    var galleryData: [ProjectImage]? {
-        didSet {
-            if let galleryData = galleryData {
-                configureGalleryImages(images: galleryData)
-            }
         }
     }
     
@@ -143,18 +135,6 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         galleryView.fillOther(view: galleryContainer)
     }
     
-    fileprivate func configureGalleryImages(images: [ProjectImage]) {
-        let links = images.map { $0.images.small }
-        galleryImageKeys = links
-        
-        links.forEach {
-            TECacheManager.shared.fetchAndCacheImage(from: $0)
-            DispatchQueue.main.async { [weak self] in
-                self?.galleryView.reloadData()
-            }
-        }
-    }
-    
     fileprivate func configureWebView() {
         let url = URL(string: TENetworkManager.shared.getEndpoint("trends", endpoint: identifier, type: "web"))
         trendListWebView = SFSafariViewController(url: url!)
@@ -183,18 +163,26 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = galleryView.dequeueReusableCell(withReuseIdentifier: CategoryImageCell.reuseIdentifier, for: indexPath) as! CategoryImageCell
-        guard galleryImageKeys != nil && galleryImageKeys!.count > 0 else { return cell }
         
-        let imageKey = (galleryImageKeys?[indexPath.row])! as NSString
-        // TODO: Should caching occur inside the data manager as opposed to the VC? That might lend to better separation of concerns.
+        guard galleryImagesLinks != nil && galleryImagesLinks!.count > 0 && galleryImagesLinks!.count >= indexPath.row else {
+            // There are no images for the category or at this index.
+            // Don't bother to check the cache, just return empty cells with no border.
+            return cell
+        }
+        
+        // MARK: - Cell Image Cache Check
+        // TODO: When we resume the app from a suspended state, the cache clears these images. Either increase the size of the cache, or fetch them again.
+        
+        let imageKey = (galleryImagesLinks?[indexPath.row])! as NSString
         let imageData = TECacheManager.shared.imageCache.object(forKey: imageKey)
         let imageView = UIImageView(frame: cell.contentView.bounds)
-        imageView.image = imageData
         
-        cell.contentView.addSubview(imageView)
+        imageView.image = imageData
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 8
+        cell.applyBorder()
+        cell.contentView.addSubview(imageView)
         
         return cell
     }
@@ -229,13 +217,17 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     fileprivate func fetchImages() {
-        // TODO: Do not perform these calls unless the data is not yet in the cache
         TENetworkManager.shared.fetchCategoryImages(identifier) { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result {
                     case .success(let imageData):
-                        print("Successfully fetched image data")
-                        self?.galleryData = imageData.data
+                        print("Successfully obtained gallery image links, will used cached versions if available")
+                        self?.galleryImagesLinks = imageData.data.map { $0.images.small }
+                        self?.galleryImagesLinks?.forEach { (link) in
+                            // The cache manager will not make a request for the image if it is already cached :)
+                            TECacheManager.shared.fetchAndCacheImage(from: link)
+                            self?.galleryView.reloadData()
+                        }
                     case .failure(let error):
                         print(error)
                 }

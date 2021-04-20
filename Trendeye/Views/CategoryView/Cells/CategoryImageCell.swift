@@ -23,6 +23,10 @@ class CategoryImageCell: UICollectionViewCell {
     fileprivate func applyStyles() {
         contentView.clipsToBounds = true
         layer.cornerRadius = 8
+    }
+    
+    public func applyBorder() {
+        // This method is called externally when the cell is dequeued if needed
         layer.borderWidth = 1
         layer.borderColor = K.Colors.BorderColor?.cgColor
     }

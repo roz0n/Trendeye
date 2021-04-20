@@ -24,7 +24,7 @@ final class TENetworkManager {
         
         // MARK: - Category Description Cache Check
         
-        let isCached = TECacheManager.shared.cacheCheck(in: TECacheManager.shared.descriptionCache as! NSCache<AnyObject, AnyObject>, for: url.absoluteString)
+        let isCached = TECacheManager.shared.checkCache(in: TECacheManager.shared.descriptionCache as! NSCache<AnyObject, AnyObject>, for: url.absoluteString)
         
         guard !isCached else {
             let cachedData = TECacheManager.shared.descriptionCache.object(forKey: url.absoluteString as NSString)
