@@ -220,9 +220,9 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
                         print("Using fresh description data")
                         self?.descriptionText = descriptionData.data.description
                     case .failure(let error):
-                        print("Error fetching description data:", error)
+                        print(error)
                     case .none:
-                        fatalError("Unexpected error fetching description data")
+                        fatalError(TENetworkError.none.rawValue)
                 }
             }
         }

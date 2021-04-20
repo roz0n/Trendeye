@@ -8,8 +8,9 @@
 import Foundation
 
 enum TENetworkError: String, Error {
-    case urlSessionError = "URLSession error"
-    case networkError = "Failed to fetch data"
-    case dataError = "Malformed data recieved from network response"
-    case decoderError = "Failed to decode data"
+    case urlSessionError = "Error: URLSession request failed"
+    case networkError = "Error: Server returned a non-status 200 response"
+    case dataError = "Error: Malformed or nil data recieved from network response"
+    case decoderError = "Error: Failed to decode response data"
+    case none = "Error: Category network request handler unexpectedly returned nil"
 }
