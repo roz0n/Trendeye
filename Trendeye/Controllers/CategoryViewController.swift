@@ -223,9 +223,9 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
                     case .success(let imageData):
                         print("Successfully obtained gallery image links, will used cached versions if available")
                         self?.galleryImagesLinks = imageData.data.map { $0.images.small }
-                        self?.galleryImagesLinks?.forEach { (link) in
+                        self?.galleryImagesLinks?.forEach {
                             // The cache manager will not make a request for the image if it is already cached :)
-                            TECacheManager.shared.fetchAndCacheImage(from: link)
+                            TECacheManager.shared.fetchAndCacheImage(from: $0)
                             self?.galleryView.reloadData()
                         }
                     case .failure(let error):

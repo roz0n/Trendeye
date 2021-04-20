@@ -197,12 +197,12 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		23AAC19B262ACB1900744651 /* ML */ = {
+		23AAC19B262ACB1900744651 /* Classifiers */ = {
 			isa = PBXGroup;
 			children = (
 				23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */,
 			);
-			path = ML;
+			path = Classifiers;
 			sourceTree = "<group>";
 		};
 		23AAC1A8262E9BA200744651 /* Utils */ = {
@@ -294,7 +294,7 @@
 		23F80A5B25E339F600241206 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				23AAC19B262ACB1900744651 /* ML */,
+				23AAC19B262ACB1900744651 /* Classifiers */,
 				23AAC19C262ACB6800744651 /* TENetworkModels.swift */,
 			);
 			path = Models;
