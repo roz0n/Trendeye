@@ -19,7 +19,6 @@ final class TENetworkManager {
         return "\(type == "api" ? baseUrl : trendListUrl)\(resource)/\(endpoint ?? "")"
     }
     
-    
     func fetchCategoryDescription(_ category: String, completion: @escaping (_ responseData: Result<CategoryDescriptionResponse, TENetworkError>?, _ cachedData: String?) -> Void) {
         guard let url = URL(string: getEndpoint("categories/desc", endpoint: category)) else { return }
 
@@ -68,6 +67,11 @@ final class TENetworkManager {
     func fetchCategoryImages(_ category: String, completion: @escaping (_ data: CategoryImagesResponse) -> ()) {
         var urlComponents = URLComponents(string: getEndpoint("categories", endpoint: category))
         urlComponents?.queryItems = [URLQueryItem(name: "limit", value: "9")]
+        
+        // MARK: - Category Image Cache Check
+        
+        
+        // MARK: - Category Image Network Request
         
         if let url = URL(string: (urlComponents?.url!.absoluteString)!) {
             URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
