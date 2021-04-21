@@ -37,8 +37,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         view.textContainer.maximumNumberOfLines = 0
         view.textContainer.lineBreakMode = .byWordWrapping
         view.isScrollEnabled = false
-        view.backgroundColor = .clear
-        view.sizeToFit()
+        view.backgroundColor = K.Colors.ViewBackground
         return view
     }()
     
@@ -110,6 +109,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
                 NSAttributedString.Key.paragraphStyle: paragraphStyle,
                 NSAttributedString.Key.foregroundColor: UIColor.white,
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize, weight: .medium)])
+        descriptionView.sizeToFit()
     }
     
     fileprivate func configureGalleryView() {
@@ -264,24 +264,23 @@ fileprivate extension CategoryViewController {
             headerContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: headerPadding),
             headerContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: headerPadding),
             headerContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(headerPadding)),
-            headerContainer.heightAnchor.constraint(equalToConstant: 140)
         ])
     }
     
     func layoutLabel() {
-        let headerXPadding: CGFloat = 1
         let headerYPadding: CGFloat = 10
         view.addSubview(galleryLabel)
         NSLayoutConstraint.activate([
             galleryLabel.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: headerYPadding),
-            galleryLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: headerXPadding)
+            galleryLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor)
         ])
     }
     
     func layoutGallery() {
+        let containerYPadding: CGFloat = 10
         view.addSubview(galleryContainer)
         NSLayoutConstraint.activate([
-            galleryContainer.topAnchor.constraint(equalTo: galleryLabel.bottomAnchor),
+            galleryContainer.topAnchor.constraint(equalTo: galleryLabel.bottomAnchor, constant: containerYPadding),
             galleryContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             galleryContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])

@@ -45,11 +45,10 @@ class CameraControlsView: UIView {
     
     var galleryButton: UIButton = {
         let button = UIButton(type: .system)
-        let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .medium)
+        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .medium)
         let icon = UIImage(systemName: "photo.on.rectangle.angled", withConfiguration: config)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
-//        button.backgroundColor = UIColor(red: 0.094, green: 0.094, blue: 0.094, alpha: 0.35)
         button.setImage(icon, for: .normal)
         return button
     }()

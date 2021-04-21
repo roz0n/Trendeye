@@ -45,7 +45,7 @@ final class ClassificationViewController: UITableViewController, TEClassifierDel
     
     fileprivate func overwriteTableStyles() {
         let table = UITableView(frame: self.tableView.frame, style: .grouped)
-        table.register(ClassifierResultCell.self, forCellReuseIdentifier: ClassifierResultCell.reuseIdentifier)
+        table.register(ClassificationResultCell.self, forCellReuseIdentifier: ClassificationResultCell.reuseIdentifier)
         tableView = table
     }
     
@@ -96,7 +96,7 @@ final class ClassificationViewController: UITableViewController, TEClassifierDel
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ClassifierResultCell.reuseIdentifier, for: indexPath) as! ClassifierResultCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ClassificationResultCell.reuseIdentifier, for: indexPath) as! ClassificationResultCell
         let result = results?[indexPath.row]
         cell.resultData = result
         cell.accessoryType = .disclosureIndicator

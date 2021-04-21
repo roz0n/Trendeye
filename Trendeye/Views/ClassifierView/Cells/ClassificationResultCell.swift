@@ -1,5 +1,5 @@
 //
-//  ClassifierResultCell.swift
+//  ClassificationResultCell.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/10/21.
@@ -8,9 +8,9 @@
 import UIKit
 import Vision
 
-class ClassifierResultCell: UITableViewCell {
+class ClassificationResultCell: UITableViewCell {
     
-    static let reuseIdentifier = "ClassifierResultCell"
+    static let reuseIdentifier = "ClassificationResultCell"
     
     var resultData: VNClassificationObservation! {
         didSet {
@@ -49,14 +49,14 @@ class ClassifierResultCell: UITableViewCell {
     
     
     fileprivate func applyStyles() {
-        backgroundColor = K.Colors.NavigationBar
+        backgroundColor = K.Colors.ViewBackground
     }
     
 }
 
 // MARK: - Layout
 
-fileprivate extension ClassifierResultCell {
+fileprivate extension ClassificationResultCell {
     
     func applyLayouts() {
         layoutLabels()
