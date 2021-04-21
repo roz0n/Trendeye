@@ -64,9 +64,9 @@ final class TENetworkManager {
         }.resume()
     }
     
-    func fetchCategoryImages(_ category: String, completion: @escaping (_ responseData: Result<CategoryImagesResponse, TENetworkError>) -> Void) {
+    func fetchCategoryImages(_ category: String, _ limit: Int, completion: @escaping (_ responseData: Result<CategoryImagesResponse, TENetworkError>) -> Void) {
         var urlComponents = URLComponents(string: getEndpoint("categories", endpoint: category))
-        urlComponents?.queryItems = [URLQueryItem(name: "limit", value: "12")]
+        urlComponents?.queryItems = [URLQueryItem(name: "limit", value: String(limit))]
         
         guard let url = URL(string: (urlComponents?.url!.absoluteString)!) else { return }
         
