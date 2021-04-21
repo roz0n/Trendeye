@@ -45,11 +45,11 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         view.textContainer.lineBreakMode = .byWordWrapping
         view.isScrollEnabled = false
         view.isEditable = false
-//        view.backgroundColor = K.Colors.ViewBackground
+        //        view.backgroundColor = K.Colors.ViewBackground
         return view
     }()
     
-    var galleryContainer: UIView = {
+    var imageCollectionContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -84,7 +84,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     fileprivate func configureView() {
-//        view.backgroundColor = K.Colors.ViewBackground
+        //        view.backgroundColor = K.Colors.ViewBackground
     }
     
     fileprivate func configureDescription() {
@@ -251,8 +251,8 @@ fileprivate extension CategoryViewController {
     func applyLayouts() {
         layoutContainer()
         layoutHeader()
-        layoutGallery()
-//        layoutButton()
+        layoutImageCollection()
+        layoutButton()
     }
     
     func layoutContainer() {
@@ -276,29 +276,15 @@ fileprivate extension CategoryViewController {
         ])
     }
     
-//    func layoutLabel() {
-//        let headerYPadding: CGFloat = 10
-//        bodyContainer.addSubview(galleryLabel)
-//        NSLayoutConstraint.activate([
-//            galleryLabel.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: headerYPadding),
-//            galleryLabel.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor),
-//            galleryLabel.trailingAnchor.constraint(equalTo: headerContainer.trailingAnchor)
-//        ])
-//    }
-    
-    func layoutGallery() {
+    func layoutImageCollection() {
         let containerYPadding: CGFloat = 10
-
-        bodyContainer.addSubview(galleryContainer)
-        galleryContainer.addSubview(imageCollection)
-        imageCollection.fillOther(view: galleryContainer)
-        galleryContainer.backgroundColor = .brown
-
+        bodyContainer.addSubview(imageCollectionContainer)
+        imageCollectionContainer.addSubview(imageCollection)
+        imageCollection.fillOther(view: imageCollectionContainer)
         NSLayoutConstraint.activate([
-            galleryContainer.topAnchor.constraint(equalTo: headerContainer.bottomAnchor),
-            galleryContainer.leadingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.leadingAnchor),
-            galleryContainer.trailingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.trailingAnchor),
-            galleryContainer.bottomAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.bottomAnchor)
+            imageCollectionContainer.topAnchor.constraint(equalTo: headerContainer.bottomAnchor),
+            imageCollectionContainer.leadingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.leadingAnchor),
+            imageCollectionContainer.trailingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.trailingAnchor),
         ])
     }
     
@@ -308,7 +294,7 @@ fileprivate extension CategoryViewController {
         let buttonHeight: CGFloat = 50
         view.addSubview(trendListButton)
         NSLayoutConstraint.activate([
-            trendListButton.topAnchor.constraint(equalTo: galleryContainer.bottomAnchor, constant: buttonYPadding),
+            trendListButton.topAnchor.constraint(equalTo: imageCollectionContainer.bottomAnchor, constant: buttonYPadding),
             trendListButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: buttonXPadding),
             trendListButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(buttonXPadding)),
             trendListButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(buttonYPadding)),
