@@ -10,6 +10,7 @@ import UIKit
 class CategoryCollectionHeaderView: UICollectionReusableView {
     
     static let reuseIdentifier = "CategoryCollectionHeader"
+    let padding: CGFloat = 16
     
     var label: UITextView = {
         let label = UITextView()
@@ -28,8 +29,17 @@ class CategoryCollectionHeaderView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        backgroundColor = K.Colors.ViewBackground
+        addBorder(borders: [.Bottom], color: K.Colors.BorderColor!, width: 1)
         addSubview(label)
-        label.fillOther(view: self)
+        
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            label.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: padding),
+            label.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            label.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -(padding))
+        ])
     }
     
     required init?(coder: NSCoder) {

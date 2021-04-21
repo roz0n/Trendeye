@@ -27,7 +27,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     var mainContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = K.Colors.ViewBackground
         return view
     }()
     
@@ -46,7 +46,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         view.textContainer.lineBreakMode = .byWordWrapping
         view.isScrollEnabled = false
         view.isEditable = false
-        view.backgroundColor = .clear
+        view.backgroundColor = K.Colors.ViewBackground
         return view
     }()
     
@@ -92,7 +92,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     fileprivate func configureView() {
-        //        view.backgroundColor = K.Colors.ViewBackground
+        // view.backgroundColor = K.Colors.ViewBackground
     }
     
     fileprivate func configureDescription() {
@@ -115,9 +115,10 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     fileprivate func configureImageCollection() {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: imageCollectionSpacing, bottom: imageCollectionSpacing, right: imageCollectionSpacing)
+        layout.sectionInset = UIEdgeInsets(top: imageCollectionSpacing, left: imageCollectionSpacing, bottom: imageCollectionSpacing, right: imageCollectionSpacing)
         layout.minimumLineSpacing = imageCollectionSpacing
         layout.minimumInteritemSpacing = imageCollectionSpacing
+        layout.sectionHeadersPinToVisibleBounds = true
         
         imageCollection = CategoryCollectionView(frame: .zero, collectionViewLayout: layout)
         imageCollection.delegate = self
@@ -170,7 +171,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let header = CategoryCollectionHeaderView()
-        return CGSize(width: imageCollection?.frame.width ?? 0, height: header.label.frame.height)
+        return CGSize(width: imageCollection?.frame.width ?? 0, height: header.label.frame.height + (header.padding / 8))
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -276,11 +277,11 @@ fileprivate extension CategoryViewController {
     }
     
     func layoutHeader() {
-        let headerPadding: CGFloat = 14
+        let headerPadding: CGFloat = 16
         headerContainer.addArrangedSubview(descriptionView)
         mainContainer.addSubview(headerContainer)
         NSLayoutConstraint.activate([
-            headerContainer.topAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.topAnchor, constant: 0),
+            headerContainer.topAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.topAnchor, constant: headerPadding),
             headerContainer.leadingAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.leadingAnchor, constant: headerPadding),
             headerContainer.trailingAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.trailingAnchor, constant: -(headerPadding)),
         ])
@@ -291,7 +292,7 @@ fileprivate extension CategoryViewController {
         imageCollectionContainer.addSubview(imageCollection)
         imageCollection.fillOther(view: imageCollectionContainer)
         NSLayoutConstraint.activate([
-            imageCollectionContainer.topAnchor.constraint(equalTo: headerContainer.bottomAnchor),
+            imageCollectionContainer.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: (imageCollectionSpacing / 2)),
             imageCollectionContainer.leadingAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.leadingAnchor),
             imageCollectionContainer.trailingAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.trailingAnchor),
         ])
@@ -299,7 +300,7 @@ fileprivate extension CategoryViewController {
     
     func layoutButton() {
         let buttonYPadding: CGFloat = 20
-        let buttonXPadding: CGFloat = 14
+        let buttonXPadding: CGFloat = 16
         let buttonHeight: CGFloat = 50
         view.addSubview(trendListButtonContainer)
         trendListButtonContainer.addSubview(trendListButton)
