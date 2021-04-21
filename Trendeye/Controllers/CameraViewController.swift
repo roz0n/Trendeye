@@ -51,7 +51,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         applyConfigurations()
         
         // REMOVE:
-        // TEMP_PRESENT_CATEGORY()
+         TEMP_PRESENT_CATEGORY()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

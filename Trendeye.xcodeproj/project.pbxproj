@@ -16,7 +16,7 @@
 		23131AF926219DAC00FFF2B3 /* ClassificationResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AF826219DAC00FFF2B3 /* ClassificationResultCell.swift */; };
 		23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */; };
 		23131B072622F67600FFF2B3 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B062622F67600FFF2B3 /* K.swift */; };
-		23131B0B2623863200FFF2B3 /* ClassifierTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B0A2623863200FFF2B3 /* ClassifierTableHeaderView.swift */; };
+		23131B0B2623863200FFF2B3 /* ClassificationTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B0A2623863200FFF2B3 /* ClassificationTableHeaderView.swift */; };
 		232AA37D2627F79000E5E8A1 /* TEFontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA37C2627F79000E5E8A1 /* TEFontManager.swift */; };
 		232AA3852628091C00E5E8A1 /* Satoshi-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3802628091C00E5E8A1 /* Satoshi-Light.otf */; };
 		232AA3862628091C00E5E8A1 /* Satoshi-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3812628091C00E5E8A1 /* Satoshi-Black.otf */; };
@@ -24,7 +24,7 @@
 		232AA3882628091C00E5E8A1 /* Satoshi-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3832628091C00E5E8A1 /* Satoshi-Medium.otf */; };
 		232AA3892628091C00E5E8A1 /* Satoshi-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3842628091C00E5E8A1 /* Satoshi-Regular.otf */; };
 		232AA38C2628098800E5E8A1 /* Fontshare EULA.txt in Resources */ = {isa = PBXBuildFile; fileRef = 232AA38B2628098800E5E8A1 /* Fontshare EULA.txt */; };
-		232AA3912628FF9A00E5E8A1 /* ClassifierTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA3902628FF9A00E5E8A1 /* ClassifierTableFooterView.swift */; };
+		232AA3912628FF9A00E5E8A1 /* ClassificationTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA3902628FF9A00E5E8A1 /* ClassificationTableFooterView.swift */; };
 		232AA39526298B0D00E5E8A1 /* PhotoEnlargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA39426298B0D00E5E8A1 /* PhotoEnlargeButton.swift */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
@@ -39,7 +39,7 @@
 		23F80A4225E2EE2400241206 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4125E2EE2400241206 /* Assets.xcassets */; };
 		23F80A4525E2EE2400241206 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4325E2EE2400241206 /* LaunchScreen.storyboard */; };
 		23F80A4F25E2EEA400241206 /* TrendClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */; };
-		23F80A5625E32F0E00241206 /* TEClassifierManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A5525E32F0E00241206 /* TEClassifierManager.swift */; };
+		23F80A5625E32F0E00241206 /* TEClassificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A5525E32F0E00241206 /* TEClassificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +52,7 @@
 		23131AF826219DAC00FFF2B3 /* ClassificationResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationResultCell.swift; sourceTree = "<group>"; };
 		23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		23131B062622F67600FFF2B3 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
-		23131B0A2623863200FFF2B3 /* ClassifierTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierTableHeaderView.swift; sourceTree = "<group>"; };
+		23131B0A2623863200FFF2B3 /* ClassificationTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationTableHeaderView.swift; sourceTree = "<group>"; };
 		232AA37C2627F79000E5E8A1 /* TEFontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEFontManager.swift; sourceTree = "<group>"; };
 		232AA3802628091C00E5E8A1 /* Satoshi-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Light.otf"; sourceTree = "<group>"; };
 		232AA3812628091C00E5E8A1 /* Satoshi-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Black.otf"; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		232AA3832628091C00E5E8A1 /* Satoshi-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Medium.otf"; sourceTree = "<group>"; };
 		232AA3842628091C00E5E8A1 /* Satoshi-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Regular.otf"; sourceTree = "<group>"; };
 		232AA38B2628098800E5E8A1 /* Fontshare EULA.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Fontshare EULA.txt"; sourceTree = "<group>"; };
-		232AA3902628FF9A00E5E8A1 /* ClassifierTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierTableFooterView.swift; sourceTree = "<group>"; };
+		232AA3902628FF9A00E5E8A1 /* ClassificationTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationTableFooterView.swift; sourceTree = "<group>"; };
 		232AA39426298B0D00E5E8A1 /* PhotoEnlargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEnlargeButton.swift; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
@@ -77,7 +77,7 @@
 		23F80A4425E2EE2400241206 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		23F80A4625E2EE2400241206 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TrendClassifier.mlmodel; sourceTree = "<group>"; };
-		23F80A5525E32F0E00241206 /* TEClassifierManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEClassifierManager.swift; sourceTree = "<group>"; };
+		23F80A5525E32F0E00241206 /* TEClassificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEClassificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,14 +125,14 @@
 			path = LaunchScreen;
 			sourceTree = "<group>";
 		};
-		23131AF226218F5100FFF2B3 /* ClassifierView */ = {
+		23131AF226218F5100FFF2B3 /* ClassificationView */ = {
 			isa = PBXGroup;
 			children = (
 				23131AF726219D7C00FFF2B3 /* Cells */,
-				23131B0A2623863200FFF2B3 /* ClassifierTableHeaderView.swift */,
-				232AA3902628FF9A00E5E8A1 /* ClassifierTableFooterView.swift */,
+				23131B0A2623863200FFF2B3 /* ClassificationTableHeaderView.swift */,
+				232AA3902628FF9A00E5E8A1 /* ClassificationTableFooterView.swift */,
 			);
-			path = ClassifierView;
+			path = ClassificationView;
 			sourceTree = "<group>";
 		};
 		23131AF726219D7C00FFF2B3 /* Cells */ = {
@@ -250,7 +250,7 @@
 		23F80A5425E32EBC00241206 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				23F80A5525E32F0E00241206 /* TEClassifierManager.swift */,
+				23F80A5525E32F0E00241206 /* TEClassificationManager.swift */,
 				232AA37C2627F79000E5E8A1 /* TEFontManager.swift */,
 				23AAC198262AC18600744651 /* TENetworkManager.swift */,
 				23AAC1A0262D00A700744651 /* TECacheManager.swift */,
@@ -284,7 +284,7 @@
 				232AA39926298B2D00E5E8A1 /* GlobalViews */,
 				23131AEB26216A4B00FFF2B3 /* LaunchScreen */,
 				23131B09262385D800FFF2B3 /* CategoryView */,
-				23131AF226218F5100FFF2B3 /* ClassifierView */,
+				23131AF226218F5100FFF2B3 /* ClassificationView */,
 				23131ADD262155F700FFF2B3 /* ConfirmationView */,
 				23131AD0261FC5D600FFF2B3 /* CameraView */,
 			);
@@ -376,7 +376,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23AAC191262AA7A700744651 /* CategoryCollectionView.swift in Sources */,
-				23131B0B2623863200FFF2B3 /* ClassifierTableHeaderView.swift in Sources */,
+				23131B0B2623863200FFF2B3 /* ClassificationTableHeaderView.swift in Sources */,
 				23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */,
 				232AA37D2627F79000E5E8A1 /* TEFontManager.swift in Sources */,
 				23131AF526219D6A00FFF2B3 /* ClassificationViewController.swift in Sources */,
@@ -388,13 +388,13 @@
 				23131AE22621586C00FFF2B3 /* ConfirmationButton.swift in Sources */,
 				232AA39526298B0D00E5E8A1 /* PhotoEnlargeButton.swift in Sources */,
 				23AAC19D262ACB6800744651 /* TENetworkModels.swift in Sources */,
-				23F80A5625E32F0E00241206 /* TEClassifierManager.swift in Sources */,
+				23F80A5625E32F0E00241206 /* TEClassificationManager.swift in Sources */,
 				23AAC195262ABEBA00744651 /* CategoryImageCell.swift in Sources */,
 				23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */,
 				23131AF926219DAC00FFF2B3 /* ClassificationResultCell.swift in Sources */,
 				23131ADB2621504A00FFF2B3 /* ConfirmationViewController.swift in Sources */,
 				23F80A4F25E2EEA400241206 /* TrendClassifier.mlmodel in Sources */,
-				232AA3912628FF9A00E5E8A1 /* ClassifierTableFooterView.swift in Sources */,
+				232AA3912628FF9A00E5E8A1 /* ClassificationTableFooterView.swift in Sources */,
 				23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */,
 				23131B072622F67600FFF2B3 /* K.swift in Sources */,
 				23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */,

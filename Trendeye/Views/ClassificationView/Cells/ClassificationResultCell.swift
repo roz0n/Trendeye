@@ -14,8 +14,8 @@ class ClassificationResultCell: UITableViewCell {
     
     var resultData: VNClassificationObservation! {
         didSet {
-            identifierLabel.text = TEClassifierManager.shared.indentifiers[resultData.identifier]
-            confidenceLabel.text = "\(TEClassifierManager.shared.convertConfidenceToPercent(resultData.confidence))%"
+            identifierLabel.text = TEClassificationManager.shared.indentifiers[resultData.identifier]
+            confidenceLabel.text = "\(TEClassificationManager.shared.convertConfidenceToPercent(resultData.confidence))%"
         }
     }
     

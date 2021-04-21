@@ -1,5 +1,5 @@
 //
-//  ClassifierTableFooterView.swift
+//  ClassificationTableFooterView.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/15/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ClassifierTableFooterView: UITextView {
+class ClassificationTableFooterView: UITextView {
     
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)

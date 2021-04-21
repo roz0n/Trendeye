@@ -1,5 +1,5 @@
 //
-//  TEClassifierManager.swift
+//  TEClassificationManager.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 2/21/21.
@@ -9,21 +9,21 @@ import UIKit
 import CoreML
 import Vision
 
-enum TEClassifierError: Error {
+enum TEClassificationError: Error {
     case modelError
     case classificationError
     case handlerError
 }
 
-protocol TEClassifierDelegate {
-    func didFinishClassifying(_ sender: TEClassifierManager?, results: [VNClassificationObservation])
-    func didError(_ sender: TEClassifierManager?, error: Error?)
+protocol TEClassificationDelegate {
+    func didFinishClassifying(_ sender: TEClassificationManager?, results: [VNClassificationObservation])
+    func didError(_ sender: TEClassificationManager?, error: Error?)
 }
 
-class TEClassifierManager {
+class TEClassificationManager {
     
-    static let shared = TEClassifierManager()
-    var delegate: TEClassifierDelegate?
+    static let shared = TEClassificationManager()
+    var delegate: TEClassificationDelegate?
     
     let indentifiers: [String: String] = [
         "ik-blue": "IK Blue",
@@ -70,7 +70,7 @@ class TEClassifierManager {
         let visionHandler = VNImageRequestHandler(ciImage: image)
         
         guard let mlModel = try? VNCoreMLModel(for: TrendClassifier(configuration: configuration).model) else {
-            self.delegate?.didError(self, error: TEClassifierError.modelError)
+            self.delegate?.didError(self, error: TEClassificationError.modelError)
             return
         }
         
@@ -81,7 +81,7 @@ class TEClassifierManager {
             }
             
             guard let results = request.results as? [VNClassificationObservation] else {
-                self?.delegate?.didError(self, error: TEClassifierError.classificationError)
+                self?.delegate?.didError(self, error: TEClassificationError.classificationError)
                 return
             }
             
@@ -91,7 +91,7 @@ class TEClassifierManager {
         do {
             try visionHandler.perform([visionRequest])
         } catch {
-            self.delegate?.didError(self, error: TEClassifierError.handlerError)
+            self.delegate?.didError(self, error: TEClassificationError.handlerError)
         }
     }
     

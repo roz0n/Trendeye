@@ -8,11 +8,11 @@
 import UIKit
 import Vision
 
-final class ClassificationViewController: UITableViewController, TEClassifierDelegate {
+final class ClassificationViewController: UITableViewController, TEClassificationDelegate {
     
-    var classifier = TEClassifierManager()
-    var tableHeader = ClassifierTableHeaderView()
-    var tableFooter = ClassifierTableFooterView()
+    var classifier = TEClassificationManager()
+    var tableHeader = ClassificationTableHeaderView()
+    var tableFooter = ClassificationTableFooterView()
     var photo: UIImage!
     var results: [VNClassificationObservation]?
     
@@ -105,7 +105,7 @@ final class ClassificationViewController: UITableViewController, TEClassifierDel
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let result = results?[indexPath.row]
-        let category = TEClassifierManager.shared.indentifiers[result!.identifier]
+        let category = TEClassificationManager.shared.indentifiers[result!.identifier]
         let categoryViewController = CategoryViewController()
         
         categoryViewController.title = category
@@ -133,9 +133,9 @@ final class ClassificationViewController: UITableViewController, TEClassifierDel
         return 350
     }
     
-    // MARK: - TEClassifierDelegate
+    // MARK: - TEClassificationDelegate
     
-    func didFinishClassifying(_ sender: TEClassifierManager?, results: [VNClassificationObservation]) {
+    func didFinishClassifying(_ sender: TEClassificationManager?, results: [VNClassificationObservation]) {
         if !results.isEmpty {
             self.results = results
         } else {
@@ -143,9 +143,9 @@ final class ClassificationViewController: UITableViewController, TEClassifierDel
         }
     }
     
-    func didError(_ sender: TEClassifierManager?, error: Error?) {
+    func didError(_ sender: TEClassificationManager?, error: Error?) {
         if let error = error {
-            switch error as! TEClassifierError {
+            switch error as! TEClassificationError {
                 case .modelError:
                     print("Classification error: failed to initialize model")
                 case .classificationError:

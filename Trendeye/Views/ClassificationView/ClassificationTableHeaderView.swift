@@ -1,5 +1,5 @@
 //
-//  ClassifierTableHeaderView.swift
+//  ClassificationTableHeaderView.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/11/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ClassifierTableHeaderView: UIView {
+class ClassificationTableHeaderView: UIView {
     
     let buttonSize: CGFloat = 55
     var enlargeButton: PhotoEnlargeButton!
@@ -49,7 +49,7 @@ class ClassifierTableHeaderView: UIView {
 
 // MARK: - Layout
 
-fileprivate extension ClassifierTableHeaderView {
+fileprivate extension ClassificationTableHeaderView {
     
     func applyLayouts() {
         layoutPhotoView()
