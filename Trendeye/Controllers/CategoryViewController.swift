@@ -12,9 +12,9 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     var identifier: String!
     var name: String!
-    var galleryView: CategoryCollectionView!
-    var galleryImagesLinks: [String]?
-    let galleryLayoutSpacing: CGFloat = 16
+    var imageCollection: CategoryCollectionView!
+    var imageCollectionLinks: [String]?
+    let imageCollectionSpacing: CGFloat = 16
     var trendListWebView: SFSafariViewController!
     
     var descriptionText: String? {
@@ -49,20 +49,6 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         return view
     }()
     
-    var galleryLabel: UITextView = {
-        let label = UITextView()
-        let fontSize: CGFloat = 18
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textContainer.maximumNumberOfLines = 0
-        label.textContainer.lineBreakMode = .byWordWrapping
-        label.isScrollEnabled = false
-        label.isUserInteractionEnabled = false
-        label.backgroundColor = .clear
-        label.font = AppFonts.Satoshi.font(face: .bold, size: fontSize)
-        label.text = "More like this"
-        return label
-    }()
-    
     var galleryContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -80,10 +66,6 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         button.backgroundColor = K.Colors.White
         return button
     }()
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        applyConfigurations()
-//    }
     
     override func viewDidLoad() {
         applyConfigurations()
@@ -123,26 +105,26 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     fileprivate func configureGalleryView() {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: galleryLayoutSpacing, bottom: 0, right: galleryLayoutSpacing)
-        layout.minimumLineSpacing = galleryLayoutSpacing
-        layout.minimumInteritemSpacing = galleryLayoutSpacing
+        layout.sectionInset = UIEdgeInsets(top: 0, left: imageCollectionSpacing, bottom: 0, right: imageCollectionSpacing)
+        layout.minimumLineSpacing = imageCollectionSpacing
+        layout.minimumInteritemSpacing = imageCollectionSpacing
         
-        galleryView = CategoryCollectionView(frame: .zero, collectionViewLayout: layout)
-        galleryView.delegate = self
-        galleryView.dataSource = self
+        imageCollection = CategoryCollectionView(frame: .zero, collectionViewLayout: layout)
+        imageCollection.delegate = self
+        imageCollection.dataSource = self
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellsInRow: CGFloat = 3
-        let cellPadding: CGFloat = galleryLayoutSpacing
+        let cellPadding: CGFloat = imageCollectionSpacing
         
         // Obtain amount of total padding required by the row
-        let totalInsetSize: CGFloat = (galleryLayoutSpacing * 2)
+        let totalInsetSize: CGFloat = (imageCollectionSpacing * 2)
         let totalCellPadding: CGFloat = (cellsInRow - 1) * cellPadding // cellsInRow - 1 because the last item in the row goes without padding
         let totalPadding = totalInsetSize + totalCellPadding
         
         // Subtract the total padding from the width of the gallery view and divide by the number of cells in the row
-        let cellSize: CGFloat = (galleryView.bounds.width - totalPadding) / 3
+        let cellSize: CGFloat = (imageCollection.bounds.width - totalPadding) / 3
         return CGSize(width: cellSize, height: cellSize)
     }
     
@@ -168,14 +150,27 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         return 1
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier, for: indexPath) as! CategoryCollectionHeaderView
+        } else {
+            return UICollectionReusableView()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let header = CategoryCollectionHeaderView()
+        return CGSize(width: imageCollection?.frame.width ?? 0, height: header.label.frame.height)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return galleryImagesLinks?.count ?? 12
+        return imageCollectionLinks?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = galleryView.dequeueReusableCell(withReuseIdentifier: CategoryImageCell.reuseIdentifier, for: indexPath) as! CategoryImageCell
+        let cell = imageCollection.dequeueReusableCell(withReuseIdentifier: CategoryImageCell.reuseIdentifier, for: indexPath) as! CategoryImageCell
         
-        guard galleryImagesLinks != nil && galleryImagesLinks!.count > 0 && galleryImagesLinks!.count >= indexPath.row else {
+        guard imageCollectionLinks != nil && imageCollectionLinks!.count > 0 && imageCollectionLinks!.count >= indexPath.row else {
             // There are no images for the category or at this index.
             // Don't bother to check the cache, just return empty cells with no border.
             return cell
@@ -184,7 +179,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         // MARK: - Cell Image Cache Check
         // TODO: When we resume the app from a suspended state, the cache clears these images. Either increase the size of the cache, or fetch them again.
         
-        let imageKey = (galleryImagesLinks?[indexPath.row])! as NSString
+        let imageKey = (imageCollectionLinks?[indexPath.row])! as NSString
         let imageData = TECacheManager.shared.imageCache.object(forKey: imageKey)
         let imageView = UIImageView(frame: cell.contentView.bounds)
         
@@ -195,6 +190,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         
         cell.applyBorder()
         cell.contentView.addSubview(imageView)
+        
         return cell
     }
     
@@ -233,11 +229,11 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
                 switch result {
                     case .success(let imageData):
                         print("Successfully obtained gallery image links, will used cached versions if available")
-                        self?.galleryImagesLinks = imageData.data.map { $0.images.small }
-                        self?.galleryImagesLinks?.forEach {
+                        self?.imageCollectionLinks = imageData.data.map { $0.images.small }
+                        self?.imageCollectionLinks?.forEach {
                             // The cache manager will not make a request for the image if it is already cached :)
                             TECacheManager.shared.fetchAndCacheImage(from: $0)
-                            self?.galleryView.reloadData()
+                            self?.imageCollection.reloadData()
                         }
                     case .failure(let error):
                         print(error)
@@ -255,9 +251,7 @@ fileprivate extension CategoryViewController {
     func applyLayouts() {
         layoutContainer()
         layoutHeader()
-//        layoutLabel()
         layoutGallery()
-        
 //        layoutButton()
     }
     
@@ -296,8 +290,8 @@ fileprivate extension CategoryViewController {
         let containerYPadding: CGFloat = 10
 
         bodyContainer.addSubview(galleryContainer)
-        galleryContainer.addSubview(galleryView)
-        galleryView.fillOther(view: galleryContainer)
+        galleryContainer.addSubview(imageCollection)
+        imageCollection.fillOther(view: galleryContainer)
         galleryContainer.backgroundColor = .brown
 
         NSLayoutConstraint.activate([

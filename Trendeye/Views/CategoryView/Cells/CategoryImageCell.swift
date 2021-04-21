@@ -9,7 +9,7 @@ import UIKit
 
 class CategoryImageCell: UICollectionViewCell {
     
-    static let reuseIdentifier = "GalleryCell"
+    static let reuseIdentifier = "CategoryImageCell"
     
     override init(frame: CGRect) {
         super.init(frame: frame)
