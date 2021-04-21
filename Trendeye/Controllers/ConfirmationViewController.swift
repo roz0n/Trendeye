@@ -10,8 +10,6 @@ import UIKit
 final class ConfirmationViewController: UIViewController {
     
     var selectedPhoto: UIImage!
-    let blurEffect = UIBlurEffect(style: .regular)
-    var blurView = UIVisualEffectView()
     var controlsView = ConfirmationControlsView()
     
     var headerView: UIView = {
@@ -35,16 +33,16 @@ final class ConfirmationViewController: UIViewController {
         return view
     }()
     
+    var blurView: UIVisualEffectView = {
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     var photoBackground: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemPink
-        return view
-    }()
-    
-    var photoBlurView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -95,7 +93,6 @@ fileprivate extension ConfirmationViewController {
     func applyLayouts() {
         layoutHeaderView()
         layoutPhotoView()
-//        layoutBlurView()
         layoutControlsView()
     }
     
@@ -104,7 +101,6 @@ fileprivate extension ConfirmationViewController {
         headerView.addSubview(headerLabel)
         headerLabel.fillOther(view: headerView)
         view.addSubview(headerView)
-//        headerView.layer.zPosition = 4
         
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -116,16 +112,21 @@ fileprivate extension ConfirmationViewController {
     
     func layoutPhotoView() {
         let photoHeight: CGFloat = 545
-        view.addSubview(photoBackground)
-        view.addSubview(photoView)
-//        photoBackground.layer.zPosition = 1
-//        photoView.layer.zPosition = 3
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(photoBackground, at: 0)
+        view.insertSubview(blurView, at: 1)
+        view.insertSubview(photoView, at: 2)
         
         NSLayoutConstraint.activate([
             photoBackground.topAnchor.constraint(equalTo: headerView.bottomAnchor),
             photoBackground.heightAnchor.constraint(equalToConstant: photoHeight),
             photoBackground.widthAnchor.constraint(equalTo: view.widthAnchor),
             photoBackground.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            blurView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            blurView.heightAnchor.constraint(equalToConstant: photoHeight),
+            blurView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            blurView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             photoView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
             photoView.heightAnchor.constraint(equalToConstant: photoHeight),
@@ -134,33 +135,9 @@ fileprivate extension ConfirmationViewController {
         ])
     }
     
-    func layoutBlurView() {
-//        blurView.effect = blurEffect
-//        photoBackground.addSubview(blurView)
-//        blurView.fillOther(view: photoBackground)
-//        blurView.fillOther(view: view)
-//        blurView.layer.zPosition = 2
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.frame = photoBackground.frame
-        view.backgroundColor = .systemGreen
-        view.layer.opacity = 0.5
-        self.view.addSubview(view)
-        
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            view.heightAnchor.constraint(equalToConstant: 545),
-            view.widthAnchor.constraint(equalTo: view.widthAnchor),
-            view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
-    }
-    
     func layoutControlsView() {
         let controlsPadding: CGFloat = -30
         view.addSubview(controlsView)
-//        controlsView.layer.zPosition = 4
-        
         NSLayoutConstraint.activate([
             controlsView.topAnchor.constraint(equalTo: photoView.bottomAnchor),
             controlsView.widthAnchor.constraint(equalTo: view.widthAnchor),
