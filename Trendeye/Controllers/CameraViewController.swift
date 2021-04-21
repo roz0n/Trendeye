@@ -122,7 +122,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     
     @objc func handleAcceptTap() {
         dismiss(animated: false) { [weak self] in
-            let classifierViewController = ClassifierViewController(with: (self?.currentImage)!)
+            let classifierViewController = ClassificationViewController(with: (self?.currentImage)!)
             classifierViewController.navigationItem.hidesBackButton = true
             classifierViewController.title = "Analysis"
             self?.navigationController?.pushViewController(classifierViewController, animated: true)

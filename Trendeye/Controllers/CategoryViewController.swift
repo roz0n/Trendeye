@@ -14,6 +14,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     var name: String!
     var galleryView: CategoryCollectionView!
     var galleryImagesLinks: [String]?
+    let galleryLayoutSpacing: CGFloat = 16
     var trendListWebView: SFSafariViewController!
     
     var descriptionText: String? {
@@ -82,16 +83,12 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         fetchData()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        configureGalleryView()
-    }
-    
     // MARK: - Configuration
     
     fileprivate func applyConfigurations() {
         configureView()
         configureDescription()
+        configureGalleryView()
         configureWebView()
         configureTrendListButton()
     }
@@ -116,23 +113,30 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     fileprivate func configureGalleryView() {
-        // TODO: Use sizeForItemAt to calculate the cell sizes instead of doing this manually how you've done here
-        /**
-         NOTE: This configuration must be set within `viewDidLayoutSubviews` so that constraints for the container are set before performing calculations with the bounds values.
-         */
-        let containerHeight = galleryContainer.bounds.size.height
-        let numberInRow: CGFloat = 3
-        let cellXPadding: CGFloat = 20
-        
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: (containerHeight / numberInRow) - 15, height:(containerHeight / numberInRow) - 15)
-        layout.sectionInset = UIEdgeInsets(top: 10, left: cellXPadding, bottom: 0, right: cellXPadding)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: galleryLayoutSpacing, bottom: 0, right: galleryLayoutSpacing)
+        layout.minimumLineSpacing = galleryLayoutSpacing
+        layout.minimumInteritemSpacing = galleryLayoutSpacing
         
         galleryView = CategoryCollectionView(frame: .zero, collectionViewLayout: layout)
         galleryView.delegate = self
         galleryView.dataSource = self
         galleryContainer.addSubview(galleryView)
         galleryView.fillOther(view: galleryContainer)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellsInRow: CGFloat = 3
+        let cellPadding: CGFloat = galleryLayoutSpacing
+        
+        // Obtain amount of total padding required by the row
+        let totalInsetSize: CGFloat = (galleryLayoutSpacing * 2)
+        let totalCellPadding: CGFloat = (cellsInRow - 1) * cellPadding // cellsInRow - 1 because the last item in the row goes without padding
+        let totalPadding = totalInsetSize + totalCellPadding
+        
+        // Subtract the total padding from the width of the gallery view and divide by the number of cells in the row
+        let cellSize: CGFloat = (galleryView.bounds.width - totalPadding) / 3
+        return CGSize(width: cellSize, height: cellSize)
     }
     
     fileprivate func configureWebView() {
@@ -181,11 +185,13 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 8
+        
         cell.applyBorder()
         cell.contentView.addSubview(imageView)
-        
         return cell
     }
+    
+    
     
     // MARK: - Data Fetching
     

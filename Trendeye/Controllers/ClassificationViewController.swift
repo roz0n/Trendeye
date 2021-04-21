@@ -1,5 +1,5 @@
 //
-//  ClassifierViewController.swift
+//  ClassificationViewController.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/10/21.
@@ -8,7 +8,7 @@
 import UIKit
 import Vision
 
-final class ClassifierViewController: UITableViewController, TEClassifierDelegate {
+final class ClassificationViewController: UITableViewController, TEClassifierDelegate {
     
     var classifier = TEClassifierManager()
     var tableHeader = ClassifierTableHeaderView()
@@ -110,8 +110,8 @@ final class ClassifierViewController: UITableViewController, TEClassifierDelegat
         
         categoryViewController.title = category
         categoryViewController.name = category
-        // TODO: This is a placeholder
-        categoryViewController.descriptionText = "This typography trend consists of placing words on the sides of the format. Composition seems so avant-garde, but it has one major disadvantage. It forced people to read in four different directions. which can be fun, but not everytime. \n"
+        categoryViewController.identifier = result?.identifier
+
         navigationController?.pushViewController(categoryViewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
