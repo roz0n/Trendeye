@@ -8,7 +8,7 @@
 import UIKit
 
 // TODO: Add an error view incase there's a failure getting the large image
-class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
+class FullScreenImageView: UIViewController {
     
     var closeButton = UIButton(type: .system)
     var saveButton = UIButton(type: .system)
@@ -59,7 +59,7 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
     
     fileprivate func applyConfigurations() {
         configureHeaderControls()
-        configureGestures()
+//        configureGestures()
     }
     
     fileprivate func configureHeaderControls() {
@@ -77,11 +77,13 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
     
     fileprivate func configureGestures() {
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(sender:)))
-        pinch.delegate = self
+        pinch.cancelsTouchesInView = false
+//        pinch.delegate = self
         imageView.addGestureRecognizer(pinch)
         
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(sender:)))
-        pan.delegate = self
+        pan.cancelsTouchesInView = false
+//        pan.delegate = self
         imageView.addGestureRecognizer(pan)
     }
     
@@ -135,19 +137,16 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func handlePanGesture(sender: UIPanGestureRecognizer) {
+        guard self.isZooming else { return }
+        
         switch sender.state {
             case .began:
-                if self.isZooming {
-                    self.originalImageCenter = sender.view?.center
-                }
+                self.originalImageCenter = sender.view?.center
             case .changed:
-                if self.isZooming {
-                    let translation = sender.translation(in: self.view)
-                    
-                    if let view = sender.view {
-                        view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
-                        sender.setTranslation(CGPoint.zero, in: imageView.superview)
-                    }
+                let translation = sender.translation(in: self.view)
+                if let view = sender.view {
+                    view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
+                    sender.setTranslation(CGPoint.zero, in: imageView.superview)
                 }
             default:
                 return
@@ -205,7 +204,7 @@ fileprivate extension FullScreenImageView {
         let padding: CGFloat = 20
         view.addSubview(imageView)
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
+            imageView.topAnchor.constraint(equalTo: headerBlurView.safeAreaLayoutGuide.bottomAnchor, constant: padding),
             imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: padding),
             imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(padding)),
             imageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(padding))
