@@ -30,6 +30,7 @@ struct K {
         static let Back = "arrow.backward"
         static let Close = "xmark"
         static let Share = "square.and.arrow.up"
+        static let Save = "square.and.arrow.down"
     }
     
 }

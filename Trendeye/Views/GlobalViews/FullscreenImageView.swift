@@ -8,7 +8,11 @@
 import UIKit
 
 // TODO: Add error view incase there's a failure getting the large image
+
 class FullscreenImageView: UIViewController {
+    
+    var closeButton = UIButton(type: .system)
+    var saveButton = UIButton(type: .system)
     
     var url: String! {
         didSet {
@@ -18,9 +22,24 @@ class FullscreenImageView: UIViewController {
         }
     }
     
-    let blurView: UIVisualEffectView = {
+    let backgroundBlurView: UIVisualEffectView = {
         let view = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
         view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let headerBlurView: UIVisualEffectView = {
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    // TODO: This could be in its own file as I can see this being reused
+    let headerControls: UIStackView = {
+        let view = UIStackView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.distribution = .equalSpacing
+        view.axis = .horizontal
         return view
     }()
     
@@ -32,8 +51,25 @@ class FullscreenImageView: UIViewController {
     }()
     
     override func viewDidLoad() {
+        applyConfigurations()
         applyLayouts()
     }
+    
+    fileprivate func applyConfigurations() {
+        configureHeaderControls()
+    }
+    
+    fileprivate func configureHeaderControls() {
+        let closeImage = UIImage(systemName: K.Icons.Close)
+        let saveImage = UIImage(systemName: K.Icons.Save)
+        
+        closeButton.setImage(closeImage, for: .normal)
+        closeButton.tintColor = K.Colors.White
+        saveButton.setImage(saveImage, for: .normal)
+        saveButton.tintColor = K.Colors.White
+    }
+    
+    // MARK: - Gestures
     
 }
 
@@ -42,17 +78,43 @@ class FullscreenImageView: UIViewController {
 fileprivate extension FullscreenImageView {
     
     func applyLayouts() {
-        layoutBlurView()
+        layoutBackgroundBlurView()
+        layoutHeaderBlurView()
+        layoutHeaderControls()
         layoutImageView()
     }
     
-    func layoutBlurView() {
-        view.addSubview(blurView)
+    func layoutBackgroundBlurView() {
+        view.addSubview(backgroundBlurView)
         NSLayoutConstraint.activate([
-            blurView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            blurView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            blurView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            backgroundBlurView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            backgroundBlurView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            backgroundBlurView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            backgroundBlurView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    func layoutHeaderBlurView() {
+        let headerHeight: CGFloat = 72
+        view.addSubview(headerBlurView)
+        NSLayoutConstraint.activate([
+            headerBlurView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerBlurView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            headerBlurView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            headerBlurView.heightAnchor.constraint(equalToConstant: headerHeight)
+        ])
+    }
+    
+    func layoutHeaderControls() {
+        let padding: CGFloat = 20
+        headerBlurView.contentView.addSubview(headerControls)
+        headerControls.addArrangedSubview(closeButton)
+        headerControls.addArrangedSubview(saveButton)
+        NSLayoutConstraint.activate([
+            headerControls.topAnchor.constraint(equalTo: headerBlurView.contentView.topAnchor),
+            headerControls.leadingAnchor.constraint(equalTo: headerBlurView.contentView.leadingAnchor, constant: padding),
+            headerControls.trailingAnchor.constraint(equalTo: headerBlurView.contentView.trailingAnchor, constant: -(padding)),
+            headerControls.bottomAnchor.constraint(equalTo: headerBlurView.contentView.bottomAnchor)
         ])
     }
     
