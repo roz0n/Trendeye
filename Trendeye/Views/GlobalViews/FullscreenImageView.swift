@@ -8,7 +8,7 @@
 import UIKit
 
 // TODO: Add an error view incase there's a failure getting the large image
-class FullScreenImageView: UIViewController {
+class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
     
     var closeButton = UIButton(type: .system)
     var saveButton = UIButton(type: .system)
@@ -59,7 +59,7 @@ class FullScreenImageView: UIViewController {
     
     fileprivate func applyConfigurations() {
         configureHeaderControls()
-//        configureGestures()
+        configureGestures()
     }
     
     fileprivate func configureHeaderControls() {
@@ -78,12 +78,12 @@ class FullScreenImageView: UIViewController {
     fileprivate func configureGestures() {
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(sender:)))
         pinch.cancelsTouchesInView = false
-//        pinch.delegate = self
+        pinch.delegate = self
         imageView.addGestureRecognizer(pinch)
         
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(sender:)))
         pan.cancelsTouchesInView = false
-//        pan.delegate = self
+        pan.delegate = self
         imageView.addGestureRecognizer(pan)
     }
     
