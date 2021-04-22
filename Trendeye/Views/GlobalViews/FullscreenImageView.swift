@@ -63,13 +63,26 @@ class FullscreenImageView: UIViewController {
         let closeImage = UIImage(systemName: K.Icons.Close)
         let saveImage = UIImage(systemName: K.Icons.Save)
         
+        closeButton.addTarget(self, action: #selector(handleCloseTap), for: .touchUpInside)
         closeButton.setImage(closeImage, for: .normal)
         closeButton.tintColor = K.Colors.White
+        
+        saveButton.addTarget(self, action: #selector(handleSaveTap), for: .touchUpInside)
         saveButton.setImage(saveImage, for: .normal)
         saveButton.tintColor = K.Colors.White
     }
     
     // MARK: - Gestures
+    
+    @objc func handleCloseTap() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func handleSaveTap() {
+        guard let image = self.imageView.image else { return }
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        // TODO: Show an alert once the image is saved
+    }
     
 }
 
