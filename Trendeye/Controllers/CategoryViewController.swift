@@ -58,8 +58,8 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     var trendListButtonContainer: UIView = {
         let view = UIView()
+        view.backgroundColor = K.Colors.NavigationBar
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.addBorder(borders: [.Top], color: K.Colors.BorderColor!, width: 1)
         return view
     }()
     
@@ -203,6 +203,21 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         cell.contentView.addSubview(imageView)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let url = imageCollectionLinks?[indexPath.row] else { return }
+        presentFullscreenImage(url)
+    }
+    
+    // MARK: - Helpers
+    
+    fileprivate func presentFullscreenImage(_ url: String) {
+        let fullView = FullscreenImageView()
+        fullView.url = url
+        fullView.modalPresentationStyle = .formSheet
+        fullView.modalTransitionStyle = .coverVertical
+        present(fullView, animated: true, completion: nil)
     }
     
     // MARK: - Data Fetching
