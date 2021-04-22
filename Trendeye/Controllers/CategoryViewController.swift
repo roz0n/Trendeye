@@ -254,7 +254,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
             DispatchQueue.main.async {
                 switch result {
                     case .success(let imageData):
-                        print("Successfully obtained gallery image links, will used cached versions if available")
+                        print("Category image links fetch success: will use cached versions if available")
                         self?.imageCollectionLinks = imageData.data.map { $0.images.small }
                         self?.imageCollectionLinks?.forEach {
                             // The cache manager will not make a request for the image if it is already cached :)

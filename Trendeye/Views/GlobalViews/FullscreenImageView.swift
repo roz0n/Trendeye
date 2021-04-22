@@ -7,8 +7,7 @@
 
 import UIKit
 
-// TODO: Add error view incase there's a failure getting the large image
-
+// TODO: Add an error view incase there's a failure getting the large image
 class FullscreenImageView: UIViewController {
     
     var closeButton = UIButton(type: .system)
@@ -34,7 +33,6 @@ class FullscreenImageView: UIViewController {
         return view
     }()
     
-    // TODO: This could be in its own file as I can see this being reused
     let headerControls: UIStackView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -47,10 +45,13 @@ class FullscreenImageView: UIViewController {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
+        view.clipsToBounds = false
+        view.isUserInteractionEnabled = true
         return view
     }()
     
     override func viewDidLoad() {
+        imageView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(sender:))))
         applyConfigurations()
         applyLayouts()
     }
@@ -79,9 +80,24 @@ class FullscreenImageView: UIViewController {
     }
     
     @objc func handleSaveTap() {
+        // TODO: Show an alert once the image is saved
         guard let image = self.imageView.image else { return }
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        // TODO: Show an alert once the image is saved
+    }
+    
+    @objc func handlePinchGesture(sender: UIPinchGestureRecognizer) {
+        switch sender.state {
+            case .changed:
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut) { [weak self] in
+                    self?.imageView.transform = CGAffineTransform(scaleX: sender.scale, y: sender.scale)
+                }
+            case .ended:
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut) { [weak self] in
+                    self?.imageView.transform = .identity
+                }
+            default:
+                return
+        }
     }
     
 }
@@ -143,4 +159,3 @@ fileprivate extension FullscreenImageView {
     }
     
 }
-

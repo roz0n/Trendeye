@@ -22,8 +22,7 @@ final class TECacheManager {
     func fetchAndCacheImage(from url: String) {
         let imageKey = url as NSString
         
-        // TODO: Swap with checkCache
-        guard imageCache.object(forKey: imageKey) == nil else { return }
+        guard !checkCache(in: imageCache as! NSCache<AnyObject, AnyObject>, for: imageKey as String) else { return }
         
         if let data = try? Data.init(contentsOf: URL(string: url)!) {
             if let image = UIImage(data: data) {
@@ -36,8 +35,7 @@ final class TECacheManager {
         let descriptionKey = url as NSString
         var descriptionString: String?
         
-        // TODO: Swap with checkCache
-        guard descriptionCache.object(forKey: descriptionKey) == nil else { return }
+        guard !checkCache(in: descriptionCache as! NSCache<AnyObject, AnyObject>, for: descriptionKey as String) else { return }
         
         if let data = try? Data.init(contentsOf: URL(string: url)!) {
             do {
