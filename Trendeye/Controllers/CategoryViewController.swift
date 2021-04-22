@@ -215,7 +215,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     fileprivate func presentFullscreenImage(_ url: String) {
         let fullView = FullScreenImageView()
         fullView.url = url
-        fullView.modalPresentationStyle = .formSheet
+        fullView.modalPresentationStyle = .overFullScreen
         fullView.modalTransitionStyle = .coverVertical
         present(fullView, animated: true, completion: nil)
     }

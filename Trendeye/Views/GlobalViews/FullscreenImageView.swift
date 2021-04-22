@@ -115,13 +115,14 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
                 let pinchCenter = CGPoint(x: sender.location(in: sender.view).x - imageView.bounds.midX, y: sender.location(in: sender.view).y - imageView.bounds.midY)
                 imageView.transform = CGAffineTransform(translationX: pinchCenter.x, y: pinchCenter.y).scaledBy(x: sender.scale, y: sender.scale).translatedBy(x: -(pinchCenter.x), y: -(pinchCenter.y))
             case .ended:
-                isZooming = false
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut) { [weak self] in
-                    self?.imageView.transform = .identity
                     guard let center = self?.originalImageCenter else { return }
                     self?.imageView.center = center
-                    self?.isZooming = false
+                    self?.imageView.transform = .identity
+                } completion: { (_) in
+                    self.isZooming = false
                 }
+
             default:
                 return
         }
@@ -130,13 +131,17 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
     @objc func handlePanGesture(sender: UIPanGestureRecognizer) {
         switch sender.state {
             case .began:
-                originalImageCenter = sender.view?.center
+                if self.isZooming {
+                    self.originalImageCenter = sender.view?.center
+                }
             case .changed:
-                let translation = sender.translation(in: self.view)
-                
-                if let view = sender.view {
-                    view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
-                    sender.setTranslation(CGPoint.zero, in: imageView.superview)
+                if self.isZooming {
+                    let translation = sender.translation(in: self.view)
+                    
+                    if let view = sender.view {
+                        view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
+                        sender.setTranslation(CGPoint.zero, in: imageView.superview)
+                    }
                 }
             default:
                 return
