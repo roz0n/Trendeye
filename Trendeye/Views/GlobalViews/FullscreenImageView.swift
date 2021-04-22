@@ -8,10 +8,12 @@
 import UIKit
 
 // TODO: Add an error view incase there's a failure getting the large image
-class FullscreenImageView: UIViewController {
+class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
     
     var closeButton = UIButton(type: .system)
     var saveButton = UIButton(type: .system)
+    var isZooming = false
+    var originalImageCenter: CGPoint?
     
     var url: String! {
         didSet {
@@ -51,13 +53,13 @@ class FullscreenImageView: UIViewController {
     }()
     
     override func viewDidLoad() {
-        imageView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(sender:))))
         applyConfigurations()
         applyLayouts()
     }
     
     fileprivate func applyConfigurations() {
         configureHeaderControls()
+        configureGestures()
     }
     
     fileprivate func configureHeaderControls() {
@@ -73,6 +75,22 @@ class FullscreenImageView: UIViewController {
         saveButton.tintColor = K.Colors.White
     }
     
+    fileprivate func configureGestures() {
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(sender:)))
+        pinch.delegate = self
+        imageView.addGestureRecognizer(pinch)
+        
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(sender:)))
+        pan.delegate = self
+        imageView.addGestureRecognizer(pan)
+    }
+    
+    // MARK: - UIGestureRecognizerDelegate
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
     // MARK: - Gestures
     
     @objc func handleCloseTap() {
@@ -86,14 +104,39 @@ class FullscreenImageView: UIViewController {
     }
     
     @objc func handlePinchGesture(sender: UIPinchGestureRecognizer) {
+        guard sender.view != nil else { return }
+        
         switch sender.state {
-            case .changed:
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut) { [weak self] in
-                    self?.imageView.transform = CGAffineTransform(scaleX: sender.scale, y: sender.scale)
+            case .began:
+                if sender.scale > 1 {
+                    isZooming = true
                 }
+            case .changed:
+                let pinchCenter = CGPoint(x: sender.location(in: sender.view).x - imageView.bounds.midX, y: sender.location(in: sender.view).y - imageView.bounds.midY)
+                imageView.transform = CGAffineTransform(translationX: pinchCenter.x, y: pinchCenter.y).scaledBy(x: sender.scale, y: sender.scale).translatedBy(x: -(pinchCenter.x), y: -(pinchCenter.y))
             case .ended:
+                isZooming = false
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut) { [weak self] in
                     self?.imageView.transform = .identity
+                    guard let center = self?.originalImageCenter else { return }
+                    self?.imageView.center = center
+                    self?.isZooming = false
+                }
+            default:
+                return
+        }
+    }
+    
+    @objc func handlePanGesture(sender: UIPanGestureRecognizer) {
+        switch sender.state {
+            case .began:
+                originalImageCenter = sender.view?.center
+            case .changed:
+                let translation = sender.translation(in: self.view)
+                
+                if let view = sender.view {
+                    view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
+                    sender.setTranslation(CGPoint.zero, in: imageView.superview)
                 }
             default:
                 return
@@ -104,7 +147,7 @@ class FullscreenImageView: UIViewController {
 
 // MARK: - Layout
 
-fileprivate extension FullscreenImageView {
+fileprivate extension FullScreenImageView {
     
     func applyLayouts() {
         layoutBackgroundBlurView()

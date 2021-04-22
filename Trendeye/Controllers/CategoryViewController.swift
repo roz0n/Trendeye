@@ -213,7 +213,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     // MARK: - Helpers
     
     fileprivate func presentFullscreenImage(_ url: String) {
-        let fullView = FullscreenImageView()
+        let fullView = FullScreenImageView()
         fullView.url = url
         fullView.modalPresentationStyle = .formSheet
         fullView.modalTransitionStyle = .coverVertical
