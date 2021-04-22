@@ -112,6 +112,13 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
                     isZooming = true
                 }
             case .changed:
+                guard sender.scale > 0.90 else {
+                    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut) { [weak self] in
+                        self?.imageView.transform = .identity
+                    }
+                    return
+                }
+                
                 let pinchCenter = CGPoint(x: sender.location(in: sender.view).x - imageView.bounds.midX, y: sender.location(in: sender.view).y - imageView.bounds.midY)
                 imageView.transform = CGAffineTransform(translationX: pinchCenter.x, y: pinchCenter.y).scaledBy(x: sender.scale, y: sender.scale).translatedBy(x: -(pinchCenter.x), y: -(pinchCenter.y))
             case .ended:
@@ -122,7 +129,6 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
                 } completion: { (_) in
                     self.isZooming = false
                 }
-
             default:
                 return
         }
