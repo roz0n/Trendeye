@@ -136,7 +136,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         
         // Subtract the total padding from the width of the gallery view and divide by the number of cells in the row
         let cellSize: CGFloat = (imageCollection.bounds.width - totalPadding) / 3
-        return CGSize(width: cellSize, height: cellSize)
+        return CGSize(width: cellSize, height: cellSize).customRound()
     }
     
     fileprivate func configureWebView() {

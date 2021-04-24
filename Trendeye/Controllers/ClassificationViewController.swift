@@ -11,14 +11,22 @@ import Vision
 final class ClassificationViewController: UITableViewController, TEClassificationDelegate {
     
     var classifier = TEClassificationManager()
-    var tableHeader = ClassificationTableHeaderView()
+    var stretchHeaderContainer = ClassificationCustomHeaderView()
     var tableFooter = ClassificationTableFooterView()
-    var photo: UIImage!
+    var selectedImage: UIImage!
     var results: [VNClassificationObservation]?
     
-    init(with photo: UIImage) {
+    init(with image: UIImage) {
         super.init(nibName: nil, bundle: nil)
-        self.photo = photo
+        
+        self.selectedImage = image
+        self.tableView = UITableView.init(
+            frame: self.tableView.frame,
+            style: .grouped)
+        self.tableView.register(
+            ClassificationResultCell.self,
+            forCellReuseIdentifier: ClassificationResultCell.reuseIdentifier)
+        self.tableView.backgroundColor = K.Colors.ViewBackground
     }
     
     required init?(coder: NSCoder) {
@@ -27,39 +35,89 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        applyStyles()
         applyConfigurations()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         classifier.delegate = self
-        beginClassification(of: photo)
+        beginClassification(of: selectedImage)
     }
     
-    fileprivate func applyStyles() {
-        overwriteTableStyles()
-        view.backgroundColor = K.Colors.ViewBackground
-        tableView.backgroundColor = K.Colors.ViewBackground
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        stretchHeaderContainer.updatePosition()
     }
     
-    fileprivate func overwriteTableStyles() {
-        let table = UITableView(frame: self.tableView.frame, style: .grouped)
-        table.register(ClassificationResultCell.self, forCellReuseIdentifier: ClassificationResultCell.reuseIdentifier)
-        tableView = table
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        tableView.contentInset = UIEdgeInsets(
+            top: 350,
+            left: 0,
+            bottom: 0,
+            right: 0)
+        stretchHeaderContainer.updatePosition()
     }
     
     fileprivate func applyConfigurations() {
         configureNavigation()
+        configureStretchyHeader()
+    }
+    
+    func configureStretchyHeader() {
+        // Configures header content
+        let tableHeaderContent = ClassificationTableHeaderView()
+        tableHeaderContent.translatesAutoresizingMaskIntoConstraints = false
+        tableHeaderContent.photoView.image = selectedImage
+        
+        // Configures header
+        stretchHeaderContainer.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        stretchHeaderContainer.scrollView = tableView
+        stretchHeaderContainer.frame = CGRect(
+            x: 0,
+            y: tableView.safeAreaInsets.top,
+            width: view.frame.width,
+            height: 350)
+        
+        // Set header content constraints
+        stretchHeaderContainer.addSubview(tableHeaderContent)
+        NSLayoutConstraint.activate([
+            tableHeaderContent.topAnchor.constraint(equalTo: stretchHeaderContainer.topAnchor),
+            tableHeaderContent.widthAnchor.constraint(equalTo: stretchHeaderContainer.widthAnchor),
+            tableHeaderContent.bottomAnchor.constraint(equalTo: stretchHeaderContainer.bottomAnchor),
+        ])
+        
+        // Creates a new background view on the tableView to use as its background
+        tableView.backgroundView = UIView()
+        tableView.backgroundView?.addSubview(stretchHeaderContainer)
+        
+        // Adjusts the contentInset of the tableView to expose the header
+        tableView.contentInset = UIEdgeInsets(
+            top: 350,
+            left: 0,
+            bottom: 0,
+            right: 0)
     }
     
     fileprivate func configureNavigation() {
         let iconSize: CGFloat = 18
-        let closeIcon = UIImage(systemName: K.Icons.Close, withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold))
-        let shareIcon = UIImage(systemName: K.Icons.Share, withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold))
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(handleCloseClassifier))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: shareIcon, style: .plain, target: self, action: #selector(handleSaveClassification))
+        let closeIcon = UIImage(
+            systemName: K.Icons.Close,
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize,
+                                                           weight: .semibold))
+        let shareIcon = UIImage(
+            systemName: K.Icons.Share,
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize,
+                                                           weight: .semibold))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: closeIcon,
+            style: .plain,
+            target: self,
+            action: #selector(handleCloseClassifier))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: shareIcon, style: .plain,
+            target: self,
+            action: #selector(handleSaveClassification))
         navigationItem.backButtonTitle = ""
     }
     
@@ -72,8 +130,11 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     }
     
     fileprivate func presentAlert(title: String, message: String, actionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: actionTitle, style: .default) { (action) in
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert)
+        let action = UIAlertAction(title: actionTitle, style: .default) { _ in
             alert.dismiss(animated: true, completion: nil)
         }
         alert.addAction(action)
@@ -85,7 +146,14 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
         classifier.classifyImage(image)
     }
     
-    // MARK: - Table View
+    // MARK: - UIScrollViewDelegate methods
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        stretchHeaderContainer.updatePosition()
+    }
+    
+    
+    // MARK: - UITableView methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -96,7 +164,9 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ClassificationResultCell.reuseIdentifier, for: indexPath) as! ClassificationResultCell
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: ClassificationResultCell.reuseIdentifier,
+            for: indexPath) as! ClassificationResultCell
         let result = results?[indexPath.row]
         cell.resultData = result
         cell.accessoryType = .disclosureIndicator
@@ -111,14 +181,9 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
         categoryViewController.title = category
         categoryViewController.name = category
         categoryViewController.identifier = result?.identifier
-
+        
         navigationController?.pushViewController(categoryViewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        tableHeader.photoView.image = photo
-        return tableHeader
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -129,11 +194,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
         return 72
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 350
-    }
-    
-    // MARK: - TEClassificationDelegate
+    // MARK: - TEClassificationDelegate methods
     
     func didFinishClassifying(_ sender: TEClassificationManager?, results: [VNClassificationObservation]) {
         if !results.isEmpty {

@@ -28,7 +28,6 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         applyLayouts()
         applyGestures()
         configurePicker()
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,13 +44,20 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         navigationController?.pushViewController(cvc, animated: true)
     }
     
+    func TEMP_PRESENT_CONFIRMATION() {
+        let cvc = ClassificationViewController(with: UIImage(named: "TestImage.png")!)
+        cvc.navigationItem.title = "Analysis"
+        navigationController?.pushViewController(cvc, animated: true)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showCamera()
         applyConfigurations()
         
         // REMOVE:
-         TEMP_PRESENT_CATEGORY()
+//         TEMP_PRESENT_CATEGORY()
+        TEMP_PRESENT_CONFIRMATION()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

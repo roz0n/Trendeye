@@ -34,7 +34,7 @@ final class ConfirmationViewController: UIViewController {
     }()
     
     var blurView: UIVisualEffectView = {
-        let view = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: .prominent))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -42,7 +42,6 @@ final class ConfirmationViewController: UIViewController {
     var photoBackground: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemPink
         return view
     }()
     
