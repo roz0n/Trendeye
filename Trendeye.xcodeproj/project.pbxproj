@@ -30,6 +30,7 @@
 		2371729C26327B5D00D29B50 /* CGSize+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729B26327B5D00D29B50 /* CGSize+Ext.swift */; };
 		2371729F2633700C00D29B50 /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729E2633700B00D29B50 /* StretchyTableHeaderView.swift */; };
 		237172A52633C91D00D29B50 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237172A42633C91D00D29B50 /* UIViewController+Ext.swift */; };
+		237172A82633F21500D29B50 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237172A72633F21500D29B50 /* UIImage+Ext.swift */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23AAC191262AA7A700744651 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC190262AA7A700744651 /* CategoryCollectionView.swift */; };
@@ -72,6 +73,7 @@
 		2371729B26327B5D00D29B50 /* CGSize+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Ext.swift"; sourceTree = "<group>"; };
 		2371729E2633700B00D29B50 /* StretchyTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StretchyTableHeaderView.swift; path = Trendeye/Views/GlobalViews/StretchyTableHeaderView.swift; sourceTree = SOURCE_ROOT; };
 		237172A42633C91D00D29B50 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		237172A72633F21500D29B50 /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23AAC190262AA7A700744651 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				2371729826327B4400D29B50 /* CGFloat+Ext.swift */,
 				2371729B26327B5D00D29B50 /* CGSize+Ext.swift */,
 				237172A42633C91D00D29B50 /* UIViewController+Ext.swift */,
+				237172A72633F21500D29B50 /* UIImage+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				23131AD7261FE66400FFF2B3 /* UIView+Ext.swift in Sources */,
 				23AAC1AA262E9BC800744651 /* TENetworkError.swift in Sources */,
 				23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */,
+				237172A82633F21500D29B50 /* UIImage+Ext.swift in Sources */,
 				2371729C26327B5D00D29B50 /* CGSize+Ext.swift in Sources */,
 				23AAC1A1262D00A700744651 /* TECacheManager.swift in Sources */,
 				23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */,

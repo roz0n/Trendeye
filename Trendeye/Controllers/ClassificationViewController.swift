@@ -40,7 +40,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+//        super.viewDidLoad()
         configureClassifier()
     }
     
@@ -68,7 +68,16 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
         // Configures header content
         let tableHeaderContent = ClassificationTableHeaderView()
         tableHeaderContent.translatesAutoresizingMaskIntoConstraints = false
-        tableHeaderContent.photoView.image = selectedImage
+        
+        
+        let targetSize = CGSize(width: 100, height: 100)
+        
+        let scaledImage = selectedImage.scalePreservingAspectRatio(
+            targetSize: targetSize
+        )
+        
+        tableHeaderContent.imageView.image = scaledImage
+        print("Selected image", selectedImage)
         
         // Configures header
         stretchHeaderContainer.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -154,13 +163,13 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
         print("Tapped share!")
     }
     
-    // MARK: - UIScrollViewDelegate methods
+    // MARK: - UIScrollViewDelegate Methods
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         stretchHeaderContainer.updatePosition()
     }
     
-    // MARK: - UITableView methods
+    // MARK: - UITableView Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -211,7 +220,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
         return 72
     }
     
-    // MARK: - TEClassificationDelegate methods
+    // MARK: - TEClassificationDelegate Methods
     
     func didFinishClassifying(_ sender: TEClassificationManager?, results: [VNClassificationObservation]) {
         if !results.isEmpty {

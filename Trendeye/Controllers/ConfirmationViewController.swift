@@ -9,7 +9,7 @@ import UIKit
 
 final class ConfirmationViewController: UIViewController {
     
-    var selectedPhoto: UIImage!
+    var selectedImage: UIImage!
     var controlsView = ConfirmationControlsView()
     
     var headerView: UIView = {
@@ -72,13 +72,13 @@ final class ConfirmationViewController: UIViewController {
     }
     
     fileprivate func configurePhotoView() {
-        photoView.image = selectedPhoto
+        photoView.image = selectedImage
         photoView.contentMode = .scaleAspectFit
         photoView.clipsToBounds = true
     }
     
     fileprivate func configurePhotoBackground() {
-        photoBackground.image = selectedPhoto
+        photoBackground.image = selectedImage
         photoBackground.contentMode = .scaleAspectFill
         photoView.clipsToBounds = true
     }

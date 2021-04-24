@@ -57,7 +57,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         
         // REMOVE:
 //         TEMP_PRESENT_CATEGORY()
-        TEMP_PRESENT_CONFIRMATION()
+//        TEMP_PRESENT_CONFIRMATION()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -108,15 +108,17 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     
     // MARK: - Confirmation View
     
-    fileprivate func presentPhotoConfirmation(with photo: UIImage) {
+    fileprivate func presentPhotoConfirmation(with image: UIImage) {
         let confirmationViewController = ConfirmationViewController()
         let acceptButton = confirmationViewController.controlsView.acceptButton
         let denyButton = confirmationViewController.controlsView.denyButton
         
+        currentImage = image
+        
         acceptButton?.addTarget(self, action: #selector(handleAcceptTap), for: .touchUpInside)
         denyButton?.addTarget(self, action: #selector(handleDenyTap), for: .touchUpInside)
         
-        confirmationViewController.selectedPhoto = photo
+        confirmationViewController.selectedImage = image
         confirmationViewController.navigationItem.title = "Confirm Photo"
         confirmationViewController.modalPresentationStyle = .overFullScreen
         
@@ -128,10 +130,10 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     
     @objc func handleAcceptTap() {
         dismiss(animated: false) { [weak self] in
-            let classifierViewController = ClassificationViewController(with: (self?.currentImage)!)
-            classifierViewController.navigationItem.hidesBackButton = true
-            classifierViewController.title = "Trend Analysis"
-            self?.navigationController?.pushViewController(classifierViewController, animated: true)
+            let classificationViewController = ClassificationViewController(with: (self?.currentImage)!)
+            classificationViewController.navigationItem.hidesBackButton = true
+            classificationViewController.title = "Trend Analysis"
+            self?.navigationController?.pushViewController(classificationViewController, animated: true)
         }
     }
     
@@ -156,11 +158,11 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            presentPhotoConfirmation(with: image)
+        picker.dismiss(animated: true) { [weak self] in
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                self?.presentPhotoConfirmation(with: image)
+            }
         }
-        
-        picker.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Gestures

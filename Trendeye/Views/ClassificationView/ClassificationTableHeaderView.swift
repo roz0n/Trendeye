@@ -12,15 +12,19 @@ class ClassificationTableHeaderView: UIView {
     let buttonSize: CGFloat = 55
     var enlargeButton: PhotoEnlargeButton!
     
-    let photoView: UIImageView = {
+    let imageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
+        view.backgroundColor = .brown
+        view.clipsToBounds = true
         return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .cyan
+
         applyConfigurations()
         applyLayouts()
     }
@@ -33,7 +37,6 @@ class ClassificationTableHeaderView: UIView {
     
     fileprivate func applyConfigurations() {
         configureButton()
-        configureShadow()
     }
     
     fileprivate func configureButton() {
@@ -51,14 +54,6 @@ class ClassificationTableHeaderView: UIView {
         enlargeButton.tintColor = K.Colors.Black
     }
     
-    fileprivate func configureShadow() {
-        photoView.layer.masksToBounds = false
-        photoView.layer.shadowColor = K.Colors.Black.cgColor
-        photoView.layer.shadowOpacity = 0.5
-        photoView.layer.shadowOffset = CGSize.zero
-        photoView.layer.shadowRadius = 6
-    }
-    
 }
 
 // MARK: - Layout
@@ -66,29 +61,31 @@ class ClassificationTableHeaderView: UIView {
 fileprivate extension ClassificationTableHeaderView {
     
     func applyLayouts() {
-        layoutPhotoView()
-//        layoutButton()
+        layoutImageView()
+        layoutButton()
     }
     
-    func layoutPhotoView() {
+    func layoutImageView() {
         let xPadding: CGFloat = 10
         let yPadding: CGFloat = 20
-        addSubview(photoView)
+        addSubview(imageView)
+//        imageView.frame = self.frame
         NSLayoutConstraint.activate([
-            photoView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: yPadding),
-            photoView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: xPadding),
-            photoView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -(xPadding)),
-            photoView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -(yPadding))
+            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: yPadding),
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: xPadding),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(xPadding)),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -(yPadding))
         ])
     }
     
-//    func layoutButton() {
-//        photoView.addSubview(enlargeButton)
-//        NSLayoutConstraint.activate([
-//            enlargeButton.bottomAnchor.constraint(equalTo: photoView.bottomAnchor, constant: -20),
-//            enlargeButton.trailingAnchor.constraint(equalTo: photoView.trailingAnchor, constant: -20)
-//        ])
-//    }
+    func layoutButton() {
+        let padding: CGFloat = 20
+        imageView.addSubview(enlargeButton)
+        NSLayoutConstraint.activate([
+            enlargeButton.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(padding)),
+            enlargeButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -(padding))
+        ])
+    }
     
 }
 

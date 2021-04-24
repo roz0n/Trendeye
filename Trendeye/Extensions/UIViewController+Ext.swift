@@ -19,4 +19,5 @@ extension UIViewController {
     func disableLargeTitles() {
         navigationItem.largeTitleDisplayMode = .never
     }
+    
 }
