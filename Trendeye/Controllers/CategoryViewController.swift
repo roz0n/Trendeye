@@ -74,9 +74,9 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         button.backgroundColor = K.Colors.White
         return button
     }()
-    
+
     override func viewDidLoad() {
-        enableLargeTitles()
+        super.viewDidLoad()
         fetchData()
         applyConfigurations()
         applyLayouts()
@@ -93,7 +93,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     fileprivate func configureView() {
-        // view.backgroundColor = K.Colors.ViewBackground
+         view.backgroundColor = K.Colors.NavigationBar
     }
     
     fileprivate func configureDescription() {
@@ -253,19 +253,21 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     fileprivate func fetchImages() {
         TENetworkManager.shared.fetchCategoryImages(identifier, imageCollectionLimit) { [weak self] (result) in
-            DispatchQueue.main.async {
-                switch result {
-                    case .success(let imageData):
-                        print("Category image links fetch success: will use cached versions if available")
-                        self?.imageCollectionLinks = imageData.data.map { $0.images.small }
-                        self?.imageCollectionLinks?.forEach {
-                            // The cache manager will not make a request for the image if it is already cached :)
-                            TECacheManager.shared.fetchAndCacheImage(from: $0)
-                            self?.imageCollection.reloadData()
-                        }
-                    case .failure(let error):
-                        print(error)
-                }
+            switch result {
+                case .success(let imageData):
+                    print("Category image links fetch success: will use cached versions if available")
+                    self?.imageCollectionLinks = imageData.data.map { $0.images.small }
+                    self?.imageCollectionLinks?.forEach {
+                        // The cache manager will not make a request for the image if it is already cached :)
+                        TECacheManager.shared.fetchAndCacheImage(from: $0)
+                        
+                    }
+                case .failure(let error):
+                    print(error)
+            }
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.imageCollection.reloadData()
             }
         }
     }

@@ -41,7 +41,6 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        disableLargeTitles()
         configureClassifier()
     }
     

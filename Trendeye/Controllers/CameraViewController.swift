@@ -46,7 +46,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     
     func TEMP_PRESENT_CONFIRMATION() {
         let cvc = ClassificationViewController(with: UIImage(named: "TestImage.png")!)
-        cvc.navigationItem.title = "Analysis"
+        cvc.navigationItem.title = "Trend Analysis"
         navigationController?.pushViewController(cvc, animated: true)
     }
     
@@ -130,7 +130,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         dismiss(animated: false) { [weak self] in
             let classifierViewController = ClassificationViewController(with: (self?.currentImage)!)
             classifierViewController.navigationItem.hidesBackButton = true
-            classifierViewController.title = "Analysis"
+            classifierViewController.title = "Trend Analysis"
             self?.navigationController?.pushViewController(classifierViewController, animated: true)
         }
     }
