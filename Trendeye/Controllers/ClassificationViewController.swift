@@ -11,7 +11,8 @@ import Vision
 final class ClassificationViewController: UITableViewController, TEClassificationDelegate {
     
     var classifier = TEClassificationManager()
-    var stretchHeaderContainer = ClassificationCustomHeaderView()
+    var stretchHeaderContainer = StretchyTableHeaderView()
+    var stretchHeaderHeight: CGFloat = 350
     var tableFooter = ClassificationTableFooterView()
     var selectedImage: UIImage!
     var results: [VNClassificationObservation]?
@@ -52,7 +53,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
         tableView.contentInset = UIEdgeInsets(
-            top: 350,
+            top: stretchHeaderHeight,
             left: 0,
             bottom: 0,
             right: 0)
@@ -64,7 +65,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
         configureStretchyHeader()
     }
     
-    func configureStretchyHeader() {
+    fileprivate func configureStretchyHeader() {
         // Configures header content
         let tableHeaderContent = ClassificationTableHeaderView()
         tableHeaderContent.translatesAutoresizingMaskIntoConstraints = false
@@ -77,13 +78,14 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
             x: 0,
             y: tableView.safeAreaInsets.top,
             width: view.frame.width,
-            height: 350)
+            height: stretchHeaderHeight)
         
         // Set header content constraints
         stretchHeaderContainer.addSubview(tableHeaderContent)
         NSLayoutConstraint.activate([
             tableHeaderContent.topAnchor.constraint(equalTo: stretchHeaderContainer.topAnchor),
-            tableHeaderContent.widthAnchor.constraint(equalTo: stretchHeaderContainer.widthAnchor),
+            tableHeaderContent.leadingAnchor.constraint(equalTo: stretchHeaderContainer.leadingAnchor),
+            tableHeaderContent.trailingAnchor.constraint(equalTo: stretchHeaderContainer.trailingAnchor),
             tableHeaderContent.bottomAnchor.constraint(equalTo: stretchHeaderContainer.bottomAnchor),
         ])
         
@@ -93,7 +95,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
         
         // Adjusts the contentInset of the tableView to expose the header
         tableView.contentInset = UIEdgeInsets(
-            top: 350,
+            top: stretchHeaderHeight,
             left: 0,
             bottom: 0,
             right: 0)
@@ -152,7 +154,6 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
         stretchHeaderContainer.updatePosition()
     }
     
-    
     // MARK: - UITableView methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -168,8 +169,10 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
             withIdentifier: ClassificationResultCell.reuseIdentifier,
             for: indexPath) as! ClassificationResultCell
         let result = results?[indexPath.row]
+        
         cell.resultData = result
         cell.accessoryType = .disclosureIndicator
+        
         return cell
     }
     
@@ -186,8 +189,16 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView(frame: .zero)
+    }
+    
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return tableFooter
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return .leastNonzeroMagnitude
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -200,7 +211,9 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
         if !results.isEmpty {
             self.results = results
         } else {
-            presentAlert(title: "Oh no", message: "Seems like something went wrong on our end. Sorry about that.", actionTitle: "Try again later")
+            presentAlert(title: "Oh no",
+                         message: "Seems like something went wrong on our end. Sorry about that.",
+                         actionTitle: "Try again later")
         }
     }
     

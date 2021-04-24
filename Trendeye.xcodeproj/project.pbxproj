@@ -28,7 +28,7 @@
 		232AA39526298B0D00E5E8A1 /* PhotoEnlargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA39426298B0D00E5E8A1 /* PhotoEnlargeButton.swift */; };
 		2371729926327B4400D29B50 /* CGFloat+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729826327B4400D29B50 /* CGFloat+Ext.swift */; };
 		2371729C26327B5D00D29B50 /* CGSize+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729B26327B5D00D29B50 /* CGSize+Ext.swift */; };
-		2371729F2633700C00D29B50 /* ClassificationCustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729E2633700B00D29B50 /* ClassificationCustomHeaderView.swift */; };
+		2371729F2633700C00D29B50 /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729E2633700B00D29B50 /* StretchyTableHeaderView.swift */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23AAC191262AA7A700744651 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC190262AA7A700744651 /* CategoryCollectionView.swift */; };
@@ -69,7 +69,7 @@
 		232AA39426298B0D00E5E8A1 /* PhotoEnlargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEnlargeButton.swift; sourceTree = "<group>"; };
 		2371729826327B4400D29B50 /* CGFloat+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Ext.swift"; sourceTree = "<group>"; };
 		2371729B26327B5D00D29B50 /* CGSize+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Ext.swift"; sourceTree = "<group>"; };
-		2371729E2633700B00D29B50 /* ClassificationCustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClassificationCustomHeaderView.swift; path = Trendeye/Views/ClassificationView/ClassificationCustomHeaderView.swift; sourceTree = SOURCE_ROOT; };
+		2371729E2633700B00D29B50 /* StretchyTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StretchyTableHeaderView.swift; path = Trendeye/Views/GlobalViews/StretchyTableHeaderView.swift; sourceTree = SOURCE_ROOT; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23AAC190262AA7A700744651 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
@@ -197,6 +197,7 @@
 		232AA39926298B2D00E5E8A1 /* GlobalViews */ = {
 			isa = PBXGroup;
 			children = (
+				2371729E2633700B00D29B50 /* StretchyTableHeaderView.swift */,
 				232AA39426298B0D00E5E8A1 /* PhotoEnlargeButton.swift */,
 				23AAC2012630F41500744651 /* FullScreenImageView.swift */,
 			);
@@ -287,7 +288,6 @@
 				23A009D5261FBD5C007A091D /* CameraViewController.swift */,
 				23131ADA2621504A00FFF2B3 /* ConfirmationViewController.swift */,
 				23131AF426219D6A00FFF2B3 /* ClassificationViewController.swift */,
-				2371729E2633700B00D29B50 /* ClassificationCustomHeaderView.swift */,
 				23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */,
 			);
 			path = Controllers;
@@ -412,7 +412,7 @@
 				23131ADB2621504A00FFF2B3 /* ConfirmationViewController.swift in Sources */,
 				23F80A4F25E2EEA400241206 /* TrendClassifier.mlmodel in Sources */,
 				232AA3912628FF9A00E5E8A1 /* ClassificationTableFooterView.swift in Sources */,
-				2371729F2633700C00D29B50 /* ClassificationCustomHeaderView.swift in Sources */,
+				2371729F2633700C00D29B50 /* StretchyTableHeaderView.swift in Sources */,
 				23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */,
 				23131B072622F67600FFF2B3 /* K.swift in Sources */,
 				23AAC2022630F41500744651 /* FullScreenImageView.swift in Sources */,
