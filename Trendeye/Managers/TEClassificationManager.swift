@@ -65,6 +65,7 @@ class TEClassificationManager {
         "virtual-space-reality": "Virtual Space Reality",
     ]
     
+    // TODO: Use Result type here
     func classifyImage(_ image: CIImage) {
         let configuration = MLModelConfiguration()
         let visionHandler = VNImageRequestHandler(ciImage: image)

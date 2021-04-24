@@ -10,17 +10,17 @@ import UIKit
 struct K {
     
     struct Colors {
-        static let Black = UIColor(named: "Black")
-        static let DarkGray = UIColor(named: "DarkGray")
-        static let Gray = UIColor(named: "Gray")
-        static let Green = UIColor(named: "Green")
-        static let Red = UIColor(named: "Red")
-        static let White = UIColor(named: "White")
-        static let ViewBackground = UIColor(named: "ViewBackground")
-        static let NavigationBar = UIColor(named: "NavigationBar")
-        static let IconColor = UIColor(named: "IconTint")
-        static let TransparentButtons = UIColor(named: "TransparentButtons")
-        static let BorderColor = UIColor(named: "BorderColor")
+        static let Black = UIColor(named: "Black")!
+        static let DarkGray = UIColor(named: "DarkGray")!
+        static let Gray = UIColor(named: "Gray")!
+        static let Green = UIColor(named: "Green")!
+        static let Red = UIColor(named: "Red")!
+        static let White = UIColor(named: "White")!
+        static let ViewBackground = UIColor(named: "ViewBackground")!
+        static let NavigationBar = UIColor(named: "NavigationBar")!
+        static let IconColor = UIColor(named: "IconTint")!
+        static let TransparentButtons = UIColor(named: "TransparentButtons")!
+        static let BorderColor = UIColor(named: "BorderColor")!
     }
     
     struct Icons {

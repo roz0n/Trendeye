@@ -41,8 +41,8 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        classifier.delegate = self
-        beginClassification(of: selectedImage)
+        disableLargeTitles()
+        configureClassifier()
     }
     
     override func viewWillLayoutSubviews() {
@@ -123,12 +123,9 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
         navigationItem.backButtonTitle = ""
     }
     
-    @objc func handleCloseClassifier() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @objc func handleSaveClassification() {
-        print("Tapped share!")
+    fileprivate func configureClassifier() {
+        classifier.delegate = self
+        beginClassification(of: selectedImage)
     }
     
     fileprivate func presentAlert(title: String, message: String, actionTitle: String) {
@@ -146,6 +143,16 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     fileprivate func beginClassification(of photo: UIImage) {
         guard let image = CIImage(image: photo) else { return }
         classifier.classifyImage(image)
+    }
+    
+    // MARK: - Gestures
+    
+    @objc func handleCloseClassifier() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleSaveClassification() {
+        print("Tapped share!")
     }
     
     // MARK: - UIScrollViewDelegate methods

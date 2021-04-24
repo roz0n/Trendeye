@@ -53,7 +53,7 @@ class ClassificationTableHeaderView: UIView {
     
     fileprivate func configureShadow() {
         photoView.layer.masksToBounds = false
-        photoView.layer.shadowColor = K.Colors.Black!.cgColor
+        photoView.layer.shadowColor = K.Colors.Black.cgColor
         photoView.layer.shadowOpacity = 0.5
         photoView.layer.shadowOffset = CGSize.zero
         photoView.layer.shadowRadius = 6

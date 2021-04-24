@@ -76,9 +76,10 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }()
     
     override func viewDidLoad() {
+        enableLargeTitles()
+        fetchData()
         applyConfigurations()
         applyLayouts()
-        fetchData()
     }
     
     // MARK: - Configuration
@@ -142,6 +143,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     fileprivate func configureWebView() {
         let url = URL(string: TENetworkManager.shared.getEndpoint("trends", endpoint: identifier, type: "web"))
         trendListWebView = SFSafariViewController(url: url!)
+        trendListWebView.modalPresentationCapturesStatusBarAppearance = true
         trendListWebView.delegate = self
     }
     
