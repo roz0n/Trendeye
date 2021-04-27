@@ -67,15 +67,10 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     fileprivate func configureStretchyHeader() {
         // Configures header content
         let tableHeaderContent = ClassificationTableHeaderView()
-        tableHeaderContent.translatesAutoresizingMaskIntoConstraints = false
-        
-        
         let targetSize = CGSize(width: 100, height: 100)
+        let scaledImage = selectedImage.scaleByAspect(to: targetSize)
         
-        let scaledImage = selectedImage.scaleByAspect(
-            to: targetSize
-        )
-        
+        tableHeaderContent.translatesAutoresizingMaskIntoConstraints = false
         tableHeaderContent.imageView.image = scaledImage
         
         // Configures header
@@ -87,6 +82,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
             width: view.frame.width,
             height: stretchHeaderHeight)
         
+        // TODO: Move this to the Layout extension
         // Set header content constraints
         stretchHeaderContainer.addSubview(tableHeaderContent)
         NSLayoutConstraint.activate([
