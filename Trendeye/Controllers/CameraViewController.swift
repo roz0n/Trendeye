@@ -43,7 +43,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         showCamera()
         applyConfigurations()
         
-        SHORTCUT_PRESENT_CATEGORY()
+//        SHORTCUT_PRESENT_CATEGORY()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -172,12 +172,8 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         let acceptButton = confirmationViewController.controlsView.acceptButton
         let denyButton = confirmationViewController.controlsView.denyButton
         
-        acceptButton?.addTarget(self,
-                                action: #selector(handleAcceptTap),
-                                for: .touchUpInside)
-        denyButton?.addTarget(self,
-                              action: #selector(handleDenyTap),
-                              for: .touchUpInside)
+        acceptButton?.addTarget(self, action: #selector(handleAcceptTap), for: .touchUpInside)
+        denyButton?.addTarget(self, action: #selector(handleDenyTap), for: .touchUpInside)
         
         confirmationViewController.selectedImage = image
         confirmationViewController.navigationItem.title = "Confirm Photo"
@@ -186,7 +182,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         currentImage = image
         videoPreviewLayer.isHidden = true
         captureSession.stopRunning()
-        
+
         present(confirmationViewController, animated: true, completion: nil)
     }
     
@@ -215,14 +211,12 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     fileprivate func configureShootGesture() {
-        shootGesture = UITapGestureRecognizer(target: self,
-                                              action: #selector(shootButtonTapped))
+        shootGesture = UITapGestureRecognizer(target: self, action: #selector(shootButtonTapped))
         controlsView.shootButton.addGestureRecognizer(shootGesture!)
     }
     
     fileprivate func configurePickerGesture() {
-        let pickerGesture = UITapGestureRecognizer(target: self,
-                                                   action: #selector(pickerButtonTapped))
+        let pickerGesture = UITapGestureRecognizer(target: self, action: #selector(pickerButtonTapped))
         controlsView.galleryButton.addGestureRecognizer(pickerGesture)
     }
     
@@ -249,6 +243,7 @@ fileprivate extension CameraViewController {
     func animateWatermark() {
         watermarkView.transform = CGAffineTransform(translationX: 0, y: -125)
         watermarkView.layer.opacity = 0
+        
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut) { [weak self] in
             self?.view.layoutIfNeeded()
             self?.watermarkView.transform = .identity
@@ -280,6 +275,7 @@ fileprivate extension CameraViewController {
     
     func layoutWatermark() {
         let watermarkHeight: CGFloat = 25
+        
         view.addSubview(watermarkView)
         NSLayoutConstraint.activate([
             watermarkView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: watermarkHeight),
@@ -292,6 +288,7 @@ fileprivate extension CameraViewController {
     func layoutControls() {
         let controlsHeight: CGFloat = 125
         let controlsPadding: CGFloat = 12
+        
         cameraView.addSubview(controlsView)
         controlsView.layer.zPosition = 2
         NSLayoutConstraint.activate([

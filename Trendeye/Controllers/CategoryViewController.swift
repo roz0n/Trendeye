@@ -125,7 +125,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         let fontSize: CGFloat = 16
         paragraphStyle.lineHeightMultiple = 1.25
         
-        // TODO: this is messy
+        // TODO: This is messy
         
         guard descriptionText != nil else { return }
         
@@ -231,7 +231,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         
         guard
             imageCollectionLinks != nil
-                && imageCollectionLinks!.count > 0
+                && !imageCollectionLinks!.isEmpty
                 && imageCollectionLinks!.count >= indexPath.row else {
             // There are no images for the category or at this index.
             // Don't bother to check the cache, just return empty cells with no border.
