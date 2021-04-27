@@ -1,5 +1,5 @@
 //
-//  TELogoView.swift
+//  AppLogoView.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/26/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TELogoView: UIView {
+class AppLogoView: UIView {
     
     let image = UIImage(named: "AppLogo")!
     
@@ -41,7 +41,7 @@ class TELogoView: UIView {
 
 // MARK: - Layout
 
-fileprivate extension TELogoView {
+fileprivate extension AppLogoView {
     
     func applyLayouts() {
         layoutLogo()

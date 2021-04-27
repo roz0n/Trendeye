@@ -26,8 +26,8 @@
 		232AA38C2628098800E5E8A1 /* Fontshare EULA.txt in Resources */ = {isa = PBXBuildFile; fileRef = 232AA38B2628098800E5E8A1 /* Fontshare EULA.txt */; };
 		232AA3912628FF9A00E5E8A1 /* ClassificationTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA3902628FF9A00E5E8A1 /* ClassificationTableFooterView.swift */; };
 		232AA39526298B0D00E5E8A1 /* PhotoEnlargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA39426298B0D00E5E8A1 /* PhotoEnlargeButton.swift */; };
-		234C91E52637CC7500B3A89E /* TENetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234C91E42637CC7500B3A89E /* TENetworkErrorView.swift */; };
-		234C91E72637D08400B3A89E /* TELogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234C91E62637D08400B3A89E /* TELogoView.swift */; };
+		234C91E52637CC7500B3A89E /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234C91E42637CC7500B3A89E /* NetworkErrorView.swift */; };
+		234C91E72637D08400B3A89E /* AppLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234C91E62637D08400B3A89E /* AppLogoView.swift */; };
 		2371729926327B4400D29B50 /* CGFloat+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729826327B4400D29B50 /* CGFloat+Ext.swift */; };
 		2371729C26327B5D00D29B50 /* CGSize+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729B26327B5D00D29B50 /* CGSize+Ext.swift */; };
 		2371729F2633700C00D29B50 /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729E2633700B00D29B50 /* StretchyTableHeaderView.swift */; };
@@ -71,8 +71,8 @@
 		232AA38B2628098800E5E8A1 /* Fontshare EULA.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Fontshare EULA.txt"; sourceTree = "<group>"; };
 		232AA3902628FF9A00E5E8A1 /* ClassificationTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationTableFooterView.swift; sourceTree = "<group>"; };
 		232AA39426298B0D00E5E8A1 /* PhotoEnlargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEnlargeButton.swift; sourceTree = "<group>"; };
-		234C91E42637CC7500B3A89E /* TENetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TENetworkErrorView.swift; sourceTree = "<group>"; };
-		234C91E62637D08400B3A89E /* TELogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TELogoView.swift; sourceTree = "<group>"; };
+		234C91E42637CC7500B3A89E /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
+		234C91E62637D08400B3A89E /* AppLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogoView.swift; sourceTree = "<group>"; };
 		2371729826327B4400D29B50 /* CGFloat+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Ext.swift"; sourceTree = "<group>"; };
 		2371729B26327B5D00D29B50 /* CGSize+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Ext.swift"; sourceTree = "<group>"; };
 		2371729E2633700B00D29B50 /* StretchyTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StretchyTableHeaderView.swift; path = Trendeye/Views/GlobalViews/StretchyTableHeaderView.swift; sourceTree = SOURCE_ROOT; };
@@ -210,8 +210,8 @@
 				2371729E2633700B00D29B50 /* StretchyTableHeaderView.swift */,
 				232AA39426298B0D00E5E8A1 /* PhotoEnlargeButton.swift */,
 				23AAC2012630F41500744651 /* FullScreenImageView.swift */,
-				234C91E42637CC7500B3A89E /* TENetworkErrorView.swift */,
-				234C91E62637D08400B3A89E /* TELogoView.swift */,
+				234C91E42637CC7500B3A89E /* NetworkErrorView.swift */,
+				234C91E62637D08400B3A89E /* AppLogoView.swift */,
 			);
 			path = GlobalViews;
 			sourceTree = "<group>";
@@ -406,7 +406,7 @@
 				23131B0B2623863200FFF2B3 /* ClassificationTableHeaderView.swift in Sources */,
 				23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */,
 				237172A52633C91D00D29B50 /* UIViewController+Ext.swift in Sources */,
-				234C91E72637D08400B3A89E /* TELogoView.swift in Sources */,
+				234C91E72637D08400B3A89E /* AppLogoView.swift in Sources */,
 				232AA37D2627F79000E5E8A1 /* TEFontManager.swift in Sources */,
 				23131AF526219D6A00FFF2B3 /* ClassificationViewController.swift in Sources */,
 				23131AD7261FE66400FFF2B3 /* UIView+Ext.swift in Sources */,
@@ -425,7 +425,7 @@
 				23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */,
 				23131AF926219DAC00FFF2B3 /* ClassificationResultCell.swift in Sources */,
 				23131ADB2621504A00FFF2B3 /* ConfirmationViewController.swift in Sources */,
-				234C91E52637CC7500B3A89E /* TENetworkErrorView.swift in Sources */,
+				234C91E52637CC7500B3A89E /* NetworkErrorView.swift in Sources */,
 				23F80A4F25E2EEA400241206 /* TrendClassifier.mlmodel in Sources */,
 				232AA3912628FF9A00E5E8A1 /* ClassificationTableFooterView.swift in Sources */,
 				2371729F2633700C00D29B50 /* StretchyTableHeaderView.swift in Sources */,

@@ -13,7 +13,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     var captureSession: AVCaptureSession!
     var imageOutput: AVCapturePhotoOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
-    var watermarkView = TELogoView()
+    var watermarkView = AppLogoView()
     var controlsView = CameraControlsView()
     var shootGesture: UITapGestureRecognizer?
     var picker = UIImagePickerController()
