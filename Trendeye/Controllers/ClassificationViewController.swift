@@ -40,7 +40,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     }
     
     override func viewDidLoad() {
-        //        super.viewDidLoad()
+        super.viewDidLoad()
         configureClassifier()
     }
     

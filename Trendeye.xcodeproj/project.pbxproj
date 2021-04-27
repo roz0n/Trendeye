@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23130D14263823CD003BEDCB /* TrendeyeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23130D13263823CD003BEDCB /* TrendeyeTests.swift */; };
 		23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AD1261FC5EC00FFF2B3 /* CameraButton.swift */; };
 		23131AD7261FE66400FFF2B3 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AD6261FE66400FFF2B3 /* UIView+Ext.swift */; };
 		23131ADB2621504A00FFF2B3 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131ADA2621504A00FFF2B3 /* ConfirmationViewController.swift */; };
@@ -51,7 +52,20 @@
 		23F80A5625E32F0E00241206 /* TEClassificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A5525E32F0E00241206 /* TEClassificationManager.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		23130D16263823CD003BEDCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 23F80A2D25E2EE2100241206 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 23F80A3425E2EE2100241206;
+			remoteInfo = Trendeye;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		23130D11263823CD003BEDCB /* TrendeyeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrendeyeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		23130D13263823CD003BEDCB /* TrendeyeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendeyeTests.swift; sourceTree = "<group>"; };
+		23130D15263823CD003BEDCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		23131AD1261FC5EC00FFF2B3 /* CameraButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButton.swift; sourceTree = "<group>"; };
 		23131AD6261FE66400FFF2B3 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		23131ADA2621504A00FFF2B3 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +113,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		23130D0E263823CD003BEDCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		23F80A3225E2EE2100241206 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -109,6 +130,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23130D12263823CD003BEDCB /* TrendeyeTests */ = {
+			isa = PBXGroup;
+			children = (
+				23130D13263823CD003BEDCB /* TrendeyeTests.swift */,
+				23130D15263823CD003BEDCB /* Info.plist */,
+			);
+			path = TrendeyeTests;
+			sourceTree = "<group>";
+		};
 		23131AD0261FC5D600FFF2B3 /* CameraView */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				23F80A3725E2EE2100241206 /* Trendeye */,
+				23130D12263823CD003BEDCB /* TrendeyeTests */,
 				23F80A3625E2EE2100241206 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -252,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				23F80A3525E2EE2100241206 /* Trendeye.app */,
+				23130D11263823CD003BEDCB /* TrendeyeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -330,6 +362,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		23130D10263823CD003BEDCB /* TrendeyeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23130D18263823CD003BEDCB /* Build configuration list for PBXNativeTarget "TrendeyeTests" */;
+			buildPhases = (
+				23130D0D263823CD003BEDCB /* Sources */,
+				23130D0E263823CD003BEDCB /* Frameworks */,
+				23130D0F263823CD003BEDCB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				23130D17263823CD003BEDCB /* PBXTargetDependency */,
+			);
+			name = TrendeyeTests;
+			productName = TrendeyeTests;
+			productReference = 23130D11263823CD003BEDCB /* TrendeyeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		23F80A3425E2EE2100241206 /* Trendeye */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 23F80A4925E2EE2400241206 /* Build configuration list for PBXNativeTarget "Trendeye" */;
@@ -353,9 +403,13 @@
 		23F80A2D25E2EE2100241206 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					23130D10263823CD003BEDCB = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = 23F80A3425E2EE2100241206;
+					};
 					23F80A3425E2EE2100241206 = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -375,11 +429,19 @@
 			projectRoot = "";
 			targets = (
 				23F80A3425E2EE2100241206 /* Trendeye */,
+				23130D10263823CD003BEDCB /* TrendeyeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		23130D0F263823CD003BEDCB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		23F80A3325E2EE2100241206 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -398,6 +460,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		23130D0D263823CD003BEDCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23130D14263823CD003BEDCB /* TrendeyeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		23F80A3125E2EE2100241206 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -441,6 +511,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		23130D17263823CD003BEDCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 23F80A3425E2EE2100241206 /* Trendeye */;
+			targetProxy = 23130D16263823CD003BEDCB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		23F80A4325E2EE2400241206 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -453,6 +531,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		23130D19263823CD003BEDCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RYK6GDE7V9;
+				INFOPLIST_FILE = TrendeyeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.notenoughscience.TrendeyeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Trendeye.app/Trendeye";
+			};
+			name = Debug;
+		};
+		23130D1A263823CD003BEDCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RYK6GDE7V9;
+				INFOPLIST_FILE = TrendeyeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.notenoughscience.TrendeyeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Trendeye.app/Trendeye";
+			};
+			name = Release;
+		};
 		23F80A4725E2EE2400241206 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -610,6 +730,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		23130D18263823CD003BEDCB /* Build configuration list for PBXNativeTarget "TrendeyeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23130D19263823CD003BEDCB /* Debug */,
+				23130D1A263823CD003BEDCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		23F80A3025E2EE2100241206 /* Build configuration list for PBXProject "Trendeye" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
