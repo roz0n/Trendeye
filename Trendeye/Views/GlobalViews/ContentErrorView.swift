@@ -30,42 +30,46 @@ class ContentErrorView: UIView {
     let container: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.distribution = .equalCentering
+        stack.distribution = .fillProportionally
         stack.axis = .vertical
-        stack.backgroundColor = .brown
         return stack
     }()
     
     let imageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.sizeToFit()
-        view.backgroundColor = .systemPink
         view.contentMode = .center
+        view.tintColor = K.Colors.DarkGray
         return view
     }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
+        let fontSize: CGFloat = 16
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = AppFonts.Satoshi.font(face: .black, size: 16)
-        label.backgroundColor = .systemTeal
+        label.font = AppFonts.Satoshi.font(face: .black, size: fontSize)
+        label.tintColor = K.Colors.DarkGray
         return label
     }()
     
     let messageView: UITextView = {
         let textView = UITextView()
+        let fontSize: CGFloat = 16
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textAlignment = .center
-        textView.font = AppFonts.Satoshi.font(face: .medium, size: 16)
+        textView.font = AppFonts.Satoshi.font(face: .medium, size: fontSize)
         textView.textContainer.maximumNumberOfLines = 0
         textView.textContainer.lineBreakMode = .byWordWrapping
         textView.isScrollEnabled = false
         textView.isEditable = false
-//        textView.contentInset = UIEdgeInsets(top: 30, left: 60, bottom: -30, right: -60)
-        textView.backgroundColor = .systemGreen
+        textView.backgroundColor = .clear
+        textView.tintColor = K.Colors.DarkGray
+        textView.textContainerInset = UIEdgeInsets(top: (fontSize / 2),
+                                                   left: fontSize,
+                                                   bottom: 0,
+                                                   right: fontSize)
         return textView
     }()
     
@@ -75,8 +79,7 @@ class ContentErrorView: UIView {
         self.image = image
         self.title = title
         self.message = message
-        self.backgroundColor = .cyan
-        self.applyLayouts()
+        applyLayouts()
     }
     
     required init?(coder: NSCoder) {
@@ -102,7 +105,11 @@ fileprivate extension ContentErrorView {
     }
     
     func layoutIcon() {
-        imageView.image = image
+        let padding: CGFloat = 16
+        imageView.image = image?.withAlignmentRectInsets(UIEdgeInsets(top: 0,
+                                                                      left: 0,
+                                                                      bottom: -(padding),
+                                                                      right: 0))
         container.addArrangedSubview(imageView)
     }
     

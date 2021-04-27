@@ -30,7 +30,9 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     var descriptionFetchError: Bool = false {
         didSet {
             DispatchQueue.main.async { [weak self] in
-                self?.configureDescription(text: "No Description Available")
+                if let text = self?.descriptionText {
+                    self?.configureDescription(text: text)
+                }
             }
         }
     }
@@ -39,12 +41,12 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         didSet {
             DispatchQueue.main.async { [weak self] in
                 self?.layoutErrorView()
-                self?.mainContainer.layoutSubviews()
+                self?.bodyContainer.layoutSubviews()
             }
         }
     }
     
-    var mainContainer: UIView = {
+    var bodyContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = K.Colors.ViewBackground
@@ -291,6 +293,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
                         self?.descriptionText = descriptionData.data.description
                     case .failure(let error):
                         self?.descriptionFetchError = true
+                        self?.descriptionText = "Network error. Try again later."
                         print(error)
                     case .none:
                         fatalError(TENetworkError.none.rawValue)
@@ -335,45 +338,45 @@ fileprivate extension CategoryViewController {
     }
     
     func layoutContainer() {
-        view.addSubview(mainContainer)
+        view.addSubview(bodyContainer)
         NSLayoutConstraint.activate([
-            mainContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            mainContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            mainContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            mainContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            bodyContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            bodyContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            bodyContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
     }
     
     func layoutHeader() {
         let headerPadding: CGFloat = 16
         headerContainer.addArrangedSubview(descriptionView)
-        mainContainer.addSubview(headerContainer)
+        bodyContainer.addSubview(headerContainer)
         NSLayoutConstraint.activate([
-            headerContainer.topAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.topAnchor, constant: headerPadding),
-            headerContainer.leadingAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.leadingAnchor, constant: headerPadding),
-            headerContainer.trailingAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.trailingAnchor, constant: -(headerPadding)),
+            headerContainer.topAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.topAnchor, constant: headerPadding),
+            headerContainer.leadingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.leadingAnchor, constant: headerPadding),
+            headerContainer.trailingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.trailingAnchor, constant: -(headerPadding)),
         ])
     }
     
     func layoutImageCollection() {
-        mainContainer.addSubview(imageCollectionContainer)
+        bodyContainer.addSubview(imageCollectionContainer)
         imageCollectionContainer.addSubview(imageCollection)
         imageCollection.fillOther(view: imageCollectionContainer)
         NSLayoutConstraint.activate([
             imageCollectionContainer.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: (imageCollectionSpacing / 2)),
-            imageCollectionContainer.leadingAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.leadingAnchor),
-            imageCollectionContainer.trailingAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.trailingAnchor),
+            imageCollectionContainer.leadingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.leadingAnchor),
+            imageCollectionContainer.trailingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.trailingAnchor),
         ])
     }
     
     func layoutErrorView() {
-//        headerContainer.removeFromSuperview()
+        let padding: CGFloat = 16
         imageCollectionContainer.removeFromSuperview()
-        mainContainer.addSubview(contentErrorView)
+        bodyContainer.addSubview(contentErrorView)
         NSLayoutConstraint.activate([
-            contentErrorView.topAnchor.constraint(equalTo: headerContainer.bottomAnchor),
-            contentErrorView.leadingAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.leadingAnchor),
-            contentErrorView.trailingAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.trailingAnchor),
+            contentErrorView.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: padding),
+            contentErrorView.leadingAnchor.constraint(equalTo: bodyContainer.leadingAnchor),
+            contentErrorView.trailingAnchor.constraint(equalTo: bodyContainer.trailingAnchor),
+            contentErrorView.centerYAnchor.constraint(equalTo: bodyContainer.centerYAnchor)
         ])
     }
     
@@ -381,8 +384,10 @@ fileprivate extension CategoryViewController {
         let buttonYPadding: CGFloat = 20
         let buttonXPadding: CGFloat = 16
         let buttonHeight: CGFloat = 50
+        
         view.addSubview(trendListButtonContainer)
         trendListButtonContainer.addSubview(trendListButton)
+        
         NSLayoutConstraint.activate([
             trendListButtonContainer.topAnchor.constraint(equalTo: imageFetchError ? contentErrorView.bottomAnchor : imageCollectionContainer.bottomAnchor),
             trendListButtonContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -393,7 +398,10 @@ fileprivate extension CategoryViewController {
             trendListButton.leadingAnchor.constraint(equalTo: trendListButtonContainer.leadingAnchor, constant: buttonXPadding),
             trendListButton.trailingAnchor.constraint(equalTo: trendListButtonContainer.trailingAnchor, constant: -(buttonXPadding)),
             trendListButton.bottomAnchor.constraint(equalTo: trendListButtonContainer.bottomAnchor, constant: -(buttonYPadding)),
-            trendListButton.heightAnchor.constraint(equalToConstant: buttonHeight)
+            trendListButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            
+            // NOTE: This constraint is needed here to center the error content to the superview
+            bodyContainer.bottomAnchor.constraint(equalTo: trendListButtonContainer.topAnchor)
         ])
     }
     
