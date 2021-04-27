@@ -31,6 +31,7 @@ struct K {
         static let Close = "xmark"
         static let Share = "square.and.arrow.up"
         static let Save = "square.and.arrow.down"
+        static let Exclamation = "questionmark.circle"
     }
     
 }

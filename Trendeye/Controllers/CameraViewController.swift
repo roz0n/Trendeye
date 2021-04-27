@@ -42,6 +42,8 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         super.viewDidAppear(animated)
         showCamera()
         applyConfigurations()
+        
+        SHORTCUT_PRESENT_CATEGORY()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

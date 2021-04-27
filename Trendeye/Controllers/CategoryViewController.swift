@@ -12,6 +12,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     var identifier: String!
     var name: String!
+    var contentErrorView: ContentErrorView!
     var imageCollection: CategoryCollectionView!
     var imageCollectionLimit = 15
     var imageCollectionLinks: [String]?
@@ -20,7 +21,26 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     var descriptionText: String? {
         didSet {
-            configureDescription()
+            if let text = descriptionText {
+                configureDescription(text: text)
+            }
+        }
+    }
+    
+    var descriptionFetchError: Bool = false {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.configureDescription(text: "No Description Available")
+            }
+        }
+    }
+    
+    var imageFetchError: Bool = false {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.layoutErrorView()
+                self?.mainContainer.layoutSubviews()
+            }
         }
     }
     
@@ -40,14 +60,14 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }()
     
     var descriptionView: UITextView = {
-        let view = UITextView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.textContainer.maximumNumberOfLines = 0
-        view.textContainer.lineBreakMode = .byWordWrapping
-        view.isScrollEnabled = false
-        view.isEditable = false
-        view.backgroundColor = K.Colors.ViewBackground
-        return view
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.textContainer.maximumNumberOfLines = 0
+        textView.textContainer.lineBreakMode = .byWordWrapping
+        textView.isScrollEnabled = false
+        textView.isEditable = false
+        textView.backgroundColor = K.Colors.ViewBackground
+        return textView
     }()
     
     var imageCollectionContainer: UIView = {
@@ -74,7 +94,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         button.backgroundColor = K.Colors.White
         return button
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
@@ -82,30 +102,33 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         applyLayouts()
     }
     
-    // MARK: - Configuration
+    // MARK: - Configurations
     
     fileprivate func applyConfigurations() {
         configureView()
-        configureDescription()
+        configureDescription(text: "")
         configureImageCollection()
+        configureContentErrorView()
         configureWebView()
         configureTrendListButton()
     }
     
     fileprivate func configureView() {
-         view.backgroundColor = K.Colors.NavigationBar
+        view.backgroundColor = K.Colors.NavigationBar
     }
     
-    fileprivate func configureDescription() {
+    fileprivate func configureDescription(text: String) {
         let paragraphStyle = NSMutableParagraphStyle()
         let kernValue: CGFloat = -0.15
         let fontSize: CGFloat = 16
         paragraphStyle.lineHeightMultiple = 1.25
         
+        // TODO: this is messy
+        
         guard descriptionText != nil else { return }
         
         descriptionView.attributedText = NSMutableAttributedString(
-            string: descriptionText!.count > 0 ? descriptionText! : "No description available",
+            string: (descriptionText!.isEmpty ? "No description available" : descriptionText)! ,
             attributes: [
                 NSAttributedString.Key.kern: kernValue,
                 NSAttributedString.Key.paragraphStyle: paragraphStyle,
@@ -116,7 +139,10 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     fileprivate func configureImageCollection() {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: imageCollectionSpacing, left: imageCollectionSpacing, bottom: imageCollectionSpacing, right: imageCollectionSpacing)
+        layout.sectionInset = UIEdgeInsets(top: imageCollectionSpacing,
+                                           left: imageCollectionSpacing,
+                                           bottom: imageCollectionSpacing,
+                                           right: imageCollectionSpacing)
         layout.minimumLineSpacing = imageCollectionSpacing
         layout.minimumInteritemSpacing = imageCollectionSpacing
         layout.sectionHeadersPinToVisibleBounds = true
@@ -124,6 +150,43 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         imageCollection = CategoryCollectionView(frame: .zero, collectionViewLayout: layout)
         imageCollection.delegate = self
         imageCollection.dataSource = self
+    }
+    
+    fileprivate func configureContentErrorView() {
+        let errorIcon = UIImage(systemName: K.Icons.Exclamation,
+                                withConfiguration: UIImage.SymbolConfiguration(
+                                    pointSize: 48,
+                                    weight: .medium))
+        contentErrorView = ContentErrorView(image: errorIcon!,
+                                            title: "Unable to load images",
+                                            message: "Looks like we’re having some trouble connecting to our servers.")
+    }
+    
+    fileprivate func configureWebView() {
+        let url = URL(string: TENetworkManager.shared.getEndpoint("trends",
+                                                                  endpoint: identifier,
+                                                                  type: "web"))
+        trendListWebView = SFSafariViewController(url: url!)
+        trendListWebView.modalPresentationCapturesStatusBarAppearance = true
+        trendListWebView.delegate = self
+    }
+    
+    fileprivate func configureTrendListButton() {
+        trendListButton.addTarget(self,
+                                  action: #selector(handleTrendListButtonTap),
+                                  for: .touchUpInside)
+    }
+    
+    // MARK: - Gestures
+    
+    @objc func handleTrendListButtonTap() {
+        present(trendListWebView, animated: true, completion: nil)
+    }
+    
+    // MARK: - UICollectionView Methods
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -140,32 +203,11 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
         return CGSize(width: cellSize, height: cellSize).customRound()
     }
     
-    fileprivate func configureWebView() {
-        let url = URL(string: TENetworkManager.shared.getEndpoint("trends", endpoint: identifier, type: "web"))
-        trendListWebView = SFSafariViewController(url: url!)
-        trendListWebView.modalPresentationCapturesStatusBarAppearance = true
-        trendListWebView.delegate = self
-    }
-    
-    fileprivate func configureTrendListButton() {
-        trendListButton.addTarget(self, action: #selector(handleTrendListButtonTap), for: .touchUpInside)
-    }
-    
-    // MARK: - Gestures
-    
-    @objc func handleTrendListButtonTap() {
-        present(trendListWebView, animated: true, completion: nil)
-    }
-    
-    // MARK: - UICollectionView Methods
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
-            return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier, for: indexPath) as! CategoryCollectionHeaderView
+            return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                                   withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier,
+                                                                   for: indexPath) as! CategoryCollectionHeaderView
         } else {
             return UICollectionReusableView()
         }
@@ -173,7 +215,8 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let header = CategoryCollectionHeaderView()
-        return CGSize(width: imageCollection?.frame.width ?? 0, height: header.label.frame.height + (header.padding / 8))
+        return CGSize(width: imageCollection?.frame.width ?? 0,
+                      height: header.label.frame.height + (header.padding / 8))
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -181,9 +224,13 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = imageCollection.dequeueReusableCell(withReuseIdentifier: CategoryImageCell.reuseIdentifier, for: indexPath) as! CategoryImageCell
+        let cell = imageCollection.dequeueReusableCell(withReuseIdentifier: CategoryImageCell.reuseIdentifier,
+                                                       for: indexPath) as! CategoryImageCell
         
-        guard imageCollectionLinks != nil && imageCollectionLinks!.count > 0 && imageCollectionLinks!.count >= indexPath.row else {
+        guard
+            imageCollectionLinks != nil
+                && imageCollectionLinks!.count > 0
+                && imageCollectionLinks!.count >= indexPath.row else {
             // There are no images for the category or at this index.
             // Don't bother to check the cache, just return empty cells with no border.
             return cell
@@ -243,6 +290,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
                         print("Using fresh description data")
                         self?.descriptionText = descriptionData.data.description
                     case .failure(let error):
+                        self?.descriptionFetchError = true
                         print(error)
                     case .none:
                         fatalError(TENetworkError.none.rawValue)
@@ -263,6 +311,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
                         
                     }
                 case .failure(let error):
+                    self?.imageFetchError = true
                     print(error)
             }
             
@@ -317,6 +366,17 @@ fileprivate extension CategoryViewController {
         ])
     }
     
+    func layoutErrorView() {
+//        headerContainer.removeFromSuperview()
+        imageCollectionContainer.removeFromSuperview()
+        mainContainer.addSubview(contentErrorView)
+        NSLayoutConstraint.activate([
+            contentErrorView.topAnchor.constraint(equalTo: headerContainer.bottomAnchor),
+            contentErrorView.leadingAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.leadingAnchor),
+            contentErrorView.trailingAnchor.constraint(equalTo: mainContainer.safeAreaLayoutGuide.trailingAnchor),
+        ])
+    }
+    
     func layoutButton() {
         let buttonYPadding: CGFloat = 20
         let buttonXPadding: CGFloat = 16
@@ -324,10 +384,11 @@ fileprivate extension CategoryViewController {
         view.addSubview(trendListButtonContainer)
         trendListButtonContainer.addSubview(trendListButton)
         NSLayoutConstraint.activate([
-            trendListButtonContainer.topAnchor.constraint(equalTo: imageCollectionContainer.bottomAnchor),
+            trendListButtonContainer.topAnchor.constraint(equalTo: imageFetchError ? contentErrorView.bottomAnchor : imageCollectionContainer.bottomAnchor),
             trendListButtonContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             trendListButtonContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             trendListButtonContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
             trendListButton.topAnchor.constraint(equalTo: trendListButtonContainer.topAnchor, constant: buttonYPadding),
             trendListButton.leadingAnchor.constraint(equalTo: trendListButtonContainer.leadingAnchor, constant: buttonXPadding),
             trendListButton.trailingAnchor.constraint(equalTo: trendListButtonContainer.trailingAnchor, constant: -(buttonXPadding)),

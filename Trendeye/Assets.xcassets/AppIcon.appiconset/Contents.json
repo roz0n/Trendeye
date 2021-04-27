@@ -49,6 +49,7 @@
       "size" : "60x60"
     },
     {
+      "filename" : "Artboard 2@3x-1024.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
@@ -69,12 +70,6 @@
       "idiom" : "universal",
       "scale" : "3x",
       "size" : "76x76"
-    },
-    {
-      "filename" : "Artboard 2@3x-1024.png",
-      "idiom" : "universal",
-      "scale" : "3x",
-      "size" : "1024x1024"
     },
     {
       "filename" : "Artboard 2@3x-20@3x.png",
