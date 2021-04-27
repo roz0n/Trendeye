@@ -13,6 +13,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     var captureSession: AVCaptureSession!
     var imageOutput: AVCapturePhotoOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
+    var watermarkView = TELogoView()
     var controlsView = CameraControlsView()
     var shootGesture: UITapGestureRecognizer?
     var picker = UIImagePickerController()
@@ -25,68 +26,45 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     }()
     
     override func viewDidLoad() {
-        applyLayouts()
+        super.viewDidLoad()
         applyGestures()
+        applyAnimations()
+        applyLayouts()
         configurePicker()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        applyStyles()
-    }
-    
-    func TEMP_PRESENT_CATEGORY() {
-        let cvc = CategoryViewController()
-        cvc.identifier = "letterspace"
-        cvc.name = "Letterspace"
-        cvc.title = "Letterspace"
-        navigationController?.pushViewController(cvc, animated: true)
-    }
-    
-    func TEMP_PRESENT_CONFIRMATION() {
-        let cvc = ClassificationViewController(with: UIImage(named: "TestImage.png")!)
-        cvc.navigationItem.title = "Trend Analysis"
-        navigationController?.pushViewController(cvc, animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showCamera()
         applyConfigurations()
-        
-        // REMOVE:
-//         TEMP_PRESENT_CATEGORY()
-//        TEMP_PRESENT_CONFIRMATION()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
-        stopAndHideCamera()
+        dismissCamera()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
     
-    public func stopAndHideCamera() {
-        view.isHidden = true
-        captureSession.stopRunning()
-    }
-    
-    public func showCamera() {
-        view.isHidden = false
-    }
-    
-    fileprivate func applyStyles() {
-        view.backgroundColor = K.Colors.ViewBackground
-    }
-    
     fileprivate func applyConfigurations() {
+        configureView()
         configureCaptureSession()
         configureVideoPreview()
     }
+    
+    fileprivate func configureView() {
+        view.backgroundColor = K.Colors.ViewBackground
+    }
+    
+    // MARK: - Opinionated Configurations
     
     fileprivate func configureVideoPreview() {
         /**
@@ -106,6 +84,85 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         picker.allowsEditing = false
     }
     
+    // MARK: - Capture Session Configuration
+    
+    func configureCaptureSession() {
+        captureSession = AVCaptureSession()
+        captureSession.sessionPreset = .high
+        
+        guard let rearCamera = AVCaptureDevice.default(for: .video) else {
+            // TODO: Display error screen
+            print("Error: Unable to access back camera")
+            return
+        }
+        
+        /**
+         `AVCaptureDeviceInput` attaches the input device to the session.
+         */
+        do {
+            let input = try AVCaptureDeviceInput(device: rearCamera)
+            // Attach output to the capture session
+            imageOutput = AVCapturePhotoOutput()
+            
+            let canInputOutputWithDevice = captureSession.canAddInput(input) && captureSession.canAddOutput(imageOutput)
+            
+            if canInputOutputWithDevice {
+                captureSession.addInput(input)
+                captureSession.addOutput(imageOutput)
+                configureLivePreview()
+            }
+        } catch let error {
+            print("Error - Failed to connect to input device:", error)
+        }
+    }
+    
+    /**
+     This method outputs the camera onto a UIView.
+     */
+    func configureLivePreview() {
+        // Set the video preview layer to an AVCaptureVideoPreviewLayer with the session attached
+        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        videoPreviewLayer.videoGravity = .resizeAspectFill
+        videoPreviewLayer.connection?.videoOrientation = .portrait
+        cameraView.layer.addSublayer(videoPreviewLayer)
+        
+        // Start the capture session on a background thread
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.captureSession.startRunning()
+        }
+    }
+    
+    // MARK: - Camera Helpers
+    
+    public func dismissCamera() {
+        view.isHidden = true
+        captureSession.stopRunning()
+    }
+    
+    public func showCamera() {
+        view.isHidden = false
+    }
+    
+    // MARK: - AVSession Photo Output & Image Picker Selection
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        guard let imageData = photo.fileDataRepresentation() else { return }
+        let image = UIImage(data: imageData)
+        
+        if let image = image {
+            currentImage = image
+            presentPhotoConfirmation(with: image)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true) { [weak self] in
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                self?.presentPhotoConfirmation(with: image)
+            }
+        }
+    }
+    
     // MARK: - Confirmation View
     
     fileprivate func presentPhotoConfirmation(with image: UIImage) {
@@ -113,15 +170,18 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         let acceptButton = confirmationViewController.controlsView.acceptButton
         let denyButton = confirmationViewController.controlsView.denyButton
         
-        currentImage = image
-        
-        acceptButton?.addTarget(self, action: #selector(handleAcceptTap), for: .touchUpInside)
-        denyButton?.addTarget(self, action: #selector(handleDenyTap), for: .touchUpInside)
+        acceptButton?.addTarget(self,
+                                action: #selector(handleAcceptTap),
+                                for: .touchUpInside)
+        denyButton?.addTarget(self,
+                              action: #selector(handleDenyTap),
+                              for: .touchUpInside)
         
         confirmationViewController.selectedImage = image
         confirmationViewController.navigationItem.title = "Confirm Photo"
         confirmationViewController.modalPresentationStyle = .overFullScreen
         
+        currentImage = image
         videoPreviewLayer.isHidden = true
         captureSession.stopRunning()
         
@@ -145,26 +205,6 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         }
     }
     
-    // MARK: - AVSession Photo Output & Image Picker Selection
-    
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        guard let imageData = photo.fileDataRepresentation() else { return }
-        let image = UIImage(data: imageData)
-        
-        if let image = image {
-            currentImage = image
-            presentPhotoConfirmation(with: image)
-        }
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true) { [weak self] in
-            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                self?.presentPhotoConfirmation(with: image)
-            }
-        }
-    }
-    
     // MARK: - Gestures
     
     fileprivate func applyGestures() {
@@ -173,12 +213,14 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     fileprivate func configureShootGesture() {
-        shootGesture = UITapGestureRecognizer(target: self, action: #selector(shootButtonTapped))
+        shootGesture = UITapGestureRecognizer(target: self,
+                                              action: #selector(shootButtonTapped))
         controlsView.shootButton.addGestureRecognizer(shootGesture!)
     }
     
     fileprivate func configurePickerGesture() {
-        let pickerGesture = UITapGestureRecognizer(target: self, action: #selector(pickerButtonTapped))
+        let pickerGesture = UITapGestureRecognizer(target: self,
+                                                   action: #selector(pickerButtonTapped))
         controlsView.galleryButton.addGestureRecognizer(pickerGesture)
     }
     
@@ -194,58 +236,21 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     
 }
 
-// MARK: - Capture Session Configuration
+// MARK: - Animations
 
 fileprivate extension CameraViewController {
     
-    /**
-     Coordinates the input and output data from the devices camera.
-     */
-    func configureCaptureSession() {
-        // Create a new capture session
-        captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .high
-        
-        guard let rearCamera = AVCaptureDevice.default(for: .video) else {
-            // TODO: Display error screen
-            print("Error: Unable to access back camera")
-            return
-        }
-        
-        /**
-         AVCaptureDeviceInput  serves as the middle man to attach the input device to the session.
-         */
-        do {
-            // Create new input device
-            let input = try AVCaptureDeviceInput(device: rearCamera)
-            // Attach output to the capture session
-            imageOutput = AVCapturePhotoOutput()
-            
-            let canInputOutputWithDevice = captureSession.canAddInput(input) && captureSession.canAddOutput(imageOutput)
-            
-            if canInputOutputWithDevice {
-                captureSession.addInput(input)
-                captureSession.addOutput(imageOutput)
-                configureLivePreview()
-            }
-        } catch let error {
-            print("Error - Failed to connect to input device:", error)
-        }
+    func applyAnimations() {
+        animateWatermark()
     }
     
-    /**
-     This method displays what the camera sees on the screen by outputting it to a UIView.
-     */
-    func configureLivePreview() {
-        // Set the video preview layer to an AVCaptureVideoPreviewLayer with the session attached
-        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        videoPreviewLayer.videoGravity = .resizeAspectFill
-        videoPreviewLayer.connection?.videoOrientation = .portrait
-        cameraView.layer.addSublayer(videoPreviewLayer)
-        
-        // Start the capture session on a background thread
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            self?.captureSession.startRunning()
+    func animateWatermark() {
+        watermarkView.transform = CGAffineTransform(translationX: 0, y: -125)
+        watermarkView.layer.opacity = 0
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut) { [weak self] in
+            self?.view.layoutIfNeeded()
+            self?.watermarkView.transform = .identity
+            self?.watermarkView.layer.opacity = 0.35
         }
     }
     
@@ -257,6 +262,7 @@ fileprivate extension CameraViewController {
     
     func applyLayouts() {
         layoutCamera()
+        layoutWatermark()
         layoutControls()
     }
     
@@ -267,6 +273,17 @@ fileprivate extension CameraViewController {
             cameraView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             cameraView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             cameraView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    func layoutWatermark() {
+        let watermarkHeight: CGFloat = 25
+        view.addSubview(watermarkView)
+        NSLayoutConstraint.activate([
+            watermarkView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: watermarkHeight),
+            watermarkView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            watermarkView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            watermarkView.heightAnchor.constraint(equalToConstant: watermarkHeight)
         ])
     }
     
@@ -281,6 +298,26 @@ fileprivate extension CameraViewController {
             controlsView.heightAnchor.constraint(equalToConstant: controlsHeight),
             controlsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(controlsPadding))
         ])
+    }
+    
+}
+
+// MARK: - Shortcuts
+
+fileprivate extension CameraViewController {
+    
+    func SHORTCUT_PRESENT_CATEGORY() {
+        let cvc = CategoryViewController()
+        cvc.identifier = "letterspace"
+        cvc.name = "Letterspace"
+        cvc.title = "Letterspace"
+        navigationController?.pushViewController(cvc, animated: true)
+    }
+    
+    func SHORTCUT_PRESENT_CONFIRMATION() {
+        let cvc = ClassificationViewController(with: UIImage(named: "TestImage.png")!)
+        cvc.navigationItem.title = "Trend Analysis"
+        navigationController?.pushViewController(cvc, animated: true)
     }
     
 }

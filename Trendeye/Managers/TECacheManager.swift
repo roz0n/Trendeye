@@ -9,11 +9,16 @@ import UIKit
 
 final class TECacheManager {
     
-    static let shared = TECacheManager()
+    static let shared = TECacheManager(withSize: 75000000)
     
     lazy var imageCache = NSCache<NSString, UIImage>()
     lazy var descriptionCache = NSCache<NSString, NSString>()
     lazy var decoder = JSONDecoder()
+    
+    init(withSize size: Int) {
+        imageCache.totalCostLimit = size
+        descriptionCache.totalCostLimit = size
+    }
     
     func checkCache(in cache: NSCache<AnyObject, AnyObject>, for key: String) -> Bool {
         return cache.object(forKey: key as NSString) == nil ? false : true

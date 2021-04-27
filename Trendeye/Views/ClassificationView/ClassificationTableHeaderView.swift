@@ -16,15 +16,12 @@ class ClassificationTableHeaderView: UIView {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
-        view.backgroundColor = .brown
         view.clipsToBounds = true
         return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .cyan
-
         applyConfigurations()
         applyLayouts()
     }

@@ -40,7 +40,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     }
     
     override func viewDidLoad() {
-//        super.viewDidLoad()
+        //        super.viewDidLoad()
         configureClassifier()
     }
     
@@ -72,12 +72,11 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
         
         let targetSize = CGSize(width: 100, height: 100)
         
-        let scaledImage = selectedImage.scalePreservingAspectRatio(
-            targetSize: targetSize
+        let scaledImage = selectedImage.scaleByAspect(
+            to: targetSize
         )
         
         tableHeaderContent.imageView.image = scaledImage
-        print("Selected image", selectedImage)
         
         // Configures header
         stretchHeaderContainer.autoresizingMask = [.flexibleWidth, .flexibleHeight]
