@@ -23,6 +23,12 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
     }
   }
   
+  var image: UIImage? {
+    didSet {
+      imageView.image = image
+    }
+  }
+  
   let backgroundBlurView: UIVisualEffectView = {
     let view = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
     view.translatesAutoresizingMaskIntoConstraints = false
@@ -56,6 +62,8 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
     applyConfigurations()
     applyLayouts()
   }
+  
+  // MARK: - Configurations
   
   fileprivate func applyConfigurations() {
     configureHeaderControls()
@@ -100,9 +108,11 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
   }
   
   @objc func handleSaveTap() {
-    // TODO: Show an alert once the image is saved
     guard let image = self.imageView.image else { return }
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+    presentSimpleAlert(title: "Saved Successfully",
+                       message: "This image has been saved to your camera roll.",
+                       actionTitle: "Close")
   }
   
   @objc func handlePinchGesture(sender: UIPinchGestureRecognizer) {
@@ -121,8 +131,11 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
           return
         }
         
-        let pinchCenter = CGPoint(x: sender.location(in: sender.view).x - imageView.bounds.midX, y: sender.location(in: sender.view).y - imageView.bounds.midY)
-        imageView.transform = CGAffineTransform(translationX: pinchCenter.x, y: pinchCenter.y).scaledBy(x: sender.scale, y: sender.scale).translatedBy(x: -(pinchCenter.x), y: -(pinchCenter.y))
+        let pinchCenter = CGPoint(x: sender.location(in: sender.view).x - imageView.bounds.midX,
+                                  y: sender.location(in: sender.view).y - imageView.bounds.midY)
+        imageView.transform = CGAffineTransform(translationX: pinchCenter.x, y: pinchCenter.y)
+          .scaledBy(x: sender.scale, y: sender.scale)
+          .translatedBy(x: -(pinchCenter.x), y: -(pinchCenter.y))
       case .ended:
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut) { [weak self] in
           guard let center = self?.originalImageCenter else { return }

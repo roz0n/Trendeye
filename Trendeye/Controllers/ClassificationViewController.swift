@@ -112,8 +112,8 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
       systemName: K.Icons.Close,
       withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize,
                                                      weight: .semibold))
-    let shareIcon = UIImage(
-      systemName: K.Icons.Share,
+    let fullScreenIcon = UIImage(
+      systemName: K.Icons.Enlarge,
       withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize,
                                                      weight: .semibold))
     navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -122,9 +122,9 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
       target: self,
       action: #selector(handleCloseClassifier))
     navigationItem.rightBarButtonItem = UIBarButtonItem(
-      image: shareIcon, style: .plain,
+      image: fullScreenIcon, style: .plain,
       target: self,
-      action: #selector(handleSaveClassification))
+      action: #selector(handleFullScreenButton))
     navigationItem.backButtonTitle = ""
   }
   
@@ -158,8 +158,12 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     navigationController?.popViewController(animated: true)
   }
   
-  @objc func handleSaveClassification() {
-    print("Tapped share!")
+  @objc func handleFullScreenButton() {
+    let fullView = FullScreenImageView()
+    fullView.modalPresentationStyle = .overFullScreen
+    fullView.modalTransitionStyle = .coverVertical
+    fullView.image = selectedImage
+    present(fullView, animated: true, completion: nil)
   }
   
   // MARK: - UIScrollViewDelegate Methods
