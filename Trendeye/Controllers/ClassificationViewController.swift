@@ -135,18 +135,6 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
   
   // MARK: - Helpers
   
-  fileprivate func presentAlert(title: String, message: String, actionTitle: String) {
-    let alert = UIAlertController(
-      title: title,
-      message: message,
-      preferredStyle: .alert)
-    let action = UIAlertAction(title: actionTitle, style: .default) { _ in
-      alert.dismiss(animated: true, completion: nil)
-    }
-    alert.addAction(action)
-    present(alert, animated: true, completion: nil)
-  }
-  
   fileprivate func beginClassification(of photo: UIImage) {
     guard let image = CIImage(image: photo) else { return }
     classifier.classifyImage(image)
@@ -229,9 +217,10 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     if !results.isEmpty {
       self.results = results
     } else {
-      presentAlert(title: "Oh no",
-                   message: "Seems like something went wrong on our end. Sorry about that.",
-                   actionTitle: "Try again later")
+      presentSimpleAlert(
+        title: "Classification Error",
+        message: "Failed to classify image. Please try another or try again later.",
+        actionTitle: "Close")
     }
   }
   
