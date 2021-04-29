@@ -130,7 +130,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     guard descriptionText != nil else { return }
     
     descriptionView.attributedText = NSMutableAttributedString(
-      string: (descriptionText!.isEmpty ? "No description available" : descriptionText)! ,
+      string: (descriptionText!.isEmpty ? "Description unavailable" : descriptionText)! ,
       attributes: [
         NSAttributedString.Key.kern: kernValue,
         NSAttributedString.Key.paragraphStyle: paragraphStyle,
@@ -158,8 +158,8 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     let iconConfiguration = UIImage.SymbolConfiguration(pointSize: 48, weight: .medium)
     let errorIcon = UIImage(systemName: K.Icons.Exclamation, withConfiguration: iconConfiguration)
     contentErrorView = ContentErrorView(image: errorIcon!,
-                                        title: "Unable to load images",
-                                        message: "Looks like we’re having some trouble connecting to our servers.")
+                                        title: "Unable to Load Trend Images",
+                                        message: "Looks like we’re having some trouble connecting to our servers. Try again later.")
   }
   
   fileprivate func configureWebView() {
@@ -289,7 +289,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
             self?.descriptionText = descriptionData.data.description
           case .failure(let error):
             self?.descriptionFetchError = true
-            self?.descriptionText = "Network error. Try again later."
+            self?.descriptionText = "Description unavailable"
             print(error)
           case .none:
             fatalError(TENetworkError.none.rawValue)

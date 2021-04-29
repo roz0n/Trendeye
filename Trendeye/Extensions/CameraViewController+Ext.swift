@@ -12,7 +12,7 @@ import UIKit
  Mainly they are used for development and debugging.
  */
 
-private extension CameraViewController {
+extension CameraViewController {
   
   func SHORTCUT_PRESENT_CATEGORY() {
     let cvc = CategoryViewController()
