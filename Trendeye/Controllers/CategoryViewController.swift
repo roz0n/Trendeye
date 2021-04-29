@@ -155,19 +155,15 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   fileprivate func configureContentErrorView() {
-    let errorIcon = UIImage(systemName: K.Icons.Exclamation,
-                            withConfiguration: UIImage.SymbolConfiguration(
-                              pointSize: 48,
-                              weight: .medium))
+    let iconConfiguration = UIImage.SymbolConfiguration(pointSize: 48, weight: .medium)
+    let errorIcon = UIImage(systemName: K.Icons.Exclamation, withConfiguration: iconConfiguration)
     contentErrorView = ContentErrorView(image: errorIcon!,
                                         title: "Unable to load images",
                                         message: "Looks like we’re having some trouble connecting to our servers.")
   }
   
   fileprivate func configureWebView() {
-    let url = URL(string: TENetworkManager.shared.getEndpoint("trends",
-                                                              endpoint: identifier,
-                                                              type: "web"))
+    let url = URL(string: TENetworkManager.shared.getEndpoint("trends", endpoint: identifier, type: "web"))
     trendListWebView = SFSafariViewController(url: url!)
     trendListWebView.modalPresentationCapturesStatusBarAppearance = true
     trendListWebView.delegate = self

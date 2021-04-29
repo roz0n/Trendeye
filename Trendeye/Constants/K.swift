@@ -32,6 +32,7 @@ struct K {
     static let Share = "square.and.arrow.up"
     static let Save = "square.and.arrow.down"
     static let Exclamation = "questionmark.circle"
+    static let CameraError = "eye.slash"
   }
   
 }

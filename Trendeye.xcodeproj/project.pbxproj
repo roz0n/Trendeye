@@ -31,7 +31,6 @@
 		234C91E72637D08400B3A89E /* AppLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234C91E62637D08400B3A89E /* AppLogoView.swift */; };
 		2371729926327B4400D29B50 /* CGFloat+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729826327B4400D29B50 /* CGFloat+Ext.swift */; };
 		2371729C26327B5D00D29B50 /* CGSize+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729B26327B5D00D29B50 /* CGSize+Ext.swift */; };
-		2371729F2633700C00D29B50 /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729E2633700B00D29B50 /* StretchyTableHeaderView.swift */; };
 		237172A52633C91D00D29B50 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237172A42633C91D00D29B50 /* UIViewController+Ext.swift */; };
 		237172A82633F21500D29B50 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237172A72633F21500D29B50 /* UIImage+Ext.swift */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
@@ -44,6 +43,8 @@
 		23AAC1AA262E9BC800744651 /* TENetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1A9262E9BC800744651 /* TENetworkError.swift */; };
 		23AAC1FF2630C86800744651 /* CategoryCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1FE2630C86800744651 /* CategoryCollectionHeaderView.swift */; };
 		23AAC2022630F41500744651 /* FullScreenImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC2012630F41500744651 /* FullScreenImageView.swift */; };
+		23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */; };
+		23CEC9C5263A5505009114B3 /* CameraErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C4263A5505009114B3 /* CameraErrorView.swift */; };
 		23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3825E2EE2100241206 /* AppDelegate.swift */; };
 		23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3A25E2EE2100241206 /* SceneDelegate.swift */; };
 		23F80A4225E2EE2400241206 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4125E2EE2400241206 /* Assets.xcassets */; };
@@ -89,7 +90,6 @@
 		234C91E62637D08400B3A89E /* AppLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogoView.swift; sourceTree = "<group>"; };
 		2371729826327B4400D29B50 /* CGFloat+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Ext.swift"; sourceTree = "<group>"; };
 		2371729B26327B5D00D29B50 /* CGSize+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Ext.swift"; sourceTree = "<group>"; };
-		2371729E2633700B00D29B50 /* StretchyTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StretchyTableHeaderView.swift; path = Trendeye/Views/GlobalViews/StretchyTableHeaderView.swift; sourceTree = SOURCE_ROOT; };
 		237172A42633C91D00D29B50 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		237172A72633F21500D29B50 /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +102,8 @@
 		23AAC1A9262E9BC800744651 /* TENetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TENetworkError.swift; sourceTree = "<group>"; };
 		23AAC1FE2630C86800744651 /* CategoryCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionHeaderView.swift; sourceTree = "<group>"; };
 		23AAC2012630F41500744651 /* FullScreenImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageView.swift; sourceTree = "<group>"; };
+		23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyTableHeaderView.swift; sourceTree = "<group>"; };
+		23CEC9C4263A5505009114B3 /* CameraErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraErrorView.swift; sourceTree = "<group>"; };
 		23F80A3525E2EE2100241206 /* Trendeye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trendeye.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23F80A3825E2EE2100241206 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23F80A3A25E2EE2100241206 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -234,16 +236,16 @@
 			path = Satoshi;
 			sourceTree = "<group>";
 		};
-		232AA39926298B2D00E5E8A1 /* GlobalViews */ = {
+		232AA39926298B2D00E5E8A1 /* Global */ = {
 			isa = PBXGroup;
 			children = (
-				2371729E2633700B00D29B50 /* StretchyTableHeaderView.swift */,
 				232AA39426298B0D00E5E8A1 /* PhotoEnlargeButton.swift */,
 				23AAC2012630F41500744651 /* FullScreenImageView.swift */,
 				234C91E42637CC7500B3A89E /* ContentErrorView.swift */,
 				234C91E62637D08400B3A89E /* AppLogoView.swift */,
+				23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */,
 			);
-			path = GlobalViews;
+			path = Global;
 			sourceTree = "<group>";
 		};
 		23AAC193262ABE8A00744651 /* Cells */ = {
@@ -268,6 +270,14 @@
 				23AAC1A9262E9BC800744651 /* TENetworkError.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		23CEC9C1263A5469009114B3 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				23CEC9C4263A5505009114B3 /* CameraErrorView.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 		23F80A2C25E2EE2100241206 = {
@@ -340,7 +350,8 @@
 		23F80A5A25E339D600241206 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				232AA39926298B2D00E5E8A1 /* GlobalViews */,
+				23CEC9C1263A5469009114B3 /* Error */,
+				232AA39926298B2D00E5E8A1 /* Global */,
 				23131AEB26216A4B00FFF2B3 /* LaunchScreen */,
 				23131B09262385D800FFF2B3 /* CategoryView */,
 				23131AF226218F5100FFF2B3 /* ClassificationView */,
@@ -498,11 +509,12 @@
 				234C91E52637CC7500B3A89E /* ContentErrorView.swift in Sources */,
 				23F80A4F25E2EEA400241206 /* TrendClassifier.mlmodel in Sources */,
 				232AA3912628FF9A00E5E8A1 /* ClassificationTableFooterView.swift in Sources */,
-				2371729F2633700C00D29B50 /* StretchyTableHeaderView.swift in Sources */,
 				23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */,
 				23131B072622F67600FFF2B3 /* K.swift in Sources */,
+				23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */,
 				23AAC2022630F41500744651 /* FullScreenImageView.swift in Sources */,
 				23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */,
+				23CEC9C5263A5505009114B3 /* CameraErrorView.swift in Sources */,
 				23AAC199262AC18600744651 /* TENetworkManager.swift in Sources */,
 				23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */,
 				23AAC1FF2630C86800744651 /* CategoryCollectionHeaderView.swift in Sources */,

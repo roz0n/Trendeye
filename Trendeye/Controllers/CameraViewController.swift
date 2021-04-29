@@ -19,6 +19,10 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   var picker = UIImagePickerController()
   var currentImage: UIImage?
   
+  var cameraErrorContainer = UIView()
+  var cameraErrorView = CameraErrorView()
+  var cameraError = true
+  
   var cameraView: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +46,6 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     super.viewDidAppear(animated)
     showCamera()
     applyConfigurations()
-    
     //        SHORTCUT_PRESENT_CATEGORY()
   }
   
@@ -55,6 +58,8 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
   }
+  
+  // MARK: - Basic Configurations
   
   fileprivate func applyConfigurations() {
     configureView()
@@ -88,13 +93,14 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   
   // MARK: - Capture Session Configuration
   
-  func configureCaptureSession() {
+  fileprivate func configureCaptureSession() {
     captureSession = AVCaptureSession()
     captureSession.sessionPreset = .high
     
     guard let rearCamera = AVCaptureDevice.default(for: .video) else {
       // TODO: Display error screen
       print("Error: Unable to access back camera")
+      cameraError = true
       return
     }
     
@@ -121,7 +127,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   /**
    This method outputs the camera onto a UIView.
    */
-  func configureLivePreview() {
+  fileprivate func configureLivePreview() {
     // Set the video preview layer to an AVCaptureVideoPreviewLayer with the session attached
     videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
     videoPreviewLayer.videoGravity = .resizeAspectFill
@@ -133,6 +139,16 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
       self?.captureSession.startRunning()
     }
   }
+  
+//  fileprivate func configureCameraErrorView() {
+//    print("Configuring error view")
+//
+//    let iconConfiguration = UIImage.SymbolConfiguration(pointSize: 48, weight: .medium)
+//    let errorIcon = UIImage(systemName: K.Icons.CameraError, withConfiguration: iconConfiguration)
+//    cameraErrorView = ContentErrorView(image: errorIcon!,
+//                                       title: "Unable to load images",
+//                                       message: "Looks like we’re having some trouble connecting to our servers.")
+//  }
   
   // MARK: - Camera Helpers
   
@@ -258,9 +274,15 @@ fileprivate extension CameraViewController {
 fileprivate extension CameraViewController {
   
   func applyLayouts() {
-    layoutCamera()
+    // TODONOW: Toggle to !cameraError
+    if !cameraError {
+      layoutCamera()
+      layoutControls()
+    } else {
+      layoutCameraError()
+    }
     layoutWatermark()
-    layoutControls()
+    //    layoutControls()
   }
   
   func layoutCamera() {
@@ -270,6 +292,20 @@ fileprivate extension CameraViewController {
       cameraView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
       cameraView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
       cameraView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    ])
+  }
+  
+  func layoutCameraError() {
+    let padding: CGFloat = 16
+    cameraErrorContainer.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(cameraErrorContainer)
+    cameraErrorContainer.fillOther(view: view)
+    cameraErrorContainer.addSubview(cameraErrorView)
+    
+    NSLayoutConstraint.activate([
+      cameraErrorView.centerYAnchor.constraint(equalTo: cameraErrorContainer.centerYAnchor),
+      cameraErrorView.leadingAnchor.constraint(equalTo: cameraErrorContainer.leadingAnchor, constant: padding),
+      cameraErrorView.trailingAnchor.constraint(equalTo: cameraErrorContainer.trailingAnchor, constant: -(padding))
     ])
   }
   
