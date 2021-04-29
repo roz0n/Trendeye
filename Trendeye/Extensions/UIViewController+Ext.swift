@@ -8,16 +8,16 @@
 import UIKit
 
 extension UIViewController {
+  
+  func enableLargeTitles() {
+    guard let navigationController = navigationController else { return }
     
-    func enableLargeTitles() {
-        guard let navigationController = navigationController else { return }
-        
-        navigationController.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
-    }
-    
-    func disableLargeTitles() {
-        navigationItem.largeTitleDisplayMode = .never
-    }
-    
+    navigationController.navigationBar.prefersLargeTitles = true
+    navigationItem.largeTitleDisplayMode = .always
+  }
+  
+  func disableLargeTitles() {
+    navigationItem.largeTitleDisplayMode = .never
+  }
+  
 }

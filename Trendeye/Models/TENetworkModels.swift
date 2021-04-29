@@ -10,29 +10,29 @@ import Foundation
 // MARK: - Categories
 
 struct CategoryDescriptionResponse: Codable {
-    var success: Bool
-    var data: CategoryDescription
+  var success: Bool
+  var data: CategoryDescription
 }
 
 struct CategoryDescription: Codable {
-    var name: String
-    var description: String?
+  var name: String
+  var description: String?
 }
 
 struct CategoryImagesResponse: Codable {
-    var success: Bool
-    var data: [ProjectImage]
+  var success: Bool
+  var data: [ProjectImage]
 }
 
 // MARK: - Project Images
 
 struct ProjectImage: Codable {
-    var title: String
-    var url: String
-    var images: ProjectImageSizes
+  var title: String
+  var url: String
+  var images: ProjectImageSizes
 }
 
 struct ProjectImageSizes: Codable {
-    var small: String
-    var large: String
+  var small: String
+  var large: String
 }

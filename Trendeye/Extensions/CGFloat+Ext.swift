@@ -8,10 +8,10 @@
 import CoreGraphics
 
 extension CGFloat {
-    
-    func customRound(_ rule: FloatingPointRoundingRule = .down, toDecimals decimals: Int = 2) -> CGFloat {
-        let multiplier = CGFloat(pow(10.0, CGFloat(decimals)))
-        return (self * multiplier).rounded(.down) / multiplier
-    }
-    
+  
+  func customRound(_ rule: FloatingPointRoundingRule = .down, toDecimals decimals: Int = 2) -> CGFloat {
+    let multiplier = CGFloat(pow(10.0, CGFloat(decimals)))
+    return (self * multiplier).rounded(.down) / multiplier
+  }
+  
 }
