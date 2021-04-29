@@ -59,6 +59,8 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     stretchHeaderContainer.updatePosition()
   }
   
+  // MARK: - Configurations
+  
   fileprivate func applyConfigurations() {
     configureNavigation()
     configureStretchyHeader()
@@ -67,11 +69,11 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
   fileprivate func configureStretchyHeader() {
     // Configures header content
     let tableHeaderContent = ClassificationTableHeaderView()
-    let targetSize = CGSize(width: 100, height: 100)
+    let targetSize = CGSize(width: 200, height: 200)
     let scaledImage = selectedImage.scaleByAspect(to: targetSize)
     
     tableHeaderContent.translatesAutoresizingMaskIntoConstraints = false
-    tableHeaderContent.imageView.image = scaledImage
+    tableHeaderContent.classificationImage = selectedImage
     
     // Configures header
     stretchHeaderContainer.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -130,6 +132,8 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     classifier.delegate = self
     beginClassification(of: selectedImage)
   }
+  
+  // MARK: - Helpers
   
   fileprivate func presentAlert(title: String, message: String, actionTitle: String) {
     let alert = UIAlertController(

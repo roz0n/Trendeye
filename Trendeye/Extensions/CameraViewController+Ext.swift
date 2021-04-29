@@ -22,7 +22,7 @@ extension CameraViewController {
     navigationController?.pushViewController(cvc, animated: true)
   }
   
-  func SHORTCUT_PRESENT_CONFIRMATION() {
+  func SHORTCUT_PRESENT_CLASSIFICATION() {
     let cvc = ClassificationViewController(with: UIImage(named: "TestImage.png")!)
     cvc.navigationItem.title = "Trend Analysis"
     navigationController?.pushViewController(cvc, animated: true)

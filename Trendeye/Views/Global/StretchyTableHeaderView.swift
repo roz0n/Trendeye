@@ -54,10 +54,10 @@ class StretchyTableHeaderView: UIView {
       }
       
       let minimumSize = systemLayoutSizeFitting(
-        CGSize(width: scrollView.frame.width,
-               height: 0),
+        CGSize(width: scrollView.frame.width, height: 0),
         withHorizontalFittingPriority: .required,
         verticalFittingPriority: .defaultLow)
+      
       cachedMinimumSize = minimumSize
       return minimumSize.height
     }
