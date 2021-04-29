@@ -298,7 +298,7 @@ fileprivate extension CameraViewController {
   
   func layoutCameraError() {
     let padding: CGFloat = 16
-    cameraErrorContainer.translatesAutoresizingMaskIntoConstraints = false
+    
     view.addSubview(cameraErrorContainer)
     cameraErrorContainer.fillOther(view: view)
     cameraErrorContainer.addSubview(cameraErrorView)
@@ -338,26 +338,6 @@ fileprivate extension CameraViewController {
       controlsView.heightAnchor.constraint(equalToConstant: controlsHeight),
       controlsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(controlsPadding))
     ])
-  }
-  
-}
-
-// MARK: - Shortcuts
-
-fileprivate extension CameraViewController {
-  
-  func SHORTCUT_PRESENT_CATEGORY() {
-    let cvc = CategoryViewController()
-    cvc.identifier = "letterspace"
-    cvc.name = "Letterspace"
-    cvc.title = "Letterspace"
-    navigationController?.pushViewController(cvc, animated: true)
-  }
-  
-  func SHORTCUT_PRESENT_CONFIRMATION() {
-    let cvc = ClassificationViewController(with: UIImage(named: "TestImage.png")!)
-    cvc.navigationItem.title = "Trend Analysis"
-    navigationController?.pushViewController(cvc, animated: true)
   }
   
 }
