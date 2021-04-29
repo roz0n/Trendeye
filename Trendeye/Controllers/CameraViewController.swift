@@ -18,10 +18,20 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   var shootGesture: UITapGestureRecognizer?
   var picker = UIImagePickerController()
   var currentImage: UIImage?
+  let cameraErrorView = CameraErrorView()
   
-  var cameraErrorContainer = UIView()
-  var cameraErrorView = CameraErrorView()
-  var cameraError = true
+  var cameraError = false {
+    didSet {
+      applyLayouts()
+      view.layoutSubviews()
+    }
+  }
+  
+  var cameraErrorContainer: UIView = {
+    let view = UIView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+  }()
   
   var cameraView: UIView = {
     let view = UIView()
@@ -64,7 +74,10 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   fileprivate func applyConfigurations() {
     configureView()
     configureCaptureSession()
-    configureVideoPreview()
+    
+    if !cameraError {
+      configureVideoPreview()
+    }
   }
   
   fileprivate func configureView() {
@@ -98,9 +111,8 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     captureSession.sessionPreset = .high
     
     guard let rearCamera = AVCaptureDevice.default(for: .video) else {
-      // TODO: Display error screen
-      print("Error: Unable to access back camera")
       cameraError = true
+      print("Error: Unable to access back camera")
       return
     }
     
@@ -120,7 +132,8 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         configureLivePreview()
       }
     } catch let error {
-      print("Error - Failed to connect to input device:", error)
+      cameraError = true
+      print("Error: Failed to connect to input device", error)
     }
   }
   
@@ -139,16 +152,6 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
       self?.captureSession.startRunning()
     }
   }
-  
-//  fileprivate func configureCameraErrorView() {
-//    print("Configuring error view")
-//
-//    let iconConfiguration = UIImage.SymbolConfiguration(pointSize: 48, weight: .medium)
-//    let errorIcon = UIImage(systemName: K.Icons.CameraError, withConfiguration: iconConfiguration)
-//    cameraErrorView = ContentErrorView(image: errorIcon!,
-//                                       title: "Unable to load images",
-//                                       message: "Looks like we’re having some trouble connecting to our servers.")
-//  }
   
   // MARK: - Camera Helpers
   
@@ -274,7 +277,6 @@ fileprivate extension CameraViewController {
 fileprivate extension CameraViewController {
   
   func applyLayouts() {
-    // TODONOW: Toggle to !cameraError
     if !cameraError {
       layoutCamera()
       layoutControls()
@@ -282,7 +284,6 @@ fileprivate extension CameraViewController {
       layoutCameraError()
     }
     layoutWatermark()
-    //    layoutControls()
   }
   
   func layoutCamera() {
@@ -301,6 +302,10 @@ fileprivate extension CameraViewController {
     view.addSubview(cameraErrorContainer)
     cameraErrorContainer.fillOther(view: view)
     cameraErrorContainer.addSubview(cameraErrorView)
+    
+    if controlsView.isDescendant(of: view) {
+      controlsView.removeFromSuperview()
+    }
     
     NSLayoutConstraint.activate([
       cameraErrorView.centerYAnchor.constraint(equalTo: cameraErrorContainer.centerYAnchor),
