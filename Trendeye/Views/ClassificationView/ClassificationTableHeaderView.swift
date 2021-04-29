@@ -66,7 +66,7 @@ fileprivate extension ClassificationTableHeaderView {
         let xPadding: CGFloat = 10
         let yPadding: CGFloat = 20
         addSubview(imageView)
-//        imageView.frame = self.frame
+        //        imageView.frame = self.frame
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: yPadding),
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: xPadding),

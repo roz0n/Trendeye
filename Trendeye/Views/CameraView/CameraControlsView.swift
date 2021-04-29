@@ -90,10 +90,10 @@ class CameraControlsView: UIView {
     }
     
     fileprivate func configureThumbnail() {
-//        galleryButton.layer.cornerRadius = 24
-//        galleryButton.layer.masksToBounds = true
-//        galleryButton.makeCircular()
-//        galleryButton.backgroundColor = UIColor(red: 0.094, green: 0.094, blue: 0.094, alpha: 0.35)
+        //        galleryButton.layer.cornerRadius = 24
+        //        galleryButton.layer.masksToBounds = true
+        //        galleryButton.makeCircular()
+        //        galleryButton.backgroundColor = UIColor(red: 0.094, green: 0.094, blue: 0.094, alpha: 0.35)
     }
     
     override init(frame: CGRect) {
@@ -153,7 +153,7 @@ fileprivate extension CameraControlsView {
         secondaryButtonsContainer.addArrangedSubview(flashButton)
         primaryButtonsContainer.addArrangedSubview(shootButton)
         primaryButtonsContainer.addArrangedSubview(secondaryButtonsContainer)
-
+        
         NSLayoutConstraint.activate([
             shootButton.heightAnchor.constraint(equalToConstant: 100),
             shootButton.widthAnchor.constraint(equalToConstant: 100),

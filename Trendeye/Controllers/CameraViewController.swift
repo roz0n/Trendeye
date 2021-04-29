@@ -43,7 +43,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         showCamera()
         applyConfigurations()
         
-//        SHORTCUT_PRESENT_CATEGORY()
+        //        SHORTCUT_PRESENT_CATEGORY()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -182,7 +182,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
         currentImage = image
         videoPreviewLayer.isHidden = true
         captureSession.stopRunning()
-
+        
         present(confirmationViewController, animated: true, completion: nil)
     }
     
