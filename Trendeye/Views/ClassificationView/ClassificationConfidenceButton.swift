@@ -71,7 +71,7 @@ class ClassificationConfidenceButton: UIView {
     
     labelString.append(imageString)
     labelString.append(textString)
-        
+    
     button.titleLabel?.attributedText = labelString
     button.setAttributedTitle(button.titleLabel?.attributedText, for: .normal)
     button.titleEdgeInsets = UIEdgeInsets(top: 0, left: buttonXPadding, bottom: 0, right: buttonXPadding)
@@ -90,10 +90,11 @@ fileprivate extension ClassificationConfidenceButton {
   }
   
   func layoutButton() {
+    let padding: CGFloat = 8
     addSubview(button)
     NSLayoutConstraint.activate([
-      button.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-      button.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
+      button.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+      button.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -(padding)),
       button.centerXAnchor.constraint(equalTo: self.centerXAnchor),
     ])
   }

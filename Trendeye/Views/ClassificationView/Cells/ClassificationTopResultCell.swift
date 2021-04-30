@@ -13,6 +13,15 @@ class ClassificationTopResultCell: ClassificationResultCell {
     return "ClassificationTopResultCell"
   }
   
+  let label: UILabel = {
+    let label = UILabel()
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.text = "Best Match".uppercased()
+    label.font = AppFonts.Satoshi.font(face: .black, size: 12)
+    label.textColor = K.Colors.DarkGray
+    return label
+  }()
+  
   let subtitle: UITextView = {
     let textView = UITextView()
     textView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +34,6 @@ class ClassificationTopResultCell: ClassificationResultCell {
     textView.removeAllInsets()
     textView.textContainerInset = UIEdgeInsets(top: 8, left: 0, bottom: 16, right: 0)
     
-    
     var paragraphStyle = NSMutableParagraphStyle()
     paragraphStyle.lineHeightMultiple = 1.05
     
@@ -36,7 +44,6 @@ class ClassificationTopResultCell: ClassificationResultCell {
         NSAttributedString.Key.foregroundColor: K.Colors.DarkGray,
         NSAttributedString.Key.font: AppFonts.Satoshi.font(face: .medium, size: 12) as Any
       ])
-    
     
     return textView
   }()
@@ -58,14 +65,25 @@ fileprivate extension ClassificationTopResultCell {
   
   func applyLayouts() {
     layoutSubtitle()
+    layoutLabel()
+  }
+  
+  func layoutLabel() {
+    let xPadding: CGFloat = 20
+    let yPadding: CGFloat = 20
+    wrapper.insertSubview(label, at: 0)
+    NSLayoutConstraint.activate([
+      label.topAnchor.constraint(equalTo: wrapper.topAnchor, constant: yPadding - 5),
+      label.bottomAnchor.constraint(equalTo: container.topAnchor, constant: -(yPadding) / 2),
+      label.leadingAnchor.constraint(equalTo: wrapper.leadingAnchor, constant: xPadding),
+      label.trailingAnchor.constraint(equalTo: wrapper.trailingAnchor, constant: -(xPadding))
+    ])
   }
   
   func layoutSubtitle() {
-    let yPadding: CGFloat = 32
     let xPadding: CGFloat = 20
     wrapper.addSubview(subtitle)
     NSLayoutConstraint.activate([
-      container.topAnchor.constraint(equalTo: wrapper.topAnchor, constant: yPadding),
       subtitle.topAnchor.constraint(equalTo: identifierLabel.bottomAnchor),
       subtitle.leadingAnchor.constraint(equalTo: wrapper.leadingAnchor, constant: xPadding),
       subtitle.trailingAnchor.constraint(equalTo: wrapper.trailingAnchor, constant: -(xPadding)),
