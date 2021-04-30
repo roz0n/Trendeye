@@ -130,7 +130,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     guard descriptionText != nil else { return }
     
     descriptionView.attributedText = NSMutableAttributedString(
-      string: (descriptionText!.isEmpty ? "Description unavailable" : descriptionText)! ,
+      string: (descriptionText!.isEmpty ? "Description not available" : descriptionText)! ,
       attributes: [
         NSAttributedString.Key.kern: kernValue,
         NSAttributedString.Key.paragraphStyle: paragraphStyle,
@@ -170,9 +170,10 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   fileprivate func configureTrendListButton() {
-    trendListButton.addTarget(self,
-                              action: #selector(handleTrendListButtonTap),
-                              for: .touchUpInside)
+    trendListButton.addTarget(
+      self,
+      action: #selector(handleTrendListButtonTap),
+      for: .touchUpInside)
   }
   
   // MARK: - Gestures
@@ -203,9 +204,10 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
     if kind == UICollectionView.elementKindSectionHeader {
-      return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
-                                                             withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier,
-                                                             for: indexPath) as! CategoryCollectionHeaderView
+      return collectionView.dequeueReusableSupplementaryView(
+        ofKind: UICollectionView.elementKindSectionHeader,
+        withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier,
+        for: indexPath) as! CategoryCollectionHeaderView
     } else {
       return UICollectionReusableView()
     }
@@ -213,8 +215,9 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
     let header = CategoryCollectionHeaderView()
-    return CGSize(width: imageCollection?.frame.width ?? 0,
-                  height: header.label.frame.height + (header.padding / 8))
+    return CGSize(
+      width: imageCollection?.frame.width ?? 0,
+      height: header.label.frame.height + (header.padding / 8))
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -222,8 +225,9 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = imageCollection.dequeueReusableCell(withReuseIdentifier: CategoryImageCell.reuseIdentifier,
-                                                   for: indexPath) as! CategoryImageCell
+    let cell = imageCollection.dequeueReusableCell(
+      withReuseIdentifier: CategoryImageCell.reuseIdentifier,
+      for: indexPath) as! CategoryImageCell
     
     guard
       imageCollectionLinks != nil
@@ -289,7 +293,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
             self?.descriptionText = descriptionData.data.description
           case .failure(let error):
             self?.descriptionFetchError = true
-            self?.descriptionText = "Description unavailable"
+            self?.descriptionText = "Description not available"
             print(error)
           case .none:
             fatalError(TENetworkError.none.rawValue)

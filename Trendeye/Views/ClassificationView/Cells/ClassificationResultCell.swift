@@ -9,8 +9,10 @@ import UIKit
 import Vision
 
 class ClassificationResultCell: UITableViewCell {
-  
-  static let reuseIdentifier = "ClassificationResultCell"
+    
+  class var reuseIdentifier: String {
+    return "ClassificationResultCell"
+  }
   
   var resultData: VNClassificationObservation! {
     didSet {
@@ -18,6 +20,20 @@ class ClassificationResultCell: UITableViewCell {
       confidenceLabel.text = "\(TEClassificationManager.shared.convertConfidenceToPercent(resultData.confidence))%"
     }
   }
+  
+  var wrapper: UIView = {
+    let view = UIView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.backgroundColor = .systemOrange
+    return view
+  }()
+  
+  var container: UIView = {
+    let view = UIView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.backgroundColor = .systemGreen
+    return view
+  }()
   
   var identifierLabel: UILabel = {
     let label = UILabel()
@@ -39,7 +55,7 @@ class ClassificationResultCell: UITableViewCell {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    applyStyles()
+    applyConfigurations()
     applyLayouts()
   }
   
@@ -47,8 +63,11 @@ class ClassificationResultCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
+  fileprivate func applyConfigurations() {
+    configureView()
+  }
   
-  fileprivate func applyStyles() {
+  fileprivate func configureView() {
     backgroundColor = K.Colors.ViewBackground
   }
   
@@ -59,25 +78,52 @@ class ClassificationResultCell: UITableViewCell {
 fileprivate extension ClassificationResultCell {
   
   func applyLayouts() {
+    layoutWrapper()
+    layoutContainer()
     layoutLabels()
+  }
+  
+  func layoutWrapper() {
+    /**
+     This view contains container with both labels and any secondary content that is to sit beneath them should be added as a subview
+     */
+    contentView.addSubview(wrapper)
+    NSLayoutConstraint.activate([
+      wrapper.topAnchor.constraint(equalTo: contentView.topAnchor),
+      wrapper.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+      wrapper.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+      wrapper.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+    ])
+  }
+  
+  func layoutContainer() {
+    /**
+     This view contains only the identifier and confidence labels
+     */
+    wrapper.addSubview(container)
+    container.addSubview(identifierLabel)
+    container.addSubview(confidenceLabel)
+    NSLayoutConstraint.activate([
+      container.topAnchor.constraint(equalTo: wrapper.topAnchor),
+      container.leadingAnchor.constraint(equalTo: wrapper.leadingAnchor),
+      container.trailingAnchor.constraint(equalTo: wrapper.trailingAnchor),
+    ])
   }
   
   func layoutLabels() {
     let identifierLabelPadding: CGFloat = 20
     let confidenceLabelWidth: CGFloat = 82
     let confidenceLabelPadding: CGFloat = 100
-    contentView.addSubview(identifierLabel)
-    contentView.addSubview(confidenceLabel)
     
     NSLayoutConstraint.activate([
-      identifierLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-      identifierLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: identifierLabelPadding),
+      identifierLabel.topAnchor.constraint(equalTo: container.topAnchor),
+      identifierLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: identifierLabelPadding),
       identifierLabel.trailingAnchor.constraint(equalTo: confidenceLabel.leadingAnchor),
-      identifierLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+      identifierLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor),
       
       confidenceLabel.topAnchor.constraint(equalTo: identifierLabel.topAnchor),
-      confidenceLabel.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(confidenceLabelPadding)),
-      confidenceLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+      confidenceLabel.leadingAnchor.constraint(equalTo: container.trailingAnchor, constant: -(confidenceLabelPadding)),
+      confidenceLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor),
       confidenceLabel.widthAnchor.constraint(equalToConstant: confidenceLabelWidth)
     ])
   }

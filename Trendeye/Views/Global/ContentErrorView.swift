@@ -66,10 +66,11 @@ class ContentErrorView: UIView {
     textView.isEditable = false
     textView.backgroundColor = .clear
     textView.tintColor = K.Colors.DarkGray
-    textView.textContainerInset = UIEdgeInsets(top: (fontSize / 2),
-                                               left: fontSize,
-                                               bottom: 0,
-                                               right: fontSize)
+    textView.textContainerInset = UIEdgeInsets(
+      top: (fontSize / 2),
+      left: fontSize,
+      bottom: 0,
+      right: fontSize)
     return textView
   }()
   

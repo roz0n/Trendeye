@@ -25,6 +25,9 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
       frame: self.tableView.frame,
       style: .grouped)
     self.tableView.register(
+      ClassificationTopResultCell.self,
+      forCellReuseIdentifier: ClassificationTopResultCell.reuseIdentifier)
+    self.tableView.register(
       ClassificationResultCell.self,
       forCellReuseIdentifier: ClassificationResultCell.reuseIdentifier)
     self.tableView.backgroundColor = K.Colors.ViewBackground
@@ -42,6 +45,8 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
   override func viewDidLoad() {
     super.viewDidLoad()
     configureClassifier()
+//    tableView.rowHeight = UITableView.automaticDimension
+//    tableView.estimatedRowHeight = 70
   }
   
   override func viewWillLayoutSubviews() {
@@ -171,13 +176,19 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(
+    let topCell = tableView.dequeueReusableCell(
+      withIdentifier: ClassificationTopResultCell.reuseIdentifier,
+      for: indexPath) as! ClassificationTopResultCell
+    let regularCell = tableView.dequeueReusableCell(
       withIdentifier: ClassificationResultCell.reuseIdentifier,
       for: indexPath) as! ClassificationResultCell
+    
+    let cell = indexPath.row == 0 ? topCell : regularCell
     let result = results?[indexPath.row]
     
     cell.resultData = result
     cell.accessoryType = .disclosureIndicator
+    cell.contentView.layoutIfNeeded()
     
     return cell
   }
@@ -208,7 +219,11 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
   }
   
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 72
+    return UITableView.automaticDimension
+  }
+
+  override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 120
   }
   
   // MARK: - TEClassificationDelegate Methods
