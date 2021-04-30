@@ -134,8 +134,9 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
       attributes: [
         NSAttributedString.Key.kern: kernValue,
         NSAttributedString.Key.paragraphStyle: paragraphStyle,
-        NSAttributedString.Key.foregroundColor: UIColor.white,
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize, weight: .medium)])
+        NSAttributedString.Key.foregroundColor: K.Colors.White,
+        NSAttributedString.Key.font: AppFonts.Satoshi.font(face: .medium, size: fontSize) as Any
+      ])
     descriptionView.sizeToFit()
   }
   

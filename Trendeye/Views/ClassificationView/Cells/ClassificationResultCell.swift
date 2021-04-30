@@ -26,14 +26,14 @@ class ClassificationResultCell: UITableViewCell {
   var wrapper: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.backgroundColor = .systemOrange
+//    view.backgroundColor = .systemOrange
     return view
   }()
   
   var container: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.backgroundColor = .systemGreen
+//    view.backgroundColor = .systemGreen
     return view
   }()
   
@@ -114,9 +114,9 @@ fileprivate extension ClassificationResultCell {
     // Ensures these contraints are not applied to subclasses
     if reuseIdentifier == ClassificationResultCell.reuseIdentifier {
       container.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor).isActive = true
-      let test = contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: ClassificationResultCell.estimatedHeight)
-      test.priority = UILayoutPriority(999)
-      test.isActive = true
+      let contentHeight = contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: ClassificationResultCell.estimatedHeight)
+      contentHeight.priority = UILayoutPriority(999)
+      contentHeight.isActive = true
     }
   }
   
