@@ -48,6 +48,7 @@
 		23EFD8E9263A6EFB005AB471 /* CameraViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8E8263A6EFB005AB471 /* CameraViewController+Ext.swift */; };
 		23EFD8EB263B3084005AB471 /* ClassificationTopResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EA263B3084005AB471 /* ClassificationTopResultCell.swift */; };
 		23EFD8ED263BD539005AB471 /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */; };
+		23EFD8EF263BE241005AB471 /* ClassificationConfidenceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EE263BE241005AB471 /* ClassificationConfidenceLabel.swift */; };
 		23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3825E2EE2100241206 /* AppDelegate.swift */; };
 		23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3A25E2EE2100241206 /* SceneDelegate.swift */; };
 		23F80A4225E2EE2400241206 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4125E2EE2400241206 /* Assets.xcassets */; };
@@ -110,6 +111,7 @@
 		23EFD8E8263A6EFB005AB471 /* CameraViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Ext.swift"; sourceTree = "<group>"; };
 		23EFD8EA263B3084005AB471 /* ClassificationTopResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationTopResultCell.swift; sourceTree = "<group>"; };
 		23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
+		23EFD8EE263BE241005AB471 /* ClassificationConfidenceLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationConfidenceLabel.swift; sourceTree = "<group>"; };
 		23F80A3525E2EE2100241206 /* Trendeye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trendeye.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23F80A3825E2EE2100241206 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23F80A3A25E2EE2100241206 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				23131AF726219D7C00FFF2B3 /* Cells */,
 				23131B0A2623863200FFF2B3 /* ClassificationTableHeaderView.swift */,
 				232AA3902628FF9A00E5E8A1 /* ClassificationTableFooterView.swift */,
+				23EFD8EE263BE241005AB471 /* ClassificationConfidenceLabel.swift */,
 			);
 			path = ClassificationView;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				2371729926327B4400D29B50 /* CGFloat+Ext.swift in Sources */,
 				23AAC19D262ACB6800744651 /* TENetworkModels.swift in Sources */,
 				23F80A5625E32F0E00241206 /* TEClassificationManager.swift in Sources */,
+				23EFD8EF263BE241005AB471 /* ClassificationConfidenceLabel.swift in Sources */,
 				23AAC195262ABEBA00744651 /* CategoryImageCell.swift in Sources */,
 				23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */,
 				23EFD8E9263A6EFB005AB471 /* CameraViewController+Ext.swift in Sources */,

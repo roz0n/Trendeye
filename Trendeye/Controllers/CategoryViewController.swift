@@ -142,10 +142,11 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   fileprivate func configureImageCollection() {
     let layout = UICollectionViewFlowLayout()
-    layout.sectionInset = UIEdgeInsets(top: imageCollectionSpacing,
-                                       left: imageCollectionSpacing,
-                                       bottom: imageCollectionSpacing,
-                                       right: imageCollectionSpacing)
+    layout.sectionInset = UIEdgeInsets(
+      top: imageCollectionSpacing,
+      left: imageCollectionSpacing,
+      bottom: imageCollectionSpacing,
+      right: imageCollectionSpacing)
     layout.minimumLineSpacing = imageCollectionSpacing
     layout.minimumInteritemSpacing = imageCollectionSpacing
     layout.sectionHeadersPinToVisibleBounds = true
@@ -158,9 +159,10 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   fileprivate func configureContentErrorView() {
     let iconConfiguration = UIImage.SymbolConfiguration(pointSize: 48, weight: .medium)
     let errorIcon = UIImage(systemName: K.Icons.Exclamation, withConfiguration: iconConfiguration)
-    contentErrorView = ContentErrorView(image: errorIcon!,
-                                        title: "Unable to Load Trend Images",
-                                        message: "Looks like we’re having some trouble connecting to our servers. Try again later.")
+    contentErrorView = ContentErrorView(
+      image: errorIcon!,
+      title: "Unable to Load Trend Images",
+      message: "Looks like we’re having some trouble connecting to our servers. Try again later.")
   }
   
   fileprivate func configureWebView() {

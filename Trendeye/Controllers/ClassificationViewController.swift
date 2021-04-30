@@ -16,6 +16,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
   var tableFooter = ClassificationTableFooterView()
   var selectedImage: UIImage!
   var results: [VNClassificationObservation]?
+  var confidenceLabel = ClassificationConfidenceLabel()
   
   init(with image: UIImage) {
     super.init(nibName: nil, bundle: nil)
@@ -113,12 +114,15 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     let iconSize: CGFloat = 18
     let closeIcon = UIImage(
       systemName: K.Icons.Close,
-      withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize,
-                                                     weight: .semibold))
+      withConfiguration: UIImage.SymbolConfiguration(
+        pointSize: iconSize,
+        weight: .semibold))
     let fullScreenIcon = UIImage(
       systemName: K.Icons.Enlarge,
-      withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize,
-                                                     weight: .semibold))
+      withConfiguration: UIImage.SymbolConfiguration(
+        pointSize: iconSize,
+        weight: .semibold))
+    
     navigationItem.leftBarButtonItem = UIBarButtonItem(
       image: closeIcon,
       style: .plain,
@@ -129,6 +133,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
       target: self,
       action: #selector(handleFullScreenButton))
     navigationItem.backButtonTitle = ""
+    navigationItem.titleView = confidenceLabel
   }
   
   fileprivate func configureClassifier() {
@@ -219,7 +224,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return UITableView.automaticDimension
   }
-
+  
   override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
     return ClassificationResultCell.estimatedHeight
   }
