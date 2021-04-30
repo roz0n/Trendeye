@@ -9,10 +9,12 @@ import UIKit
 import Vision
 
 class ClassificationResultCell: UITableViewCell {
-    
+  
   class var reuseIdentifier: String {
     return "ClassificationResultCell"
   }
+  
+  static var estimatedHeight: CGFloat = 64
   
   var resultData: VNClassificationObservation! {
     didSet {
@@ -103,11 +105,19 @@ fileprivate extension ClassificationResultCell {
     wrapper.addSubview(container)
     container.addSubview(identifierLabel)
     container.addSubview(confidenceLabel)
+    
     NSLayoutConstraint.activate([
-      container.topAnchor.constraint(equalTo: wrapper.topAnchor),
       container.leadingAnchor.constraint(equalTo: wrapper.leadingAnchor),
       container.trailingAnchor.constraint(equalTo: wrapper.trailingAnchor),
     ])
+    
+    // Ensures these contraints are not applied to subclasses
+    if reuseIdentifier == ClassificationResultCell.reuseIdentifier {
+      container.centerYAnchor.constraint(equalTo: wrapper.centerYAnchor).isActive = true
+      let test = contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: ClassificationResultCell.estimatedHeight)
+      test.priority = UILayoutPriority(999)
+      test.isActive = true
+    }
   }
   
   func layoutLabels() {

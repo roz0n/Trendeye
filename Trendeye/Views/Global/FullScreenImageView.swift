@@ -35,9 +35,12 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
     return view
   }()
   
-  let headerBlurView: UIVisualEffectView = {
-    let view = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+  let headerBlurView: UIView = {
+    let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
+    view.backgroundColor = K.Colors.NavigationBar
+    // TODO: There's a bug here. Sometimes this shows, other times it doesn't.
+    view.addBorder(borders: [.Top], color: K.Colors.BorderColor, width: 1)
     return view
   }()
   
@@ -202,14 +205,14 @@ fileprivate extension FullScreenImageView {
   
   func layoutHeaderControls() {
     let padding: CGFloat = 20
-    headerBlurView.contentView.addSubview(headerControls)
+    headerBlurView.addSubview(headerControls)
     headerControls.addArrangedSubview(closeButton)
     headerControls.addArrangedSubview(saveButton)
     NSLayoutConstraint.activate([
-      headerControls.topAnchor.constraint(equalTo: headerBlurView.contentView.topAnchor),
-      headerControls.leadingAnchor.constraint(equalTo: headerBlurView.contentView.leadingAnchor, constant: padding),
-      headerControls.trailingAnchor.constraint(equalTo: headerBlurView.contentView.trailingAnchor, constant: -(padding)),
-      headerControls.bottomAnchor.constraint(equalTo: headerBlurView.contentView.bottomAnchor)
+      headerControls.topAnchor.constraint(equalTo: headerBlurView.topAnchor),
+      headerControls.leadingAnchor.constraint(equalTo: headerBlurView.leadingAnchor, constant: padding),
+      headerControls.trailingAnchor.constraint(equalTo: headerBlurView.trailingAnchor, constant: -(padding)),
+      headerControls.bottomAnchor.constraint(equalTo: headerBlurView.bottomAnchor)
     ])
   }
   

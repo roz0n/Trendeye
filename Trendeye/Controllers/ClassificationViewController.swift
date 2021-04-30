@@ -45,8 +45,6 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
   override func viewDidLoad() {
     super.viewDidLoad()
     configureClassifier()
-//    tableView.rowHeight = UITableView.automaticDimension
-//    tableView.estimatedRowHeight = 70
   }
   
   override func viewWillLayoutSubviews() {
@@ -223,7 +221,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
   }
 
   override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 120
+    return ClassificationResultCell.estimatedHeight
   }
   
   // MARK: - TEClassificationDelegate Methods
