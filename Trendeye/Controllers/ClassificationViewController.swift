@@ -16,7 +16,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
   var tableFooter = ClassificationTableFooterView()
   var selectedImage: UIImage!
   var results: [VNClassificationObservation]?
-  var confidenceLabel = ClassificationConfidenceLabel()
+  var confidenceLabel = ClassificationConfidenceButton()
   
   init(with image: UIImage) {
     super.init(nibName: nil, bundle: nil)
