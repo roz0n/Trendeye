@@ -10,7 +10,7 @@ Graphic design trend classification powered by CoreML and images from [TrendList
 
 - [@roz0n](https://www.linkedin.com/in/rozon)
 
-> Design, development, deployment, testing and everything in-between
+> Design, development, deployment, testing, and everything in-between
 
 ## Screenshots
 
