@@ -2,7 +2,7 @@
     <img width="128px" height="128px" src="./README-Icon.png"> 
 </p>
 
-# Trendeye iOS (BETA)
+# Trendeye iOS (Beta)
 Graphic Design trend classification powered by CoreML via image data from [TrendList.org](https://www.trendlist.org)
 
 ## Authors
@@ -12,21 +12,25 @@ Graphic Design trend classification powered by CoreML via image data from [Trend
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 ## Tech Stack
-**Client:** Swift, UIKit, CoreML
+**Client:** Swift, UIKit, AVKit, CoreML
 
-**Server:** TypeScript, Node, Express
+**Server:** TypeScript, Node, Express (mainly `JSDOM` for image scraping)
 
-**Deployment:** Terraform, DigitalOcean
+**Deployment:** Terraform, Docker, DigitalOcean (Ubuntu VPS)
 
-## Features
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
+## Notable Features
+Trendeye is a simple app with a simple purpose, but contains some interesting UI/UX goodies built from scratch:
+
+- Snapchat-style full-screen camera view input powered by AVKit (namely, `AVCaptureSession`)
+- Instagram-style image panning and zooming (built by leveraging `UIPanGestureRecognizer` and `UIPinchGestureRecognizer` in tandem)
+- Stretchy table headers (using a modified version of Michael Nachbaur's [solution](https://nachbaur.com/2020/05/06/stretchable-tableview-header/))
+
+Most importantly, all this was accomplished using **zero** third-party libraries! Though, in some ways I wish I had used them as I found many bugs in UIKit along the way 🌝
 
 ## Roadmap
-- Additional browser support
-- Add more integrations
+- *Greatly* improve accuracy of the image classification model
+- Implement photo framing and cropping using `UIGraphicsImageRenderer`
+- Persist classification results on the device using CoreData or Realm and sync them with iCloud
 
 ## Run Locally
 Clone the project
