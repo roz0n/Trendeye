@@ -1,7 +1,7 @@
-![Icon](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![Icon](README-Icon.png)
 
-# Trendeye iOS(BETA)
-Graphic Design trend classification powered by CoreML with data from [TrendList.org](https://www.trendlist.org)
+# Trendeye iOS (BETA)
+Graphic Design trend classification powered by CoreML via image data from [TrendList.org](https://www.trendlist.org)
 
 ## Authors
 - [@roz0n](https://www.linkedin.com/in/rozon)
@@ -11,7 +11,9 @@ Graphic Design trend classification powered by CoreML with data from [TrendList.
 
 ## Tech Stack
 **Client:** Swift, UIKit, CoreML
+
 **Server:** TypeScript, Node, Express
+
 **Deployment:** Terraform, DigitalOcean
 
 ## Features
