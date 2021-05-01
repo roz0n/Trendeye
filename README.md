@@ -8,8 +8,6 @@
     Graphic design trend classification powered by CoreML and images from <a href="https://www.trendlist.org">TrendList.org</a>
 </p>
 
----
-
 ## Authors
 
 - [@roz0n](https://www.linkedin.com/in/rozon)
