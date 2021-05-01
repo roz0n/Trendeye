@@ -1,4 +1,6 @@
-![Icon](README-Icon.png)
+<p align="center" width="100%">
+    <img width="33%" src="./README-Icon.png"> 
+</p>
 
 # Trendeye iOS (BETA)
 Graphic Design trend classification powered by CoreML via image data from [TrendList.org](https://www.trendlist.org)
