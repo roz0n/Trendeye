@@ -10,7 +10,7 @@ Graphic design trend classification powered by CoreML and images from [TrendList
 
 - [@roz0n](https://www.linkedin.com/in/rozon)
 
-| Design, development, deployment, testing and everything in-between
+> Design, development, deployment, testing and everything in-between
 
 ## Screenshots
 
@@ -22,13 +22,13 @@ Graphic design trend classification powered by CoreML and images from [TrendList
 
 **Server:** TypeScript, Node, Redis, Express (namely `JSDOM` and Node's [Stream API](https://nodejs.org/api/stream.html#stream_stream) for web and image scraping respectively)
 
-| For more information about the Trendeye backend, kindly visit the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) repo.
+> For more information about the Trendeye back-end, kindly visit the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) repo.
 
 **Deployment:** Terraform, Docker, Ubuntu (via DigitalOcean), NGINX
 
 **Design:** Figma, Adobe Illustrator
 
-| To view complete designs, kindly visit [this Figma project](https://www.figma.com/file/yb2EerWCmNrCjhuYVYR150/TRENDEYE-iOS-App?node-id=321%3A582)
+> To view complete designs, kindly visit [this](https://www.figma.com/file/yb2EerWCmNrCjhuYVYR150/TRENDEYE-iOS-App?node-id=321%3A582) Figma artboard.
 
 ## Notable Features
 
