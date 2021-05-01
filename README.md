@@ -5,7 +5,7 @@
 <h1 align="center">Trendeye (Beta)</h1>
 
 <p align="center" width="100%">
-    Graphic design trend classification powered by CoreML and images from [TrendList.org](https://www.trendlist.org)
+    Graphic design trend classification powered by CoreML and images from <a href="https://www.trendlist.org">TrendList.org</a>
 </p>
 
 ---
