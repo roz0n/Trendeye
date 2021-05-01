@@ -12,6 +12,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   
   var captureSession: AVCaptureSession!
   var imageOutput: AVCapturePhotoOutput!
+  var activeCaptureDevice: AVCaptureDevice!
   var videoPreviewLayer: AVCaptureVideoPreviewLayer!
   var watermarkView = AppLogoView()
   var controlsView = CameraControlsView()
@@ -58,7 +59,7 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     applyConfigurations()
     
 //    self.SHORTCUT_PRESENT_CATEGORY()
-    self.SHORTCUT_PRESENT_CLASSIFICATION()
+//    self.SHORTCUT_PRESENT_CLASSIFICATION()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -118,11 +119,13 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
       return
     }
     
+    activeCaptureDevice = rearCamera
+    
     /**
      `AVCaptureDeviceInput` attaches the input device to the session.
      */
     do {
-      let input = try AVCaptureDeviceInput(device: rearCamera)
+      let input = try AVCaptureDeviceInput(device: activeCaptureDevice)
       // Attach output to the capture session
       imageOutput = AVCapturePhotoOutput()
       

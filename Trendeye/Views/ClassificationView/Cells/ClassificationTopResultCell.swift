@@ -38,7 +38,7 @@ class ClassificationTopResultCell: ClassificationResultCell {
     paragraphStyle.lineHeightMultiple = 1.05
     
     textView.attributedText = NSMutableAttributedString(
-      string: "Based on over 2,000 images uploaded to TrendList.org and powered by CoreML image classification.",
+      string: "Based on over 2,000 images uploaded to TrendList.org interpreted by a CoreML image classification model.",
       attributes: [
         NSAttributedString.Key.paragraphStyle: paragraphStyle,
         NSAttributedString.Key.foregroundColor: K.Colors.DarkGray,
