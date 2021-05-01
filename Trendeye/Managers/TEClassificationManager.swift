@@ -16,7 +16,7 @@ enum TEClassificationError: Error {
 }
 
 protocol TEClassificationDelegate {
-  func didFinishClassifying(_ sender: TEClassificationManager?, results: [VNClassificationObservation])
+  func didFinishClassifying(_ sender: TEClassificationManager?, results: inout [VNClassificationObservation])
   func didError(_ sender: TEClassificationManager?, error: Error?)
 }
 
@@ -81,12 +81,12 @@ class TEClassificationManager {
         return
       }
       
-      guard let results = request.results as? [VNClassificationObservation] else {
+      guard var results = request.results as? [VNClassificationObservation] else {
         self?.delegate?.didError(self, error: TEClassificationError.classificationError)
         return
       }
       
-      self?.delegate?.didFinishClassifying(self, results: results)
+      self?.delegate?.didFinishClassifying(self, results: &results)
     }
     
     do {

@@ -148,6 +148,21 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     classifier.classifyImage(image)
   }
   
+  fileprivate func sanitizeClassificationResults(_ results: inout [VNClassificationObservation]) -> [VNClassificationObservation] {
+    for result in results {
+      let confidence = (result.confidence * 100)
+      
+      if confidence < 2 {
+        let removalIndex = results.firstIndex(of: result)
+        if let removalIndex = removalIndex {
+          results.remove(at: removalIndex)
+        }
+      }
+    }
+    
+    return results
+  }
+  
   // MARK: - Gestures
   
   @objc func handleCloseClassifier() {
@@ -231,9 +246,9 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
   
   // MARK: - TEClassificationDelegate Methods
   
-  func didFinishClassifying(_ sender: TEClassificationManager?, results: [VNClassificationObservation]) {
+  func didFinishClassifying(_ sender: TEClassificationManager?, results: inout [VNClassificationObservation]) {
     if !results.isEmpty {
-      self.results = results
+      self.results = sanitizeClassificationResults(&results)
     } else {
       presentSimpleAlert(
         title: "Classification Error",

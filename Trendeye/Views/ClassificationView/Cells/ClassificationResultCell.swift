@@ -26,14 +26,12 @@ class ClassificationResultCell: UITableViewCell {
   var wrapper: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
-//    view.backgroundColor = .systemOrange
     return view
   }()
   
   var container: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
-//    view.backgroundColor = .systemGreen
     return view
   }()
   
