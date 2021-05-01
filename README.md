@@ -66,4 +66,4 @@ For support, bug reports, inquiries, or a stern talking to, email arnold@rozon.d
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MPL-2.0 License](https://choosealicense.com/licenses/mpl-2.0/)
