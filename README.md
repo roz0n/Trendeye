@@ -20,7 +20,7 @@ Graphic design trend classification powered by CoreML and images from [TrendList
 
 **Client:** Swift, UIKit (fully programmatic MVC, zero storyboards or nibs), AVKit, CoreML
 
-**Server:** TypeScript, Node, Redis, Express (namely `JSDOM` and Node's [Stream API](https://nodejs.org/api/stream.html#stream_stream) for web and image scraping respectively)
+**Server:** TypeScript, Node, Redis, Express (namely [JSDOM](https://github.com/jsdom/jsdom) and Node's [Stream API](https://nodejs.org/api/stream.html#stream_stream) for web and image scraping respectively)
 
 > For more information about the Trendeye back-end, kindly visit the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) repo.
 
