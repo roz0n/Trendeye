@@ -2,7 +2,7 @@
     <img width="128px" height="128px" src="./README-Icon.png"> 
 </p>
 
-# Trendeye (Beta)
+<h1 align="center">Trendeye (Beta)</div>
 
 Graphic design trend classification powered by CoreML and images from [TrendList.org](https://www.trendlist.org)
 
