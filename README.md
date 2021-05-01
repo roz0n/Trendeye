@@ -1,5 +1,5 @@
 <p align="center" width="100%">
-    <img width="33%" src="./README-Icon.png"> 
+    <img width="128px" height="128px" src="./README-Icon.png"> 
 </p>
 
 # Trendeye iOS (BETA)
