@@ -76,7 +76,7 @@ To run tests, run the following command
  - [Indian Type Foundry](https://www.indiantypefoundry.com/)
  - [FontShare](https://www.fontshare.com/)
 
- ... and most notably, the legion of talented designers/artists/studios that have had their work catalogued on the (Trend List)[https://www.trendlist.org] blog. Thank you.
+ ... and most notably, the legion of talented designers/artists/studios that have had their work cataloged on the (Trend List)[https://www.trendlist.org] blog. Thank you.
 
 ## Contact Me
 For support, bug reports, inquiries, or a stern talking to, email arnold@rozon.dev
