@@ -8,15 +8,25 @@
 import UIKit
 import Vision
 
-final class ClassificationViewController: UITableViewController, ClassificationDelegate {
+final class ClassificationViewController: UITableViewController {
   
-  var classifier = ClassificationManager()
+  // MARK: - Classifier Members
+  
+  var classifier = TrendClassifierManager()
+  var confidenceLabel = ClassificationConfidenceButton()
+  var results: [VNClassificationObservation]?
+  
+  // MARK: - UI Members
+  
   var stretchHeaderContainer = StretchyTableHeaderView()
   var stretchHeaderHeight: CGFloat = 350
   var tableFooter = ClassificationTableFooterView()
+  
+  // MARK: - Other Members
+  
   var selectedImage: UIImage!
-  var results: [VNClassificationObservation]?
-  var confidenceLabel = ClassificationConfidenceButton()
+  
+  // MARK: - Initializers
   
   init(with image: UIImage) {
     super.init(nibName: nil, bundle: nil)
@@ -37,6 +47,8 @@ final class ClassificationViewController: UITableViewController, ClassificationD
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
+  // MARK: - View Lifecycle
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
@@ -141,7 +153,7 @@ final class ClassificationViewController: UITableViewController, ClassificationD
     beginClassification(of: selectedImage)
   }
   
-  // MARK: - Helpers
+  // MARK: - Classification Helpers
   
   fileprivate func beginClassification(of photo: UIImage) {
     guard let image = CIImage(image: photo) else { return }
@@ -163,27 +175,51 @@ final class ClassificationViewController: UITableViewController, ClassificationD
     return results
   }
   
-  // MARK: - Gestures
+}
+
+// MARK: - TrendClassifierDelegate
+
+extension ClassificationViewController: TrendClassifierDelegate {
   
-  @objc func handleCloseClassifier() {
-    navigationController?.popViewController(animated: true)
+  func didFinishClassifying(_ sender: TrendClassifierManager?, results: inout [VNClassificationObservation]) {
+    if !results.isEmpty {
+      self.results = sanitizeClassificationResults(&results)
+    } else {
+      presentSimpleAlert(
+        title: "Classification Error",
+        message: "Failed to classify image. Please try another or try again later.",
+        actionTitle: "Close")
+    }
   }
   
-  @objc func handleFullScreenButton() {
-    let fullView = FullScreenImageView()
-    fullView.modalPresentationStyle = .overFullScreen
-    fullView.modalTransitionStyle = .coverVertical
-    fullView.image = selectedImage
-    present(fullView, animated: true, completion: nil)
+  func didError(_ sender: TrendClassifierManager?, error: Error?) {
+    if let error = error {
+      switch error as! TrendClassifierError {
+        case .modelError:
+          print("Classification error: failed to initialize model")
+        case .classificationError:
+          print("Classification error: vision request failed")
+        case .handlerError:
+          print("Classification error: image request handler failed")
+      }
+    }
   }
   
-  // MARK: - UIScrollViewDelegate Methods
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension ClassificationViewController {
   
   override func scrollViewDidScroll(_ scrollView: UIScrollView) {
     stretchHeaderContainer.updatePosition()
   }
   
-  // MARK: - UITableView Methods
+}
+
+// MARK: - UITableViewDataSource
+
+extension ClassificationViewController {
   
   override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
@@ -213,7 +249,7 @@ final class ClassificationViewController: UITableViewController, ClassificationD
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let result = results?[indexPath.row]
-    let category = ClassificationManager.shared.indentifiers[result!.identifier]
+    let category = TrendClassifierManager.shared.indentifiers[result!.identifier]
     let categoryViewController = CategoryViewController()
     
     categoryViewController.title = category
@@ -244,30 +280,22 @@ final class ClassificationViewController: UITableViewController, ClassificationD
     return ClassificationResultCell.estimatedHeight
   }
   
-  // MARK: - ClassificationDelegate Methods
+}
+
+// MARK: - Gestures
+
+extension ClassificationViewController {
   
-  func didFinishClassifying(_ sender: ClassificationManager?, results: inout [VNClassificationObservation]) {
-    if !results.isEmpty {
-      self.results = sanitizeClassificationResults(&results)
-    } else {
-      presentSimpleAlert(
-        title: "Classification Error",
-        message: "Failed to classify image. Please try another or try again later.",
-        actionTitle: "Close")
-    }
+  @objc func handleCloseClassifier() {
+    navigationController?.popViewController(animated: true)
   }
   
-  func didError(_ sender: ClassificationManager?, error: Error?) {
-    if let error = error {
-      switch error as! ClassificationError {
-        case .modelError:
-          print("Classification error: failed to initialize model")
-        case .classificationError:
-          print("Classification error: vision request failed")
-        case .handlerError:
-          print("Classification error: image request handler failed")
-      }
-    }
+  @objc func handleFullScreenButton() {
+    let fullView = FullScreenImageView()
+    fullView.modalPresentationStyle = .overFullScreen
+    fullView.modalTransitionStyle = .coverVertical
+    fullView.image = selectedImage
+    present(fullView, animated: true, completion: nil)
   }
   
 }

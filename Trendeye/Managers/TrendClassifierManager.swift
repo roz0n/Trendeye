@@ -9,13 +9,13 @@ import UIKit
 import CoreML
 import Vision
 
-enum ClassifierError: Error {
+enum TrendClassifierError: Error {
   case modelError
   case classificationError
   case handlerError
 }
 
-protocol ClassifierDelegate {
+protocol TrendClassifierDelegate {
   func didFinishClassifying(_ sender: TrendClassifierManager?, results: inout [VNClassificationObservation])
   func didError(_ sender: TrendClassifierManager?, error: Error?)
 }
@@ -23,7 +23,7 @@ protocol ClassifierDelegate {
 class TrendClassifierManager {
   
   static let shared = TrendClassifierManager()
-  var delegate: ClassifierDelegate?
+  var delegate: TrendClassifierDelegate?
   
   let indentifiers: [String: String] = [
     "ik-blue": "IK Blue",
@@ -71,7 +71,7 @@ class TrendClassifierManager {
     let visionHandler = VNImageRequestHandler(ciImage: image)
     
     guard let mlModel = try? VNCoreMLModel(for: TrendClassifier(configuration: configuration).model) else {
-      self.delegate?.didError(self, error: ClassifierError.modelError)
+      self.delegate?.didError(self, error: TrendClassifierError.modelError)
       return
     }
     
@@ -82,7 +82,7 @@ class TrendClassifierManager {
       }
       
       guard var results = request.results as? [VNClassificationObservation] else {
-        self?.delegate?.didError(self, error: ClassifierError.classificationError)
+        self?.delegate?.didError(self, error: TrendClassifierError.classificationError)
         return
       }
       
@@ -92,7 +92,7 @@ class TrendClassifierManager {
     do {
       try visionHandler.perform([visionRequest])
     } catch {
-      self.delegate?.didError(self, error: ClassifierError.handlerError)
+      self.delegate?.didError(self, error: TrendClassifierError.handlerError)
     }
   }
   

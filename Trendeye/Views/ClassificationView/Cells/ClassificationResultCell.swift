@@ -18,8 +18,8 @@ class ClassificationResultCell: UITableViewCell {
   
   var resultData: VNClassificationObservation! {
     didSet {
-      identifierLabel.text = ClassificationManager.shared.indentifiers[resultData.identifier]
-      confidenceLabel.text = "\(ClassificationManager.shared.convertConfidenceToPercent(resultData.confidence))%"
+      identifierLabel.text = TrendClassifierManager.shared.indentifiers[resultData.identifier]
+      confidenceLabel.text = "\(TrendClassifierManager.shared.convertConfidenceToPercent(resultData.confidence))%"
     }
   }
   
