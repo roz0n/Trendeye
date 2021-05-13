@@ -17,7 +17,7 @@
 ## Screenshots
 
 <p align="center" width="100%">
-    <img width="128px" height="128px" src="./README-Screenshots.png"> 
+    <img src="./README-Screenshots.png"> 
 </p>
 
 ## Stack
