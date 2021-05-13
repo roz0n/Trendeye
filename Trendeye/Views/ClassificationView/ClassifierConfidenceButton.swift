@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Vision
 
 class ClassifierConfidenceButton: UIView {
   
@@ -13,6 +14,15 @@ class ClassifierConfidenceButton: UIView {
     case low = "low"
     case mild = "mild"
     case high = "high"
+  }
+  
+  var classificationMetric: ConfidenceMetrics?
+  
+  var classificationTopResult: VNClassificationObservation? {
+    didSet {
+      setClassificationMetric()
+      setBackgroundColor()
+    }
   }
   
   var buttonWidth: CGFloat? {
@@ -23,19 +33,20 @@ class ClassifierConfidenceButton: UIView {
     }
   }
   
-  let buttonXPadding: CGFloat = 14
-  
   var button: UIButton = {
     let button = UIButton(type: .system)
     button.translatesAutoresizingMaskIntoConstraints = false
     button.layer.masksToBounds = true
-    button.backgroundColor = K.Colors.Red
     return button
   }()
+  
+  let buttonXPadding: CGFloat = 14
   
   override var intrinsicContentSize: CGSize {
     return UIView.layoutFittingExpandedSize
   }
+  
+  // MARK: - Initializers
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -47,10 +58,45 @@ class ClassifierConfidenceButton: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
+  // MARK: -
+  
   override func layoutSubviews() {
     super.layoutSubviews()
     applyConfigurations()
   }
+  
+  // MARK: - Helpers
+  
+  fileprivate func setClassificationMetric() {
+    // TODO: This might be too "smart" for this view
+    guard let topResult = classificationTopResult else { return }
+    let resultValue = (topResult.confidence) * 100
+        
+    if 0...33 ~= resultValue {
+      classificationMetric = .low
+    } else if 34...66 ~= resultValue {
+      classificationMetric = .mild
+    } else if 67...100 ~= resultValue {
+      classificationMetric = .high
+    } else {
+      classificationMetric = .low
+    }
+  }
+  
+  fileprivate func setBackgroundColor() {
+    switch classificationMetric {
+      case .low:
+        button.backgroundColor = K.Colors.Red
+      case .mild:
+        button.backgroundColor = .systemOrange
+      case .high:
+        button.backgroundColor = K.Colors.Green
+      default:
+        break
+    }
+  }
+  
+  // MARK: - Configurations
   
   fileprivate func applyConfigurations() {
     configureLabelRadius()
@@ -62,15 +108,17 @@ class ClassifierConfidenceButton: UIView {
   }
   
   fileprivate func configureLabelText() {
+    guard let metric = classificationMetric else { return }
+    
     let fontSize: CGFloat = 14
     let confidenceString = "confidence".uppercased()
-    let metricString = ConfidenceMetrics.low.rawValue.uppercased()
+    let metricString = metric.rawValue.uppercased()
     let spacerAttrString = NSMutableAttributedString(string: " ")
-
+    
     // Eye icon string
     let eyeIcon = NSTextAttachment()
-    eyeIcon.image = UIImage(systemName: "eye.fill",
-      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .semibold))
+    eyeIcon.image = UIImage(systemName: K.Icons.Classifier,
+                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .semibold))
     let eyeString = NSAttributedString(attachment: eyeIcon)
     
     // Label text string

@@ -13,8 +13,17 @@ final class ClassificationViewController: UITableViewController {
   // MARK: - Classifier Members
   
   var classifier = TrendClassifierManager()
-  var confidenceLabel = ClassifierConfidenceButton()
-  var results: [VNClassificationObservation]?
+  var confidenceButton = ClassifierConfidenceButton()
+  
+  var results: [VNClassificationObservation]? {
+    didSet {
+      if let results = results {
+        if !results.isEmpty {
+          confidenceButton.classificationTopResult = results[0]
+        }
+      }
+    }
+  }
   
   // MARK: - UI Members
   
@@ -136,7 +145,7 @@ final class ClassificationViewController: UITableViewController {
       target: self,
       action: #selector(handleFullScreenButton))
     navigationItem.backButtonTitle = ""
-    navigationItem.titleView = confidenceLabel
+    navigationItem.titleView = confidenceButton
   }
   
   fileprivate func configureClassifier() {

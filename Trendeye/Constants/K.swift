@@ -33,6 +33,7 @@ struct K {
     static let Save = "square.and.arrow.down"
     static let Exclamation = "questionmark.circle"
     static let CameraError = "eye.slash"
+    static let Classifier = "eye.fill"
   }
   
 }
