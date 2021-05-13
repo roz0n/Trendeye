@@ -16,9 +16,11 @@
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+<p align="center" width="100%">
+    <img width="128px" height="128px" src="./README-Screenshots.png"> 
+</p>
 
-## Tech Stack
+## Stack
 
 **Client:** Swift, UIKit (fully programmatic MVC, zero storyboards or nibs), AVKit, CoreML
 
@@ -32,7 +34,7 @@
 
 > To view complete designs, kindly visit [this](https://www.figma.com/file/yb2EerWCmNrCjhuYVYR150/TRENDEYE-iOS-App?node-id=321%3A582) Figma artboard.
 
-## Notable Features
+## Features
 
 Trendeye is a simple app with a simple purpose and feature-set but contains some interesting UX goodies built from the ground up:
 
@@ -47,8 +49,6 @@ Most importantly, the above was accomplished without a single third-party depend
 - **_Greatly_** improve the accuracy of the image classification model
 - Implement photo framing and cropping using `UIGraphicsImageRenderer`
 - Persist classification results locally on the device using CoreData and subsequently sync them with `CloudKit`
-
-## Download from App Store
 
 ## Run Locally
 
