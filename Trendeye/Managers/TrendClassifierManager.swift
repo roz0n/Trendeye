@@ -1,5 +1,5 @@
 //
-//  ClassificationManager.swift
+//  TrendClassifierManager.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 2/21/21.
@@ -9,21 +9,21 @@ import UIKit
 import CoreML
 import Vision
 
-enum ClassificationError: Error {
+enum ClassifierError: Error {
   case modelError
   case classificationError
   case handlerError
 }
 
-protocol ClassificationDelegate {
-  func didFinishClassifying(_ sender: ClassificationManager?, results: inout [VNClassificationObservation])
-  func didError(_ sender: ClassificationManager?, error: Error?)
+protocol ClassifierDelegate {
+  func didFinishClassifying(_ sender: TrendClassifierManager?, results: inout [VNClassificationObservation])
+  func didError(_ sender: TrendClassifierManager?, error: Error?)
 }
 
-class ClassificationManager {
+class TrendClassifierManager {
   
-  static let shared = ClassificationManager()
-  var delegate: ClassificationDelegate?
+  static let shared = TrendClassifierManager()
+  var delegate: ClassifierDelegate?
   
   let indentifiers: [String: String] = [
     "ik-blue": "IK Blue",
@@ -71,7 +71,7 @@ class ClassificationManager {
     let visionHandler = VNImageRequestHandler(ciImage: image)
     
     guard let mlModel = try? VNCoreMLModel(for: TrendClassifier(configuration: configuration).model) else {
-      self.delegate?.didError(self, error: ClassificationError.modelError)
+      self.delegate?.didError(self, error: ClassifierError.modelError)
       return
     }
     
@@ -82,7 +82,7 @@ class ClassificationManager {
       }
       
       guard var results = request.results as? [VNClassificationObservation] else {
-        self?.delegate?.didError(self, error: ClassificationError.classificationError)
+        self?.delegate?.didError(self, error: ClassifierError.classificationError)
         return
       }
       
@@ -92,7 +92,7 @@ class ClassificationManager {
     do {
       try visionHandler.perform([visionRequest])
     } catch {
-      self.delegate?.didError(self, error: ClassificationError.handlerError)
+      self.delegate?.didError(self, error: ClassifierError.handlerError)
     }
   }
   
