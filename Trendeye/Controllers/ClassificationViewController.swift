@@ -13,7 +13,7 @@ final class ClassificationViewController: UITableViewController {
   // MARK: - Classifier Members
   
   var classifier = TrendClassifierManager()
-  var confidenceLabel = ClassificationConfidenceButton()
+  var confidenceLabel = ClassifierConfidenceButton()
   var results: [VNClassificationObservation]?
   
   // MARK: - UI Members

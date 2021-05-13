@@ -1,5 +1,5 @@
 //
-//  ClassificationConfidenceButton.swift
+//  ClassifierConfidenceButton.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/30/21.
@@ -7,7 +7,13 @@
 
 import UIKit
 
-class ClassificationConfidenceButton: UIView {
+class ClassifierConfidenceButton: UIView {
+  
+  enum ConfidenceMetrics: String {
+    case low = "low"
+    case mild = "mild"
+    case high = "high"
+  }
   
   var buttonWidth: CGFloat? {
     didSet {
@@ -57,22 +63,42 @@ class ClassificationConfidenceButton: UIView {
   
   fileprivate func configureLabelText() {
     let fontSize: CGFloat = 14
-    let labelString = NSMutableAttributedString()
-    let imageAttachment = NSTextAttachment()
-    imageAttachment.image = UIImage(
-      systemName: "eye.fill",
+    let confidenceString = "confidence".uppercased()
+    let metricString = ConfidenceMetrics.low.rawValue.uppercased()
+    let spacerAttrString = NSMutableAttributedString(string: " ")
+
+    // Eye icon string
+    let eyeIcon = NSTextAttachment()
+    eyeIcon.image = UIImage(systemName: "eye.fill",
       withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .semibold))
-    let imageString = NSAttributedString(attachment: imageAttachment)
-    let textString = NSMutableAttributedString(string: "   LOW CONFIDENCE", attributes: [
+    let eyeString = NSAttributedString(attachment: eyeIcon)
+    
+    // Label text string
+    let labelTextString: NSMutableAttributedString = {
+      let metricAttrString = NSMutableAttributedString(string: metricString)
+      let confidenceAttrString = NSMutableAttributedString(string: confidenceString)
+      
+      metricAttrString.append(spacerAttrString)
+      metricAttrString.append(confidenceAttrString)
+      
+      return metricAttrString
+    }()
+    
+    // Add attributes
+    labelTextString.addAttributes([
       NSAttributedString.Key.kern: -0.24,
       NSAttributedString.Key.font: AppFonts.Satoshi.font(face: .black, size: fontSize) as Any,
       NSAttributedString.Key.foregroundColor: K.Colors.NavigationBar,
-    ])
+    ], range: NSMakeRange(0, labelTextString.length))
     
-    labelString.append(imageString)
-    labelString.append(textString)
+    // Compose complete string
+    let completeLabelAttrString = NSMutableAttributedString()
+    completeLabelAttrString.append(eyeString)
+    completeLabelAttrString.append(spacerAttrString)
+    completeLabelAttrString.append(spacerAttrString)
+    completeLabelAttrString.append(labelTextString)
     
-    button.titleLabel?.attributedText = labelString
+    button.titleLabel?.attributedText = completeLabelAttrString
     button.setAttributedTitle(button.titleLabel?.attributedText, for: .normal)
     button.titleEdgeInsets = UIEdgeInsets(top: 0, left: buttonXPadding, bottom: 0, right: buttonXPadding)
     buttonWidth = button.intrinsicContentSize.width
@@ -83,7 +109,7 @@ class ClassificationConfidenceButton: UIView {
 
 // MARK: - Layout
 
-fileprivate extension ClassificationConfidenceButton {
+fileprivate extension ClassifierConfidenceButton {
   
   func applyLayouts() {
     layoutButton()
