@@ -228,31 +228,65 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     }
   }
   
-  // MARK: - Gestures
+}
+
+// MARK: - UIImagePickerControllerDelegate
+
+extension CameraViewController: UIImagePickerControllerDelegate {
   
-  fileprivate func applyGestures() {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    picker.dismiss(animated: true) { [weak self] in
+      if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        self?.presentConfirmationView(with: image)
+      }
+    }
+  }
+  
+}
+
+// MARK: - AVCapturePhotoCaptureDelegate
+
+extension CameraViewController: AVCapturePhotoCaptureDelegate {
+  
+  func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+    guard let imageData = photo.fileDataRepresentation() else { return }
+    let image = UIImage(data: imageData)
+    
+    if let image = image {
+      currentImage = image
+      presentConfirmationView(with: image)
+    }
+  }
+  
+}
+
+// MARK: - Gestures
+
+fileprivate extension CameraViewController {
+    
+  func applyGestures() {
     configureShootGesture()
     configurePickerGesture()
     configureFlipGesture()
     configureFlashGesture()
   }
   
-  fileprivate func configureShootGesture() {
+  func configureShootGesture() {
     shootGesture = UITapGestureRecognizer(target: self, action: #selector(shootButtonTapped))
     controlsView.shootButton.addGestureRecognizer(shootGesture!)
   }
   
-  fileprivate func configurePickerGesture() {
+  func configurePickerGesture() {
     let pickerGesture = UITapGestureRecognizer(target: self, action: #selector(pickerButtonTapped))
     controlsView.galleryButton.addGestureRecognizer(pickerGesture)
   }
   
-  fileprivate func configureFlipGesture() {
+  func configureFlipGesture() {
     let flipGesture = UITapGestureRecognizer(target: self, action: #selector(flipButtonTapped))
     controlsView.flipButton.addGestureRecognizer(flipGesture)
   }
   
-  fileprivate func configureFlashGesture() {
+  func configureFlashGesture() {
     let flashGesture = UITapGestureRecognizer(target: self, action: #selector(flashButtonTapped))
     controlsView.flashButton.addGestureRecognizer(flashGesture)
   }
@@ -278,7 +312,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         break
     }
     
-    // Make sure the session has at least one input already, this might be a lil extra, but better safe than sorry
+    // Make sure the session has at least one input already, better safe than sorry
     guard let currentInput = captureSession.inputs.first else { return }
     
     captureSession.beginConfiguration()
@@ -315,36 +349,6 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     } catch let error {
       print("\(error)")
       print("\(error.localizedDescription)")
-    }
-  }
-  
-}
-
-// MARK: - UIImagePickerControllerDelegate
-
-extension CameraViewController: UIImagePickerControllerDelegate {
-  
-  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-    picker.dismiss(animated: true) { [weak self] in
-      if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-        self?.presentConfirmationView(with: image)
-      }
-    }
-  }
-  
-}
-
-// MARK: - AVCapturePhotoCaptureDelegate
-
-extension CameraViewController: AVCapturePhotoCaptureDelegate {
-  
-  func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-    guard let imageData = photo.fileDataRepresentation() else { return }
-    let image = UIImage(data: imageData)
-    
-    if let image = image {
-      currentImage = image
-      presentConfirmationView(with: image)
     }
   }
   

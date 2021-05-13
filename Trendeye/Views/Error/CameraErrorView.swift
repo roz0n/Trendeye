@@ -14,7 +14,7 @@ class CameraErrorView: ContentErrorView {
     let icon = UIImage(systemName: K.Icons.CameraError, withConfiguration: config)
     self.init(image: icon!,
               title: "Unable to Access Camera",
-              message: "Looks like we're not able to access your device's camera. Please enable access in your device Settings to proceed.")
+              message: "Camera access is required to capture still images. Please enable access in your device settings to continue.")
   }
   
   override init(image: UIImage, title: String, message: String) {
