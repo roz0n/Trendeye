@@ -91,13 +91,13 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   // MARK: - Basic Configurations
   
   fileprivate func applyConfigurations() {
-    // Apply view styling
+    // Apply container view styling
     configureView()
     // Set back and front devices
     configureDevices()
     
     if !cameraError {
-      configureCaptureSession(with: frontCamera!)
+      configureInitialCaptureSession()
       configureVideoPreview()
     }
   }
@@ -107,6 +107,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   }
   
   fileprivate func configureDevices() {
+    // If either of these devices fail to be initialized in `selectBestDevice`, `cameraError` will be set to true
     backCamera = selectBestDevice(for: .back)
     frontCamera = selectBestDevice(for: .front)
     
@@ -118,7 +119,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   fileprivate func configureVideoPreview() {
     /**
-     NOTE: This configuration must be set within `viewDidAppear` or else the frame growth animation
+     This configuration must be applied within `viewDidAppear` or else the frame growth animation
      occurs over the live preview a second time when we navigate back to this view.
      */
     videoPreviewLayer.frame = cameraView.frame
@@ -127,7 +128,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   fileprivate func configurePicker() {
     /**
-     NOTE: This configuration must be set within `viewDidLoad`.
+     These configurations must be applied within `viewDidLoad`.
      */
     picker.delegate = self
     picker.sourceType = .photoLibrary
@@ -154,13 +155,14 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     return discoverySession.devices.first { device in device.position == position }
   }
   
-  fileprivate func configureCaptureSession(with selectedDevice: AVCaptureDevice) {
+  fileprivate func configureInitialCaptureSession() {
     // Initialize the capture session with a quality preset
     captureSession = AVCaptureSession()
     captureSession.sessionPreset = .high
         
     do {
       // Attach the capture device (front or back camera) to the session
+      // The value of `activeCaptureDevice` is set within `configureDevices`
       let input = try AVCaptureDeviceInput(device: activeCaptureDevice)
       imageOutput = AVCapturePhotoOutput()
             
@@ -279,20 +281,33 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   }
   
   @objc func flipButtonTapped() {
-    guard let device = activeCaptureDevice else { return }
-    
-    captureSession.stopRunning()
-    
-    switch device.position {
+    // Set new capture device
+    switch activeCaptureDevice.position {
       case .front:
-        configureCaptureSession(with: frontCamera!)
+        activeCaptureDevice = backCamera
       case .back:
-        configureCaptureSession(with: backCamera!)
+        activeCaptureDevice = frontCamera
       default:
         break
     }
     
-    captureSession.startRunning()
+    // Make sure the session has at least one input already, this might be a lil extra, but better safe than sorry
+    guard let currentInput = captureSession.inputs.first else { return }
+
+    captureSession.beginConfiguration()
+    captureSession.removeInput(currentInput)
+    
+    do {
+      let input = try AVCaptureDeviceInput(device: activeCaptureDevice)
+      captureSession.addInput(input)
+    } catch let error {
+      cameraError = true
+      print("Failed to swap capture session device")
+      print("\(error)")
+      print("\(error.localizedDescription)")
+    }
+    
+    captureSession.commitConfiguration()
   }
   
   @objc func flashButtonTapped() {
