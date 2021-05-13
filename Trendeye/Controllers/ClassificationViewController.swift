@@ -85,10 +85,14 @@ final class ClassificationViewController: UITableViewController {
   }
   
   fileprivate func configureStretchyHeader() {
+    let shouldImageScale = selectedImage.size.width > 300 || selectedImage.size.height > 300
+    
+    // Configure header content
     stretchyTableHeaderContent = ClassificationTableHeaderView()
     stretchyTableHeaderContent.translatesAutoresizingMaskIntoConstraints = false
-    stretchyTableHeaderContent.classificationImage = selectedImage.scaleByPercentage(10)
+    stretchyTableHeaderContent.classificationImage = shouldImageScale ? selectedImage.scaleByPercentage(10) : selectedImage
     
+    // Configure header container
     stretchyHeaderContainer.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     stretchyHeaderContainer.scrollView = tableView
     stretchyHeaderContainer.frame = CGRect(
