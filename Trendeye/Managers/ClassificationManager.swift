@@ -1,5 +1,5 @@
 //
-//  TEClassificationManager.swift
+//  ClassificationManager.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 2/21/21.
@@ -9,21 +9,21 @@ import UIKit
 import CoreML
 import Vision
 
-enum TEClassificationError: Error {
+enum ClassificationError: Error {
   case modelError
   case classificationError
   case handlerError
 }
 
-protocol TEClassificationDelegate {
-  func didFinishClassifying(_ sender: TEClassificationManager?, results: inout [VNClassificationObservation])
-  func didError(_ sender: TEClassificationManager?, error: Error?)
+protocol ClassificationDelegate {
+  func didFinishClassifying(_ sender: ClassificationManager?, results: inout [VNClassificationObservation])
+  func didError(_ sender: ClassificationManager?, error: Error?)
 }
 
-class TEClassificationManager {
+class ClassificationManager {
   
-  static let shared = TEClassificationManager()
-  var delegate: TEClassificationDelegate?
+  static let shared = ClassificationManager()
+  var delegate: ClassificationDelegate?
   
   let indentifiers: [String: String] = [
     "ik-blue": "IK Blue",
@@ -71,7 +71,7 @@ class TEClassificationManager {
     let visionHandler = VNImageRequestHandler(ciImage: image)
     
     guard let mlModel = try? VNCoreMLModel(for: TrendClassifier(configuration: configuration).model) else {
-      self.delegate?.didError(self, error: TEClassificationError.modelError)
+      self.delegate?.didError(self, error: ClassificationError.modelError)
       return
     }
     
@@ -82,7 +82,7 @@ class TEClassificationManager {
       }
       
       guard var results = request.results as? [VNClassificationObservation] else {
-        self?.delegate?.didError(self, error: TEClassificationError.classificationError)
+        self?.delegate?.didError(self, error: ClassificationError.classificationError)
         return
       }
       
@@ -92,7 +92,7 @@ class TEClassificationManager {
     do {
       try visionHandler.perform([visionRequest])
     } catch {
-      self.delegate?.didError(self, error: TEClassificationError.handlerError)
+      self.delegate?.didError(self, error: ClassificationError.handlerError)
     }
   }
   

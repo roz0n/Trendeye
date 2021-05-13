@@ -1,5 +1,5 @@
 //
-//  TECacheManager.swift
+//  CacheManager.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/18/21.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class TECacheManager {
+final class CacheManager {
   
-  static let shared = TECacheManager(withSize: 75000000)
+  static let shared = CacheManager(withSize: 75000000)
   
   lazy var imageCache = NSCache<NSString, UIImage>()
   lazy var descriptionCache = NSCache<NSString, NSString>()

@@ -18,7 +18,7 @@
 		23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */; };
 		23131B072622F67600FFF2B3 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B062622F67600FFF2B3 /* K.swift */; };
 		23131B0B2623863200FFF2B3 /* ClassificationTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B0A2623863200FFF2B3 /* ClassificationTableHeaderView.swift */; };
-		232AA37D2627F79000E5E8A1 /* TEFontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA37C2627F79000E5E8A1 /* TEFontManager.swift */; };
+		232AA37D2627F79000E5E8A1 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA37C2627F79000E5E8A1 /* FontManager.swift */; };
 		232AA3852628091C00E5E8A1 /* Satoshi-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3802628091C00E5E8A1 /* Satoshi-Light.otf */; };
 		232AA3862628091C00E5E8A1 /* Satoshi-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3812628091C00E5E8A1 /* Satoshi-Black.otf */; };
 		232AA3872628091C00E5E8A1 /* Satoshi-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3822628091C00E5E8A1 /* Satoshi-Bold.otf */; };
@@ -37,9 +37,9 @@
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23AAC191262AA7A700744651 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC190262AA7A700744651 /* CategoryCollectionView.swift */; };
 		23AAC195262ABEBA00744651 /* CategoryImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC194262ABEBA00744651 /* CategoryImageCell.swift */; };
-		23AAC199262AC18600744651 /* TENetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC198262AC18600744651 /* TENetworkManager.swift */; };
-		23AAC19D262ACB6800744651 /* TENetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC19C262ACB6800744651 /* TENetworkModels.swift */; };
-		23AAC1A1262D00A700744651 /* TECacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1A0262D00A700744651 /* TECacheManager.swift */; };
+		23AAC199262AC18600744651 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC198262AC18600744651 /* NetworkManager.swift */; };
+		23AAC19D262ACB6800744651 /* TrendlistAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC19C262ACB6800744651 /* TrendlistAPIModels.swift */; };
+		23AAC1A1262D00A700744651 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1A0262D00A700744651 /* CacheManager.swift */; };
 		23AAC1AA262E9BC800744651 /* TENetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1A9262E9BC800744651 /* TENetworkError.swift */; };
 		23AAC1FF2630C86800744651 /* CategoryCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1FE2630C86800744651 /* CategoryCollectionHeaderView.swift */; };
 		23AAC2022630F41500744651 /* FullScreenImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC2012630F41500744651 /* FullScreenImageView.swift */; };
@@ -54,7 +54,7 @@
 		23F80A4225E2EE2400241206 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4125E2EE2400241206 /* Assets.xcassets */; };
 		23F80A4525E2EE2400241206 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4325E2EE2400241206 /* LaunchScreen.storyboard */; };
 		23F80A4F25E2EEA400241206 /* TrendClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */; };
-		23F80A5625E32F0E00241206 /* TEClassificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A5525E32F0E00241206 /* TEClassificationManager.swift */; };
+		23F80A5625E32F0E00241206 /* ClassificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A5525E32F0E00241206 /* ClassificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +81,7 @@
 		23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		23131B062622F67600FFF2B3 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		23131B0A2623863200FFF2B3 /* ClassificationTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationTableHeaderView.swift; sourceTree = "<group>"; };
-		232AA37C2627F79000E5E8A1 /* TEFontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEFontManager.swift; sourceTree = "<group>"; };
+		232AA37C2627F79000E5E8A1 /* FontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		232AA3802628091C00E5E8A1 /* Satoshi-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Light.otf"; sourceTree = "<group>"; };
 		232AA3812628091C00E5E8A1 /* Satoshi-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Black.otf"; sourceTree = "<group>"; };
 		232AA3822628091C00E5E8A1 /* Satoshi-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Bold.otf"; sourceTree = "<group>"; };
@@ -100,9 +100,9 @@
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23AAC190262AA7A700744651 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
 		23AAC194262ABEBA00744651 /* CategoryImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryImageCell.swift; sourceTree = "<group>"; };
-		23AAC198262AC18600744651 /* TENetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TENetworkManager.swift; sourceTree = "<group>"; };
-		23AAC19C262ACB6800744651 /* TENetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TENetworkModels.swift; sourceTree = "<group>"; };
-		23AAC1A0262D00A700744651 /* TECacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TECacheManager.swift; sourceTree = "<group>"; };
+		23AAC198262AC18600744651 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		23AAC19C262ACB6800744651 /* TrendlistAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendlistAPIModels.swift; sourceTree = "<group>"; };
+		23AAC1A0262D00A700744651 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		23AAC1A9262E9BC800744651 /* TENetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TENetworkError.swift; sourceTree = "<group>"; };
 		23AAC1FE2630C86800744651 /* CategoryCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionHeaderView.swift; sourceTree = "<group>"; };
 		23AAC2012630F41500744651 /* FullScreenImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageView.swift; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 		23F80A4425E2EE2400241206 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		23F80A4625E2EE2400241206 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TrendClassifier.mlmodel; sourceTree = "<group>"; };
-		23F80A5525E32F0E00241206 /* TEClassificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEClassificationManager.swift; sourceTree = "<group>"; };
+		23F80A5525E32F0E00241206 /* ClassificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,10 +331,10 @@
 		23F80A5425E32EBC00241206 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				23F80A5525E32F0E00241206 /* TEClassificationManager.swift */,
-				232AA37C2627F79000E5E8A1 /* TEFontManager.swift */,
-				23AAC198262AC18600744651 /* TENetworkManager.swift */,
-				23AAC1A0262D00A700744651 /* TECacheManager.swift */,
+				23F80A5525E32F0E00241206 /* ClassificationManager.swift */,
+				232AA37C2627F79000E5E8A1 /* FontManager.swift */,
+				23AAC198262AC18600744651 /* NetworkManager.swift */,
+				23AAC1A0262D00A700744651 /* CacheManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -377,7 +377,7 @@
 			isa = PBXGroup;
 			children = (
 				23AAC19B262ACB1900744651 /* Classifiers */,
-				23AAC19C262ACB6800744651 /* TENetworkModels.swift */,
+				23AAC19C262ACB6800744651 /* TrendlistAPIModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -502,20 +502,20 @@
 				23EFD8EB263B3084005AB471 /* ClassificationTopResultCell.swift in Sources */,
 				23EFD8ED263BD539005AB471 /* UITextView+Ext.swift in Sources */,
 				234C91E72637D08400B3A89E /* AppLogoView.swift in Sources */,
-				232AA37D2627F79000E5E8A1 /* TEFontManager.swift in Sources */,
+				232AA37D2627F79000E5E8A1 /* FontManager.swift in Sources */,
 				23131AF526219D6A00FFF2B3 /* ClassificationViewController.swift in Sources */,
 				23131AD7261FE66400FFF2B3 /* UIView+Ext.swift in Sources */,
 				23AAC1AA262E9BC800744651 /* TENetworkError.swift in Sources */,
 				23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */,
 				237172A82633F21500D29B50 /* UIImage+Ext.swift in Sources */,
 				2371729C26327B5D00D29B50 /* CGSize+Ext.swift in Sources */,
-				23AAC1A1262D00A700744651 /* TECacheManager.swift in Sources */,
+				23AAC1A1262D00A700744651 /* CacheManager.swift in Sources */,
 				23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */,
 				23131AE22621586C00FFF2B3 /* ConfirmationButton.swift in Sources */,
 				232AA39526298B0D00E5E8A1 /* PhotoEnlargeButton.swift in Sources */,
 				2371729926327B4400D29B50 /* CGFloat+Ext.swift in Sources */,
-				23AAC19D262ACB6800744651 /* TENetworkModels.swift in Sources */,
-				23F80A5625E32F0E00241206 /* TEClassificationManager.swift in Sources */,
+				23AAC19D262ACB6800744651 /* TrendlistAPIModels.swift in Sources */,
+				23F80A5625E32F0E00241206 /* ClassificationManager.swift in Sources */,
 				23EFD8EF263BE241005AB471 /* ClassificationConfidenceButton.swift in Sources */,
 				23AAC195262ABEBA00744651 /* CategoryImageCell.swift in Sources */,
 				23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */,
@@ -531,7 +531,7 @@
 				23AAC2022630F41500744651 /* FullScreenImageView.swift in Sources */,
 				23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */,
 				23CEC9C5263A5505009114B3 /* CameraErrorView.swift in Sources */,
-				23AAC199262AC18600744651 /* TENetworkManager.swift in Sources */,
+				23AAC199262AC18600744651 /* NetworkManager.swift in Sources */,
 				23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */,
 				23AAC1FF2630C86800744651 /* CategoryCollectionHeaderView.swift in Sources */,
 			);

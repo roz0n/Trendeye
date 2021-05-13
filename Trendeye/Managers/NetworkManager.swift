@@ -1,5 +1,5 @@
 //
-//  TENetworkManager.swift
+//  NetworkManager.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/17/21.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class TENetworkManager {
+final class NetworkManager {
   
-  static let shared = TENetworkManager()
+  static let shared = NetworkManager()
   lazy var decoder = JSONDecoder()
   
   let baseUrl = "https://unofficial-trendlist.herokuapp.com/"
@@ -24,10 +24,10 @@ final class TENetworkManager {
     
     // MARK: - Category Description Cache Check
     
-    let isCached = TECacheManager.shared.checkCache(in: TECacheManager.shared.descriptionCache as! NSCache<AnyObject, AnyObject>, for: url.absoluteString)
+    let isCached = CacheManager.shared.checkCache(in: CacheManager.shared.descriptionCache as! NSCache<AnyObject, AnyObject>, for: url.absoluteString)
     
     guard !isCached else {
-      let cachedData = TECacheManager.shared.descriptionCache.object(forKey: url.absoluteString as NSString)
+      let cachedData = CacheManager.shared.descriptionCache.object(forKey: url.absoluteString as NSString)
       completion(nil, cachedData! as String)
       return
     }
@@ -52,7 +52,7 @@ final class TENetworkManager {
       
       do {
         defer {
-          TECacheManager.shared.fetchAndCacheDescription(from: url.absoluteString)
+          CacheManager.shared.fetchAndCacheDescription(from: url.absoluteString)
         }
         
         let decodedData = try self?.decoder.decode(CategoryDescriptionResponse.self, from: data)

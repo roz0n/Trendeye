@@ -278,17 +278,29 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   }
   
   @objc func flashButtonTapped() {
-    print("Tapped flash button")
+    guard let camera = rearCamera else { return }
+    
     do {
       defer {
-        rearCamera?.unlockForConfiguration()
+        camera.unlockForConfiguration()
       }
       
-      try rearCamera?.lockForConfiguration()
+      try camera.lockForConfiguration()
       
-//      if true {
-//        rearCamera?.torchMode == .off ? rearCamera?.torchMode = .on
-//      }
+      if camera.hasTorch {
+        switch camera.torchMode {
+          case .off:
+            camera.torchMode = .on
+          case .on:
+            camera.torchMode = .off
+          case .auto:
+            camera.torchMode = .off
+          default:
+            break
+        }
+      } else {
+        return
+      }
     } catch let error {
       print("\(error)")
       print("\(error.localizedDescription)")

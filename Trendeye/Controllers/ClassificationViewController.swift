@@ -8,9 +8,9 @@
 import UIKit
 import Vision
 
-final class ClassificationViewController: UITableViewController, TEClassificationDelegate {
+final class ClassificationViewController: UITableViewController, ClassificationDelegate {
   
-  var classifier = TEClassificationManager()
+  var classifier = ClassificationManager()
   var stretchHeaderContainer = StretchyTableHeaderView()
   var stretchHeaderHeight: CGFloat = 350
   var tableFooter = ClassificationTableFooterView()
@@ -213,7 +213,7 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let result = results?[indexPath.row]
-    let category = TEClassificationManager.shared.indentifiers[result!.identifier]
+    let category = ClassificationManager.shared.indentifiers[result!.identifier]
     let categoryViewController = CategoryViewController()
     
     categoryViewController.title = category
@@ -244,9 +244,9 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     return ClassificationResultCell.estimatedHeight
   }
   
-  // MARK: - TEClassificationDelegate Methods
+  // MARK: - ClassificationDelegate Methods
   
-  func didFinishClassifying(_ sender: TEClassificationManager?, results: inout [VNClassificationObservation]) {
+  func didFinishClassifying(_ sender: ClassificationManager?, results: inout [VNClassificationObservation]) {
     if !results.isEmpty {
       self.results = sanitizeClassificationResults(&results)
     } else {
@@ -257,9 +257,9 @@ final class ClassificationViewController: UITableViewController, TEClassificatio
     }
   }
   
-  func didError(_ sender: TEClassificationManager?, error: Error?) {
+  func didError(_ sender: ClassificationManager?, error: Error?) {
     if let error = error {
-      switch error as! TEClassificationError {
+      switch error as! ClassificationError {
         case .modelError:
           print("Classification error: failed to initialize model")
         case .classificationError:

@@ -1,5 +1,5 @@
 //
-//  TENetworkModels.swift
+//  TrendlistAPIModels.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/17/21.

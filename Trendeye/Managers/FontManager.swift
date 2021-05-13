@@ -1,5 +1,5 @@
 //
-//  TEFontManager.swift
+//  FontManager.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/14/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-typealias AppFonts = TEFontManager
+typealias AppFonts = FontManager
 
 enum FontFaces: String {
   case extraLight = "ExtraLight"
@@ -20,7 +20,7 @@ enum FontFaces: String {
   case heavy = "Heavy"
 }
 
-class TEFontManager {
+class FontManager {
   
   struct Satoshi {
     static let name = "Satoshi"
