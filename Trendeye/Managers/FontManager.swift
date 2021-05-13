@@ -20,7 +20,7 @@ enum FontFaces: String {
   case heavy = "Heavy"
 }
 
-class FontManager {
+final class FontManager {
   
   struct Satoshi {
     static let name = "Satoshi"
