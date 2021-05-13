@@ -21,6 +21,12 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   var currentImage: UIImage?
   let cameraErrorView = CameraErrorView()
   
+  
+  // Devices
+  var rearCamera: AVCaptureDevice?
+  var frontCamera: AVCaptureDevice?
+  
+  
   var cameraError = false {
     didSet {
       applyLayouts()
@@ -112,13 +118,14 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   fileprivate func configureCaptureSession() {
     captureSession = AVCaptureSession()
     captureSession.sessionPreset = .high
+    rearCamera = AVCaptureDevice.default(for: .video)
     
-    guard let rearCamera = AVCaptureDevice.default(for: .video) else {
-      cameraError = true
+    guard rearCamera != nil else {
+      self.cameraError = true
       print("Error: Unable to access back camera")
       return
     }
-    
+        
     activeCaptureDevice = rearCamera
     
     /**
@@ -232,6 +239,8 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   fileprivate func applyGestures() {
     configureShootGesture()
     configurePickerGesture()
+    configureFlipGesture()
+    configureFlashGesture()
   }
   
   fileprivate func configureShootGesture() {
@@ -244,6 +253,16 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     controlsView.galleryButton.addGestureRecognizer(pickerGesture)
   }
   
+  fileprivate func configureFlipGesture() {
+    let flipGesture = UITapGestureRecognizer(target: self, action: #selector(flipButtonTapped))
+    controlsView.flipButton.addGestureRecognizer(flipGesture)
+  }
+  
+  fileprivate func configureFlashGesture() {
+    let flashGesture = UITapGestureRecognizer(target: self, action: #selector(flashButtonTapped))
+    controlsView.flashButton.addGestureRecognizer(flashGesture)
+  }
+  
   @objc func shootButtonTapped() {
     let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
     imageOutput.capturePhoto(with: settings, delegate: self)
@@ -252,6 +271,28 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   @objc func pickerButtonTapped() {
     picker.modalPresentationStyle = .fullScreen
     present(picker, animated: true, completion: nil)
+  }
+  
+  @objc func flipButtonTapped() {
+    print("Tapped flip")
+  }
+  
+  @objc func flashButtonTapped() {
+    print("Tapped flash button")
+    do {
+      defer {
+        rearCamera?.unlockForConfiguration()
+      }
+      
+      try rearCamera?.lockForConfiguration()
+      
+//      if true {
+//        rearCamera?.torchMode == .off ? rearCamera?.torchMode = .on
+//      }
+    } catch let error {
+      print("\(error)")
+      print("\(error.localizedDescription)")
+    }
   }
   
 }
