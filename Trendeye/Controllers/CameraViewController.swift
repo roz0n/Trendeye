@@ -27,7 +27,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   var controlsView = CameraControlsView()
   let cameraErrorView = CameraErrorView()
 
-  // MARK: -
+  // MARK: - Other Members
   
   var shootGesture: UITapGestureRecognizer?
   var picker = UIImagePickerController()
@@ -71,7 +71,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    showCamera()
+    showCameraView()
     applyConfigurations()
     
     //    self.SHORTCUT_PRESENT_CATEGORY()
@@ -81,7 +81,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     navigationController?.setNavigationBarHidden(false, animated: animated)
-    dismissCamera()
+    hideCameraViewAndStopSession()
   }
   
   override func viewDidDisappear(_ animated: Bool) {
@@ -91,11 +91,12 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   // MARK: - Basic Configurations
   
   fileprivate func applyConfigurations() {
+    // Apply view styling
     configureView()
-    
+    // Set back and front devices
     configureDevices()
     
-    if !cameraError && backCamera != nil {
+    if !cameraError {
       configureCaptureSession(with: frontCamera!)
       configureVideoPreview()
     }
@@ -108,6 +109,9 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   fileprivate func configureDevices() {
     backCamera = selectBestDevice(for: .back)
     frontCamera = selectBestDevice(for: .front)
+    
+    // Set a default device, we'd like to initialize with the back camera
+    activeCaptureDevice = backCamera
   }
   
   // MARK: - Opinionated Configurations
@@ -151,46 +155,30 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   }
   
   fileprivate func configureCaptureSession(with selectedDevice: AVCaptureDevice) {
+    // Initialize the capture session with a quality preset
     captureSession = AVCaptureSession()
     captureSession.sessionPreset = .high
-    
-    //    backCamera = selectBestDevice(for: .back)
-    //    frontCamera = selectBestDevice(for: .front)
-    
-    //    guard backCamera != nil else {
-    //      self.cameraError = true
-    //      print("Error: Unable to access back camera")
-    //      return
-    //    }
-    
-    activeCaptureDevice = selectedDevice
-    
-    /**
-     `AVCaptureDeviceInput` attaches the input device to the session.
-     */
+        
     do {
+      // Attach the capture device (front or back camera) to the session
       let input = try AVCaptureDeviceInput(device: activeCaptureDevice)
-      // Attach output to the capture session
       imageOutput = AVCapturePhotoOutput()
-      
-      let canInputOutputWithDevice = captureSession.canAddInput(input) && captureSession.canAddOutput(imageOutput)
-      
-      if canInputOutputWithDevice {
+            
+      if captureSession.canAddInput(input) && captureSession.canAddOutput(imageOutput) {
         captureSession.addInput(input)
         captureSession.addOutput(imageOutput)
         configureLivePreview()
       }
     } catch let error {
       cameraError = true
-      print("Error: Failed to connect to input device", error)
+      print("Failed to connect to input device")
+      print("\(error)")
+      print("\(error.localizedDescription)")
     }
   }
   
-  /**
-   This method outputs the camera onto a UIView.
-   */
   fileprivate func configureLivePreview() {
-    // Set the video preview layer to an AVCaptureVideoPreviewLayer with the session attached
+    // This method displays the device output on a UIView
     videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
     videoPreviewLayer.videoGravity = .resizeAspectFill
     videoPreviewLayer.connection?.videoOrientation = .portrait
@@ -204,18 +192,18 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   // MARK: - Camera Helpers
   
-  public func dismissCamera() {
+  public func hideCameraViewAndStopSession() {
     view.isHidden = true
     captureSession.stopRunning()
   }
   
-  public func showCamera() {
+  public func showCameraView() {
     view.isHidden = false
   }
   
   // MARK: - Confirmation View
   
-  fileprivate func presentPhotoConfirmation(with image: UIImage) {
+  fileprivate func presentConfirmationView(with image: UIImage) {
     let confirmationViewController = ConfirmationViewController()
     let acceptButton = confirmationViewController.controlsView.acceptButton
     let denyButton = confirmationViewController.controlsView.denyButton
@@ -346,7 +334,7 @@ extension CameraViewController: UIImagePickerControllerDelegate {
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
     picker.dismiss(animated: true) { [weak self] in
       if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-        self?.presentPhotoConfirmation(with: image)
+        self?.presentConfirmationView(with: image)
       }
     }
   }
@@ -363,7 +351,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
     
     if let image = image {
       currentImage = image
-      presentPhotoConfirmation(with: image)
+      presentConfirmationView(with: image)
     }
   }
   
