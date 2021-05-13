@@ -18,8 +18,9 @@ final class ClassificationViewController: UITableViewController {
   
   // MARK: - UI Members
   
-  var stretchHeaderContainer = StretchyTableHeaderView()
-  var stretchHeaderHeight: CGFloat = 350
+  var stretchyHeaderContainer = StretchyTableHeaderView()
+  var stretchyHeaderHeight: CGFloat = 350
+  var stretchyTableHeaderContent = ClassificationTableHeaderView()
   var tableFooter = ClassificationTableFooterView()
   
   // MARK: - Other Members
@@ -53,6 +54,7 @@ final class ClassificationViewController: UITableViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     applyConfigurations()
+    applyLayouts()
   }
   
   override func viewDidLoad() {
@@ -62,17 +64,17 @@ final class ClassificationViewController: UITableViewController {
   
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    stretchHeaderContainer.updatePosition()
+    stretchyHeaderContainer.updatePosition()
   }
   
   override func viewSafeAreaInsetsDidChange() {
     super.viewSafeAreaInsetsDidChange()
     tableView.contentInset = UIEdgeInsets(
-      top: stretchHeaderHeight,
+      top: stretchyHeaderHeight,
       left: 0,
       bottom: 0,
       right: 0)
-    stretchHeaderContainer.updatePosition()
+    stretchyHeaderContainer.updatePosition()
   }
   
   // MARK: - Configurations
@@ -83,40 +85,25 @@ final class ClassificationViewController: UITableViewController {
   }
   
   fileprivate func configureStretchyHeader() {
-    // Configures header content
-    let tableHeaderContent = ClassificationTableHeaderView()
-    let targetSize = CGSize(width: 200, height: 200)
-    let scaledImage = selectedImage.scaleByAspect(to: targetSize)
+    stretchyTableHeaderContent = ClassificationTableHeaderView()
+    stretchyTableHeaderContent.translatesAutoresizingMaskIntoConstraints = false
+    stretchyTableHeaderContent.classificationImage = selectedImage.scaleByPercentage(10)
     
-    tableHeaderContent.translatesAutoresizingMaskIntoConstraints = false
-    tableHeaderContent.classificationImage = selectedImage
-    
-    // Configures header
-    stretchHeaderContainer.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    stretchHeaderContainer.scrollView = tableView
-    stretchHeaderContainer.frame = CGRect(
+    stretchyHeaderContainer.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    stretchyHeaderContainer.scrollView = tableView
+    stretchyHeaderContainer.frame = CGRect(
       x: 0,
       y: tableView.safeAreaInsets.top,
       width: view.frame.width,
-      height: stretchHeaderHeight)
-    
-    // TODO: Move this to the Layout extension
-    // Set header content constraints
-    stretchHeaderContainer.addSubview(tableHeaderContent)
-    NSLayoutConstraint.activate([
-      tableHeaderContent.topAnchor.constraint(equalTo: stretchHeaderContainer.topAnchor),
-      tableHeaderContent.leadingAnchor.constraint(equalTo: stretchHeaderContainer.leadingAnchor),
-      tableHeaderContent.trailingAnchor.constraint(equalTo: stretchHeaderContainer.trailingAnchor),
-      tableHeaderContent.bottomAnchor.constraint(equalTo: stretchHeaderContainer.bottomAnchor),
-    ])
+      height: stretchyHeaderHeight)
     
     // Creates a new background view on the tableView to use as its background
     tableView.backgroundView = UIView()
-    tableView.backgroundView?.addSubview(stretchHeaderContainer)
+    tableView.backgroundView?.addSubview(stretchyHeaderContainer)
     
     // Adjusts the contentInset of the tableView to expose the header
     tableView.contentInset = UIEdgeInsets(
-      top: stretchHeaderHeight,
+      top: stretchyHeaderHeight,
       left: 0,
       bottom: 0,
       right: 0)
@@ -212,7 +199,7 @@ extension ClassificationViewController: TrendClassifierDelegate {
 extension ClassificationViewController {
   
   override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    stretchHeaderContainer.updatePosition()
+    stretchyHeaderContainer.updatePosition()
   }
   
 }
@@ -296,6 +283,27 @@ extension ClassificationViewController {
     fullView.modalTransitionStyle = .coverVertical
     fullView.image = selectedImage
     present(fullView, animated: true, completion: nil)
+  }
+  
+}
+
+// MARK: - Layout
+
+fileprivate extension ClassificationViewController {
+  
+  func applyLayouts() {
+    layoutStretchHeader()
+  }
+  
+  func layoutStretchHeader() {
+    stretchyHeaderContainer.addSubview(stretchyTableHeaderContent)
+    
+    NSLayoutConstraint.activate([
+      stretchyTableHeaderContent.topAnchor.constraint(equalTo: stretchyHeaderContainer.topAnchor),
+      stretchyTableHeaderContent.leadingAnchor.constraint(equalTo: stretchyHeaderContainer.leadingAnchor),
+      stretchyTableHeaderContent.trailingAnchor.constraint(equalTo: stretchyHeaderContainer.trailingAnchor),
+      stretchyTableHeaderContent.bottomAnchor.constraint(equalTo: stretchyHeaderContainer.bottomAnchor),
+    ])
   }
   
 }

@@ -9,22 +9,15 @@ import UIKit
 
 extension UIImage {
   
-  func scaleByAspect(to size: CGSize) -> UIImage {
-    let widthRatio = (size.width / size.width)
-    let heightRatio = (size.height / size.height)
-    let scaleFactor = min(widthRatio, heightRatio)
+  func scaleByPercentage(_ percent: CGFloat) -> UIImage {
+    let newWidth: CGFloat = self.size.width * (percent / 100)
+    let newHeight: CGFloat = self.size.height * (percent / 100)
     
-    let scaledImageSize = CGSize(
-      width: (size.width * scaleFactor),
-      height: (size.height * scaleFactor))
+    let newSize = CGSize(width: newWidth, height: newHeight)
+    let renderer = UIGraphicsImageRenderer(size: newSize)
     
-    let renderer = UIGraphicsImageRenderer(
-      size: scaledImageSize)
-    
-    let scaledImage = renderer.image { _ in
-      self.draw(in: CGRect(
-                  origin: .zero,
-                  size: scaledImageSize))
+    let scaledImage = renderer.image { [weak self] _ in
+      self?.draw(in: CGRect(origin: .zero, size: newSize))
     }
     
     return scaledImage
