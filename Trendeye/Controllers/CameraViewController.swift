@@ -26,7 +26,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   var watermarkView = AppLogoView()
   var controlsView = CameraControlsView()
   let cameraErrorView = CameraErrorView()
-
+  
   // MARK: - Other Members
   
   var shootGesture: UITapGestureRecognizer?
@@ -35,14 +35,14 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   // MARK: - Camera UI Members
   
-  var cameraError = false {
+  var captureDeviceError = false {
     didSet {
       applyLayouts()
       view.layoutSubviews()
     }
   }
   
-  var cameraErrorContainer: UIView = {
+  var captureDeviceErrorContainer: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
@@ -73,9 +73,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     super.viewDidAppear(animated)
     showCameraView()
     applyConfigurations()
-    
-    //    self.SHORTCUT_PRESENT_CATEGORY()
-    //    self.SHORTCUT_PRESENT_CLASSIFICATION()
+    // self.SHORTCUT_PRESENT_CATEGORY()
+    // self.SHORTCUT_PRESENT_CLASSIFICATION()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -96,9 +95,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     // Set back and front devices
     configureDevices()
     
-    if !cameraError {
+    if !captureDeviceError {
       configureInitialCaptureSession()
-      configureVideoPreview()
     }
   }
   
@@ -114,22 +112,9 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     // Set a default device, we'd like to initialize with the back camera
     activeCaptureDevice = backCamera
   }
-  
-  // MARK: - Opinionated Configurations
-  
-  fileprivate func configureVideoPreview() {
-    /**
-     This configuration must be applied within `viewDidAppear` or else the frame growth animation
-     occurs over the live preview a second time when we navigate back to this view.
-     */
-    videoPreviewLayer.frame = cameraView.frame
-    videoPreviewLayer.zPosition = 1
-  }
-  
+    
   fileprivate func configurePicker() {
-    /**
-     These configurations must be applied within `viewDidLoad`.
-     */
+    // These configurations must be applied within `viewDidLoad`.
     picker.delegate = self
     picker.sourceType = .photoLibrary
     picker.allowsEditing = false
@@ -147,7 +132,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       position: .unspecified)
     
     guard !discoverySession.devices.isEmpty else {
-      self.cameraError = true
+      self.captureDeviceError = true
       print("Unable to obtain any capture devices")
       return nil
     }
@@ -159,20 +144,20 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     // Initialize the capture session with a quality preset
     captureSession = AVCaptureSession()
     captureSession.sessionPreset = .high
-        
+    
     do {
       // Attach the capture device (front or back camera) to the session
       // The value of `activeCaptureDevice` is set within `configureDevices`
       let input = try AVCaptureDeviceInput(device: activeCaptureDevice)
       imageOutput = AVCapturePhotoOutput()
-            
+      
       if captureSession.canAddInput(input) && captureSession.canAddOutput(imageOutput) {
         captureSession.addInput(input)
         captureSession.addOutput(imageOutput)
         configureLivePreview()
       }
     } catch let error {
-      cameraError = true
+      captureDeviceError = true
       print("Failed to connect to input device")
       print("\(error)")
       print("\(error.localizedDescription)")
@@ -184,6 +169,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
     videoPreviewLayer.videoGravity = .resizeAspectFill
     videoPreviewLayer.connection?.videoOrientation = .portrait
+    videoPreviewLayer.frame = cameraView.frame
+    videoPreviewLayer.zPosition = 1
     cameraView.layer.addSublayer(videoPreviewLayer)
     
     // Start the capture session on a background thread
@@ -293,7 +280,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     
     // Make sure the session has at least one input already, this might be a lil extra, but better safe than sorry
     guard let currentInput = captureSession.inputs.first else { return }
-
+    
     captureSession.beginConfiguration()
     captureSession.removeInput(currentInput)
     
@@ -301,7 +288,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       let input = try AVCaptureDeviceInput(device: activeCaptureDevice)
       captureSession.addInput(input)
     } catch let error {
-      cameraError = true
+      captureDeviceError = true
       print("Failed to swap capture session device")
       print("\(error)")
       print("\(error.localizedDescription)")
@@ -311,28 +298,19 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   }
   
   @objc func flashButtonTapped() {
-    guard let device = activeCaptureDevice else { return }
-    
     do {
-      defer {
-        device.unlockForConfiguration()
-      }
+      defer { activeCaptureDevice.unlockForConfiguration() }
+      try activeCaptureDevice.lockForConfiguration()
       
-      try device.lockForConfiguration()
-      
-      if device.hasTorch {
-        switch device.torchMode {
+      if activeCaptureDevice.hasTorch {
+        switch activeCaptureDevice.torchMode {
           case .off:
-            device.torchMode = .on
+            activeCaptureDevice.torchMode = .on
           case .on:
-            device.torchMode = .off
-          case .auto:
-            device.torchMode = .off
+            activeCaptureDevice.torchMode = .off
           default:
             break
         }
-      } else {
-        return
       }
     } catch let error {
       print("\(error)")
@@ -398,11 +376,11 @@ fileprivate extension CameraViewController {
 fileprivate extension CameraViewController {
   
   func applyLayouts() {
-    if !cameraError {
+    if !captureDeviceError {
       layoutCamera()
       layoutControls()
     } else {
-      layoutCameraError()
+      layoutCaptureDeviceError()
     }
     layoutWatermark()
   }
@@ -417,21 +395,21 @@ fileprivate extension CameraViewController {
     ])
   }
   
-  func layoutCameraError() {
+  func layoutCaptureDeviceError() {
     let padding: CGFloat = 16
     
-    view.addSubview(cameraErrorContainer)
-    cameraErrorContainer.fillOther(view: view)
-    cameraErrorContainer.addSubview(cameraErrorView)
+    view.addSubview(captureDeviceErrorContainer)
+    captureDeviceErrorContainer.fillOther(view: view)
+    captureDeviceErrorContainer.addSubview(cameraErrorView)
     
     if controlsView.isDescendant(of: view) {
       controlsView.removeFromSuperview()
     }
     
     NSLayoutConstraint.activate([
-      cameraErrorView.centerYAnchor.constraint(equalTo: cameraErrorContainer.centerYAnchor),
-      cameraErrorView.leadingAnchor.constraint(equalTo: cameraErrorContainer.leadingAnchor, constant: padding),
-      cameraErrorView.trailingAnchor.constraint(equalTo: cameraErrorContainer.trailingAnchor, constant: -(padding))
+      cameraErrorView.centerYAnchor.constraint(equalTo: captureDeviceErrorContainer.centerYAnchor),
+      cameraErrorView.leadingAnchor.constraint(equalTo: captureDeviceErrorContainer.leadingAnchor, constant: padding),
+      cameraErrorView.trailingAnchor.constraint(equalTo: captureDeviceErrorContainer.trailingAnchor, constant: -(padding))
     ])
   }
   

@@ -64,7 +64,7 @@ class CameraControlsView: UIView {
                                   withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))
     let flipButtonIcon = UIImage(systemName: "arrow.triangle.2.circlepath",
                                  withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))
-    let flashButtonIcon = UIImage(systemName: "bolt.slash.fill",
+    let flashButtonIcon = UIImage(systemName: "bolt.fill",
                                   withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))
     
     shootButton = CameraButton(type: .system)
