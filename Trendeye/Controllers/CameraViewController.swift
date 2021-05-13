@@ -8,24 +8,32 @@
 import UIKit
 import AVKit
 
-final class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate {
+final class CameraViewController: UIViewController, UINavigationControllerDelegate {
+  
+  // MARK: - AVKit Members
   
   var captureSession: AVCaptureSession!
   var imageOutput: AVCapturePhotoOutput!
   var activeCaptureDevice: AVCaptureDevice!
   var videoPreviewLayer: AVCaptureVideoPreviewLayer!
+  
+  // Devices
+  var backCamera: AVCaptureDevice?
+  var frontCamera: AVCaptureDevice?
+  
+  // MARK: - UI Members
+  
   var watermarkView = AppLogoView()
   var controlsView = CameraControlsView()
+  let cameraErrorView = CameraErrorView()
+
+  // MARK: -
+  
   var shootGesture: UITapGestureRecognizer?
   var picker = UIImagePickerController()
   var currentImage: UIImage?
-  let cameraErrorView = CameraErrorView()
   
-  
-  // Devices
-  var rearCamera: AVCaptureDevice?
-  var frontCamera: AVCaptureDevice?
-  
+  // MARK: - Camera UI Members
   
   var cameraError = false {
     didSet {
@@ -46,6 +54,8 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     return view
   }()
   
+  // MARK: - View Lifecycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     applyGestures()
@@ -64,8 +74,8 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     showCamera()
     applyConfigurations()
     
-//    self.SHORTCUT_PRESENT_CATEGORY()
-//    self.SHORTCUT_PRESENT_CLASSIFICATION()
+    //    self.SHORTCUT_PRESENT_CATEGORY()
+    //    self.SHORTCUT_PRESENT_CLASSIFICATION()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -82,15 +92,22 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   
   fileprivate func applyConfigurations() {
     configureView()
-    configureCaptureSession()
     
-    if !cameraError {
+    configureDevices()
+    
+    if !cameraError && backCamera != nil {
+      configureCaptureSession(with: frontCamera!)
       configureVideoPreview()
     }
   }
   
   fileprivate func configureView() {
     view.backgroundColor = K.Colors.ViewBackground
+  }
+  
+  fileprivate func configureDevices() {
+    backCamera = selectBestDevice(for: .back)
+    frontCamera = selectBestDevice(for: .front)
   }
   
   // MARK: - Opinionated Configurations
@@ -115,18 +132,38 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   
   // MARK: - Capture Session Configuration
   
-  fileprivate func configureCaptureSession() {
+  fileprivate func selectBestDevice(for position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+    let discoverySession = AVCaptureDevice.DiscoverySession(
+      deviceTypes: [
+        .builtInTrueDepthCamera,
+        .builtInDualCamera,
+        .builtInWideAngleCamera],
+      mediaType: .video,
+      position: .unspecified)
+    
+    guard !discoverySession.devices.isEmpty else {
+      self.cameraError = true
+      print("Unable to obtain any capture devices")
+      return nil
+    }
+    
+    return discoverySession.devices.first { device in device.position == position }
+  }
+  
+  fileprivate func configureCaptureSession(with selectedDevice: AVCaptureDevice) {
     captureSession = AVCaptureSession()
     captureSession.sessionPreset = .high
-    rearCamera = AVCaptureDevice.default(for: .video)
     
-    guard rearCamera != nil else {
-      self.cameraError = true
-      print("Error: Unable to access back camera")
-      return
-    }
-        
-    activeCaptureDevice = rearCamera
+    //    backCamera = selectBestDevice(for: .back)
+    //    frontCamera = selectBestDevice(for: .front)
+    
+    //    guard backCamera != nil else {
+    //      self.cameraError = true
+    //      print("Error: Unable to access back camera")
+    //      return
+    //    }
+    
+    activeCaptureDevice = selectedDevice
     
     /**
      `AVCaptureDeviceInput` attaches the input device to the session.
@@ -174,26 +211,6 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   
   public func showCamera() {
     view.isHidden = false
-  }
-  
-  // MARK: - AVSession Photo Output & Image Picker Selection
-  
-  func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-    guard let imageData = photo.fileDataRepresentation() else { return }
-    let image = UIImage(data: imageData)
-    
-    if let image = image {
-      currentImage = image
-      presentPhotoConfirmation(with: image)
-    }
-  }
-  
-  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-    picker.dismiss(animated: true) { [weak self] in
-      if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-        self?.presentPhotoConfirmation(with: image)
-      }
-    }
   }
   
   // MARK: - Confirmation View
@@ -274,27 +291,40 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
   }
   
   @objc func flipButtonTapped() {
-    print("Tapped flip")
+    guard let device = activeCaptureDevice else { return }
+    
+    captureSession.stopRunning()
+    
+    switch device.position {
+      case .front:
+        configureCaptureSession(with: frontCamera!)
+      case .back:
+        configureCaptureSession(with: backCamera!)
+      default:
+        break
+    }
+    
+    captureSession.startRunning()
   }
   
   @objc func flashButtonTapped() {
-    guard let camera = rearCamera else { return }
+    guard let device = activeCaptureDevice else { return }
     
     do {
       defer {
-        camera.unlockForConfiguration()
+        device.unlockForConfiguration()
       }
       
-      try camera.lockForConfiguration()
+      try device.lockForConfiguration()
       
-      if camera.hasTorch {
-        switch camera.torchMode {
+      if device.hasTorch {
+        switch device.torchMode {
           case .off:
-            camera.torchMode = .on
+            device.torchMode = .on
           case .on:
-            camera.torchMode = .off
+            device.torchMode = .off
           case .auto:
-            camera.torchMode = .off
+            device.torchMode = .off
           default:
             break
         }
@@ -304,6 +334,36 @@ final class CameraViewController: UIViewController, UIImagePickerControllerDeleg
     } catch let error {
       print("\(error)")
       print("\(error.localizedDescription)")
+    }
+  }
+  
+}
+
+// MARK: - UIImagePickerControllerDelegate
+
+extension CameraViewController: UIImagePickerControllerDelegate {
+  
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    picker.dismiss(animated: true) { [weak self] in
+      if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        self?.presentPhotoConfirmation(with: image)
+      }
+    }
+  }
+  
+}
+
+// MARK: - AVCapturePhotoCaptureDelegate
+
+extension CameraViewController: AVCapturePhotoCaptureDelegate {
+  
+  func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+    guard let imageData = photo.fileDataRepresentation() else { return }
+    let image = UIImage(data: imageData)
+    
+    if let image = image {
+      currentImage = image
+      presentPhotoConfirmation(with: image)
     }
   }
   
