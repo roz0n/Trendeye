@@ -42,7 +42,7 @@ class CameraControlsView: UIView {
   var galleryButton: UIButton = {
     let button = UIButton(type: .system)
     let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .medium)
-    let icon = UIImage(systemName: "photo.on.rectangle.angled", withConfiguration: config)
+    let icon = UIImage(systemName: K.Icons.Gallery, withConfiguration: config)
     button.translatesAutoresizingMaskIntoConstraints = false
     button.tintColor = .white
     button.setImage(icon, for: .normal)
@@ -57,30 +57,30 @@ class CameraControlsView: UIView {
   
   fileprivate func configureControlButtons() {
     let shootIcon = UIImage(
-      systemName: "camera.fill",
-      withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))
+      systemName: K.Icons.Shoot,
+      withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))!
     let flipIcon = UIImage(
-      systemName: "arrow.triangle.2.circlepath",
-      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))
+      systemName: K.Icons.Flip,
+      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
     let flashIcon = UIImage(
-      systemName: "bolt.fill",
-      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))
+      systemName: K.Icons.Flash,
+      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
     
     shootButton = createButton(
       title: "Shoot",
       tintColor: K.Colors.White,
       backgroundColor: K.Colors.TransparentButtons,
-      image: shootIcon!)
+      image: shootIcon)
     flipButton = createButton(
       title: "Flip",
       tintColor: K.Colors.White,
       backgroundColor: K.Colors.TransparentButtons,
-      image: flipIcon!)
+      image: flipIcon)
     flashButton = createButton(
       title: "Flash",
       tintColor: K.Colors.White,
       backgroundColor: K.Colors.TransparentButtons,
-      image: flashIcon!)
+      image: flashIcon)
   }
   
   // MARK: - Helpers
@@ -97,11 +97,21 @@ class CameraControlsView: UIView {
   func toggleFlashButtonState(for position: AVCaptureDevice.Position) {
     switch position {
       case .front:
+        let flashDisabledIcon = UIImage(
+          systemName: K.Icons.FlashDisabled,
+          withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
         flashButton.isUserInteractionEnabled = false
         flashButton.layer.opacity = 0.3
+        flashButton.setImage(
+          flashDisabledIcon, for: .normal)
       case .back:
+        let flashIcon = UIImage(
+          systemName: K.Icons.Flash,
+          withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
         flashButton.isUserInteractionEnabled = true
         flashButton.layer.opacity = 1
+        flashButton.setImage(
+          flashIcon, for: .normal)
       default:
         break
     }
@@ -125,7 +135,7 @@ class CameraControlsView: UIView {
 // MARK: - Layout
 
 fileprivate extension CameraControlsView {
-  // These constraints are a but wonky, but they work for now
+  // These constraints are a bit wonky, but they work for now
   
   func applyLayouts() {
     layoutContainers()

@@ -34,6 +34,11 @@ struct K {
     static let Exclamation = "questionmark.circle"
     static let CameraError = "eye.slash"
     static let Classifier = "eye.fill"
+    static let Gallery = "photo.on.rectangle.angled"
+    static let Shoot = "camera.fill"
+    static let Flip = "arrow.triangle.2.circlepath"
+    static let Flash = "bolt.fill"
+    static let FlashDisabled = "bolt.slash.fill"
   }
   
 }
