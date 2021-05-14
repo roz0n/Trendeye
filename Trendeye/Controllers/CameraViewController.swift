@@ -273,6 +273,7 @@ fileprivate extension CameraViewController {
     configurePickerGesture()
     configureFlipGesture()
     configureFlashGesture()
+    configureFocusGesture()
   }
   
   func configureShootGesture() {
@@ -293,6 +294,11 @@ fileprivate extension CameraViewController {
   func configureFlashGesture() {
     let flashGesture = UITapGestureRecognizer(target: self, action: #selector(flashButtonTapped))
     controlsView.flashButton.addGestureRecognizer(flashGesture)
+  }
+  
+  func configureFocusGesture() {
+    let focusGesture = UITapGestureRecognizer(target: self, action: #selector(cameraViewTapped(_:)))
+    cameraView.addGestureRecognizer(focusGesture)
   }
   
   @objc func shootButtonTapped() {
@@ -353,6 +359,28 @@ fileprivate extension CameraViewController {
     } catch let error {
       print("\(error)")
       print("\(error.localizedDescription)")
+    }
+  }
+  
+  @objc func cameraViewTapped(_ sender: UITapGestureRecognizer) {
+    let focusPoint = sender.location(in: cameraView)
+    let focusScaledPointX = focusPoint.x / cameraView.frame.size.width
+    let focusScaledPointY = focusPoint.y / cameraView.frame.size.height
+    
+    if activeCaptureDevice.isFocusModeSupported(.autoFocus) && activeCaptureDevice.isFocusPointOfInterestSupported {
+      do {
+        defer {
+          activeCaptureDevice.unlockForConfiguration()
+        }
+        try activeCaptureDevice.lockForConfiguration()
+        activeCaptureDevice.focusMode = .autoFocus
+        activeCaptureDevice.focusPointOfInterest = CGPoint(x: focusScaledPointX, y: focusScaledPointY)
+      } catch let error {
+        print("Failed to focus capture device input")
+        print("\(error)")
+        print("\(error.localizedDescription)")
+        return
+      }
     }
   }
   
