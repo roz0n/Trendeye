@@ -8,6 +8,7 @@
 import UIKit
 
 // TODO: Add an error view incase there's a failure getting the large image
+// TODO: Add an error view incase access to photos is restricted and the file could not be saved
 class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
   
   var closeButton = UIButton(type: .system)
@@ -39,8 +40,6 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
     view.backgroundColor = K.Colors.NavigationBar
-    // TODO: There's a bug here. Sometimes this shows, other times it doesn't.
-    view.addBorder(borders: [.Top], color: K.Colors.BorderColor, width: 1)
     return view
   }()
   

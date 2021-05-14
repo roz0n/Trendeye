@@ -53,9 +53,10 @@ class CameraControlsView: UIView {
     return button
   }()
   
+  // MARK: - Configurations
+  
   fileprivate func applyConfigurations() {
     configureButtons()
-    configureThumbnail()
   }
   
   fileprivate func configureButtons() {
@@ -89,12 +90,22 @@ class CameraControlsView: UIView {
     flashButton.tintColor = .white
   }
   
-  fileprivate func configureThumbnail() {
-    //        galleryButton.layer.cornerRadius = 24
-    //        galleryButton.layer.masksToBounds = true
-    //        galleryButton.makeCircular()
-    //        galleryButton.backgroundColor = UIColor(red: 0.094, green: 0.094, blue: 0.094, alpha: 0.35)
+  // MARK: - Helpers
+  
+  func toggleFlashButtonState(for position: AVCaptureDevice.Position) {
+    switch position {
+      case .front:
+        flashButton.isUserInteractionEnabled = false
+        flashButton.layer.opacity = 0.3
+      case .back:
+        flashButton.isUserInteractionEnabled = true
+        flashButton.layer.opacity = 1
+      default:
+        break
+    }
   }
+  
+  // MARK: - Initializers
   
   override init(frame: CGRect) {
     super.init(frame: frame)

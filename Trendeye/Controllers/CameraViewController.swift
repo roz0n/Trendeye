@@ -14,7 +14,11 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   var captureSession: AVCaptureSession!
   var imageOutput: AVCapturePhotoOutput!
-  var activeCaptureDevice: AVCaptureDevice!
+  var activeCaptureDevice: AVCaptureDevice! {
+    didSet {
+      controlsView.toggleFlashButtonState(for: activeCaptureDevice.position)
+    }
+  }
   var videoPreviewLayer: AVCaptureVideoPreviewLayer!
   
   // Devices
@@ -74,7 +78,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     showCameraView()
     applyConfigurations()
     // self.SHORTCUT_PRESENT_CATEGORY()
-     self.SHORTCUT_PRESENT_CLASSIFICATION()
+//     self.SHORTCUT_PRESENT_CLASSIFICATION()
   }
   
   override func viewWillDisappear(_ animated: Bool) {

@@ -79,7 +79,8 @@ class ClassifierConfidenceButton: UIView {
     } else if 67...100 ~= resultValue {
       classificationMetric = .high
     } else {
-      classificationMetric = .low
+      // TODO: Is this needed?
+      classificationMetric = .none
     }
   }
   
@@ -91,8 +92,9 @@ class ClassifierConfidenceButton: UIView {
         button.backgroundColor = .systemOrange
       case .high:
         button.backgroundColor = K.Colors.Green
-      default:
-        break
+      case .none:
+        // TODO: Is this needed?
+        button.isHidden = true
     }
   }
   
