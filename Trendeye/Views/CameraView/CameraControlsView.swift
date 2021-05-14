@@ -41,7 +41,7 @@ class CameraControlsView: UIView {
   
   var galleryButton: UIButton = {
     let button = UIButton(type: .system)
-    let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .medium)
+    let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
     let icon = UIImage(systemName: K.Icons.Gallery, withConfiguration: config)
     button.translatesAutoresizingMaskIntoConstraints = false
     button.tintColor = .white
@@ -87,6 +87,7 @@ class CameraControlsView: UIView {
   
   fileprivate func createButton(title: String, tintColor: UIColor, backgroundColor: UIColor, image: UIImage) -> CameraButton {
     let button = CameraButton(type: .system)
+    button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitle(title, for: .application)
     button.backgroundColor = backgroundColor
     button.setImage(image, for: .normal)
@@ -146,6 +147,7 @@ fileprivate extension CameraControlsView {
   func layoutContainers() {
     let screenWidth = UIScreen.main.bounds.width
     let halfScreenWidth = (screenWidth / 2)
+    let buttonXPadding: CGFloat = 20
     
     addSubview(previewContainer)
     addSubview(primaryButtonsContainer)
@@ -157,33 +159,40 @@ fileprivate extension CameraControlsView {
       previewContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor),
       primaryButtonsContainer.centerYAnchor.constraint(equalTo: self.centerYAnchor),
       primaryButtonsContainer.leadingAnchor.constraint(equalTo: previewContainer.trailingAnchor),
-      primaryButtonsContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+      primaryButtonsContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(buttonXPadding)),
     ])
   }
   
   func layoutGalleryButton() {
+    let buttonSize: CGFloat = 100
+    let buttonXPadding: CGFloat = 8
+    
     previewContainer.addSubview(galleryButton)
+    
     NSLayoutConstraint.activate([
       galleryButton.centerYAnchor.constraint(equalTo: previewContainer.centerYAnchor),
-      galleryButton.leadingAnchor.constraint(equalTo: previewContainer.leadingAnchor),
-      galleryButton.heightAnchor.constraint(equalToConstant: 100),
-      galleryButton.widthAnchor.constraint(equalToConstant: 100),
+      galleryButton.leadingAnchor.constraint(equalTo: previewContainer.leadingAnchor, constant: buttonXPadding),
+      galleryButton.heightAnchor.constraint(equalToConstant: buttonSize),
+      galleryButton.widthAnchor.constraint(equalToConstant: buttonSize),
     ])
   }
   
   func layoutCameraButtons() {
+    let largeButtonSize: CGFloat = 100
+    let smallButtonSize: CGFloat = 42
+    
     secondaryButtonsContainer.addArrangedSubview(flipButton)
     secondaryButtonsContainer.addArrangedSubview(flashButton)
     primaryButtonsContainer.addArrangedSubview(shootButton)
     primaryButtonsContainer.addArrangedSubview(secondaryButtonsContainer)
     
     NSLayoutConstraint.activate([
-      shootButton.heightAnchor.constraint(equalToConstant: 100),
-      shootButton.widthAnchor.constraint(equalToConstant: 100),
-      flipButton.heightAnchor.constraint(equalToConstant: 42),
-      flipButton.widthAnchor.constraint(equalToConstant: 42),
-      flashButton.heightAnchor.constraint(equalToConstant: 42),
-      flashButton.widthAnchor.constraint(equalToConstant: 42),
+      shootButton.heightAnchor.constraint(equalToConstant: largeButtonSize),
+      shootButton.widthAnchor.constraint(equalToConstant: largeButtonSize),
+      flipButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
+      flipButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
+      flashButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
+      flashButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
     ])
   }
   
