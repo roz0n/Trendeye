@@ -15,9 +15,7 @@ class CameraControlsView: UIView {
   var flashButton: CameraButton!
   
   var primaryButtonsContainer: UIStackView = {
-    /**
-     Contains the "Shoot" button
-     */
+    // Contains the "Shoot" button
     let stack = UIStackView()
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .horizontal
@@ -27,9 +25,7 @@ class CameraControlsView: UIView {
   }()
   
   var secondaryButtonsContainer: UIStackView = {
-    /**
-     Contains the "Flip" and "Flash" buttons
-     */
+    // Contains the "Flip" and "Flash" buttons
     let stack = UIStackView()
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .vertical
@@ -56,41 +52,47 @@ class CameraControlsView: UIView {
   // MARK: - Configurations
   
   fileprivate func applyConfigurations() {
-    configureButtons()
+    configureControlButtons()
   }
   
-  fileprivate func configureButtons() {
-    // TODO: Refactor
-    let shootButtonIcon = UIImage(systemName: "camera.fill",
-                                  withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))
-    let flipButtonIcon = UIImage(systemName: "arrow.triangle.2.circlepath",
-                                 withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))
-    let flashButtonIcon = UIImage(systemName: "bolt.fill",
-                                  withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))
+  fileprivate func configureControlButtons() {
+    let shootIcon = UIImage(
+      systemName: "camera.fill",
+      withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .medium))
+    let flipIcon = UIImage(
+      systemName: "arrow.triangle.2.circlepath",
+      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))
+    let flashIcon = UIImage(
+      systemName: "bolt.fill",
+      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))
     
-    shootButton = CameraButton(type: .system)
-    shootButton.setTitle("Shoot", for: .application)
-    shootButton.setTitleColor(.white, for: .normal)
-    shootButton.backgroundColor = K.Colors.TransparentButtons
-    shootButton.setImage(shootButtonIcon, for: .normal)
-    shootButton.tintColor = .white
-    
-    flipButton = CameraButton(type: .system)
-    flipButton.setTitle("Flip", for: .application)
-    flipButton.setTitleColor(.white, for: .normal)
-    flipButton.backgroundColor = K.Colors.TransparentButtons
-    flipButton.setImage(flipButtonIcon, for: .normal)
-    flipButton.tintColor = .white
-    
-    flashButton = CameraButton(type: .system)
-    flashButton.setTitle("Flash", for: .application)
-    flashButton.setTitleColor(.white, for: .normal)
-    flashButton.backgroundColor = K.Colors.TransparentButtons
-    flashButton.setImage(flashButtonIcon, for: .normal)
-    flashButton.tintColor = .white
+    shootButton = createButton(
+      title: "Shoot",
+      tintColor: K.Colors.White,
+      backgroundColor: K.Colors.TransparentButtons,
+      image: shootIcon!)
+    flipButton = createButton(
+      title: "Flip",
+      tintColor: K.Colors.White,
+      backgroundColor: K.Colors.TransparentButtons,
+      image: flipIcon!)
+    flashButton = createButton(
+      title: "Flash",
+      tintColor: K.Colors.White,
+      backgroundColor: K.Colors.TransparentButtons,
+      image: flashIcon!)
   }
   
   // MARK: - Helpers
+  
+  fileprivate func createButton(title: String, tintColor: UIColor, backgroundColor: UIColor, image: UIImage) -> CameraButton {
+    let button = CameraButton(type: .system)
+    button.setTitle(title, for: .application)
+    button.backgroundColor = backgroundColor
+    button.setImage(image, for: .normal)
+    button.tintColor = tintColor
+    return button
+  }
   
   func toggleFlashButtonState(for position: AVCaptureDevice.Position) {
     switch position {
