@@ -37,7 +37,7 @@ extension UIImage {
     return scaledImage
   }
   
-  func cropInRect(_ rect: CGRect, scale: CGFloat = 1.0) -> UIImage? {
+  func cropToFrame(_ rect: CGRect, scale: CGFloat = 1.0) -> UIImage? {
     UIGraphicsBeginImageContextWithOptions(CGSize(width: (rect.size.height/scale), height: (rect.size.width/scale)), true, scale)
     
     self.draw(at: CGPoint(x: -rect.origin.x / scale, y: -rect.origin.y / scale))

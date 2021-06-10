@@ -271,7 +271,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
     
     var image = UIImage(data: imageData)
     image = image?.scaleToScreenSize()
-    image = image?.cropInRect(aspectFrameView.contentAreaView.frame)
+    image = image?.cropToFrame(aspectFrameView.contentAreaView.frame)
     
     if let image = image {
       currentImage = image
@@ -447,7 +447,7 @@ fileprivate extension CameraViewController {
   func applyLayouts() {
     if !captureDeviceError {
       layoutCamera()
-      layoutImageFrame()
+      layoutAspectFrame()
       layoutControls()
     } else {
       layoutCaptureDeviceError()
@@ -514,7 +514,7 @@ fileprivate extension CameraViewController {
     ])
   }
   
-  func layoutImageFrame() {
+  func layoutAspectFrame() {
     cameraView.addSubview(aspectFrameView)
     aspectFrameView.centerContentAreaAspectFrameToSuperview(view)
     aspectFrameView.layer.zPosition = 2

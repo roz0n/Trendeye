@@ -299,7 +299,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
             self?.descriptionText = "Description not available"
             print(error)
           case .none:
-            fatalError(TENetworkError.none.rawValue)
+            fatalError(TrendlistAPINetworkError.none.rawValue)
         }
       }
     }

@@ -69,7 +69,12 @@ class CameraAspectFrameView: UIView {
   // MARK: - Helpers
   
   func setContentAreaAspectFrame(to frame: CameraAspectFrames) {
-    contentAreaView.frame = frame == .square ? rectangleAspectFrame : squareAspectFrame
+    contentAreaView.frame = frame == .square ? squareAspectFrame : rectangleAspectFrame
+    
+    // TODO: Implement this
+//    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut) {
+//      self.contentAreaView.frame = frame == .square ? self.rectangleAspectFrame : self.squareAspectFrame
+//    }
   }
   
   func centerContentAreaAspectFrameToSuperview(_ superview: UIView) {
@@ -80,7 +85,7 @@ class CameraAspectFrameView: UIView {
 
 // MARK: - Layout
 
-extension CameraAspectFrameView {
+fileprivate extension CameraAspectFrameView {
   
   func applyLayouts() {
     layoutFrame()

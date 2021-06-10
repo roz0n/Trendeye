@@ -8,16 +8,16 @@
 import UIKit
 
 enum ViewBorder: String {
-  case Left = "left"
-  case Right = "right"
-  case Top = "top"
-  case Bottom = "bottom"
+  case left = "left"
+  case right = "right"
+  case top = "top"
+  case bottom = "bottom"
 }
 
 extension UIView {
   
   func makeCircular() {
-    self.layer.cornerRadius = self.frame.width / 2;
+    self.layer.cornerRadius = (self.frame.width / 2);
     self.layer.masksToBounds = true
   }
   
@@ -40,13 +40,13 @@ extension UIView {
           borderView.name = border.rawValue
           
           switch border {
-            case .Left:
+            case .left:
               borderView.frame = CGRect(x: 0, y: 0, width: width, height: view.frame.size.height)
-            case .Right:
+            case .right:
               borderView.frame = CGRect(x: view.frame.size.width - width, y: 0, width: width, height: view.frame.size.height)
-            case .Top:
+            case .top:
               borderView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: width)
-            case .Bottom:
+            case .bottom:
               borderView.frame = CGRect(x: 0, y: view.frame.size.height - width , width: view.frame.size.width, height: width)
           }
           

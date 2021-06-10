@@ -26,7 +26,6 @@ class CameraControlsView: UIView {
   // MARK: - Container Properties
   
   var stackContainer: UIStackView = {
-    // Contains the "Shoot" button
     let stack = UIStackView()
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .horizontal
@@ -36,22 +35,18 @@ class CameraControlsView: UIView {
   }()
   
   var leadingButtonsContainer: UIStackView = {
-    // Contains the "Flip" and "Flash" buttons
     let stack = UIStackView()
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .vertical
     stack.distribution = .equalCentering
-    stack.backgroundColor = .systemYellow
     return stack
   }()
   
   var trailingButtonsContainer: UIStackView = {
-    // Contains the "Flip" and "Flash" buttons
     let stack = UIStackView()
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .vertical
     stack.distribution = .equalCentering
-    stack.backgroundColor = .systemOrange
     return stack
   }()
   
@@ -123,6 +118,7 @@ class CameraControlsView: UIView {
         let flashDisabledIcon = UIImage(
           systemName: K.Icons.FlashDisabled,
           withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
+        
         flashButton.isUserInteractionEnabled = false
         flashButton.layer.opacity = 0.3
         flashButton.setImage(
@@ -131,6 +127,7 @@ class CameraControlsView: UIView {
         let flashIcon = UIImage(
           systemName: K.Icons.Flash,
           withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
+        
         flashButton.isUserInteractionEnabled = true
         flashButton.layer.opacity = 1
         flashButton.setImage(
@@ -145,6 +142,7 @@ class CameraControlsView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     translatesAutoresizingMaskIntoConstraints = false
+    
     applyConfigurations()
     applyLayouts()
   }
@@ -165,9 +163,6 @@ fileprivate extension CameraControlsView {
   
   func layoutStackContainer() {
     let buttonXPadding: CGFloat = 20
-    
-    backgroundColor = .systemTeal
-    stackContainer.backgroundColor = .systemRed
     
     addSubview(stackContainer)
     

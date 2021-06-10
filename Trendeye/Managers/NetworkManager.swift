@@ -19,7 +19,7 @@ final class NetworkManager {
     return "\(type == "api" ? baseUrl : trendListUrl)\(resource)/\(endpoint ?? "")"
   }
   
-  func fetchCategoryDescription(_ category: String, completion: @escaping (_ responseData: Result<CategoryDescriptionResponse, TENetworkError>?, _ cachedData: String?) -> Void) {
+  func fetchCategoryDescription(_ category: String, completion: @escaping (_ responseData: Result<CategoryDescriptionResponse, TrendlistAPINetworkError>?, _ cachedData: String?) -> Void) {
     guard let url = URL(string: getEndpoint("categories/desc", endpoint: category)) else { return }
     
     // MARK: - Category Description Cache Check
@@ -64,7 +64,7 @@ final class NetworkManager {
     }.resume()
   }
   
-  func fetchCategoryImages(_ category: String, _ limit: Int, completion: @escaping (_ responseData: Result<CategoryImagesResponse, TENetworkError>) -> Void) {
+  func fetchCategoryImages(_ category: String, _ limit: Int, completion: @escaping (_ responseData: Result<CategoryImagesResponse, TrendlistAPINetworkError>) -> Void) {
     var urlComponents = URLComponents(string: getEndpoint("categories", endpoint: category))
     urlComponents?.queryItems = [URLQueryItem(name: "limit", value: String(limit))]
     
