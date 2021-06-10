@@ -46,7 +46,7 @@ class CameraCropFrame: UIView {
   
   // MARK: - Helpers
   
-  func centerActiveFrameToSuperview(_ superview: UIView) {
+  func centerRectToSuperview(_ superview: UIView) {
     squareFrame.center = CGPoint(x: superview.frame.midX, y: superview.frame.midY - (125 / 2))
   }
   

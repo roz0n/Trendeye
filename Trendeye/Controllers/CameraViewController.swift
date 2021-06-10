@@ -262,7 +262,10 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
   
   func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
     guard let imageData = photo.fileDataRepresentation() else { return }
-    let image = UIImage(data: imageData)
+    
+    var image = UIImage(data: imageData)
+    image = image?.scaleToScreenSize()
+    image = image?.cropInRect(cropFrame.squareFrame.frame)
     
     if let image = image {
       currentImage = image
@@ -488,7 +491,7 @@ fileprivate extension CameraViewController {
   
   func layoutImageFrame() {
     cameraView.addSubview(cropFrame)
-    cropFrame.centerActiveFrameToSuperview(view)
+    cropFrame.centerRectToSuperview(view)
     cropFrame.layer.zPosition = 2
     
     NSLayoutConstraint.activate([
