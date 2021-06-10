@@ -10,7 +10,7 @@ import Vision
 
 final class ClassificationViewController: UITableViewController {
   
-  // MARK: - Classifier Members
+  // MARK: - Classifier Properties
   
   var classifier = TrendClassifierManager()
   var confidenceButton = ClassifierConfidenceButton()
@@ -25,14 +25,14 @@ final class ClassificationViewController: UITableViewController {
     }
   }
   
-  // MARK: - UI Members
+  // MARK: - UI Properties
   
   var stretchyHeaderContainer = StretchyTableHeaderView()
   var stretchyHeaderHeight: CGFloat = 350
   var stretchyTableHeaderContent = ClassificationTableHeaderView()
   var tableFooter = ClassificationTableFooterView()
   
-  // MARK: - Other Members
+  // MARK: - Other Properties
   
   var selectedImage: UIImage!
   

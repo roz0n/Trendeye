@@ -18,6 +18,7 @@
 		23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */; };
 		23131B072622F67600FFF2B3 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B062622F67600FFF2B3 /* K.swift */; };
 		23131B0B2623863200FFF2B3 /* ClassificationTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B0A2623863200FFF2B3 /* ClassificationTableHeaderView.swift */; };
+		23235A2A2671841F00509A78 /* CameraCropFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23235A292671841F00509A78 /* CameraCropFrame.swift */; };
 		232AA37D2627F79000E5E8A1 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA37C2627F79000E5E8A1 /* FontManager.swift */; };
 		232AA3852628091C00E5E8A1 /* Satoshi-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3802628091C00E5E8A1 /* Satoshi-Light.otf */; };
 		232AA3862628091C00E5E8A1 /* Satoshi-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3812628091C00E5E8A1 /* Satoshi-Black.otf */; };
@@ -81,6 +82,7 @@
 		23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		23131B062622F67600FFF2B3 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		23131B0A2623863200FFF2B3 /* ClassificationTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationTableHeaderView.swift; sourceTree = "<group>"; };
+		23235A292671841F00509A78 /* CameraCropFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCropFrame.swift; sourceTree = "<group>"; };
 		232AA37C2627F79000E5E8A1 /* FontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		232AA3802628091C00E5E8A1 /* Satoshi-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Light.otf"; sourceTree = "<group>"; };
 		232AA3812628091C00E5E8A1 /* Satoshi-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Black.otf"; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 			children = (
 				23A009D9261FC03B007A091D /* CameraControlsView.swift */,
 				23131AD1261FC5EC00FFF2B3 /* CameraButton.swift */,
+				23235A292671841F00509A78 /* CameraCropFrame.swift */,
 			);
 			path = CameraView;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				232AA3912628FF9A00E5E8A1 /* ClassificationTableFooterView.swift in Sources */,
 				23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */,
 				23131B072622F67600FFF2B3 /* K.swift in Sources */,
+				23235A2A2671841F00509A78 /* CameraCropFrame.swift in Sources */,
 				23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */,
 				23AAC2022630F41500744651 /* FullScreenImageView.swift in Sources */,
 				23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */,
@@ -723,13 +727,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RYK6GDE7V9;
 				INFOPLIST_FILE = Trendeye/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.notenoughscience.Trendeye;
+				MARKETING_VERSION = 0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arnaldorozon.trendeye;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -742,13 +748,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RYK6GDE7V9;
 				INFOPLIST_FILE = Trendeye/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.notenoughscience.Trendeye;
+				MARKETING_VERSION = 0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arnaldorozon.trendeye;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -10,34 +10,36 @@ import AVKit
 
 final class CameraViewController: UIViewController, UINavigationControllerDelegate {
   
-  // MARK: - AVKit Members
+  // MARK: - AVKit Properties
   
   var captureSession: AVCaptureSession!
   var imageOutput: AVCapturePhotoOutput!
+  var videoPreviewLayer: AVCaptureVideoPreviewLayer!
+  
   var activeCaptureDevice: AVCaptureDevice! {
     didSet {
       controlsView.toggleFlashButtonState(for: activeCaptureDevice.position)
     }
   }
-  var videoPreviewLayer: AVCaptureVideoPreviewLayer!
   
   // Devices
   var backCamera: AVCaptureDevice?
   var frontCamera: AVCaptureDevice?
   
-  // MARK: - UI Members
+  // MARK: - UI Properties
   
   var watermarkView = AppLogoView()
   var controlsView = CameraControlsView()
   let cameraErrorView = CameraErrorView()
+  let cropFrame = CameraCropFrame()
   
-  // MARK: - Other Members
+  // MARK: - Other Properties
   
   var shootGesture: UITapGestureRecognizer?
   var picker = UIImagePickerController()
   var currentImage: UIImage?
   
-  // MARK: - Camera UI Members
+  // MARK: - Camera UI Properties
   
   var captureDeviceError = false {
     didSet {
@@ -70,20 +72,22 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    navigationController?.setNavigationBarHidden(true, animated: animated)
+    toggleNavigationBar(hidden: true, animated: animated)
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    
     showCameraView()
     applyConfigurations()
+    
     // self.SHORTCUT_PRESENT_CATEGORY()
-//     self.SHORTCUT_PRESENT_CLASSIFICATION()
+    // self.SHORTCUT_PRESENT_CLASSIFICATION()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    navigationController?.setNavigationBarHidden(false, animated: animated)
+    toggleNavigationBar(hidden: false, animated: animated)
     hideCameraViewAndStopSession()
   }
   
@@ -116,7 +120,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     // Set a default device, we'd like to initialize with the back camera
     activeCaptureDevice = backCamera
   }
-    
+  
   fileprivate func configurePicker() {
     // These configurations must be applied within `viewDidLoad`.
     picker.delegate = self
@@ -183,14 +187,18 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     }
   }
   
-  // MARK: - Camera Helpers
+  // MARK: - Helpers
   
-  public func hideCameraViewAndStopSession() {
+  func hideCameraViewAndStopSession() {
     view.isHidden = true
     captureSession.stopRunning()
   }
   
-  public func showCameraView() {
+  func toggleNavigationBar(hidden: Bool, animated: Bool) {
+    navigationController?.setNavigationBarHidden(hidden, animated: animated)
+  }
+  
+  func showCameraView() {
     view.isHidden = false
   }
   
@@ -267,7 +275,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
 // MARK: - Gestures
 
 fileprivate extension CameraViewController {
-    
+  
   func applyGestures() {
     configureShootGesture()
     configurePickerGesture()
@@ -364,8 +372,8 @@ fileprivate extension CameraViewController {
   
   @objc func cameraViewTapped(_ sender: UITapGestureRecognizer) {
     let focusPoint = sender.location(in: cameraView)
-    let focusScaledPointX = focusPoint.x / cameraView.frame.size.width
-    let focusScaledPointY = focusPoint.y / cameraView.frame.size.height
+    let scaledPointX = focusPoint.x / cameraView.frame.size.width
+    let scaledPointY = focusPoint.y / cameraView.frame.size.height
     
     if activeCaptureDevice.isFocusModeSupported(.autoFocus) && activeCaptureDevice.isFocusPointOfInterestSupported {
       do {
@@ -374,7 +382,7 @@ fileprivate extension CameraViewController {
         }
         try activeCaptureDevice.lockForConfiguration()
         activeCaptureDevice.focusMode = .autoFocus
-        activeCaptureDevice.focusPointOfInterest = CGPoint(x: focusScaledPointX, y: focusScaledPointY)
+        activeCaptureDevice.focusPointOfInterest = CGPoint(x: scaledPointX, y: scaledPointY)
       } catch let error {
         print("Failed to focus capture device input")
         print("\(error)")
@@ -414,6 +422,7 @@ fileprivate extension CameraViewController {
   func applyLayouts() {
     if !captureDeviceError {
       layoutCamera()
+      layoutImageFrame()
       layoutControls()
     } else {
       layoutCaptureDeviceError()
@@ -423,11 +432,27 @@ fileprivate extension CameraViewController {
   
   func layoutCamera() {
     view.addSubview(cameraView)
+    
     NSLayoutConstraint.activate([
       cameraView.topAnchor.constraint(equalTo: view.topAnchor),
       cameraView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
       cameraView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
       cameraView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    ])
+  }
+  
+  func layoutControls() {
+    let controlsHeight: CGFloat = 125
+    let controlsPadding: CGFloat = 12
+    
+    cameraView.addSubview(controlsView)
+    controlsView.layer.zPosition = 2
+    
+    NSLayoutConstraint.activate([
+      controlsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      controlsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      controlsView.heightAnchor.constraint(equalToConstant: controlsHeight),
+      controlsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(controlsPadding))
     ])
   }
   
@@ -461,18 +486,19 @@ fileprivate extension CameraViewController {
     ])
   }
   
-  func layoutControls() {
-    let controlsHeight: CGFloat = 125
-    let controlsPadding: CGFloat = 12
+  func layoutImageFrame() {
+    cameraView.addSubview(cropFrame)
+    cropFrame.centerActiveFrameToSuperview(view)
+    cropFrame.layer.zPosition = 2
     
-    cameraView.addSubview(controlsView)
-    controlsView.layer.zPosition = 2
     NSLayoutConstraint.activate([
-      controlsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-      controlsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-      controlsView.heightAnchor.constraint(equalToConstant: controlsHeight),
-      controlsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(controlsPadding))
+      cropFrame.leadingAnchor.constraint(equalTo: cameraView.leadingAnchor),
+      cropFrame.trailingAnchor.constraint(equalTo: cameraView.trailingAnchor),
+      cropFrame.topAnchor.constraint(equalTo: cameraView.topAnchor),
+      cropFrame.bottomAnchor.constraint(equalTo: cameraView.bottomAnchor)
     ])
+    
+    print("Relative point:", cropFrame.getActiveFramePosition)
   }
   
 }
