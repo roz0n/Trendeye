@@ -64,6 +64,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     applyGestures()
     applyAnimations()
     applyLayouts()
@@ -87,6 +88,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
+    
     toggleNavigationBar(hidden: false, animated: animated)
     hideCameraViewAndStopSession()
   }
@@ -142,6 +144,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     guard !discoverySession.devices.isEmpty else {
       self.captureDeviceError = true
       print("Unable to obtain any capture devices")
+      
       return nil
     }
     
@@ -166,6 +169,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       }
     } catch let error {
       captureDeviceError = true
+      
       print("Failed to connect to input device")
       print("\(error)")
       print("\(error.localizedDescription)")
@@ -226,8 +230,10 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   @objc func handleAcceptTap() {
     dismiss(animated: false) { [weak self] in
       let classificationViewController = ClassificationViewController(with: (self?.currentImage)!)
+      
       classificationViewController.navigationItem.hidesBackButton = true
       classificationViewController.title = "Trend Analysis"
+      
       self?.navigationController?.pushViewController(classificationViewController, animated: true)
     }
   }
@@ -359,6 +365,7 @@ fileprivate extension CameraViewController {
       captureSession.addInput(input)
     } catch let error {
       captureDeviceError = true
+      
       print("Failed to swap capture session device")
       print("\(error)")
       print("\(error.localizedDescription)")
@@ -445,6 +452,7 @@ fileprivate extension CameraViewController {
     } else {
       layoutCaptureDeviceError()
     }
+    
     layoutWatermark()
   }
   
