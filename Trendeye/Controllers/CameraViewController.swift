@@ -326,7 +326,10 @@ fileprivate extension CameraViewController {
   }
   
   @objc func aspectButtonTapped() {
-    print("Tapped aspect button")
+    let currentFrame = aspectFrameView.selectedContentAreaFrame
+    
+    aspectFrameView.selectedContentAreaFrame = currentFrame == .square ? .rectangle : .square
+    aspectFrameView.centerContentAreaAspectFrameToSuperview(view)
   }
   
   @objc func shootButtonTapped() {
@@ -505,7 +508,7 @@ fileprivate extension CameraViewController {
   
   func layoutImageFrame() {
     cameraView.addSubview(aspectFrameView)
-    aspectFrameView.centerRectToSuperview(view)
+    aspectFrameView.centerContentAreaAspectFrameToSuperview(view)
     aspectFrameView.layer.zPosition = 2
     
     NSLayoutConstraint.activate([

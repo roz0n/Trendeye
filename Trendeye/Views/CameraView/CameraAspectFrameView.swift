@@ -7,22 +7,21 @@
 
 import UIKit
 
-enum ContentAreaAspects {
+enum CameraAspectFrames {
   case square
   case rectangle
 }
 
 class CameraAspectFrameView: UIView {
   
-  // MARK: Content Area Properties
-  
-  // MARK: -
+  // MARK: - Content Area View Properties
   
   static let contentAreaPadding: CGFloat = 20
   
-  var selectedContentAreaAspect: ContentAreaAspects? {
+  var selectedContentAreaFrame: CameraAspectFrames? {
     didSet {
-      print("Changed aspect frame!")
+      guard let frame = selectedContentAreaFrame else { return }
+      setContentAreaAspectFrame(to: frame)
     }
   }
   
@@ -55,20 +54,12 @@ class CameraAspectFrameView: UIView {
   
   // MARK: - Initializers
   
-  init(as type: ContentAreaAspects) {
+  init(as frame: CameraAspectFrames) {
     super.init(frame: .zero)
     
     self.translatesAutoresizingMaskIntoConstraints = false
     self.applyLayouts()
-    
-    switch type {
-      case .square:
-        selectedContentAreaAspect = .square
-        contentAreaView.frame = squareAspectFrame
-      case .rectangle:
-        selectedContentAreaAspect = .rectangle
-        contentAreaView.frame = rectangleAspectFrame
-    }
+    self.setContentAreaAspectFrame(to: frame)
   }
   
   required init?(coder: NSCoder) {
@@ -77,7 +68,11 @@ class CameraAspectFrameView: UIView {
   
   // MARK: - Helpers
   
-  func centerRectToSuperview(_ superview: UIView) {
+  func setContentAreaAspectFrame(to frame: CameraAspectFrames) {
+    contentAreaView.frame = frame == .square ? rectangleAspectFrame : squareAspectFrame
+  }
+  
+  func centerContentAreaAspectFrameToSuperview(_ superview: UIView) {
     contentAreaView.center = CGPoint(x: superview.frame.midX, y: superview.frame.midY - 50)
   }
   
