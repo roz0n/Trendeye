@@ -31,7 +31,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   var watermarkView = AppLogoView()
   var controlsView = CameraControlsView()
   let cameraErrorView = CameraErrorView()
-  var aspectFrameView = CameraAspectFrameView(as: .rectangle)
+  var aspectFrameView = CameraAspectFrameView(as: .square)
   
   // MARK: - Other Properties
   
@@ -270,7 +270,9 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
     guard let imageData = photo.fileDataRepresentation() else { return }
     
     var image = UIImage(data: imageData)
-    image = image?.scaleToScreenSize()
+    
+//    image = image?.scaleToScreenSize()
+    image = image?.scaleToSizeWithAspectRatio(CGSize(width: aspectFrameView.frame.width, height: aspectFrameView.frame.height))
     image = image?.cropToFrame(aspectFrameView.contentAreaView.frame)
     
     if let image = image {
@@ -376,7 +378,10 @@ fileprivate extension CameraViewController {
   
   @objc func flashButtonTapped() {
     do {
-      defer { activeCaptureDevice.unlockForConfiguration() }
+      defer {
+        activeCaptureDevice.unlockForConfiguration()
+      }
+      
       try activeCaptureDevice.lockForConfiguration()
       
       if activeCaptureDevice.hasTorch {
@@ -405,13 +410,16 @@ fileprivate extension CameraViewController {
         defer {
           activeCaptureDevice.unlockForConfiguration()
         }
+        
         try activeCaptureDevice.lockForConfiguration()
+        
         activeCaptureDevice.focusMode = .autoFocus
         activeCaptureDevice.focusPointOfInterest = CGPoint(x: scaledPointX, y: scaledPointY)
       } catch let error {
         print("Failed to focus capture device input")
         print("\(error)")
         print("\(error.localizedDescription)")
+        
         return
       }
     }

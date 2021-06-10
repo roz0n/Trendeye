@@ -53,7 +53,9 @@ final class ConfirmationViewController: UIViewController {
   
   fileprivate func applyStyles() {
     let headerFontSize: CGFloat = 17
+    
     view.backgroundColor = K.Colors.ViewBackground
+    
     headerView.backgroundColor = K.Colors.ViewBackground
     headerLabel.font = AppFonts.Satoshi.font(face: .black, size: headerFontSize)
     headerLabel.textAlignment = .center
@@ -97,8 +99,10 @@ fileprivate extension ConfirmationViewController {
   
   func layoutHeaderView() {
     let headerHeight: CGFloat = 100
+    
     headerView.addSubview(headerLabel)
     headerLabel.fillOther(view: headerView)
+    
     view.addSubview(headerView)
     
     NSLayoutConstraint.activate([
@@ -111,10 +115,14 @@ fileprivate extension ConfirmationViewController {
   
   func layoutPhotoView() {
     let photoHeight: CGFloat = 545
+    
     blurView.translatesAutoresizingMaskIntoConstraints = false
+    
     view.insertSubview(photoBackground, at: 0)
     view.insertSubview(blurView, at: 1)
     view.insertSubview(photoView, at: 2)
+    
+    photoView.backgroundColor = .systemPink
     
     NSLayoutConstraint.activate([
       photoBackground.topAnchor.constraint(equalTo: headerView.bottomAnchor),
@@ -128,15 +136,19 @@ fileprivate extension ConfirmationViewController {
       blurView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       
       photoView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+      photoView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      photoView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
       photoView.heightAnchor.constraint(equalToConstant: photoHeight),
-      photoView.widthAnchor.constraint(equalTo: view.widthAnchor),
-      photoView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+//      photoView.widthAnchor.constraint(equalTo: view.widthAnchor),
+//      photoView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
     ])
   }
   
   func layoutControlsView() {
     let controlsPadding: CGFloat = -30
+    
     view.addSubview(controlsView)
+    
     NSLayoutConstraint.activate([
       controlsView.topAnchor.constraint(equalTo: photoView.bottomAnchor),
       controlsView.widthAnchor.constraint(equalTo: view.widthAnchor),

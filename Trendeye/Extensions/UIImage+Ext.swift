@@ -37,6 +37,30 @@ extension UIImage {
     return scaledImage
   }
   
+  func scaleToSizeWithAspectRatio(_ targetSize: CGSize) -> UIImage {
+    let renderer = UIGraphicsImageRenderer(size: targetSize)
+    
+    // Compute the scaling ratio for the width and height separately
+    let widthScaleRatio = targetSize.width / self.size.width
+    let heightScaleRatio = targetSize.height / self.size.height
+    
+    // To keep the aspect ratio, scale by the smaller scaling ratio
+    let scaleFactor = min(widthScaleRatio, heightScaleRatio)
+    
+    // Multiply the original image’s dimensions by the scale factor
+    // to determine the scaled image size that preserves aspect ratio
+    let scaledImageSize = CGSize(
+      width: self.size.width * scaleFactor,
+      height: self.size.height * scaleFactor
+    )
+    
+    let scaledImage = renderer.image { _ in
+      self.draw(in: CGRect(origin: .zero, size: scaledImageSize))
+    }
+    
+    return scaledImage
+  }
+  
   func cropToFrame(_ rect: CGRect, scale: CGFloat = 1.0) -> UIImage? {
     UIGraphicsBeginImageContextWithOptions(CGSize(width: (rect.size.height/scale), height: (rect.size.width/scale)), true, scale)
     
