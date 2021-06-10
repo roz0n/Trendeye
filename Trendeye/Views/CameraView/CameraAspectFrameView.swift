@@ -1,5 +1,5 @@
 //
-//  CameraCropFrame.swift
+//  CameraAspectFrameView.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 6/9/21.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-class CameraCropFrame: UIView {
+class CameraAspectFrameView: UIView {
   
-  // MARK: Frame Properties
+  // MARK: Content Area Properties
   
-  var squareFrame: UIView = {
+  var contentAreaView: UIView = {
     let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
     view.translatesAutoresizingMaskIntoConstraints = false
     view.backgroundColor = .clear
@@ -21,13 +21,13 @@ class CameraCropFrame: UIView {
     return view
   }()
   
-  var getActiveFramePosition: CGPoint? {
+  var getContentAreaViewPosition: CGPoint? {
     get {
-      guard let superview = squareFrame.superview else {
+      guard let superview = contentAreaView.superview else {
         return nil
       }
       
-      return superview.convert(squareFrame.frame.origin, to: superview)
+      return superview.convert(contentAreaView.frame.origin, to: superview)
     }
   }
   
@@ -47,21 +47,21 @@ class CameraCropFrame: UIView {
   // MARK: - Helpers
   
   func centerRectToSuperview(_ superview: UIView) {
-    squareFrame.center = CGPoint(x: superview.frame.midX, y: superview.frame.midY - 50)
+    contentAreaView.center = CGPoint(x: superview.frame.midX, y: superview.frame.midY - 50)
   }
   
 }
 
 // MARK: - Layout
 
-extension CameraCropFrame {
+extension CameraAspectFrameView {
   
   func applyLayouts() {
     layoutFrame()
   }
   
   func layoutFrame() {
-    addSubview(squareFrame)
+    addSubview(contentAreaView)
   }
   
 }

@@ -31,7 +31,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   var watermarkView = AppLogoView()
   var controlsView = CameraControlsView()
   let cameraErrorView = CameraErrorView()
-  let cropFrame = CameraCropFrame()
+  let aspectFrameView = CameraAspectFrameView()
   
   // MARK: - Other Properties
   
@@ -265,7 +265,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
     
     var image = UIImage(data: imageData)
     image = image?.scaleToScreenSize()
-    image = image?.cropInRect(cropFrame.squareFrame.frame)
+    image = image?.cropInRect(aspectFrameView.contentAreaView.frame)
     
     if let image = image {
       currentImage = image
@@ -280,8 +280,9 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
 fileprivate extension CameraViewController {
   
   func applyGestures() {
-    configureShootGesture()
     configurePickerGesture()
+    configureAspectGesture()
+    configureShootGesture()
     configureFlipGesture()
     configureFlashGesture()
     configureFocusGesture()
@@ -307,19 +308,28 @@ fileprivate extension CameraViewController {
     controlsView.flashButton.addGestureRecognizer(flashGesture)
   }
   
+  func configureAspectGesture() {
+    let aspectGesture = UITapGestureRecognizer(target: self, action: #selector(aspectButtonTapped))
+    controlsView.aspectFrameButton.addGestureRecognizer(aspectGesture)
+  }
+  
   func configureFocusGesture() {
     let focusGesture = UITapGestureRecognizer(target: self, action: #selector(cameraViewTapped(_:)))
     cameraView.addGestureRecognizer(focusGesture)
   }
   
-  @objc func shootButtonTapped() {
-    let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-    imageOutput.capturePhoto(with: settings, delegate: self)
-  }
-  
   @objc func pickerButtonTapped() {
     picker.modalPresentationStyle = .fullScreen
     present(picker, animated: true, completion: nil)
+  }
+  
+  @objc func aspectButtonTapped() {
+    print("Tapped aspect button")
+  }
+  
+  @objc func shootButtonTapped() {
+    let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+    imageOutput.capturePhoto(with: settings, delegate: self)
   }
   
   @objc func flipButtonTapped() {
@@ -463,6 +473,7 @@ fileprivate extension CameraViewController {
     let padding: CGFloat = 16
     
     view.addSubview(captureDeviceErrorContainer)
+    
     captureDeviceErrorContainer.fillOther(view: view)
     captureDeviceErrorContainer.addSubview(cameraErrorView)
     
@@ -481,6 +492,7 @@ fileprivate extension CameraViewController {
     let watermarkHeight: CGFloat = 25
     
     view.addSubview(watermarkView)
+    
     NSLayoutConstraint.activate([
       watermarkView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: watermarkHeight),
       watermarkView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -490,18 +502,16 @@ fileprivate extension CameraViewController {
   }
   
   func layoutImageFrame() {
-    cameraView.addSubview(cropFrame)
-    cropFrame.centerRectToSuperview(view)
-    cropFrame.layer.zPosition = 2
+    cameraView.addSubview(aspectFrameView)
+    aspectFrameView.centerRectToSuperview(view)
+    aspectFrameView.layer.zPosition = 2
     
     NSLayoutConstraint.activate([
-      cropFrame.leadingAnchor.constraint(equalTo: cameraView.leadingAnchor),
-      cropFrame.trailingAnchor.constraint(equalTo: cameraView.trailingAnchor),
-      cropFrame.topAnchor.constraint(equalTo: cameraView.topAnchor),
-      cropFrame.bottomAnchor.constraint(equalTo: cameraView.bottomAnchor)
+      aspectFrameView.leadingAnchor.constraint(equalTo: cameraView.leadingAnchor),
+      aspectFrameView.trailingAnchor.constraint(equalTo: cameraView.trailingAnchor),
+      aspectFrameView.topAnchor.constraint(equalTo: cameraView.topAnchor),
+      aspectFrameView.bottomAnchor.constraint(equalTo: cameraView.bottomAnchor)
     ])
-    
-    print("Relative point:", cropFrame.getActiveFramePosition)
   }
   
 }

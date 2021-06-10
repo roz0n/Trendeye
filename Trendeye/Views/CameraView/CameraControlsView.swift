@@ -16,7 +16,7 @@ class CameraControlsView: UIView {
   var flipButton: CameraButton!
   var flashButton: CameraButton!
   var galleryButton: CameraButton!
-  var cropButton: CameraButton!
+  var aspectFrameButton: CameraButton!
   
   // MARK: -
   
@@ -75,7 +75,7 @@ class CameraControlsView: UIView {
       systemName: K.Icons.Gallery,
       withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
     let cropIcon = UIImage(
-      systemName: K.Icons.Crop,
+      systemName: K.Icons.Aspect,
       withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
     
     shootButton = createButton(
@@ -98,8 +98,8 @@ class CameraControlsView: UIView {
       tintColor: K.Colors.White,
       backgroundColor: K.Colors.TransparentButtons,
       image: galleryIcon)
-    cropButton = createButton(
-      title: "Crop",
+    aspectFrameButton = createButton(
+      title: "Aspect",
       tintColor: K.Colors.White,
       backgroundColor: K.Colors.TransparentButtons,
       image: cropIcon)
@@ -179,7 +179,7 @@ fileprivate extension CameraControlsView {
   }
   
   func layoutCameraButtons() {
-    leadingButtonsContainer.addArrangedSubview(cropButton)
+    leadingButtonsContainer.addArrangedSubview(aspectFrameButton)
     leadingButtonsContainer.addArrangedSubview(galleryButton)
     
     trailingButtonsContainer.addArrangedSubview(flipButton)
@@ -190,8 +190,8 @@ fileprivate extension CameraControlsView {
     stackContainer.addArrangedSubview(trailingButtonsContainer)
     
     NSLayoutConstraint.activate([
-      cropButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
-      cropButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
+      aspectFrameButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
+      aspectFrameButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
       galleryButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
       galleryButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
       
