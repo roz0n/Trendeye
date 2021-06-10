@@ -7,12 +7,44 @@
 
 import UIKit
 
+enum ContentAreaAspects {
+  case square
+  case rectangle
+}
+
 class CameraAspectFrameView: UIView {
   
   // MARK: Content Area Properties
   
+  // MARK: -
+  
+  static let contentAreaPadding: CGFloat = 20
+  
+  var selectedContentAreaAspect: ContentAreaAspects? {
+    didSet {
+      print("Changed aspect frame!")
+    }
+  }
+  
+  let squareAspectFrame: CGRect = CGRect(
+    x: 0, y: 0,
+    width: UIScreen.main.bounds.width - (contentAreaPadding * 2),
+    height: UIScreen.main.bounds.width - (contentAreaPadding * 2))
+  
+  let rectangleAspectFrame: CGRect = CGRect(
+    x: 0, y: 0,
+    width: UIScreen.main.bounds.width - (contentAreaPadding * 2),
+    height: UIScreen.main.bounds.height / 1.65 - (contentAreaPadding * 2))
+  
+  var contentAreaViewPosition: CGPoint? {
+    get {
+      guard let superview = contentAreaView.superview else { return nil }
+      return superview.convert(contentAreaView.frame.origin, to: superview)
+    }
+  }
+  
   var contentAreaView: UIView = {
-    let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+    let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
     view.backgroundColor = .clear
     view.layer.borderWidth = 4
@@ -21,23 +53,22 @@ class CameraAspectFrameView: UIView {
     return view
   }()
   
-  var getContentAreaViewPosition: CGPoint? {
-    get {
-      guard let superview = contentAreaView.superview else {
-        return nil
-      }
-      
-      return superview.convert(contentAreaView.frame.origin, to: superview)
-    }
-  }
-  
   // MARK: - Initializers
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  init(as type: ContentAreaAspects) {
+    super.init(frame: .zero)
     
-    translatesAutoresizingMaskIntoConstraints = false
-    applyLayouts()
+    self.translatesAutoresizingMaskIntoConstraints = false
+    self.applyLayouts()
+    
+    switch type {
+      case .square:
+        selectedContentAreaAspect = .square
+        contentAreaView.frame = squareAspectFrame
+      case .rectangle:
+        selectedContentAreaAspect = .rectangle
+        contentAreaView.frame = rectangleAspectFrame
+    }
   }
   
   required init?(coder: NSCoder) {

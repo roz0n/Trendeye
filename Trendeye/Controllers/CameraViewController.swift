@@ -31,7 +31,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   var watermarkView = AppLogoView()
   var controlsView = CameraControlsView()
   let cameraErrorView = CameraErrorView()
-  let aspectFrameView = CameraAspectFrameView()
+  var aspectFrameView = CameraAspectFrameView(as: .rectangle)
   
   // MARK: - Other Properties
   
@@ -317,6 +317,8 @@ fileprivate extension CameraViewController {
     let focusGesture = UITapGestureRecognizer(target: self, action: #selector(cameraViewTapped(_:)))
     cameraView.addGestureRecognizer(focusGesture)
   }
+  
+  // MARK: -
   
   @objc func pickerButtonTapped() {
     picker.modalPresentationStyle = .fullScreen
