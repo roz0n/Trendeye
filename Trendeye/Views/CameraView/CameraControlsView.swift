@@ -10,11 +10,22 @@ import AVKit
 
 class CameraControlsView: UIView {
   
+  // MARK: - Button Properties
+  
   var shootButton: CameraButton!
   var flipButton: CameraButton!
   var flashButton: CameraButton!
+  var galleryButton: CameraButton!
+  var cropButton: CameraButton!
   
-  var primaryButtonsContainer: UIStackView = {
+  // MARK: -
+  
+  let largeButtonSize: CGFloat = 100
+  let smallButtonSize: CGFloat = 42
+  
+  // MARK: - Container Properties
+  
+  var stackContainer: UIStackView = {
     // Contains the "Shoot" button
     let stack = UIStackView()
     stack.translatesAutoresizingMaskIntoConstraints = false
@@ -24,29 +35,24 @@ class CameraControlsView: UIView {
     return stack
   }()
   
-  var secondaryButtonsContainer: UIStackView = {
+  var leadingButtonsContainer: UIStackView = {
     // Contains the "Flip" and "Flash" buttons
     let stack = UIStackView()
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .vertical
     stack.distribution = .equalCentering
+    stack.backgroundColor = .systemYellow
     return stack
   }()
   
-  var previewContainer: UIView = {
-    let view = UIView()
-    view.translatesAutoresizingMaskIntoConstraints = false
-    return view
-  }()
-  
-  var galleryButton: UIButton = {
-    let button = UIButton(type: .system)
-    let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
-    let icon = UIImage(systemName: K.Icons.Gallery, withConfiguration: config)
-    button.translatesAutoresizingMaskIntoConstraints = false
-    button.tintColor = .white
-    button.setImage(icon, for: .normal)
-    return button
+  var trailingButtonsContainer: UIStackView = {
+    // Contains the "Flip" and "Flash" buttons
+    let stack = UIStackView()
+    stack.translatesAutoresizingMaskIntoConstraints = false
+    stack.axis = .vertical
+    stack.distribution = .equalCentering
+    stack.backgroundColor = .systemOrange
+    return stack
   }()
   
   // MARK: - Configurations
@@ -65,6 +71,12 @@ class CameraControlsView: UIView {
     let flashIcon = UIImage(
       systemName: K.Icons.Flash,
       withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
+    let galleryIcon = UIImage(
+      systemName: K.Icons.Gallery,
+      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
+    let cropIcon = UIImage(
+      systemName: K.Icons.Crop,
+      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
     
     shootButton = createButton(
       title: "Shoot",
@@ -81,6 +93,16 @@ class CameraControlsView: UIView {
       tintColor: K.Colors.White,
       backgroundColor: K.Colors.TransparentButtons,
       image: flashIcon)
+    galleryButton = createButton(
+      title: "Gallery",
+      tintColor: K.Colors.White,
+      backgroundColor: K.Colors.TransparentButtons,
+      image: galleryIcon)
+    cropButton = createButton(
+      title: "Crop",
+      tintColor: K.Colors.White,
+      backgroundColor: K.Colors.TransparentButtons,
+      image: cropIcon)
   }
   
   // MARK: - Helpers
@@ -136,59 +158,46 @@ class CameraControlsView: UIView {
 // MARK: - Layout
 
 fileprivate extension CameraControlsView {
-  // These constraints are a bit wonky, but they work for now
-  
   func applyLayouts() {
-    layoutContainers()
-    layoutGalleryButton()
+    layoutStackContainer()
     layoutCameraButtons()
   }
   
-  func layoutContainers() {
-    let screenWidth = UIScreen.main.bounds.width
-    let halfScreenWidth = (screenWidth / 2)
+  func layoutStackContainer() {
     let buttonXPadding: CGFloat = 20
     
-    addSubview(previewContainer)
-    addSubview(primaryButtonsContainer)
+    backgroundColor = .systemTeal
+    stackContainer.backgroundColor = .systemRed
+    
+    addSubview(stackContainer)
     
     NSLayoutConstraint.activate([
-      previewContainer.topAnchor.constraint(equalTo: self.topAnchor),
-      previewContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-      previewContainer.widthAnchor.constraint(equalToConstant: halfScreenWidth),
-      previewContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-      primaryButtonsContainer.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-      primaryButtonsContainer.leadingAnchor.constraint(equalTo: previewContainer.trailingAnchor),
-      primaryButtonsContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(buttonXPadding)),
-    ])
-  }
-  
-  func layoutGalleryButton() {
-    let buttonSize: CGFloat = 100
-    let buttonXPadding: CGFloat = 8
-    
-    previewContainer.addSubview(galleryButton)
-    
-    NSLayoutConstraint.activate([
-      galleryButton.centerYAnchor.constraint(equalTo: previewContainer.centerYAnchor),
-      galleryButton.leadingAnchor.constraint(equalTo: previewContainer.leadingAnchor, constant: buttonXPadding),
-      galleryButton.heightAnchor.constraint(equalToConstant: buttonSize),
-      galleryButton.widthAnchor.constraint(equalToConstant: buttonSize),
+      stackContainer.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+      stackContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: buttonXPadding),
+      stackContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -buttonXPadding),
     ])
   }
   
   func layoutCameraButtons() {
-    let largeButtonSize: CGFloat = 100
-    let smallButtonSize: CGFloat = 42
+    leadingButtonsContainer.addArrangedSubview(cropButton)
+    leadingButtonsContainer.addArrangedSubview(galleryButton)
     
-    secondaryButtonsContainer.addArrangedSubview(flipButton)
-    secondaryButtonsContainer.addArrangedSubview(flashButton)
-    primaryButtonsContainer.addArrangedSubview(shootButton)
-    primaryButtonsContainer.addArrangedSubview(secondaryButtonsContainer)
+    trailingButtonsContainer.addArrangedSubview(flipButton)
+    trailingButtonsContainer.addArrangedSubview(flashButton)
+    
+    stackContainer.addArrangedSubview(leadingButtonsContainer)
+    stackContainer.addArrangedSubview(shootButton)
+    stackContainer.addArrangedSubview(trailingButtonsContainer)
     
     NSLayoutConstraint.activate([
+      cropButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
+      cropButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
+      galleryButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
+      galleryButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
+      
       shootButton.heightAnchor.constraint(equalToConstant: largeButtonSize),
       shootButton.widthAnchor.constraint(equalToConstant: largeButtonSize),
+      
       flipButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
       flipButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
       flashButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
