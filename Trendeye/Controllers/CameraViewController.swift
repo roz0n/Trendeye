@@ -44,6 +44,15 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   var detectionFrameContainer = CameraDetectionView()
   var detectionFrameLayer = CAShapeLayer()
   
+  var isDetectionFrameVisible: Bool {
+    get {
+      let layers = detectionFrameContainer.layer.sublayers
+      guard let layers = layers else { return false }
+      
+      return layers.count > 0
+    }
+  }
+  
   // MARK: - Custom View Properties
   
   var watermarkView = AppLogoView()
@@ -227,7 +236,10 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         return
       }
       
-      self?.handleDetectionFramePresentation(rect: firstResult)
+      // TODO: Don't add these calls to an async queue, instead debounce this method call properly
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+        self?.handleDetectionFramePresentation(rect: firstResult)
+      }
     }
   }
   
@@ -235,15 +247,12 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     let transform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -self.videoPreviewLayer.frame.height)
     let scale = CGAffineTransform.identity.scaledBy(x: self.videoPreviewLayer.frame.width, y: self.videoPreviewLayer.frame.height)
     let bounds = rect.boundingBox.applying(scale).applying(transform)
-    let layers = detectionFrameContainer.layer.sublayers
     
-    guard let layers = layers else {
+    if !isDetectionFrameVisible {
       // Detection frame layer is being added for the first time
       createNewDetectionFrame(with: bounds)
       return
-    }
-    
-    if layers.count > 0 {
+    } else {
       // Detection frame layer is already present, update its bounds
       UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.5, options: .curveEaseOut) { [weak self] in
         self?.detectionFrameLayer.frame = bounds
