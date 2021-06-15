@@ -16,7 +16,7 @@ class CameraControlsView: UIView {
   var flipButton: CameraButton!
   var flashButton: CameraButton!
   var galleryButton: CameraButton!
-  var aspectFrameButton: CameraButton!
+  var captureModeButton: CameraButton!
   
   // MARK: -
   
@@ -69,8 +69,10 @@ class CameraControlsView: UIView {
     let galleryIcon = UIImage(
       systemName: K.Icons.Gallery,
       withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
+    
+    // This should initially be the opposite of CameraViewController's selectedCaptureMode
     let cropIcon = UIImage(
-      systemName: K.Icons.Aspect,
+      systemName: K.Icons.CaptureManual,
       withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
     
     shootButton = createButton(
@@ -93,8 +95,8 @@ class CameraControlsView: UIView {
       tintColor: K.Colors.White,
       backgroundColor: K.Colors.TransparentButtons,
       image: galleryIcon)
-    aspectFrameButton = createButton(
-      title: "Aspect",
+    captureModeButton = createButton(
+      title: "CaptureMode",
       tintColor: K.Colors.White,
       backgroundColor: K.Colors.TransparentButtons,
       image: cropIcon)
@@ -174,7 +176,7 @@ fileprivate extension CameraControlsView {
   }
   
   func layoutCameraButtons() {
-    leadingButtonsContainer.addArrangedSubview(aspectFrameButton)
+    leadingButtonsContainer.addArrangedSubview(captureModeButton)
     leadingButtonsContainer.addArrangedSubview(galleryButton)
     
     trailingButtonsContainer.addArrangedSubview(flipButton)
@@ -185,8 +187,8 @@ fileprivate extension CameraControlsView {
     stackContainer.addArrangedSubview(trailingButtonsContainer)
     
     NSLayoutConstraint.activate([
-      aspectFrameButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
-      aspectFrameButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
+      captureModeButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
+      captureModeButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
       galleryButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
       galleryButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
       

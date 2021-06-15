@@ -7,39 +7,48 @@
 
 import UIKit
 import AVKit
+import Vision
+
+enum CameraCaptureModes {
+  case manual
+  case smart
+}
 
 final class CameraViewController: UIViewController, UINavigationControllerDelegate {
+  
+  // MARK: -
+  
+  var selectedCaptureMode: CameraCaptureModes = .smart
+  var currentImage: UIImage?
+  var shootGesture: UITapGestureRecognizer?
+  var albumImagePicker = UIImagePickerController()
   
   // MARK: - AVKit Properties
   
   var captureSession: AVCaptureSession!
-  var imageOutput: AVCapturePhotoOutput!
-  var videoPreviewLayer: AVCaptureVideoPreviewLayer!
+  var imageOutput = AVCapturePhotoOutput()
+  var videoDataOutput = AVCaptureVideoDataOutput()
   
+  var backCamera: AVCaptureDevice?
+  var frontCamera: AVCaptureDevice?
+  
+  var videoPreviewLayer: AVCaptureVideoPreviewLayer!
   var activeCaptureDevice: AVCaptureDevice! {
     didSet {
       controlsView.toggleFlashButtonState(for: activeCaptureDevice.position)
     }
   }
   
-  // Devices
-  var backCamera: AVCaptureDevice?
-  var frontCamera: AVCaptureDevice?
+  // MARK: - Rectangle Detection Properties
   
-  // MARK: - UI Properties
+  var detectionFrameContainer = CameraDetectionView()
+  var detectionFrameLayer = CAShapeLayer()
+  
+  // MARK: - Custom View Properties
   
   var watermarkView = AppLogoView()
   var controlsView = CameraControlsView()
   let cameraErrorView = CameraErrorView()
-  var aspectFrameView = CameraAspectFrameView(as: .square)
-  
-  // MARK: - Other Properties
-  
-  var shootGesture: UITapGestureRecognizer?
-  var picker = UIImagePickerController()
-  var currentImage: UIImage?
-  
-  // MARK: - Camera UI Properties
   
   var captureDeviceError = false {
     didSet {
@@ -79,42 +88,31 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
-    showCameraView()
-    applyConfigurations()
+    displayCameraView()
+    configureContainerView()
+    configureCaptureDevices()
     
-    // self.SHORTCUT_PRESENT_CATEGORY()
-    // self.SHORTCUT_PRESENT_CLASSIFICATION()
+    if !captureDeviceError {
+      configureCaptureSession()
+      configureLivePreview()
+      startCaptureSession()
+    }
   }
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     
     toggleNavigationBar(hidden: false, animated: animated)
-    hideCameraViewAndStopSession()
-  }
-  
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(animated)
+    hideCameraViewEndSession()
   }
   
   // MARK: - Basic Configurations
   
-  fileprivate func applyConfigurations() {
-    // Apply container view styling
-    configureView()
-    // Set back and front devices
-    configureDevices()
-    
-    if !captureDeviceError {
-      configureInitialCaptureSession()
-    }
-  }
-  
-  fileprivate func configureView() {
+  fileprivate func configureContainerView() {
     view.backgroundColor = K.Colors.ViewBackground
   }
   
-  fileprivate func configureDevices() {
+  fileprivate func configureCaptureDevices() {
     // If either of these devices fail to be initialized in `selectBestDevice`, `cameraError` will be set to true
     backCamera = selectBestDevice(for: .back)
     frontCamera = selectBestDevice(for: .front)
@@ -125,9 +123,9 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   fileprivate func configurePicker() {
     // These configurations must be applied within `viewDidLoad`.
-    picker.delegate = self
-    picker.sourceType = .photoLibrary
-    picker.allowsEditing = false
+    albumImagePicker.delegate = self
+    albumImagePicker.sourceType = .photoLibrary
+    albumImagePicker.allowsEditing = false
   }
   
   // MARK: - Capture Session Configuration
@@ -151,21 +149,42 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     return discoverySession.devices.first { device in device.position == position }
   }
   
-  fileprivate func configureInitialCaptureSession() {
+  fileprivate func configureCaptureSession() {
     // Initialize the capture session with a quality preset
     captureSession = AVCaptureSession()
     captureSession.sessionPreset = .high
     
     do {
       // Attach the capture device (front or back camera) to the session
-      // The value of `activeCaptureDevice` is set within `configureDevices`
       let input = try AVCaptureDeviceInput(device: activeCaptureDevice)
-      imageOutput = AVCapturePhotoOutput()
       
-      if captureSession.canAddInput(input) && captureSession.canAddOutput(imageOutput) {
+      if !captureSession.canAddInput(input) {
+        captureDeviceError = true
+        return
+      } else {
         captureSession.addInput(input)
-        captureSession.addOutput(imageOutput)
-        configureLivePreview()
+      }
+      
+      // Configure video data output and imageOutput, attach them depending on selectedCaptureMode
+      videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32BGRA)]
+      videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue.global(qos: .default))
+      videoDataOutput.alwaysDiscardsLateVideoFrames = true
+      
+      switch selectedCaptureMode {
+        case .manual:
+          if captureSession.canAddOutput(imageOutput) {
+            captureSession.addOutput(imageOutput)
+          } else {
+            captureDeviceError = true
+            return
+          }
+        case .smart:
+          if captureSession.canAddOutput(videoDataOutput) {
+            captureSession.addOutput(videoDataOutput)
+          } else {
+            captureDeviceError = true
+            return
+          }
       }
     } catch let error {
       captureDeviceError = true
@@ -177,33 +196,78 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   }
   
   fileprivate func configureLivePreview() {
-    // This method displays the device output on a UIView
     videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
     videoPreviewLayer.videoGravity = .resizeAspectFill
     videoPreviewLayer.connection?.videoOrientation = .portrait
     videoPreviewLayer.frame = cameraView.frame
     videoPreviewLayer.zPosition = 1
     cameraView.layer.addSublayer(videoPreviewLayer)
-    
-    // Start the capture session on a background thread
+  }
+  
+  fileprivate func startCaptureSession() {
     DispatchQueue.global(qos: .userInitiated).async { [weak self] in
       self?.captureSession.startRunning()
     }
   }
   
+  // MARK: - Smart Capture Methods
+  
+  func convertNormalizedCoordinates(rect: CGRect) -> CGRect {
+    // Convert coordinates from Vision's normalized coordinate system to that of the videoPreviewLayer
+    let origin = videoPreviewLayer.layerPointConverted(fromCaptureDevicePoint: rect.origin)
+    let size = videoPreviewLayer.layerPointConverted(fromCaptureDevicePoint: rect.size.cgPoint)
+    
+    return CGRect(origin: origin, size: size.cgSize)
+  }
+  
+  func handleRectangleDetection(request: VNRequest, error: Error?) {
+    DispatchQueue.main.async { [weak self] in
+      guard let results = request.results as? [VNRectangleObservation], let firstResult = results.first else {
+        self?.removeDetectionFrame()
+        return
+      }
+      
+      // print("Result:", firstResult)
+      
+      self?.removeDetectionFrame()
+      self?.createDetectionFrame(rect: firstResult)
+    }
+  }
+  
+  func createDetectionFrame(rect: VNRectangleObservation) {
+    let transform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -self.videoPreviewLayer.frame.height)
+    let scale = CGAffineTransform.identity.scaledBy(x: self.videoPreviewLayer.frame.width, y: self.videoPreviewLayer.frame.height)
+    let bounds = rect.boundingBox.applying(scale).applying(transform)
+    
+    detectionFrameLayer = CAShapeLayer()
+    detectionFrameLayer.frame = bounds
+    detectionFrameLayer.cornerRadius = 10
+    detectionFrameLayer.opacity = 0.75
+    detectionFrameLayer.borderColor = UIColor.systemBlue.withAlphaComponent(0.35).cgColor
+    detectionFrameLayer.borderWidth = 5.0
+    detectionFrameContainer.layer.insertSublayer(detectionFrameLayer, at: 1)
+  }
+  
+  func removeDetectionFrame() {
+    detectionFrameLayer.removeFromSuperlayer()
+  }
+  
   // MARK: - Helpers
   
-  func hideCameraViewAndStopSession() {
+  func displayCameraView() {
+    view.isHidden = false
+  }
+  
+  func hideCameraViewEndSession() {
     view.isHidden = true
+    
+    // TODO: Does this need to happen only under certain conditions?
+    videoDataOutput.setSampleBufferDelegate(nil, queue: nil)
     captureSession.stopRunning()
   }
   
   func toggleNavigationBar(hidden: Bool, animated: Bool) {
     navigationController?.setNavigationBarHidden(hidden, animated: animated)
-  }
-  
-  func showCameraView() {
-    view.isHidden = false
   }
   
   // MARK: - Confirmation View
@@ -248,6 +312,35 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
 }
 
+// MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
+
+extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+  
+  func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+    
+    // Extract frame
+    guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+      return
+    }
+    
+    // Prepare Vision request
+    let detectRectanglesRequest = VNDetectRectanglesRequest(completionHandler: handleRectangleDetection)
+    detectRectanglesRequest.minimumAspectRatio = 0.0
+    detectRectanglesRequest.maximumAspectRatio = 1.0
+    detectRectanglesRequest.minimumConfidence = 0.75
+    detectRectanglesRequest.maximumObservations = 1
+    
+    // Perform image request
+    do {
+      let sequenceRequestHandler = VNSequenceRequestHandler()
+      try sequenceRequestHandler.perform([detectRectanglesRequest], on: imageBuffer, orientation: .right)
+    } catch {
+      print(error.localizedDescription)
+    }
+  }
+  
+}
+
 // MARK: - UIImagePickerControllerDelegate
 
 extension CameraViewController: UIImagePickerControllerDelegate {
@@ -269,11 +362,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
   func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
     guard let imageData = photo.fileDataRepresentation() else { return }
     
-    var image = UIImage(data: imageData)
-    
-//    image = image?.scaleToScreenSize()
-    image = image?.scaleToSizeWithAspectRatio(CGSize(width: aspectFrameView.frame.width, height: aspectFrameView.frame.height))
-    image = image?.cropToFrame(aspectFrameView.contentAreaView.frame)
+    let image = UIImage(data: imageData)
     
     if let image = image {
       currentImage = image
@@ -289,7 +378,7 @@ fileprivate extension CameraViewController {
   
   func applyGestures() {
     configurePickerGesture()
-    configureAspectGesture()
+    configureCaptureModeGesture()
     configureShootGesture()
     configureFlipGesture()
     configureFlashGesture()
@@ -316,9 +405,9 @@ fileprivate extension CameraViewController {
     controlsView.flashButton.addGestureRecognizer(flashGesture)
   }
   
-  func configureAspectGesture() {
-    let aspectGesture = UITapGestureRecognizer(target: self, action: #selector(aspectButtonTapped))
-    controlsView.aspectFrameButton.addGestureRecognizer(aspectGesture)
+  func configureCaptureModeGesture() {
+    let captureModeGesture = UITapGestureRecognizer(target: self, action: #selector(captureModeButtonTapped))
+    controlsView.captureModeButton.addGestureRecognizer(captureModeGesture)
   }
   
   func configureFocusGesture() {
@@ -329,20 +418,22 @@ fileprivate extension CameraViewController {
   // MARK: -
   
   @objc func pickerButtonTapped() {
-    picker.modalPresentationStyle = .fullScreen
-    present(picker, animated: true, completion: nil)
+    albumImagePicker.modalPresentationStyle = .fullScreen
+    present(albumImagePicker, animated: true, completion: nil)
   }
   
-  @objc func aspectButtonTapped() {
-    let currentFrame = aspectFrameView.selectedContentAreaFrame
-    
-    aspectFrameView.selectedContentAreaFrame = currentFrame == .square ? .rectangle : .square
-    aspectFrameView.centerContentAreaAspectFrameToSuperview(view)
+  @objc func captureModeButtonTapped() {
+    print("Tapped captureMode button")
   }
   
   @objc func shootButtonTapped() {
-    let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-    imageOutput.capturePhoto(with: settings, delegate: self)
+    switch selectedCaptureMode {
+      case .smart:
+        print("Tapped shoot button on smart mode")
+      case .manual:
+        let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+        imageOutput.capturePhoto(with: settings, delegate: self)
+    }
   }
   
   @objc func flipButtonTapped() {
@@ -455,13 +546,14 @@ fileprivate extension CameraViewController {
   func applyLayouts() {
     if !captureDeviceError {
       layoutCamera()
-      layoutAspectFrame()
       layoutControls()
     } else {
       layoutCaptureDeviceError()
     }
     
     layoutWatermark()
+    
+    layoutCameraDetectionView()
   }
   
   func layoutCamera() {
@@ -522,16 +614,17 @@ fileprivate extension CameraViewController {
     ])
   }
   
-  func layoutAspectFrame() {
-    cameraView.addSubview(aspectFrameView)
-    aspectFrameView.centerContentAreaAspectFrameToSuperview(view)
-    aspectFrameView.layer.zPosition = 2
+  func layoutCameraDetectionView() {
+    view.addSubview(detectionFrameContainer)
+    detectionFrameContainer.translatesAutoresizingMaskIntoConstraints = false
+    detectionFrameContainer.backgroundColor = .clear
+    detectionFrameContainer.isUserInteractionEnabled = false
     
     NSLayoutConstraint.activate([
-      aspectFrameView.leadingAnchor.constraint(equalTo: cameraView.leadingAnchor),
-      aspectFrameView.trailingAnchor.constraint(equalTo: cameraView.trailingAnchor),
-      aspectFrameView.topAnchor.constraint(equalTo: cameraView.topAnchor),
-      aspectFrameView.bottomAnchor.constraint(equalTo: cameraView.bottomAnchor)
+      detectionFrameContainer.topAnchor.constraint(equalTo: view.topAnchor),
+      detectionFrameContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      detectionFrameContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      detectionFrameContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])
   }
   

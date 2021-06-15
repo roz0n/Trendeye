@@ -39,7 +39,8 @@ struct K {
     static let Flip = "arrow.triangle.2.circlepath"
     static let Flash = "bolt.fill"
     static let FlashDisabled = "bolt.slash.fill"
-    static let Aspect = "aspectratio"
+    static let CaptureSmart = "viewfinder"
+    static let CaptureManual = "crop"
   }
   
 }

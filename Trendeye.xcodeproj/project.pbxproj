@@ -18,7 +18,6 @@
 		23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */; };
 		23131B072622F67600FFF2B3 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B062622F67600FFF2B3 /* K.swift */; };
 		23131B0B2623863200FFF2B3 /* ClassificationTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B0A2623863200FFF2B3 /* ClassificationTableHeaderView.swift */; };
-		23235A2A2671841F00509A78 /* CameraAspectFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23235A292671841F00509A78 /* CameraAspectFrameView.swift */; };
 		232AA37D2627F79000E5E8A1 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA37C2627F79000E5E8A1 /* FontManager.swift */; };
 		232AA3852628091C00E5E8A1 /* Satoshi-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3802628091C00E5E8A1 /* Satoshi-Light.otf */; };
 		232AA3862628091C00E5E8A1 /* Satoshi-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 232AA3812628091C00E5E8A1 /* Satoshi-Black.otf */; };
@@ -30,6 +29,8 @@
 		232AA39526298B0D00E5E8A1 /* PhotoEnlargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA39426298B0D00E5E8A1 /* PhotoEnlargeButton.swift */; };
 		234C91E52637CC7500B3A89E /* ContentErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234C91E42637CC7500B3A89E /* ContentErrorView.swift */; };
 		234C91E72637D08400B3A89E /* AppLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234C91E62637D08400B3A89E /* AppLogoView.swift */; };
+		2363BC2226771CA100564849 /* CameraDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363BC2126771CA100564849 /* CameraDetectionView.swift */; };
+		2363BC24267720C800564849 /* CG+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363BC23267720C800564849 /* CG+Ext.swift */; };
 		2371729926327B4400D29B50 /* CGFloat+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729826327B4400D29B50 /* CGFloat+Ext.swift */; };
 		2371729C26327B5D00D29B50 /* CGSize+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729B26327B5D00D29B50 /* CGSize+Ext.swift */; };
 		237172A52633C91D00D29B50 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237172A42633C91D00D29B50 /* UIViewController+Ext.swift */; };
@@ -82,7 +83,6 @@
 		23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		23131B062622F67600FFF2B3 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		23131B0A2623863200FFF2B3 /* ClassificationTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationTableHeaderView.swift; sourceTree = "<group>"; };
-		23235A292671841F00509A78 /* CameraAspectFrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraAspectFrameView.swift; sourceTree = "<group>"; };
 		232AA37C2627F79000E5E8A1 /* FontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		232AA3802628091C00E5E8A1 /* Satoshi-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Light.otf"; sourceTree = "<group>"; };
 		232AA3812628091C00E5E8A1 /* Satoshi-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Satoshi-Black.otf"; sourceTree = "<group>"; };
@@ -94,6 +94,8 @@
 		232AA39426298B0D00E5E8A1 /* PhotoEnlargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEnlargeButton.swift; sourceTree = "<group>"; };
 		234C91E42637CC7500B3A89E /* ContentErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentErrorView.swift; sourceTree = "<group>"; };
 		234C91E62637D08400B3A89E /* AppLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogoView.swift; sourceTree = "<group>"; };
+		2363BC2126771CA100564849 /* CameraDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDetectionView.swift; sourceTree = "<group>"; };
+		2363BC23267720C800564849 /* CG+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CG+Ext.swift"; sourceTree = "<group>"; };
 		2371729826327B4400D29B50 /* CGFloat+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Ext.swift"; sourceTree = "<group>"; };
 		2371729B26327B5D00D29B50 /* CGSize+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Ext.swift"; sourceTree = "<group>"; };
 		237172A42633C91D00D29B50 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
@@ -156,7 +158,7 @@
 			children = (
 				23A009D9261FC03B007A091D /* CameraControlsView.swift */,
 				23131AD1261FC5EC00FFF2B3 /* CameraButton.swift */,
-				23235A292671841F00509A78 /* CameraAspectFrameView.swift */,
+				2363BC2126771CA100564849 /* CameraDetectionView.swift */,
 			);
 			path = CameraView;
 			sourceTree = "<group>";
@@ -171,6 +173,7 @@
 				237172A72633F21500D29B50 /* UIImage+Ext.swift */,
 				23EFD8E8263A6EFB005AB471 /* CameraViewController+Ext.swift */,
 				23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */,
+				2363BC23267720C800564849 /* CG+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23AAC191262AA7A700744651 /* CategoryCollectionView.swift in Sources */,
+				2363BC2226771CA100564849 /* CameraDetectionView.swift in Sources */,
 				23131B0B2623863200FFF2B3 /* ClassificationTableHeaderView.swift in Sources */,
 				23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */,
 				237172A52633C91D00D29B50 /* UIViewController+Ext.swift in Sources */,
@@ -514,6 +518,7 @@
 				2371729C26327B5D00D29B50 /* CGSize+Ext.swift in Sources */,
 				23AAC1A1262D00A700744651 /* CacheManager.swift in Sources */,
 				23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */,
+				2363BC24267720C800564849 /* CG+Ext.swift in Sources */,
 				23131AE22621586C00FFF2B3 /* ConfirmationButton.swift in Sources */,
 				232AA39526298B0D00E5E8A1 /* PhotoEnlargeButton.swift in Sources */,
 				2371729926327B4400D29B50 /* CGFloat+Ext.swift in Sources */,
@@ -530,7 +535,6 @@
 				232AA3912628FF9A00E5E8A1 /* ClassificationTableFooterView.swift in Sources */,
 				23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */,
 				23131B072622F67600FFF2B3 /* K.swift in Sources */,
-				23235A2A2671841F00509A78 /* CameraAspectFrameView.swift in Sources */,
 				23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */,
 				23AAC2022630F41500744651 /* FullScreenImageView.swift in Sources */,
 				23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */,
