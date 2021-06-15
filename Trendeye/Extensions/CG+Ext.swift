@@ -35,4 +35,9 @@ extension CGPoint {
   func absolutePoint(in rect: CGRect) -> CGPoint {
     return CGPoint(x: x * rect.size.width, y: y * rect.size.height) + rect.origin
   }
+  
+  func scaled(to size: CGSize) -> CGPoint {
+    return CGPoint(x: self.x * size.width,
+                   y: self.y * size.height)
+  }
 }

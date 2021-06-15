@@ -53,6 +53,11 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     }
   }
   
+  //  Rectangle Detection Output Properties
+  
+  var detectionBuffer: CVImageBuffer?
+  var detectionObservation: VNRectangleObservation?
+  
   // MARK: - Custom View Properties
   
   var watermarkView = AppLogoView()
@@ -238,6 +243,9 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       
       // TODO: Don't add these calls to an async queue, instead debounce this method call properly
       DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+        // Set the VNRectangleObservation we're keeping track of as this will later be used to capture the image
+        self?.detectionObservation = firstResult
+        // Handle creation of the visual frame
         self?.handleDetectionFramePresentation(rect: firstResult)
       }
     }
@@ -272,6 +280,32 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   fileprivate func removeDetectionFrame() {
     detectionFrameLayer.removeFromSuperlayer()
+  }
+  
+  func performPerspectiveCorrection(_ observation: VNRectangleObservation, from buffer: CVImageBuffer) -> UIImage? {
+    // Credit: https://stackoverflow.com/questions/48170950/how-can-i-take-a-photo-of-a-detected-rectangle-in-apple-vision-framework
+    var ciImage = CIImage(cvImageBuffer: buffer)
+    
+    let topLeft = observation.topLeft.scaled(to: ciImage.extent.size)
+    let topRight = observation.topRight.scaled(to: ciImage.extent.size)
+    let bottomLeft = observation.bottomLeft.scaled(to: ciImage.extent.size)
+    let bottomRight = observation.bottomRight.scaled(to: ciImage.extent.size)
+    
+    ciImage = ciImage.applyingFilter("CIPerspectiveCorrection", parameters: [
+      "inputTopLeft": CIVector(cgPoint: topLeft),
+      "inputTopRight": CIVector(cgPoint: topRight),
+      "inputBottomLeft": CIVector(cgPoint: bottomLeft),
+      "inputBottomRight": CIVector(cgPoint: bottomRight),
+    ])
+    
+    let context = CIContext()
+    let cgImage = context.createCGImage(ciImage, from: ciImage.extent)
+    
+    guard let cgImage = cgImage else {
+      return nil
+    }
+    
+    return UIImage(cgImage: cgImage)
   }
   
   // MARK: - Helpers
@@ -339,11 +373,13 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
 extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
   
   func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-    
     // Extract frame
     guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
       return
     }
+    
+    // Set the CVImageBuffer we're we're keeping track of as this will later be used to capture the image
+    detectionBuffer = imageBuffer
     
     // Prepare Vision request
     let detectRectanglesRequest = VNDetectRectanglesRequest(completionHandler: handleRectangleDetection)
@@ -352,7 +388,7 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     detectRectanglesRequest.minimumConfidence = 0.75
     detectRectanglesRequest.maximumObservations = 1
     
-    // Perform image request
+    // Perform vision request
     do {
       let sequenceRequestHandler = VNSequenceRequestHandler()
       try sequenceRequestHandler.perform([detectRectanglesRequest], on: imageBuffer, orientation: .right)
@@ -408,7 +444,7 @@ fileprivate extension CameraViewController {
   }
   
   func configureShootGesture() {
-    shootGesture = UITapGestureRecognizer(target: self, action: #selector(shootButtonTapped))
+    shootGesture = UITapGestureRecognizer(target: self, action: #selector(shootButtonTapped(_:)))
     controlsView.shootButton.addGestureRecognizer(shootGesture!)
   }
   
@@ -448,10 +484,17 @@ fileprivate extension CameraViewController {
     print("Tapped captureMode button")
   }
   
-  @objc func shootButtonTapped() {
+  @objc func shootButtonTapped(_ sender: UITapGestureRecognizer) {
     switch selectedCaptureMode {
       case .smart:
-        print("Tapped shoot button on smart mode")
+        guard let observation = detectionObservation,
+              let buffer = detectionBuffer,
+              let image = performPerspectiveCorrection(observation, from: buffer)?.cgImage else {
+          return
+        }
+        
+        let correctedImage = UIImage(cgImage: image, scale: 1.0, orientation: .right)
+        presentConfirmationView(with: correctedImage)
       case .manual:
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         imageOutput.capturePhoto(with: settings, delegate: self)

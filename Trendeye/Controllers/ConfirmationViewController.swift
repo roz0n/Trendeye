@@ -121,9 +121,7 @@ fileprivate extension ConfirmationViewController {
     view.insertSubview(photoBackground, at: 0)
     view.insertSubview(blurView, at: 1)
     view.insertSubview(photoView, at: 2)
-    
-    photoView.backgroundColor = .systemPink
-    
+        
     NSLayoutConstraint.activate([
       photoBackground.topAnchor.constraint(equalTo: headerView.bottomAnchor),
       photoBackground.heightAnchor.constraint(equalToConstant: photoHeight),
