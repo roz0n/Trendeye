@@ -212,7 +212,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   // MARK: - Smart Capture Methods
   
-  func convertNormalizedCoordinates(rect: CGRect) -> CGRect {
+  fileprivate func convertNormalizedCoordinates(rect: CGRect) -> CGRect {
     // Convert coordinates from Vision's normalized coordinate system to that of the videoPreviewLayer
     let origin = videoPreviewLayer.layerPointConverted(fromCaptureDevicePoint: rect.origin)
     let size = videoPreviewLayer.layerPointConverted(fromCaptureDevicePoint: rect.size.cgPoint)
@@ -220,25 +220,38 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     return CGRect(origin: origin, size: size.cgSize)
   }
   
-  func handleRectangleDetection(request: VNRequest, error: Error?) {
+  fileprivate func handleRectangleDetection(request: VNRequest, error: Error?) {
     DispatchQueue.main.async { [weak self] in
       guard let results = request.results as? [VNRectangleObservation], let firstResult = results.first else {
         self?.removeDetectionFrame()
         return
       }
       
-      // print("Result:", firstResult)
-      
-      self?.removeDetectionFrame()
-      self?.createDetectionFrame(rect: firstResult)
+      self?.handleDetectionFramePresentation(rect: firstResult)
     }
   }
   
-  func createDetectionFrame(rect: VNRectangleObservation) {
+  fileprivate func handleDetectionFramePresentation(rect: VNRectangleObservation) {
     let transform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -self.videoPreviewLayer.frame.height)
     let scale = CGAffineTransform.identity.scaledBy(x: self.videoPreviewLayer.frame.width, y: self.videoPreviewLayer.frame.height)
     let bounds = rect.boundingBox.applying(scale).applying(transform)
+    let layers = detectionFrameContainer.layer.sublayers
     
+    guard let layers = layers else {
+      // Detection frame layer is being added for the first time
+      createNewDetectionFrame(with: bounds)
+      return
+    }
+    
+    if layers.count > 0 {
+      // Detection frame layer is already present, update its bounds
+      UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.5, options: .curveEaseOut) { [weak self] in
+        self?.detectionFrameLayer.frame = bounds
+      }
+    }
+  }
+  
+  fileprivate func createNewDetectionFrame(with bounds: CGRect) {
     detectionFrameLayer = CAShapeLayer()
     detectionFrameLayer.frame = bounds
     detectionFrameLayer.cornerRadius = 10
@@ -248,7 +261,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     detectionFrameContainer.layer.insertSublayer(detectionFrameLayer, at: 1)
   }
   
-  func removeDetectionFrame() {
+  fileprivate func removeDetectionFrame() {
     detectionFrameLayer.removeFromSuperlayer()
   }
   
