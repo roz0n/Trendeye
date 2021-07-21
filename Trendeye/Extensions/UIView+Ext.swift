@@ -7,11 +7,8 @@
 
 import UIKit
 
-enum ViewBorder: String {
-  case left = "left"
-  case right = "right"
-  case top = "top"
-  case bottom = "bottom"
+enum BorderSide {
+  case top, bottom, left, right
 }
 
 extension UIView {
@@ -30,29 +27,30 @@ extension UIView {
     ])
   }
   
-  func addBorder(borders: [ViewBorder], color: UIColor, width: CGFloat) {
-    DispatchQueue.main.async {
-      borders.forEach { [weak self] (border) in
-        if let view = self {
-          let borderView = CALayer()
-          
-          borderView.backgroundColor = color.cgColor
-          borderView.name = border.rawValue
-          
-          switch border {
-            case .left:
-              borderView.frame = CGRect(x: 0, y: 0, width: width, height: view.frame.size.height)
-            case .right:
-              borderView.frame = CGRect(x: view.frame.size.width - width, y: 0, width: width, height: view.frame.size.height)
-            case .top:
-              borderView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: width)
-            case .bottom:
-              borderView.frame = CGRect(x: 0, y: view.frame.size.height - width , width: view.frame.size.width, height: width)
-          }
-          
-          view.layer.addSublayer(borderView)
-        }
-      }
+  // Credit: https://stackoverflow.com/a/52814708
+  func addBorder(side: BorderSide, color: UIColor, width: CGFloat) {
+    let border = UIView()
+    border.translatesAutoresizingMaskIntoConstraints = false
+    border.backgroundColor = color
+    self.addSubview(border)
+    
+    let topConstraint = topAnchor.constraint(equalTo: border.topAnchor)
+    let rightConstraint = trailingAnchor.constraint(equalTo: border.trailingAnchor)
+    let bottomConstraint = bottomAnchor.constraint(equalTo: border.bottomAnchor)
+    let leftConstraint = leadingAnchor.constraint(equalTo: border.leadingAnchor)
+    let heightConstraint = border.heightAnchor.constraint(equalToConstant: width)
+    let widthConstraint = border.widthAnchor.constraint(equalToConstant: width)
+    
+    
+    switch side {
+      case .top:
+        NSLayoutConstraint.activate([leftConstraint, topConstraint, rightConstraint, heightConstraint])
+      case .right:
+        NSLayoutConstraint.activate([topConstraint, rightConstraint, bottomConstraint, widthConstraint])
+      case .bottom:
+        NSLayoutConstraint.activate([rightConstraint, bottomConstraint, leftConstraint, heightConstraint])
+      case .left:
+        NSLayoutConstraint.activate([bottomConstraint, leftConstraint, topConstraint, widthConstraint])
     }
   }
   

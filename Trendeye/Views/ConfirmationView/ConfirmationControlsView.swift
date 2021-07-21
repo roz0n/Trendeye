@@ -55,8 +55,8 @@ class ConfirmationControlsView: UIView {
     let acceptIcon = UIImage(systemName: K.Icons.Accept, withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .heavy))
     let denyIcon = UIImage(systemName: K.Icons.Deny, withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .heavy))!
     
-    acceptButton = createButton(title: "Accept", bg: K.Colors.Green, icon: acceptIcon, tint: K.Colors.Black)
-    denyButton = createButton(title: "Deny", bg: K.Colors.Red, icon: denyIcon, tint: K.Colors.Black)
+    acceptButton = createButton(title: "Accept", bg: K.Colors.Blue, icon: acceptIcon, tint: K.Colors.White)
+    denyButton = createButton(title: "Deny", bg: K.Colors.Red, icon: denyIcon, tint: K.Colors.White)
   }
   
 }

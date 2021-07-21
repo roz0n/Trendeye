@@ -16,22 +16,23 @@ extension CameraViewController {
   
   func SHORTCUT_PRESENT_CATEGORY() {
     let vc = CategoryViewController()
+    
     vc.identifier = "letterspace"
     vc.name = "Letterspace"
     vc.title = "Letterspace"
+    
     navigationController?.pushViewController(vc, animated: true)
   }
   
   func SHORTCUT_PRESENT_CLASSIFICATION() {
     let vc = ClassificationViewController(with: UIImage(named: "TestImage.png")!)
+    
     vc.navigationItem.title = "Trend Analysis"
     navigationController?.pushViewController(vc, animated: true)
   }
   
   func SHORTCUT_PRESENT_CONFIRMATION() {
     let vc = ConfirmationViewController()
-    let acceptButton = vc.controlsView.acceptButton
-    let denyButton = vc.controlsView.denyButton
     let image = UIImage(named: "TestImage.png")!
     
     vc.selectedImage = image

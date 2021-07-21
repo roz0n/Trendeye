@@ -11,6 +11,7 @@ struct K {
   
   struct Colors {
     static let Black = UIColor(named: "Black")!
+    static let Blue = UIColor(named: "AccentColor")!
     static let DarkGray = UIColor(named: "DarkGray")!
     static let Gray = UIColor(named: "Gray")!
     static let Green = UIColor(named: "Green")!
@@ -20,7 +21,7 @@ struct K {
 //    static let NavigationBar = UIColor(named: "NavigationBar")!
 //    static let IconColor = UIColor(named: "IconTint")!
     static let TransparentButtons = UIColor(named: "TransparentButtons")!
-//    static let BorderColor = UIColor(named: "BorderColor")!
+    static let Borders = UIColor(named: "Borders")!
   }
   
   struct Icons {
@@ -41,6 +42,10 @@ struct K {
     static let FlashDisabled = "bolt.slash.fill"
     static let CaptureSmart = "viewfinder"
     static let CaptureManual = "crop"
+  }
+  
+  struct Sizes {
+    static let NavigationHeader: CGFloat = 17
   }
   
 }
