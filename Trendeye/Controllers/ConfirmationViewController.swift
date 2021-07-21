@@ -20,7 +20,7 @@ final class ConfirmationViewController: UIViewController {
     let header = UIView()
     
     header.translatesAutoresizingMaskIntoConstraints = false
-    header.backgroundColor = K.Colors.NavigationBar
+//    header.backgroundColor = K.Colors.NavigationBar
     
     return header
   }()

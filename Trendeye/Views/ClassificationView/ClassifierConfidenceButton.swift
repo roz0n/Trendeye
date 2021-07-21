@@ -138,7 +138,7 @@ class ClassifierConfidenceButton: UIView {
     labelTextString.addAttributes([
       NSAttributedString.Key.kern: -0.24,
       NSAttributedString.Key.font: AppFonts.Satoshi.font(face: .black, size: fontSize) as Any,
-      NSAttributedString.Key.foregroundColor: K.Colors.NavigationBar,
+//      NSAttributedString.Key.foregroundColor: K.Colors.NavigationBar,
     ], range: NSMakeRange(0, labelTextString.length))
     
     // Compose complete string

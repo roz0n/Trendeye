@@ -39,7 +39,7 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
   let headerBlurView: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.backgroundColor = K.Colors.NavigationBar
+//    view.backgroundColor = K.Colors.NavigationBar
     return view
   }()
   

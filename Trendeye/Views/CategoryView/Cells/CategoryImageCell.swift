@@ -28,7 +28,7 @@ class CategoryImageCell: UICollectionViewCell {
   public func applyBorder() {
     // This method is called externally when the cell is dequeued if needed
     layer.borderWidth = 1
-    layer.borderColor = K.Colors.BorderColor.cgColor
+//    layer.borderColor = K.Colors.BorderColor.cgColor
   }
   
 }

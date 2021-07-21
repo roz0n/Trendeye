@@ -31,7 +31,7 @@ class CategoryCollectionHeaderView: UICollectionReusableView {
     super.init(frame: frame)
     
     backgroundColor = K.Colors.ViewBackground
-    addBorder(borders: [.bottom], color: K.Colors.BorderColor, width: 1)
+//    addBorder(borders: [.bottom], color: K.Colors.BorderColor, width: 1)
     addSubview(label)
     
     NSLayoutConstraint.activate([

@@ -80,7 +80,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   var trendListButtonContainer: UIView = {
     let view = UIView()
-    view.backgroundColor = K.Colors.NavigationBar
+//    view.backgroundColor = K.Colors.NavigationBar
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()
@@ -116,7 +116,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   fileprivate func configureView() {
-    view.backgroundColor = K.Colors.NavigationBar
+//    view.backgroundColor = K.Colors.NavigationBar
   }
   
   fileprivate func configureDescription(text: String) {
