@@ -15,17 +15,34 @@ import UIKit
 extension CameraViewController {
   
   func SHORTCUT_PRESENT_CATEGORY() {
-    let cvc = CategoryViewController()
-    cvc.identifier = "letterspace"
-    cvc.name = "Letterspace"
-    cvc.title = "Letterspace"
-    navigationController?.pushViewController(cvc, animated: true)
+    let vc = CategoryViewController()
+    vc.identifier = "letterspace"
+    vc.name = "Letterspace"
+    vc.title = "Letterspace"
+    navigationController?.pushViewController(vc, animated: true)
   }
   
   func SHORTCUT_PRESENT_CLASSIFICATION() {
-    let cvc = ClassificationViewController(with: UIImage(named: "TestImage.png")!)
-    cvc.navigationItem.title = "Trend Analysis"
-    navigationController?.pushViewController(cvc, animated: true)
+    let vc = ClassificationViewController(with: UIImage(named: "TestImage.png")!)
+    vc.navigationItem.title = "Trend Analysis"
+    navigationController?.pushViewController(vc, animated: true)
+  }
+  
+  func SHORTCUT_PRESENT_CONFIRMATION() {
+    let vc = ConfirmationViewController()
+    let acceptButton = vc.controlsView.acceptButton
+    let denyButton = vc.controlsView.denyButton
+    let image = UIImage(named: "TestImage.png")!
+    
+    vc.selectedImage = image
+    vc.navigationItem.title = "Confirm Photo"
+    vc.modalPresentationStyle = .overFullScreen
+    
+    currentImage = image
+    videoPreviewLayer.isHidden = true
+    captureSession.stopRunning()
+    
+    present(vc, animated: true, completion: nil)
   }
   
 }

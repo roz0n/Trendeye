@@ -9,20 +9,29 @@ import UIKit
 
 class ConfirmationControlsView: UIView {
   
+  // MARK: - Properties
+  
   var acceptButton: ConfirmationButton!
   var denyButton: ConfirmationButton!
   
+  // MARK: - Views
+  
   var buttonsContainer: UIStackView = {
     let stack = UIStackView()
+    
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .horizontal
     stack.distribution = .equalCentering
+    
     return stack
   }()
+  
+  // MARK: - Initializers
   
   override init(frame: CGRect) {
     super.init(frame: frame)
     translatesAutoresizingMaskIntoConstraints = false
+    
     applyStyles()
     applyConfigurations()
     applyLayouts()
@@ -36,15 +45,6 @@ class ConfirmationControlsView: UIView {
     backgroundColor = K.Colors.ViewBackground
   }
   
-  fileprivate func createButton(title: String, bg: UIColor?, icon: UIImage?, tint: UIColor?) -> ConfirmationButton {
-    let button = ConfirmationButton(type: .system)
-    button.setTitle(title, for: .application)
-    button.backgroundColor = bg
-    button.setImage(icon, for: .normal)
-    button.tintColor = tint
-    return button
-  }
-  
   // MARK: - Configuration
   
   fileprivate func applyConfigurations() {
@@ -54,10 +54,24 @@ class ConfirmationControlsView: UIView {
   fileprivate func configureButtons() {
     let acceptIcon = UIImage(systemName: K.Icons.Accept, withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .heavy))
     let denyIcon = UIImage(systemName: K.Icons.Deny, withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: .heavy))!
+    
     acceptButton = createButton(title: "Accept", bg: K.Colors.Green, icon: acceptIcon, tint: K.Colors.Black)
     denyButton = createButton(title: "Deny", bg: K.Colors.Red, icon: denyIcon, tint: K.Colors.Black)
   }
   
+}
+
+// MARK: - Helpers
+
+fileprivate func createButton(title: String, bg: UIColor?, icon: UIImage?, tint: UIColor?) -> ConfirmationButton {
+  let button = ConfirmationButton(type: .system)
+  
+  button.setTitle(title, for: .application)
+  button.backgroundColor = bg
+  button.setImage(icon, for: .normal)
+  button.tintColor = tint
+  
+  return button
 }
 
 // MARK: - Layout
@@ -70,13 +84,16 @@ fileprivate extension ConfirmationControlsView {
   
   func layoutButtons() {
     let buttonPadding: CGFloat = 60
+    
     buttonsContainer.addArrangedSubview(denyButton)
     buttonsContainer.addArrangedSubview(acceptButton)
+    
     addSubview(buttonsContainer)
+    
     NSLayoutConstraint.activate([
-      buttonsContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: buttonPadding),
-      buttonsContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(buttonPadding)),
-      buttonsContainer.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+      buttonsContainer.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: buttonPadding),
+      buttonsContainer.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -(buttonPadding)),
+      buttonsContainer.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor)
     ])
   }
   
