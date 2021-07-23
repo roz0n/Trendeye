@@ -82,14 +82,13 @@ fileprivate extension ConfirmationViewController {
   }
   
   func layoutHeaderView() {
-    let headerHeight: CGFloat = 100
     headerView.addSubview(headerLabel)
     headerLabel.fillOther(view: headerView)
     view.addSubview(headerView)
     
     NSLayoutConstraint.activate([
       headerView.topAnchor.constraint(equalTo: view.topAnchor),
-      headerView.heightAnchor.constraint(equalToConstant: headerHeight),
+      headerView.heightAnchor.constraint(equalToConstant: 100),
       headerView.widthAnchor.constraint(equalTo: view.widthAnchor),
       headerView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
     ])

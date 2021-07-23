@@ -18,11 +18,9 @@ class ConfirmationControlsView: UIView {
   
   var buttonsContainer: UIStackView = {
     let stack = UIStackView()
-    
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .horizontal
     stack.distribution = .equalCentering
-    
     return stack
   }()
   
@@ -87,7 +85,6 @@ fileprivate extension ConfirmationControlsView {
     
     buttonsContainer.addArrangedSubview(denyButton)
     buttonsContainer.addArrangedSubview(acceptButton)
-    
     addSubview(buttonsContainer)
     
     NSLayoutConstraint.activate([

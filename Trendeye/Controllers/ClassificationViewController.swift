@@ -42,15 +42,10 @@ final class ClassificationViewController: UITableViewController {
     super.init(nibName: nil, bundle: nil)
     
     self.selectedImage = image
-    self.tableView = UITableView.init(
-      frame: self.tableView.frame,
-      style: .grouped)
-    self.tableView.register(
-      ClassificationTopResultCell.self,
-      forCellReuseIdentifier: ClassificationTopResultCell.reuseIdentifier)
-    self.tableView.register(
-      ClassificationResultCell.self,
-      forCellReuseIdentifier: ClassificationResultCell.reuseIdentifier)
+    self.tableView = UITableView.init(frame: self.tableView.frame, style: .grouped)
+//    self.tableView.register(ClassificationTopResultCell.self, forCellReuseIdentifier: ClassificationTopResultCell.reuseIdentifier)
+//    self.tableView.register(ClassificationResultCell.self, forCellReuseIdentifier: ClassificationResultCell.reuseIdentifier)
+    self.tableView.register(ClassificationViewCell.self, forCellReuseIdentifier: ClassificationViewCell.reuseIdentifier)
     self.tableView.backgroundColor = K.Colors.ViewBackground
   }
   
@@ -90,6 +85,7 @@ final class ClassificationViewController: UITableViewController {
   
   fileprivate func applyConfigurations() {
     configureNavigation()
+    configureTableView()
     configureStretchyHeader()
   }
   
@@ -126,9 +122,7 @@ final class ClassificationViewController: UITableViewController {
     let iconSize: CGFloat = 18
     let closeIcon = UIImage(
       systemName: K.Icons.Close,
-      withConfiguration: UIImage.SymbolConfiguration(
-        pointSize: iconSize,
-        weight: .semibold))
+      withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold))
     let fullScreenIcon = UIImage(
       systemName: K.Icons.Enlarge,
       withConfiguration: UIImage.SymbolConfiguration(
@@ -146,6 +140,18 @@ final class ClassificationViewController: UITableViewController {
       action: #selector(handleFullScreenButton))
     navigationItem.backButtonTitle = ""
     navigationItem.titleView = confidenceButton
+    
+    navigationController?.navigationBar.isTranslucent = false
+    navigationController?.navigationBar.isOpaque = true
+    navigationController?.navigationBar.barTintColor = UIColor.init(named: "Yellow")
+    navigationController?.navigationBar.tintColor = UIColor.init(named: "Black")
+    
+    // TODO: Move these temp changes
+    confidenceButton.button.backgroundColor = .clear
+  }
+  
+  fileprivate func configureTableView() {
+    tableView.separatorStyle = .none
   }
   
   fileprivate func configureClassifier() {
@@ -231,21 +237,27 @@ extension ClassificationViewController {
     return results?.count ?? 0
   }
   
+//  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//    let topCell = tableView.dequeueReusableCell(
+//      withIdentifier: ClassificationTopResultCell.reuseIdentifier,
+//      for: indexPath) as! ClassificationTopResultCell
+//    let regularCell = tableView.dequeueReusableCell(
+//      withIdentifier: ClassificationResultCell.reuseIdentifier,
+//      for: indexPath) as! ClassificationResultCell
+//
+//    let cell = indexPath.row == 0 ? topCell : regularCell
+//    let result = results?[indexPath.row]
+//
+//    cell.resultData = result
+//    cell.accessoryType = .disclosureIndicator
+//    cell.contentView.layoutIfNeeded()
+//
+//    return cell
+//  }
+  
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let topCell = tableView.dequeueReusableCell(
-      withIdentifier: ClassificationTopResultCell.reuseIdentifier,
-      for: indexPath) as! ClassificationTopResultCell
-    let regularCell = tableView.dequeueReusableCell(
-      withIdentifier: ClassificationResultCell.reuseIdentifier,
-      for: indexPath) as! ClassificationResultCell
-    
-    let cell = indexPath.row == 0 ? topCell : regularCell
-    let result = results?[indexPath.row]
-    
-    cell.resultData = result
-    cell.accessoryType = .disclosureIndicator
-    cell.contentView.layoutIfNeeded()
-    
+    let cell = tableView.dequeueReusableCell(withIdentifier: ClassificationViewCell.reuseIdentifier, for: indexPath) as! ClassificationViewCell
+    cell.resultData = results?[indexPath.row]
     return cell
   }
   

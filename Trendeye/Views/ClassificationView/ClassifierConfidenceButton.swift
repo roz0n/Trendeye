@@ -112,7 +112,7 @@ class ClassifierConfidenceButton: UIView {
   fileprivate func configureLabelText() {
     guard let metric = classificationMetric else { return }
     
-    let fontSize: CGFloat = 14
+    let fontSize: CGFloat = 16
     let confidenceString = "confidence".uppercased()
     let metricString = metric.rawValue.uppercased()
     let spacerAttrString = NSMutableAttributedString(string: " ")
@@ -137,7 +137,7 @@ class ClassifierConfidenceButton: UIView {
     // Add attributes
     labelTextString.addAttributes([
       NSAttributedString.Key.kern: -0.24,
-      NSAttributedString.Key.font: AppFonts.Satoshi.font(face: .black, size: fontSize) as Any,
+      NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize, weight: .black) as Any,
 //      NSAttributedString.Key.foregroundColor: K.Colors.NavigationBar,
     ], range: NSMakeRange(0, labelTextString.length))
     

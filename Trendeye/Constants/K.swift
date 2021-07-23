@@ -19,7 +19,7 @@ struct K {
     static let White = UIColor(named: "White")!
     static let ViewBackground = UIColor(named: "ViewBackground")!
 //    static let NavigationBar = UIColor(named: "NavigationBar")!
-//    static let IconColor = UIColor(named: "IconTint")!
+    static let Icon = UIColor(named: "Icons")!
     static let TransparentButtons = UIColor(named: "TransparentButtons")!
     static let Borders = UIColor(named: "Borders")!
   }
@@ -42,6 +42,7 @@ struct K {
     static let FlashDisabled = "bolt.slash.fill"
     static let CaptureSmart = "viewfinder"
     static let CaptureManual = "crop"
+    static let ArrowRight = "chevron.forward"
   }
   
   struct Sizes {

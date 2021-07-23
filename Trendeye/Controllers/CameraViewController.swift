@@ -54,7 +54,6 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   }
   
   //  Rectangle Detection Output Properties
-  
   var detectionBuffer: CVImageBuffer?
   var detectionObservation: VNRectangleObservation?
   
@@ -112,7 +111,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       startCaptureSession()
     }
     
-    SHORTCUT_PRESENT_CONFIRMATION()
+//    SHORTCUT_PRESENT_CONFIRMATION()
+    SHORTCUT_PRESENT_CLASSIFICATION()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
