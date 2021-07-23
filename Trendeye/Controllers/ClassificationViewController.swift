@@ -259,24 +259,12 @@ extension ClassificationViewController {
     tableView.deselectRow(at: indexPath, animated: true)
   }
   
-//  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//    return UIView(frame: .zero)
-//  }
-  
   override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
     return tableFooter
   }
   
   override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 100
-  }
-  
-  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return UITableView.automaticDimension
-  }
-  
-  override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    return ClassificationResultCell.estimatedHeight
   }
   
 }
