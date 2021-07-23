@@ -29,7 +29,7 @@ final class ClassificationViewController: UITableViewController {
   
   var stretchyHeaderContainer = StretchyTableHeaderView()
   var stretchyHeaderHeight: CGFloat = 350
-  var stretchyTableHeaderContent = ClassificationTableHeaderView()
+  var stretchyTableHeaderContent = ClassificationImageHeader()
   var tableFooter = ClassificationTableFooterView()
   
   // MARK: - Other Properties
@@ -40,13 +40,11 @@ final class ClassificationViewController: UITableViewController {
   
   init(with image: UIImage) {
     super.init(nibName: nil, bundle: nil)
-    
-    self.selectedImage = image
-    self.tableView = UITableView.init(frame: self.tableView.frame, style: .grouped)
-//    self.tableView.register(ClassificationTopResultCell.self, forCellReuseIdentifier: ClassificationTopResultCell.reuseIdentifier)
-//    self.tableView.register(ClassificationResultCell.self, forCellReuseIdentifier: ClassificationResultCell.reuseIdentifier)
-    self.tableView.register(ClassificationViewCell.self, forCellReuseIdentifier: ClassificationViewCell.reuseIdentifier)
-    self.tableView.backgroundColor = K.Colors.ViewBackground
+    selectedImage = image
+    tableView = UITableView.init(frame: self.tableView.frame, style: .grouped)
+    tableView.register(ClassificationViewCell.self, forCellReuseIdentifier: ClassificationViewCell.reuseIdentifier)
+    tableView.register(ClassificationTableHeader.self, forHeaderFooterViewReuseIdentifier: ClassificationTableHeader.reuseIdentifier)
+    tableView.backgroundColor = K.Colors.ViewBackground
   }
   
   required init?(coder: NSCoder) {
@@ -93,7 +91,7 @@ final class ClassificationViewController: UITableViewController {
     let shouldImageScale = selectedImage.size.width > 300 || selectedImage.size.height > 300
     
     // Configure header content
-    stretchyTableHeaderContent = ClassificationTableHeaderView()
+    stretchyTableHeaderContent = ClassificationImageHeader()
     stretchyTableHeaderContent.translatesAutoresizingMaskIntoConstraints = false
     stretchyTableHeaderContent.classificationImage = shouldImageScale ? selectedImage.scaleByPercentage(10) : selectedImage
     
@@ -237,28 +235,15 @@ extension ClassificationViewController {
     return results?.count ?? 0
   }
   
-//  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//    let topCell = tableView.dequeueReusableCell(
-//      withIdentifier: ClassificationTopResultCell.reuseIdentifier,
-//      for: indexPath) as! ClassificationTopResultCell
-//    let regularCell = tableView.dequeueReusableCell(
-//      withIdentifier: ClassificationResultCell.reuseIdentifier,
-//      for: indexPath) as! ClassificationResultCell
-//
-//    let cell = indexPath.row == 0 ? topCell : regularCell
-//    let result = results?[indexPath.row]
-//
-//    cell.resultData = result
-//    cell.accessoryType = .disclosureIndicator
-//    cell.contentView.layoutIfNeeded()
-//
-//    return cell
-//  }
-  
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: ClassificationViewCell.reuseIdentifier, for: indexPath) as! ClassificationViewCell
     cell.resultData = results?[indexPath.row]
     return cell
+  }
+  
+  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: ClassificationTableHeader.reuseIdentifier) as! ClassificationTableHeader
+    return view
   }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -274,16 +259,16 @@ extension ClassificationViewController {
     tableView.deselectRow(at: indexPath, animated: true)
   }
   
-  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    return UIView(frame: .zero)
-  }
+//  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//    return UIView(frame: .zero)
+//  }
   
   override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
     return tableFooter
   }
   
   override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return .leastNonzeroMagnitude
+    return 100
   }
   
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -331,6 +316,10 @@ fileprivate extension ClassificationViewController {
       stretchyTableHeaderContent.trailingAnchor.constraint(equalTo: stretchyHeaderContainer.trailingAnchor),
       stretchyTableHeaderContent.bottomAnchor.constraint(equalTo: stretchyHeaderContainer.bottomAnchor),
     ])
+  }
+  
+  func layoutTableHeader() {
+    
   }
   
 }

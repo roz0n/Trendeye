@@ -1,5 +1,5 @@
 //
-//  ClassificationTableHeaderView.swift
+//  ClassificationImageHeader.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/11/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ClassificationTableHeaderView: UIView {
+class ClassificationImageHeader: UIView {
   
   var classificationImage: UIImage? {
     didSet {
@@ -51,7 +51,7 @@ class ClassificationTableHeaderView: UIView {
 
 // MARK: - Layout
 
-fileprivate extension ClassificationTableHeaderView {
+fileprivate extension ClassificationImageHeader {
   
   func applyLayouts() {
     layoutBackgroundView()

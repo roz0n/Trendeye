@@ -28,6 +28,7 @@ class ClassificationViewCell: UITableViewCell {
     view.translatesAutoresizingMaskIntoConstraints = false
     view.axis = .horizontal
     view.distribution = .fillProportionally
+    view.spacing = 10
     view.layer.cornerRadius = 8
     view.layer.borderWidth = 1
     view.layer.borderColor = K.Colors.Borders.cgColor
@@ -39,7 +40,9 @@ class ClassificationViewCell: UITableViewCell {
   var identifierLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
-    label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+    label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+    label.adjustsFontSizeToFitWidth = false
+    label.lineBreakMode = .byTruncatingTail
     return label
   }()
   
@@ -58,7 +61,7 @@ class ClassificationViewCell: UITableViewCell {
   var disclosureIndicatorContainer: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.widthAnchor.constraint(equalToConstant: 40).isActive = true
+    view.widthAnchor.constraint(equalToConstant: 30).isActive = true
     return view
   }()
   

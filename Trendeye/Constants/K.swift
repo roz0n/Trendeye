@@ -43,6 +43,7 @@ struct K {
     static let CaptureSmart = "viewfinder"
     static let CaptureManual = "crop"
     static let ArrowRight = "chevron.forward"
+    static let Info = "info.circle.fill"
   }
   
   struct Sizes {
