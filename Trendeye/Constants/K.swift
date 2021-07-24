@@ -16,6 +16,7 @@ struct K {
     static let Gray = UIColor(named: "Gray")!
     static let Green = UIColor(named: "Green")!
     static let Red = UIColor(named: "Red")!
+    static let Yellow = UIColor(named: "Yellow")!
     static let White = UIColor(named: "White")!
     static let ViewBackground = UIColor(named: "ViewBackground")!
 //    static let NavigationBar = UIColor(named: "NavigationBar")!

@@ -8,38 +8,53 @@
 import UIKit
 import Vision
 
+enum ConfidenceMetrics: String {
+  case low = "low"
+  case mild = "mild"
+  case high = "high"
+}
+
 final class ClassificationViewController: UITableViewController {
   
   // MARK: - Classifier Properties
   
   var classifier = TrendClassifierManager()
-  var confidenceButton = ClassifierConfidenceButton()
+  var confidenceButton = ClassifierConfidenceButton(type: .system)
+  var topResultMetric: ConfidenceMetrics?
   
   var results: [VNClassificationObservation]? {
     didSet {
-      if let results = results {
-        if !results.isEmpty {
-          confidenceButton.classificationTopResult = results[0]
-        }
+      guard let results = results else { return }
+      
+      if !results.isEmpty {
+        topResult = results[0]
       }
+    }
+  }
+  
+  var topResult: VNClassificationObservation? {
+    didSet {
+      setClassificationMetric()
     }
   }
   
   // MARK: - UI Properties
   
+  var selectedImage: UIImage!
   var stretchyHeaderContainer = StretchyTableHeaderView()
   var stretchyHeaderHeight: CGFloat = 350
   var stretchyTableHeaderContent = ClassificationImageHeader()
   var tableFooter = ClassificationTableFooterView()
   
-  // MARK: - Other Properties
-  
-  var selectedImage: UIImage!
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .darkContent
+  }
   
   // MARK: - Initializers
   
   init(with image: UIImage) {
     super.init(nibName: nil, bundle: nil)
+    
     selectedImage = image
     tableView = UITableView.init(frame: self.tableView.frame, style: .grouped)
     tableView.register(ClassificationViewCell.self, forCellReuseIdentifier: ClassificationViewCell.reuseIdentifier)
@@ -55,6 +70,7 @@ final class ClassificationViewController: UITableViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    
     applyConfigurations()
     applyLayouts()
   }
@@ -71,12 +87,14 @@ final class ClassificationViewController: UITableViewController {
   
   override func viewSafeAreaInsetsDidChange() {
     super.viewSafeAreaInsetsDidChange()
-    tableView.contentInset = UIEdgeInsets(
-      top: stretchyHeaderHeight,
-      left: 0,
-      bottom: 0,
-      right: 0)
+    
+    tableView.contentInset = UIEdgeInsets(top: stretchyHeaderHeight, left: 0, bottom: 0, right: 0)
     stretchyHeaderContainer.updatePosition()
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(true)
+    resetNavigationBar()
   }
   
   // MARK: - Configurations
@@ -98,54 +116,36 @@ final class ClassificationViewController: UITableViewController {
     // Configure header container
     stretchyHeaderContainer.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     stretchyHeaderContainer.scrollView = tableView
-    stretchyHeaderContainer.frame = CGRect(
-      x: 0,
-      y: tableView.safeAreaInsets.top,
-      width: view.frame.width,
-      height: stretchyHeaderHeight)
+    stretchyHeaderContainer.frame = CGRect(x: 0, y: tableView.safeAreaInsets.top, width: view.frame.width, height: stretchyHeaderHeight)
     
     // Creates a new background view on the tableView to use as its background
     tableView.backgroundView = UIView()
     tableView.backgroundView?.addSubview(stretchyHeaderContainer)
     
     // Adjusts the contentInset of the tableView to expose the header
-    tableView.contentInset = UIEdgeInsets(
-      top: stretchyHeaderHeight,
-      left: 0,
-      bottom: 0,
-      right: 0)
+    tableView.contentInset = UIEdgeInsets(top: stretchyHeaderHeight, left: 0, bottom: 0, right: 0)
   }
   
   fileprivate func configureNavigation() {
     let iconSize: CGFloat = 18
-    let closeIcon = UIImage(
-      systemName: K.Icons.Close,
-      withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold))
-    let fullScreenIcon = UIImage(
-      systemName: K.Icons.Enlarge,
-      withConfiguration: UIImage.SymbolConfiguration(
-        pointSize: iconSize,
-        weight: .semibold))
+    let closeIcon = UIImage(systemName: K.Icons.Close, withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold))
+    let fullScreenIcon = UIImage(systemName: K.Icons.Enlarge, withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold))
     
-    navigationItem.leftBarButtonItem = UIBarButtonItem(
-      image: closeIcon,
-      style: .plain,
-      target: self,
-      action: #selector(handleCloseClassifier))
-    navigationItem.rightBarButtonItem = UIBarButtonItem(
-      image: fullScreenIcon, style: .plain,
-      target: self,
-      action: #selector(handleFullScreenButton))
+    // Configure buttons
+    navigationItem.leftBarButtonItem = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action: #selector(handleCloseClassifier))
+    navigationItem.rightBarButtonItem = UIBarButtonItem(image: fullScreenIcon, style: .plain, target: self, action: #selector(handleFullScreenButton))
     navigationItem.backButtonTitle = ""
     navigationItem.titleView = confidenceButton
     
+    // Configure bar
     navigationController?.navigationBar.isTranslucent = false
     navigationController?.navigationBar.isOpaque = true
-    navigationController?.navigationBar.barTintColor = UIColor.init(named: "Yellow")
-    navigationController?.navigationBar.tintColor = UIColor.init(named: "Black")
+    navigationController?.navigationBar.tintColor = K.Colors.Black
     
-    // TODO: Move these temp changes
-    confidenceButton.button.backgroundColor = .clear
+    // Set navigation bar background corresponsing to top metric
+    if let topResultMetric = topResultMetric {
+      navigationController?.navigationBar.barTintColor = getNavigationBackgroundColor(metric: topResultMetric)
+    }
   }
   
   fileprivate func configureTableView() {
@@ -155,6 +155,44 @@ final class ClassificationViewController: UITableViewController {
   fileprivate func configureClassifier() {
     classifier.delegate = self
     beginClassification(of: selectedImage)
+  }
+  
+  // MARK: - Helpers
+  
+  fileprivate func getNavigationBackgroundColor(metric: ConfidenceMetrics) -> UIColor? {
+    switch metric {
+      case .low:
+        return K.Colors.Red
+      case .mild:
+        return K.Colors.Yellow
+      case .high:
+        return K.Colors.Green
+    }
+  }
+  
+  fileprivate func setClassificationMetric() {
+    guard let topResult = topResult else { return }
+    
+    let resultValue = (topResult.confidence) * 100
+    
+    if 0...33 ~= resultValue {
+      topResultMetric = .low
+    } else if 34...66 ~= resultValue {
+      topResultMetric = .mild
+    } else if 67...100 ~= resultValue {
+      topResultMetric = .high
+    } else {
+      topResultMetric = nil
+    }
+    
+    confidenceButton.classificationMetric = topResultMetric
+  }
+  
+  fileprivate func resetNavigationBar() {
+    navigationController?.navigationBar.isTranslucent = true
+    navigationController?.navigationBar.isOpaque = false
+    navigationController?.navigationBar.barTintColor = nil
+    navigationController?.navigationBar.tintColor = K.Colors.Icon
   }
   
   // MARK: - Classification Helpers
@@ -183,6 +221,16 @@ final class ClassificationViewController: UITableViewController {
   
 }
 
+// MARK: - UIScrollViewDelegate
+
+extension ClassificationViewController {
+  
+  override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    stretchyHeaderContainer.updatePosition()
+  }
+  
+}
+
 // MARK: - TrendClassifierDelegate
 
 extension ClassificationViewController: TrendClassifierDelegate {
@@ -191,10 +239,7 @@ extension ClassificationViewController: TrendClassifierDelegate {
     if !results.isEmpty {
       self.results = sanitizeClassificationResults(&results)
     } else {
-      presentSimpleAlert(
-        title: "Classification Error",
-        message: "Failed to classify image. Please try another or try again later.",
-        actionTitle: "Close")
+      presentSimpleAlert(title: "Classification Error", message: "Failed to classify image. Please try another or try again later.", actionTitle: "Close")
     }
   }
   
@@ -209,16 +254,6 @@ extension ClassificationViewController: TrendClassifierDelegate {
           print("Classification error: image request handler failed")
       }
     }
-  }
-  
-}
-
-// MARK: - UIScrollViewDelegate
-
-extension ClassificationViewController {
-  
-  override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    stretchyHeaderContainer.updatePosition()
   }
   
 }
@@ -238,12 +273,12 @@ extension ClassificationViewController {
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: ClassificationViewCell.reuseIdentifier, for: indexPath) as! ClassificationViewCell
     cell.resultData = results?[indexPath.row]
+    
     return cell
   }
   
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: ClassificationTableHeader.reuseIdentifier) as! ClassificationTableHeader
-    return view
+    return tableView.dequeueReusableHeaderFooterView(withIdentifier: ClassificationTableHeader.reuseIdentifier) as! ClassificationTableHeader
   }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -279,9 +314,11 @@ extension ClassificationViewController {
   
   @objc func handleFullScreenButton() {
     let fullView = FullScreenImageView()
+    
     fullView.modalPresentationStyle = .overFullScreen
     fullView.modalTransitionStyle = .coverVertical
     fullView.image = selectedImage
+    
     present(fullView, animated: true, completion: nil)
   }
   
@@ -304,10 +341,6 @@ fileprivate extension ClassificationViewController {
       stretchyTableHeaderContent.trailingAnchor.constraint(equalTo: stretchyHeaderContainer.trailingAnchor),
       stretchyTableHeaderContent.bottomAnchor.constraint(equalTo: stretchyHeaderContainer.bottomAnchor),
     ])
-  }
-  
-  func layoutTableHeader() {
-    
   }
   
 }

@@ -18,8 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let scene = (scene as? UIWindowScene) else { return }
     
     let cameraViewController = CameraViewController()
-    let homeNavigationController = UINavigationController(rootViewController: cameraViewController)
-//    homeNavigationController.view.backgroundColor = K.Colors.NavigationBar
+    let homeNavigationController = TENavigationController(rootViewController: cameraViewController)
+    //    homeNavigationController.view.backgroundColor = K.Colors.NavigationBar
     
     window = UIWindow(frame: scene.coordinateSpace.bounds)
     window?.windowScene = scene
@@ -68,25 +68,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   }
   
   fileprivate func configureNavigationBar() {
-    // MARK: - Fonts
-    UINavigationBar.appearance().largeTitleTextAttributes = [
-      NSAttributedString.Key.font: AppFonts.Satoshi.font(face: .black, size: 30)!,
-    ]
-    UINavigationBar.appearance().titleTextAttributes = [
-      NSAttributedString.Key.font: AppFonts.Satoshi.font(face: .black, size: 17)!
-    ]
-    
     // MARK: - Navigation Bar
+    
     let iconSize: CGFloat = 18
     let backButton = UIImage(systemName: K.Icons.Back, withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold))
-//    UINavigationBar.appearance().barTintColor = K.Colors.NavigationBar
-//    UINavigationBar.appearance().tintColor = K.Colors.IconColor
+    
+    UINavigationBar.appearance().tintColor = K.Colors.Icon
     UINavigationBar.appearance().backIndicatorImage = backButton
     UINavigationBar.appearance().backIndicatorTransitionMaskImage = backButton
     
-    // BUG: Found a bug in UIKit! If large titles are set to true and this property is toggled to false and you double-tap the navigationBar to scroll back to the top of the scrollView, it creates extra space between the bottom of the navigationBar and the scrollView
-//    UINavigationBar.appearance().isTranslucent = false
-//    UINavigationBar.appearance().isOpaque = true
+    // MARK: - Navigation Bar Fonts
+    
+    UINavigationBar.appearance().largeTitleTextAttributes = [
+      NSAttributedString.Key.font: UIFont.systemFont(ofSize: 34, weight: .black)
+    ]
+    UINavigationBar.appearance().titleTextAttributes = [
+      NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .heavy)
+    ]
   }
   
 }
