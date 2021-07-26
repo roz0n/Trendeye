@@ -80,6 +80,7 @@ class ClassificationTableHeader: UITableViewHeaderFooterView {
   
   override init(reuseIdentifier: String?) {
     super.init(reuseIdentifier: reuseIdentifier)
+    
     applyLayouts()
     configureGestures()
   }

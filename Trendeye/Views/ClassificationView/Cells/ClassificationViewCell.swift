@@ -17,7 +17,7 @@ class ClassificationViewCell: UITableViewCell {
   var resultData: VNClassificationObservation! {
     didSet {
       identifierLabel.text = TrendClassificationManager.shared.indentifiers[resultData.identifier]
-      // TODO: Set result chip text
+      resultChip.metric = TrendClassificationManager.shared.getClassificationMetric(for: resultData)
     }
   }
   
@@ -46,17 +46,7 @@ class ClassificationViewCell: UITableViewCell {
     return label
   }()
   
-  var resultChip: UIButton = {
-    let button = UIButton()
-    button.translatesAutoresizingMaskIntoConstraints = false
-    button.setTitle("High".uppercased(), for: .normal)
-    button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .heavy)
-    button.titleLabel?.textColor = .green
-    button.backgroundColor = .green.withAlphaComponent(0.10)
-    button.widthAnchor.constraint(equalToConstant: 60).isActive = true
-    button.layer.cornerRadius = 4
-    return button
-  }()
+  var resultChip = ClassificationMetricChip()
   
   var disclosureIndicatorContainer: UIView = {
     let view = UIView()

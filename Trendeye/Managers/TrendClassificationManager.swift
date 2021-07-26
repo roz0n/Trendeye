@@ -29,12 +29,13 @@ protocol TrendClassificationDelegate {
 class TrendClassificationManager {
   
   static let shared = TrendClassificationManager()
+  
   var delegate: TrendClassificationDelegate?
   
   let indentifiers: [String: String] = [
     "ik-blue": "IK Blue",
     "letterspace": "Letterspace",
-    "left-right-up-down": "Left Right Up & Down",
+    "left-right-up-down": "Left, Right, Up, & Down",
     "scanned": "Scanned",
     "staircase": "Staircase",
     "frame": "Frame",
