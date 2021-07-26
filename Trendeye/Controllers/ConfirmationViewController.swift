@@ -40,26 +40,27 @@ final class ConfirmationViewController: UIViewController {
   // MARK: - View Lifecycle
   
   override func viewDidLoad() {
-    applyStyles()
-    applyConfigurations()
+    configureViewController()
+    configureHeader()
+    configureNavigation()
+    configurePhotoView()
     applyLayouts()
   }
   
   // MARK: - Configurations
   
-  fileprivate func applyStyles() {
+  fileprivate func configureViewController() {
     view.backgroundColor = K.Colors.ViewBackground
+  }
+  
+  fileprivate func configureHeader() {
     headerView.backgroundColor = K.Colors.ViewBackground
     headerLabel.font = UIFont.systemFont(ofSize: K.Sizes.NavigationHeader, weight: .heavy)
     headerLabel.textAlignment = .center
   }
   
-  fileprivate func applyConfigurations() {
-    configureNavigation()
-    configurePhotoView()
-  }
-  
   fileprivate func configureNavigation() {
+    navigationItem.largeTitleDisplayMode = .never
     navigationItem.hidesBackButton = true
   }
   

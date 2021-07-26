@@ -90,6 +90,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     applyGestures()
     applyAnimations()
     applyLayouts()
+    configureViewController()
     configurePicker()
   }
   
@@ -112,7 +113,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     }
     
 //    SHORTCUT_PRESENT_CONFIRMATION()
-    SHORTCUT_PRESENT_CLASSIFICATION()
+//    SHORTCUT_PRESENT_CLASSIFICATION()
+    SHORTCUT_PRESENT_CATEGORY()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -123,6 +125,11 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   }
   
   // MARK: - Basic Configurations
+  
+  fileprivate func configureViewController() {
+    navigationItem.backButtonTitle = ""
+    navigationController?.navigationBar.prefersLargeTitles = true
+  }
   
   fileprivate func configureContainerView() {
     view.backgroundColor = K.Colors.ViewBackground

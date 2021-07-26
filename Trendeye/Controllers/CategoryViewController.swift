@@ -10,6 +10,8 @@ import SafariServices
 
 final class CategoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SFSafariViewControllerDelegate {
   
+  // MARK: - Properties
+  
   var identifier: String!
   var name: String!
   var contentErrorView: ContentErrorView!
@@ -46,6 +48,8 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
   }
   
+  // MARK: - Views
+  
   var bodyContainer: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
@@ -80,7 +84,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   var trendListButtonContainer: UIView = {
     let view = UIView()
-//    view.backgroundColor = K.Colors.NavigationBar
+    //    view.backgroundColor = K.Colors.NavigationBar
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()
@@ -90,12 +94,14 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     let fontSize: CGFloat = 18
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitle("View on Trend List", for: .normal)
-    button.setTitleColor(K.Colors.Black, for: .normal)
-    button.titleLabel?.font = AppFonts.Satoshi.font(face: .black, size: fontSize)
+    button.setTitleColor(K.Colors.White, for: .normal)
+    button.titleLabel?.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     button.layer.cornerRadius = 8
-    button.backgroundColor = K.Colors.White
+    button.backgroundColor = K.Colors.Blue
     return button
   }()
+  
+  // MARK: - View Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -107,7 +113,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   // MARK: - Configurations
   
   fileprivate func applyConfigurations() {
-    configureView()
+    configureViewController()
     configureDescription(text: "")
     configureImageCollection()
     configureContentErrorView()
@@ -115,13 +121,12 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     configureTrendListButton()
   }
   
-  fileprivate func configureView() {
-//    view.backgroundColor = K.Colors.NavigationBar
+  fileprivate func configureViewController() {
+    navigationItem.largeTitleDisplayMode = .always
   }
   
   fileprivate func configureDescription(text: String) {
     let paragraphStyle = NSMutableParagraphStyle()
-    let kernValue: CGFloat = -0.15
     let fontSize: CGFloat = 16
     paragraphStyle.lineHeightMultiple = 1.25
     
@@ -132,10 +137,9 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     descriptionView.attributedText = NSMutableAttributedString(
       string: (descriptionText!.isEmpty ? "Description not available" : descriptionText)! ,
       attributes: [
-        NSAttributedString.Key.kern: kernValue,
         NSAttributedString.Key.paragraphStyle: paragraphStyle,
         NSAttributedString.Key.foregroundColor: K.Colors.White,
-        NSAttributedString.Key.font: AppFonts.Satoshi.font(face: .medium, size: fontSize) as Any
+        NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize, weight: .medium)
       ])
     descriptionView.sizeToFit()
   }
@@ -236,10 +240,10 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
       imageCollectionLinks != nil
         && !imageCollectionLinks!.isEmpty
         && imageCollectionLinks!.count >= indexPath.row else {
-      // There are no images for the category or at this index.
-      // Don't bother to check the cache, just return empty cells with no border.
-      return cell
-    }
+          // There are no images for the category or at this index.
+          // Don't bother to check the cache, just return empty cells with no border.
+          return cell
+        }
     
     // MARK: - Cell Image Cache Check
     // TODO: When we resume the app from a suspended state, the cache clears these images. Either increase the size of the cache, or fetch them again.
@@ -342,6 +346,7 @@ fileprivate extension CategoryViewController {
   
   func layoutContainer() {
     view.addSubview(bodyContainer)
+    
     NSLayoutConstraint.activate([
       bodyContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       bodyContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -351,8 +356,10 @@ fileprivate extension CategoryViewController {
   
   func layoutHeader() {
     let headerPadding: CGFloat = 16
+    
     headerContainer.addArrangedSubview(descriptionView)
     bodyContainer.addSubview(headerContainer)
+    
     NSLayoutConstraint.activate([
       headerContainer.topAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.topAnchor, constant: headerPadding),
       headerContainer.leadingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.leadingAnchor, constant: headerPadding),
@@ -364,6 +371,7 @@ fileprivate extension CategoryViewController {
     bodyContainer.addSubview(imageCollectionContainer)
     imageCollectionContainer.addSubview(imageCollection)
     imageCollection.fillOther(view: imageCollectionContainer)
+    
     NSLayoutConstraint.activate([
       imageCollectionContainer.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: (imageCollectionSpacing / 2)),
       imageCollectionContainer.leadingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.leadingAnchor),
@@ -373,8 +381,10 @@ fileprivate extension CategoryViewController {
   
   func layoutErrorView() {
     let padding: CGFloat = 16
+    
     imageCollectionContainer.removeFromSuperview()
     bodyContainer.addSubview(contentErrorView)
+    
     NSLayoutConstraint.activate([
       contentErrorView.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: padding),
       contentErrorView.leadingAnchor.constraint(equalTo: bodyContainer.leadingAnchor),

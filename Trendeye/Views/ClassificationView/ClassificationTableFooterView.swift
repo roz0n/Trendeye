@@ -9,16 +9,20 @@ import UIKit
 
 class ClassificationTableFooterView: UITextView {
   
+  // MARK: - Initializers
+  
   override init(frame: CGRect, textContainer: NSTextContainer?) {
     super.init(frame: frame, textContainer: textContainer)
-    text = "Powered by data from TrendList.org"
-    font = UIFont.boldSystemFont(ofSize: 14)
-    textAlignment = .center
-    textContainer?.maximumNumberOfLines = 1
-    textContainerInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
-    textContainer?.lineFragmentPadding = 0
+    
     backgroundColor = .clear
     alpha = 0.35
+    font = UIFont.boldSystemFont(ofSize: 14)
+    text = "Powered by data from TrendList.org"
+    textAlignment = .center
+    textContainer?.maximumNumberOfLines = 1
+    textContainer?.lineFragmentPadding = 0
+    textContainerInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+    isUserInteractionEnabled = false
   }
   
   required init?(coder: NSCoder) {

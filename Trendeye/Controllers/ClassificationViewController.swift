@@ -135,6 +135,8 @@ final class ClassificationViewController: UITableViewController {
     navigationItem.titleView = confidenceButton
     
     // Configure bar
+    navigationItem.largeTitleDisplayMode = .never
+    navigationItem.backButtonTitle = ""
     navigationController?.navigationBar.isTranslucent = false
     navigationController?.navigationBar.isOpaque = true
     navigationController?.navigationBar.tintColor = K.Colors.Black
