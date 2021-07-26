@@ -8,19 +8,13 @@
 import UIKit
 import Vision
 
-enum ConfidenceMetrics: String {
-  case low = "low"
-  case mild = "mild"
-  case high = "high"
-}
-
 final class ClassificationViewController: UITableViewController {
   
   // MARK: - Classifier Properties
   
-  var classifier = TrendClassifierManager()
+  var classifier = TrendClassificationManager()
   var confidenceButton = ClassifierConfidenceButton(type: .system)
-  var topResultMetric: ConfidenceMetrics?
+  var topResultMetric: TrendClassificationMetric?
   
   var results: [VNClassificationObservation]? {
     didSet {
@@ -34,7 +28,10 @@ final class ClassificationViewController: UITableViewController {
   
   var topResult: VNClassificationObservation? {
     didSet {
-      setClassificationMetric()
+      guard let topResult = topResult else { return }
+      
+      topResultMetric = TrendClassificationManager.shared.getClassificationMetric(for: topResult)
+      confidenceButton.classificationMetric = topResultMetric
     }
   }
   
@@ -159,7 +156,7 @@ final class ClassificationViewController: UITableViewController {
   
   // MARK: - Helpers
   
-  fileprivate func getNavigationBackgroundColor(metric: ConfidenceMetrics) -> UIColor? {
+  fileprivate func getNavigationBackgroundColor(metric: TrendClassificationMetric) -> UIColor? {
     switch metric {
       case .low:
         return K.Colors.Red
@@ -168,24 +165,6 @@ final class ClassificationViewController: UITableViewController {
       case .high:
         return K.Colors.Green
     }
-  }
-  
-  fileprivate func setClassificationMetric() {
-    guard let topResult = topResult else { return }
-    
-    let resultValue = (topResult.confidence) * 100
-    
-    if 0...33 ~= resultValue {
-      topResultMetric = .low
-    } else if 34...66 ~= resultValue {
-      topResultMetric = .mild
-    } else if 67...100 ~= resultValue {
-      topResultMetric = .high
-    } else {
-      topResultMetric = nil
-    }
-    
-    confidenceButton.classificationMetric = topResultMetric
   }
   
   fileprivate func resetNavigationBar() {
@@ -233,9 +212,9 @@ extension ClassificationViewController {
 
 // MARK: - TrendClassifierDelegate
 
-extension ClassificationViewController: TrendClassifierDelegate {
+extension ClassificationViewController: TrendClassificationDelegate {
   
-  func didFinishClassifying(_ sender: TrendClassifierManager?, results: inout [VNClassificationObservation]) {
+  func didFinishClassifying(_ sender: TrendClassificationManager?, results: inout [VNClassificationObservation]) {
     if !results.isEmpty {
       self.results = sanitizeClassificationResults(&results)
     } else {
@@ -243,9 +222,9 @@ extension ClassificationViewController: TrendClassifierDelegate {
     }
   }
   
-  func didError(_ sender: TrendClassifierManager?, error: Error?) {
+  func didError(_ sender: TrendClassificationManager?, error: Error?) {
     if let error = error {
-      switch error as! TrendClassifierError {
+      switch error as! TrendClassificationError {
         case .modelError:
           print("Classification error: failed to initialize model")
         case .classificationError:
@@ -283,7 +262,7 @@ extension ClassificationViewController {
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let result = results?[indexPath.row]
-    let category = TrendClassifierManager.shared.indentifiers[result!.identifier]
+    let category = TrendClassificationManager.shared.indentifiers[result!.identifier]
     let categoryViewController = CategoryViewController()
     
     categoryViewController.title = category

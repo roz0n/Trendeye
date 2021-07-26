@@ -57,7 +57,7 @@
 		23F80A4225E2EE2400241206 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4125E2EE2400241206 /* Assets.xcassets */; };
 		23F80A4525E2EE2400241206 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4325E2EE2400241206 /* LaunchScreen.storyboard */; };
 		23F80A4F25E2EEA400241206 /* TrendClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */; };
-		23F80A5625E32F0E00241206 /* TrendClassifierManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A5525E32F0E00241206 /* TrendClassifierManager.swift */; };
+		23F80A5625E32F0E00241206 /* TrendClassificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A5525E32F0E00241206 /* TrendClassificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,7 +125,7 @@
 		23F80A4425E2EE2400241206 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		23F80A4625E2EE2400241206 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TrendClassifier.mlmodel; sourceTree = "<group>"; };
-		23F80A5525E32F0E00241206 /* TrendClassifierManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendClassifierManager.swift; sourceTree = "<group>"; };
+		23F80A5525E32F0E00241206 /* TrendClassificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendClassificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,7 +339,7 @@
 		23F80A5425E32EBC00241206 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				23F80A5525E32F0E00241206 /* TrendClassifierManager.swift */,
+				23F80A5525E32F0E00241206 /* TrendClassificationManager.swift */,
 				232AA37C2627F79000E5E8A1 /* FontManager.swift */,
 				23AAC198262AC18600744651 /* NetworkManager.swift */,
 				23AAC1A0262D00A700744651 /* CacheManager.swift */,
@@ -527,7 +527,7 @@
 				235E651926AA770A004E8B26 /* ClassificationTableHeader.swift in Sources */,
 				2371729926327B4400D29B50 /* CGFloat+Ext.swift in Sources */,
 				23AAC19D262ACB6800744651 /* TrendlistAPIModels.swift in Sources */,
-				23F80A5625E32F0E00241206 /* TrendClassifierManager.swift in Sources */,
+				23F80A5625E32F0E00241206 /* TrendClassificationManager.swift in Sources */,
 				23EFD8EF263BE241005AB471 /* ClassifierConfidenceButton.swift in Sources */,
 				23AAC195262ABEBA00744651 /* CategoryImageCell.swift in Sources */,
 				23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */,

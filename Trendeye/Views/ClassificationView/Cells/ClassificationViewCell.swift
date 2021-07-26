@@ -16,7 +16,7 @@ class ClassificationViewCell: UITableViewCell {
   
   var resultData: VNClassificationObservation! {
     didSet {
-      identifierLabel.text = TrendClassifierManager.shared.indentifiers[resultData.identifier]
+      identifierLabel.text = TrendClassificationManager.shared.indentifiers[resultData.identifier]
       // TODO: Set result chip text
     }
   }

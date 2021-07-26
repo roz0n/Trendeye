@@ -37,16 +37,16 @@ class ClassificationTableHeader: UITableViewHeaderFooterView {
     let button = UIButton(type: .system)
     let buttonIcon = NSTextAttachment()
     let buttonTitle = NSMutableAttributedString()
-    buttonIcon.image = UIImage(systemName: K.Icons.Info)?.withTintColor(K.Colors.ViewBackground, renderingMode: .alwaysTemplate)
+    buttonIcon.image = UIImage(systemName: K.Icons.Info)?.withTintColor(K.Colors.White, renderingMode: .alwaysTemplate)
     buttonTitle.append(NSAttributedString(attachment: buttonIcon))
     buttonTitle.append(NSAttributedString(string: "  About analysis", attributes: [
-      NSMutableAttributedString.Key.foregroundColor: K.Colors.ViewBackground,
+      NSMutableAttributedString.Key.foregroundColor: K.Colors.White,
       NSMutableAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .bold)
     ]))
     button.setAttributedTitle(buttonTitle, for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
     button.layer.cornerRadius = 8
-    button.backgroundColor = K.Colors.Icon
+    button.backgroundColor = K.Colors.Blue
     return button
   }()
   

@@ -9,7 +9,7 @@ import UIKit
 
 class ClassifierConfidenceButton: UIButton {
   
-  var classificationMetric: ConfidenceMetrics? {
+  var classificationMetric: TrendClassificationMetric? {
     didSet {
       configureLabelText()
     }
@@ -38,8 +38,7 @@ class ClassifierConfidenceButton: UIButton {
     
     // Eye icon string
     let eyeIcon = NSTextAttachment()
-    eyeIcon.image = UIImage(systemName: K.Icons.Classifier,
-                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .semibold))
+    eyeIcon.image = UIImage(systemName: K.Icons.Classifier, withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .semibold))
     let eyeString = NSAttributedString(attachment: eyeIcon)
     
     // Label text string
@@ -55,7 +54,7 @@ class ClassifierConfidenceButton: UIButton {
     
     // Add attributes
     labelTextString.addAttributes([
-      NSAttributedString.Key.kern: -0.24,
+      NSAttributedString.Key.kern: -0.25,
       NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize, weight: .black) as Any,
       NSAttributedString.Key.foregroundColor: K.Colors.Black,
     ], range: NSMakeRange(0, labelTextString.length))
