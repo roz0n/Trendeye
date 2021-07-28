@@ -12,33 +12,31 @@ class CategoryCollectionHeaderView: UICollectionReusableView {
   static let reuseIdentifier = "CategoryCollectionHeader"
   let padding: CGFloat = 16
   
-  var label: UITextView = {
-    let label = UITextView()
-    let fontSize: CGFloat = 18
-    label.translatesAutoresizingMaskIntoConstraints = false
-    label.textContainer.maximumNumberOfLines = 0
-    label.textContainer.lineBreakMode = .byWordWrapping
-    label.isScrollEnabled = false
-    label.isUserInteractionEnabled = false
-    label.backgroundColor = .clear
-    label.font = AppFonts.Satoshi.font(face: .bold, size: fontSize)
-    label.text = "More like this"
-    label.sizeToFit()
-    return label
+  var textView: UITextView = {
+    let view = UITextView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.textContainer.maximumNumberOfLines = 0
+    view.textContainer.lineBreakMode = .byWordWrapping
+    view.isScrollEnabled = false
+    view.isUserInteractionEnabled = false
+    view.backgroundColor = .clear
+    view.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+    view.sizeToFit()
+    return view
   }()
   
   override init(frame: CGRect) {
     super.init(frame: frame)
     
-    backgroundColor = K.Colors.ViewBackground
+//    backgroundColor = K.Colors.ViewBackground
 //    addBorder(borders: [.bottom], color: K.Colors.BorderColor, width: 1)
-    addSubview(label)
+    addSubview(textView)
     
     NSLayoutConstraint.activate([
-      label.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-      label.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: padding),
-      label.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-      label.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -(padding))
+      textView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+      textView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: padding),
+      textView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+      textView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -(padding))
     ])
   }
   

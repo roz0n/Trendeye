@@ -50,19 +50,21 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   // MARK: - Views
   
-  var bodyContainer: UIView = {
-    let view = UIView()
+  var bodyContainer: UIStackView = {
+    let view = UIStackView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.backgroundColor = K.Colors.ViewBackground
+    //    view.distribution = .fillProportionally
+    view.axis = .vertical
+    view.spacing = 0
+    view.backgroundColor = K.Colors.Red
     return view
   }()
   
-  var headerContainer: UIStackView = {
-    let stack = UIStackView()
-    stack.translatesAutoresizingMaskIntoConstraints = false
-    stack.axis = .vertical
-    stack.distribution = .fillProportionally
-    return stack
+  var headerContainer: UIView = {
+    let view = UIView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.backgroundColor = K.Colors.Green
+    return view
   }()
   
   var descriptionView: UITextView = {
@@ -72,13 +74,15 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     textView.textContainer.lineBreakMode = .byWordWrapping
     textView.isScrollEnabled = false
     textView.isEditable = false
-    textView.backgroundColor = K.Colors.ViewBackground
+    textView.isUserInteractionEnabled = false
+    textView.backgroundColor = K.Colors.Yellow
     return textView
   }()
   
   var imageCollectionContainer: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
+    view.backgroundColor = .purple
     return view
   }()
   
@@ -105,6 +109,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     fetchData()
     applyConfigurations()
     applyLayouts()
@@ -128,7 +133,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   fileprivate func configureDescription(text: String) {
     let paragraphStyle = NSMutableParagraphStyle()
     let fontSize: CGFloat = 16
-    paragraphStyle.lineHeightMultiple = 1.25
+    paragraphStyle.lineHeightMultiple = 1.5
     
     // TODO: This is messy
     
@@ -153,7 +158,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
       right: imageCollectionSpacing)
     layout.minimumLineSpacing = imageCollectionSpacing
     layout.minimumInteritemSpacing = imageCollectionSpacing
-    layout.sectionHeadersPinToVisibleBounds = true
+    //    layout.sectionHeadersPinToVisibleBounds = true
     
     imageCollection = CategoryCollectionView(frame: .zero, collectionViewLayout: layout)
     imageCollection.delegate = self
@@ -163,6 +168,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   fileprivate func configureContentErrorView() {
     let iconConfiguration = UIImage.SymbolConfiguration(pointSize: 48, weight: .medium)
     let errorIcon = UIImage(systemName: K.Icons.Exclamation, withConfiguration: iconConfiguration)
+    
     contentErrorView = ContentErrorView(
       image: errorIcon!,
       title: "Unable to Load Trend Images",
@@ -171,6 +177,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   fileprivate func configureWebView() {
     let url = URL(string: NetworkManager.shared.getEndpoint("trends", endpoint: identifier, type: "web"))
+    
     trendListWebView = SFSafariViewController(url: url!)
     trendListWebView.modalPresentationCapturesStatusBarAppearance = true
     trendListWebView.delegate = self
@@ -206,25 +213,23 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     // Subtract the total padding from the width of the gallery view and divide by the number of cells in the row
     let cellSize: CGFloat = (imageCollection.bounds.width - totalPadding) / 3
+    
     return CGSize(width: cellSize, height: cellSize).customRound()
   }
   
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
     if kind == UICollectionView.elementKindSectionHeader {
-      return collectionView.dequeueReusableSupplementaryView(
-        ofKind: UICollectionView.elementKindSectionHeader,
-        withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier,
-        for: indexPath) as! CategoryCollectionHeaderView
+      let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier, for: indexPath) as! CategoryCollectionHeaderView
+      headerCell.textView.text = descriptionText
+      
+      return headerCell
     } else {
       return UICollectionReusableView()
     }
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-    let header = CategoryCollectionHeaderView()
-    return CGSize(
-      width: imageCollection?.frame.width ?? 0,
-      height: header.label.frame.height + (header.padding / 8))
+    return CGSize(width: imageCollection.bounds.width, height: .)
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -232,18 +237,13 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = imageCollection.dequeueReusableCell(
-      withReuseIdentifier: CategoryImageCell.reuseIdentifier,
-      for: indexPath) as! CategoryImageCell
+    let cell = imageCollection.dequeueReusableCell(withReuseIdentifier: CategoryImageCell.reuseIdentifier, for: indexPath) as! CategoryImageCell
     
-    guard
-      imageCollectionLinks != nil
-        && !imageCollectionLinks!.isEmpty
-        && imageCollectionLinks!.count >= indexPath.row else {
-          // There are no images for the category or at this index.
-          // Don't bother to check the cache, just return empty cells with no border.
-          return cell
-        }
+    guard imageCollectionLinks != nil && !imageCollectionLinks!.isEmpty && imageCollectionLinks!.count >= indexPath.row else {
+      // There are no images for the category or at this index.
+      // Don't bother to check the cache, just return empty cells with no border.
+      return cell
+    }
     
     // MARK: - Cell Image Cache Check
     // TODO: When we resume the app from a suspended state, the cache clears these images. Either increase the size of the cache, or fetch them again.
@@ -272,9 +272,11 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   fileprivate func presentFullscreenImage(_ url: String) {
     let fullView = FullScreenImageView()
+    
     fullView.url = url
     fullView.modalPresentationStyle = .overFullScreen
     fullView.modalTransitionStyle = .coverVertical
+    
     present(fullView, animated: true, completion: nil)
   }
   
@@ -339,14 +341,14 @@ fileprivate extension CategoryViewController {
   
   func applyLayouts() {
     layoutContainer()
-    layoutHeader()
+    //    layoutHeader()
     layoutImageCollection()
     layoutButton()
   }
   
   func layoutContainer() {
     view.addSubview(bodyContainer)
-    
+    //    bodyContainer.fillOther(view: view)
     NSLayoutConstraint.activate([
       bodyContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       bodyContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -355,28 +357,34 @@ fileprivate extension CategoryViewController {
   }
   
   func layoutHeader() {
-    let headerPadding: CGFloat = 16
+    //    let headerPadding: CGFloat = 0
     
-    headerContainer.addArrangedSubview(descriptionView)
-    bodyContainer.addSubview(headerContainer)
+    headerContainer.addSubview(descriptionView)
+    descriptionView.fillOther(view: headerContainer)
+    bodyContainer.addArrangedSubview(headerContainer)
     
-    NSLayoutConstraint.activate([
-      headerContainer.topAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.topAnchor, constant: headerPadding),
-      headerContainer.leadingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.leadingAnchor, constant: headerPadding),
-      headerContainer.trailingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.trailingAnchor, constant: -(headerPadding)),
-    ])
+    //    NSLayoutConstraint.activate([
+    //      headerContainer.topAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: headerPadding),
+    //      headerContainer.leadingAnchor.constraint(equalTo: bodyContainer.leadingAnchor, constant: headerPadding),
+    //      headerContainer.trailingAnchor.constraint(equalTo: bodyContainer.trailingAnchor, constant: -(headerPadding)),
+    //    ])
   }
   
   func layoutImageCollection() {
-    bodyContainer.addSubview(imageCollectionContainer)
+    bodyContainer.addArrangedSubview(imageCollectionContainer)
+    
+    //    imageCollectionContainer.addSubview(headerContainer)
+    //    headerContainer.addSubview(descriptionView)
+    //    descriptionView.fillOther(view: headerContainer)
+    
     imageCollectionContainer.addSubview(imageCollection)
     imageCollection.fillOther(view: imageCollectionContainer)
     
-    NSLayoutConstraint.activate([
-      imageCollectionContainer.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: (imageCollectionSpacing / 2)),
-      imageCollectionContainer.leadingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.leadingAnchor),
-      imageCollectionContainer.trailingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.trailingAnchor),
-    ])
+    //    NSLayoutConstraint.activate([
+    //      imageCollectionContainer.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: (imageCollectionSpacing / 2)),
+    //      imageCollectionContainer.leadingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.leadingAnchor),
+    //      imageCollectionContainer.trailingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.trailingAnchor),
+    //    ])
   }
   
   func layoutErrorView() {
@@ -402,7 +410,7 @@ fileprivate extension CategoryViewController {
     trendListButtonContainer.addSubview(trendListButton)
     
     NSLayoutConstraint.activate([
-      trendListButtonContainer.topAnchor.constraint(equalTo: imageFetchError ? contentErrorView.bottomAnchor : imageCollectionContainer.bottomAnchor),
+      trendListButtonContainer.topAnchor.constraint(equalTo: bodyContainer.bottomAnchor),
       trendListButtonContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
       trendListButtonContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
       trendListButtonContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -414,7 +422,7 @@ fileprivate extension CategoryViewController {
       trendListButton.heightAnchor.constraint(equalToConstant: buttonHeight),
       
       // NOTE: This constraint is needed here to center the error content to the superview
-      bodyContainer.bottomAnchor.constraint(equalTo: trendListButtonContainer.topAnchor)
+      //      bodyContainer.bottomAnchor.constraint(equalTo: trendListButtonContainer.topAnchor)
     ])
   }
   
