@@ -48,15 +48,18 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   var contrentContainer: UIStackView = {
     let view = UIStackView()
+    
     view.translatesAutoresizingMaskIntoConstraints = false
     view.axis = .vertical
     view.spacing = 0
     view.backgroundColor = K.Colors.Red
+    
     return view
   }()
   
   var descriptionView: UITextView = {
     let textView = UITextView()
+    
     textView.translatesAutoresizingMaskIntoConstraints = false
     textView.textContainer.maximumNumberOfLines = 0
     textView.textContainer.lineBreakMode = .byWordWrapping
@@ -64,13 +67,16 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     textView.isEditable = false
     textView.isUserInteractionEnabled = false
     textView.backgroundColor = K.Colors.Yellow
+    
     return textView
   }()
   
   var imageCollectionContainer: UIView = {
     let view = UIView()
+    
     view.translatesAutoresizingMaskIntoConstraints = false
     view.backgroundColor = .purple
+    
     return view
   }()
   
@@ -83,12 +89,14 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   var trendListButton: UIButton = {
     let button = UIButton(type: .system)
     let fontSize: CGFloat = 18
+    
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitle("View on Trend List", for: .normal)
     button.setTitleColor(K.Colors.White, for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     button.layer.cornerRadius = 8
     button.backgroundColor = K.Colors.Blue
+    
     return button
   }()
   
@@ -174,7 +182,8 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
     if kind == UICollectionView.elementKindSectionHeader {
       let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier, for: indexPath) as! CategoryCollectionHeaderView
-      headerCell.textView.text = descriptionText
+      
+      headerCell.setText(descriptionText ?? "sec")
       
       return headerCell
     } else {
@@ -188,7 +197,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
       // We can take a hit on performance as the dequeuing will only occur twice at most (when the collection view initially loads and when it's reloaded after we fetch the category description text from the API).
       let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier, for: IndexPath()) as! CategoryCollectionHeaderView
       
-      headerCell.textView.text = descriptionText
+      headerCell.setText(descriptionText ?? "sexc")
       imageCollectionHeaderHeight = headerCell.textView.sizeThatFits(headerCell.textView.bounds.size).height
     }
     

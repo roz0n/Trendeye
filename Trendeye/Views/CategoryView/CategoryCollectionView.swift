@@ -13,7 +13,6 @@ class CategoryCollectionView: UICollectionView {
     super.init(frame: frame, collectionViewLayout: layout)
     
     translatesAutoresizingMaskIntoConstraints = false
-    backgroundColor = .systemOrange
     register(CategoryImageCell.self, forCellWithReuseIdentifier: CategoryImageCell.reuseIdentifier)
     register(CategoryCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier)
   }
