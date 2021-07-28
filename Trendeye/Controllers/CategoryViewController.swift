@@ -16,26 +16,22 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   var name: String!
   var contentErrorView: ContentErrorView!
   var imageCollection: CategoryCollectionView!
+  var imageCollectionLayout = UICollectionViewFlowLayout()
   var imageCollectionLimit = 15
   var imageCollectionLinks: [String]?
   let imageCollectionSpacing: CGFloat = 16
+  var imageCollectionHeaderHeight: CGFloat?
   var trendListWebView: SFSafariViewController!
   
-  var descriptionText: String? {
-    didSet {
-      if let text = descriptionText {
-        configureDescription(text: text)
-      }
-    }
-  }
+  var descriptionText: String?
   
   var descriptionFetchError: Bool = false {
     didSet {
-      DispatchQueue.main.async { [weak self] in
-        if let text = self?.descriptionText {
-          self?.configureDescription(text: text)
-        }
-      }
+      //      DispatchQueue.main.async { [weak self] in
+      //        if let text = self?.descriptionText {
+      //          self?.configureDescription(text: text)
+      //        }
+      //      }
     }
   }
   
@@ -43,27 +39,19 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     didSet {
       DispatchQueue.main.async { [weak self] in
         self?.layoutErrorView()
-        self?.bodyContainer.layoutSubviews()
+        self?.contrentContainer.layoutSubviews()
       }
     }
   }
   
   // MARK: - Views
   
-  var bodyContainer: UIStackView = {
+  var contrentContainer: UIStackView = {
     let view = UIStackView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    //    view.distribution = .fillProportionally
     view.axis = .vertical
     view.spacing = 0
     view.backgroundColor = K.Colors.Red
-    return view
-  }()
-  
-  var headerContainer: UIView = {
-    let view = UIView()
-    view.translatesAutoresizingMaskIntoConstraints = false
-    view.backgroundColor = K.Colors.Green
     return view
   }()
   
@@ -88,7 +76,6 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   var trendListButtonContainer: UIView = {
     let view = UIView()
-    //    view.backgroundColor = K.Colors.NavigationBar
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()
@@ -110,57 +97,27 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    configureViewController()
+    configureImageCollection()
+    configureContentErrorView()
+    configureWebView()
+    configureTrendListButton()
+    
     fetchData()
-    applyConfigurations()
     applyLayouts()
   }
   
   // MARK: - Configurations
   
-  fileprivate func applyConfigurations() {
-    configureViewController()
-    configureDescription(text: "")
-    configureImageCollection()
-    configureContentErrorView()
-    configureWebView()
-    configureTrendListButton()
-  }
-  
   fileprivate func configureViewController() {
     navigationItem.largeTitleDisplayMode = .always
   }
   
-  fileprivate func configureDescription(text: String) {
-    let paragraphStyle = NSMutableParagraphStyle()
-    let fontSize: CGFloat = 16
-    paragraphStyle.lineHeightMultiple = 1.5
-    
-    // TODO: This is messy
-    
-    guard descriptionText != nil else { return }
-    
-    descriptionView.attributedText = NSMutableAttributedString(
-      string: (descriptionText!.isEmpty ? "Description not available" : descriptionText)! ,
-      attributes: [
-        NSAttributedString.Key.paragraphStyle: paragraphStyle,
-        NSAttributedString.Key.foregroundColor: K.Colors.White,
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize, weight: .medium)
-      ])
-    descriptionView.sizeToFit()
-  }
-  
   fileprivate func configureImageCollection() {
-    let layout = UICollectionViewFlowLayout()
-    layout.sectionInset = UIEdgeInsets(
-      top: imageCollectionSpacing,
-      left: imageCollectionSpacing,
-      bottom: imageCollectionSpacing,
-      right: imageCollectionSpacing)
-    layout.minimumLineSpacing = imageCollectionSpacing
-    layout.minimumInteritemSpacing = imageCollectionSpacing
-    //    layout.sectionHeadersPinToVisibleBounds = true
-    
-    imageCollection = CategoryCollectionView(frame: .zero, collectionViewLayout: layout)
+    imageCollectionLayout.sectionInset = UIEdgeInsets(top: imageCollectionSpacing, left: imageCollectionSpacing, bottom: imageCollectionSpacing, right: imageCollectionSpacing)
+    imageCollectionLayout.minimumLineSpacing = imageCollectionSpacing
+    imageCollectionLayout.minimumInteritemSpacing = imageCollectionSpacing
+    imageCollection = CategoryCollectionView(frame: .zero, collectionViewLayout: imageCollectionLayout)
     imageCollection.delegate = self
     imageCollection.dataSource = self
   }
@@ -184,10 +141,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   fileprivate func configureTrendListButton() {
-    trendListButton.addTarget(
-      self,
-      action: #selector(handleTrendListButtonTap),
-      for: .touchUpInside)
+    trendListButton.addTarget(self, action: #selector(handleTrendListButtonTap), for: .touchUpInside)
   }
   
   // MARK: - Gestures
@@ -229,7 +183,16 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-    return CGSize(width: imageCollection.bounds.width, height: .)
+    if descriptionText != nil && imageCollectionHeaderHeight == nil {
+      // This isn't ideal -- dequeuing the cell in this method -- but this seems like the only reasonable, non-hacky way to get a dynamically sized collection view header.
+      // We can take a hit on performance as the dequeuing will only occur twice at most (when the collection view initially loads and when it's reloaded after we fetch the category description text from the API).
+      let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier, for: IndexPath()) as! CategoryCollectionHeaderView
+      
+      headerCell.textView.text = descriptionText
+      imageCollectionHeaderHeight = headerCell.textView.sizeThatFits(headerCell.textView.bounds.size).height
+    }
+    
+    return CGSize(width: imageCollection.bounds.width, height: imageCollectionHeaderHeight ?? .leastNonzeroMagnitude)
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -341,63 +304,37 @@ fileprivate extension CategoryViewController {
   
   func applyLayouts() {
     layoutContainer()
-    //    layoutHeader()
     layoutImageCollection()
     layoutButton()
   }
   
   func layoutContainer() {
-    view.addSubview(bodyContainer)
-    //    bodyContainer.fillOther(view: view)
+    view.addSubview(contrentContainer)
+    
     NSLayoutConstraint.activate([
-      bodyContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      bodyContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-      bodyContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      contrentContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      contrentContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      contrentContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
     ])
   }
   
-  func layoutHeader() {
-    //    let headerPadding: CGFloat = 0
-    
-    headerContainer.addSubview(descriptionView)
-    descriptionView.fillOther(view: headerContainer)
-    bodyContainer.addArrangedSubview(headerContainer)
-    
-    //    NSLayoutConstraint.activate([
-    //      headerContainer.topAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: headerPadding),
-    //      headerContainer.leadingAnchor.constraint(equalTo: bodyContainer.leadingAnchor, constant: headerPadding),
-    //      headerContainer.trailingAnchor.constraint(equalTo: bodyContainer.trailingAnchor, constant: -(headerPadding)),
-    //    ])
-  }
-  
   func layoutImageCollection() {
-    bodyContainer.addArrangedSubview(imageCollectionContainer)
-    
-    //    imageCollectionContainer.addSubview(headerContainer)
-    //    headerContainer.addSubview(descriptionView)
-    //    descriptionView.fillOther(view: headerContainer)
-    
+    contrentContainer.addArrangedSubview(imageCollectionContainer)
     imageCollectionContainer.addSubview(imageCollection)
     imageCollection.fillOther(view: imageCollectionContainer)
-    
-    //    NSLayoutConstraint.activate([
-    //      imageCollectionContainer.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: (imageCollectionSpacing / 2)),
-    //      imageCollectionContainer.leadingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.leadingAnchor),
-    //      imageCollectionContainer.trailingAnchor.constraint(equalTo: bodyContainer.safeAreaLayoutGuide.trailingAnchor),
-    //    ])
   }
   
   func layoutErrorView() {
     let padding: CGFloat = 16
     
     imageCollectionContainer.removeFromSuperview()
-    bodyContainer.addSubview(contentErrorView)
+    contrentContainer.addSubview(contentErrorView)
     
     NSLayoutConstraint.activate([
-      contentErrorView.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: padding),
-      contentErrorView.leadingAnchor.constraint(equalTo: bodyContainer.leadingAnchor),
-      contentErrorView.trailingAnchor.constraint(equalTo: bodyContainer.trailingAnchor),
-      contentErrorView.centerYAnchor.constraint(equalTo: bodyContainer.centerYAnchor)
+      contentErrorView.topAnchor.constraint(equalTo: contrentContainer.topAnchor, constant: padding),
+      contentErrorView.leadingAnchor.constraint(equalTo: contrentContainer.leadingAnchor),
+      contentErrorView.trailingAnchor.constraint(equalTo: contrentContainer.trailingAnchor),
+      contentErrorView.centerYAnchor.constraint(equalTo: contrentContainer.centerYAnchor)
     ])
   }
   
@@ -410,7 +347,7 @@ fileprivate extension CategoryViewController {
     trendListButtonContainer.addSubview(trendListButton)
     
     NSLayoutConstraint.activate([
-      trendListButtonContainer.topAnchor.constraint(equalTo: bodyContainer.bottomAnchor),
+      trendListButtonContainer.topAnchor.constraint(equalTo: contrentContainer.bottomAnchor),
       trendListButtonContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
       trendListButtonContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
       trendListButtonContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -422,7 +359,7 @@ fileprivate extension CategoryViewController {
       trendListButton.heightAnchor.constraint(equalToConstant: buttonHeight),
       
       // NOTE: This constraint is needed here to center the error content to the superview
-      //      bodyContainer.bottomAnchor.constraint(equalTo: trendListButtonContainer.topAnchor)
+      contrentContainer.bottomAnchor.constraint(equalTo: trendListButtonContainer.topAnchor)
     ])
   }
   
