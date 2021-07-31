@@ -327,6 +327,25 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     }
   }
   
+  func drawFocusShape(at point: CGPoint) {
+    let elipse = CAShapeLayer()
+    let radius: CGFloat = 24
+    let path = UIBezierPath(arcCenter: point, radius: radius, startAngle: CGFloat(Double.pi), endAngle: CGFloat(Double.pi) * 4, clockwise: true)
+    
+    elipse.path = path.cgPath
+    elipse.strokeColor = K.Colors.White.cgColor
+    elipse.fillColor = UIColor.clear.cgColor
+    elipse.lineWidth = 2
+
+    // All values to represent the initial state as this will be animated
+    elipse.opacity = 1
+    elipse.strokeStart = 0
+    elipse.strokeEnd = 0
+
+    view.layer.addSublayer(elipse)
+    animateFocusShape(elipse, for: 0.30)
+  }
+  
   // MARK: - Confirmation View
   
   fileprivate func presentConfirmationView(with image: UIImage) {
@@ -579,7 +598,7 @@ fileprivate extension CameraViewController {
         
         if sender.state == .ended {
           let tapLocation = sender.location(in: self.view)
-          drawElipseLayer(at: tapLocation)
+          drawFocusShape(at: tapLocation)
         }
       } catch let error {
         print("Failed to focus capture device input")
@@ -591,32 +610,7 @@ fileprivate extension CameraViewController {
     }
   }
   
-  // TODO: Move me!
-  
-  func drawElipseLayer(at point: CGPoint) {
-    print("DRAWINGGGGG")
-    print(point)
-    
-    let elipse = CAShapeLayer()
-    let radius: CGFloat = 20
-    let path = UIBezierPath(arcCenter: point, radius: radius, startAngle: CGFloat(Double.pi), endAngle: CGFloat(Double.pi) * 4, clockwise: true)
-    
-    elipse.path = path.cgPath
-    elipse.strokeColor = K.Colors.White.cgColor
-    elipse.fillColor = K.Colors.White.cgColor
-    elipse.lineWidth = 5
-    elipse.strokeStart = 0
-    elipse.strokeEnd = 1
-
-    view.layer.addSublayer(elipse)
-  }
-  
-  func animateElipseLayer(with duration: TimeInterval) {
-    
-  }
-  
 }
-
 // MARK: - Animations
 
 fileprivate extension CameraViewController {
@@ -634,6 +628,40 @@ fileprivate extension CameraViewController {
       self?.watermarkView.transform = .identity
       self?.watermarkView.layer.opacity = 0.35
     }
+  }
+  
+  func animateFocusShape(_ layer: CAShapeLayer, for duration: TimeInterval) {
+    // Use CATransaction to initiate an atomic operation and add a completion handling closure
+    CATransaction.begin()
+    
+    CATransaction.setCompletionBlock {
+      layer.removeFromSuperlayer()
+    }
+    
+    // Create and configure stroke animation
+    let strokeAnimation = CABasicAnimation(keyPath: #keyPath(CAShapeLayer.strokeEnd))
+    strokeAnimation.duration = duration // stagger the stroke animation a bit
+    strokeAnimation.fromValue = 0
+    strokeAnimation.toValue = 1
+    strokeAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+    
+    // Create and configure opacity animation
+    let opacityAnimation = CABasicAnimation(keyPath: #keyPath(CAShapeLayer.opacity))
+    opacityAnimation.duration = duration
+    opacityAnimation.fromValue = 1
+    opacityAnimation.toValue = 0
+    opacityAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
+    
+    // Set final state
+    layer.strokeEnd = 1
+    layer.opacity = 0
+    
+    // Add animations
+    layer.add(strokeAnimation, forKey: "stroke")
+    layer.add(opacityAnimation, forKey: "opacity")
+    
+    // Commit the transaction
+    CATransaction.commit()
   }
   
 }
