@@ -9,7 +9,7 @@ import UIKit
 
 extension UIImage {
   
-  func scaleByPercentage(_ percent: CGFloat) -> UIImage {
+  func scaleToPercentage(_ percent: CGFloat) -> UIImage {
     let newWidth: CGFloat = self.size.width * (percent / 100)
     let newHeight: CGFloat = self.size.height * (percent / 100)
     

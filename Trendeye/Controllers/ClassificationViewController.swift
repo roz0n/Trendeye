@@ -104,7 +104,7 @@ final class ClassificationViewController: UITableViewController {
     // Configure header content
     stretchyTableHeaderContent = ClassificationImageHeader()
     stretchyTableHeaderContent.translatesAutoresizingMaskIntoConstraints = false
-    stretchyTableHeaderContent.classificationImage = shouldImageScale ? selectedImage.scaleByPercentage(10) : selectedImage
+    stretchyTableHeaderContent.classificationImage = shouldImageScale ? selectedImage.scaleToPercentage(10) : selectedImage
     
     // Configure header container
     stretchyHeaderContainer.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -295,8 +295,8 @@ extension ClassificationViewController {
   @objc func handleFullScreenButton() {
     let fullView = FullScreenImageView()
     
-    fullView.modalPresentationStyle = .overFullScreen
-    fullView.modalTransitionStyle = .coverVertical
+    fullView.modalPresentationStyle = .formSheet
+    fullView.modalTransitionStyle = .crossDissolve
     fullView.image = selectedImage
     
     present(fullView, animated: true, completion: nil)

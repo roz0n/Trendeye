@@ -11,6 +11,8 @@ import UIKit
 // TODO: Add an error view incase access to photos is restricted and the file could not be saved
 class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
   
+  // MARK: - Properties
+  
   var closeButton = UIButton(type: .system)
   var saveButton = UIButton(type: .system)
   var isZooming = false
@@ -30,16 +32,19 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
     }
   }
   
+  // MARK: - Views
+  
   let backgroundBlurView: UIVisualEffectView = {
     let view = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
     view.translatesAutoresizingMaskIntoConstraints = false
+    view.layer.cornerRadius = 8
+    view.layer.masksToBounds = true
     return view
   }()
   
   let headerBlurView: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
-//    view.backgroundColor = K.Colors.NavigationBar
     return view
   }()
   
@@ -61,16 +66,12 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
   }()
   
   override func viewDidLoad() {
-    applyConfigurations()
-    applyLayouts()
+    configureHeaderControls()
+    configureGestures()
+    applyLayouts()    
   }
   
   // MARK: - Configurations
-  
-  fileprivate func applyConfigurations() {
-    configureHeaderControls()
-    configureGestures()
-  }
   
   fileprivate func configureHeaderControls() {
     let closeImage = UIImage(systemName: K.Icons.Close)
@@ -183,30 +184,35 @@ fileprivate extension FullScreenImageView {
   
   func layoutBackgroundBlurView() {
     view.addSubview(backgroundBlurView)
+    
     NSLayoutConstraint.activate([
-      backgroundBlurView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      backgroundBlurView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-      backgroundBlurView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-      backgroundBlurView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+      backgroundBlurView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+      backgroundBlurView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+      backgroundBlurView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+      backgroundBlurView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
     ])
   }
   
   func layoutHeaderBlurView() {
     let headerHeight: CGFloat = 72
+    
     view.addSubview(headerBlurView)
+    
     NSLayoutConstraint.activate([
-      headerBlurView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      headerBlurView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-      headerBlurView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      headerBlurView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+      headerBlurView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+      headerBlurView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
       headerBlurView.heightAnchor.constraint(equalToConstant: headerHeight)
     ])
   }
   
   func layoutHeaderControls() {
     let padding: CGFloat = 20
+    
     headerBlurView.addSubview(headerControls)
     headerControls.addArrangedSubview(closeButton)
     headerControls.addArrangedSubview(saveButton)
+    
     NSLayoutConstraint.activate([
       headerControls.topAnchor.constraint(equalTo: headerBlurView.topAnchor),
       headerControls.leadingAnchor.constraint(equalTo: headerBlurView.leadingAnchor, constant: padding),
@@ -216,13 +222,16 @@ fileprivate extension FullScreenImageView {
   }
   
   func layoutImageView() {
-    let padding: CGFloat = 20
+    let yPadding: CGFloat = 20
+    let xPadding: CGFloat = 30
+    
     view.addSubview(imageView)
+    
     NSLayoutConstraint.activate([
-      imageView.topAnchor.constraint(equalTo: headerBlurView.safeAreaLayoutGuide.bottomAnchor, constant: padding),
-      imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: padding),
-      imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(padding)),
-      imageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(padding))
+      imageView.topAnchor.constraint(equalTo: headerBlurView.safeAreaLayoutGuide.bottomAnchor, constant: yPadding),
+      imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: xPadding),
+      imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -(xPadding)),
+      imageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(yPadding))
     ])
   }
   
