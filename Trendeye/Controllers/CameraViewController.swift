@@ -112,10 +112,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       configureCaptureSession()
       configureLivePreview()
       startCaptureSession()
-      
-      present(welcomeScreenView, animated: true) {
-        print("Presented welcome screen!")
-      }
+      presentWelcomeScreen()
     }
     
 //    SHORTCUT_PRESENT_CONFIRMATION()
@@ -305,6 +302,11 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   func displayCameraView() {
     view.isHidden = false
+  }
+  
+  func presentWelcomeScreen() {
+    // TODO: Check userDefaults and see if it is the first launch
+    present(welcomeScreenView, animated: true, completion: nil)
   }
   
   func hideCameraViewEndSession() {

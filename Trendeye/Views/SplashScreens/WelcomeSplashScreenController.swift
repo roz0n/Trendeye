@@ -45,15 +45,15 @@ class WelcomeSplashScreenController: UIViewController {
     // Text configuration
     let text = "Aenean nec imperdiet enim, quis tincidunt nisi. Vivamus sit amet massa at elit mollis sodales facilisis ut leo. Sed maximus dui id nisl tempor aliquam tutls."
     var paragraphStyle = NSMutableParagraphStyle()
-
+    
     paragraphStyle.lineHeightMultiple = 1.26
     paragraphStyle.alignment = .center
-
+    
     view.attributedText = NSMutableAttributedString(string: text, attributes: [
       NSAttributedString.Key.paragraphStyle: paragraphStyle,
       NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15, weight: .medium),
       NSAttributedString.Key.foregroundColor: K.Colors.White])
-
+    
     return view
   }()
   
@@ -82,8 +82,31 @@ class WelcomeSplashScreenController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = K.Colors.ViewBackground
+    
+    configureViewController()
+    configureActionButtonGesture()
     applyLayouts()
+  }
+  
+  // MARK: - Configurations
+  
+  fileprivate func configureViewController() {
+    view.backgroundColor = K.Colors.ViewBackground
+  }
+  
+  // MARK: - Gestures
+  
+  fileprivate func configureActionButtonGesture() {
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedActionButton))
+    actionButton.addGestureRecognizer(tapGesture)
+  }
+  
+  @objc func tappedActionButton() {
+    dismiss(animated: true, completion: nil)
+    dismiss(animated: true) {
+      // TODO: Save to userDefaults that this screen has been presented already as it should only be presented once.
+      print("Dismissed welcome screen")
+    }
   }
   
 }
