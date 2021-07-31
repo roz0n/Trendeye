@@ -16,7 +16,7 @@ class CameraControlsView: UIView {
   var flipButton: CameraButton!
   var flashButton: CameraButton!
   var galleryButton: CameraButton!
-  var captureModeButton: CameraButton!
+  var torchButton: CameraButton!
   
   // MARK: -
   
@@ -64,15 +64,13 @@ class CameraControlsView: UIView {
       systemName: K.Icons.Flip,
       withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
     let flashIcon = UIImage(
-      systemName: K.Icons.Flash,
+      systemName: K.Icons.FlashOff,
       withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
     let galleryIcon = UIImage(
       systemName: K.Icons.Gallery,
       withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
-    
-    // This should initially be the opposite of CameraViewController's selectedCaptureMode
-    let cropIcon = UIImage(
-      systemName: K.Icons.CaptureManual,
+    let torchIcon = UIImage(
+      systemName: K.Icons.TorchOff,
       withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
     
     shootButton = createButton(
@@ -95,11 +93,11 @@ class CameraControlsView: UIView {
       tintColor: K.Colors.White,
       backgroundColor: K.Colors.TransparentButtons,
       image: galleryIcon)
-    captureModeButton = createButton(
-      title: "CaptureMode",
+    torchButton = createButton(
+      title: "Torch",
       tintColor: K.Colors.White,
       backgroundColor: K.Colors.TransparentButtons,
-      image: cropIcon)
+      image: torchIcon)
   }
   
   // MARK: - Helpers
@@ -117,23 +115,9 @@ class CameraControlsView: UIView {
   func toggleFlashButtonState(for position: AVCaptureDevice.Position) {
     switch position {
       case .front:
-        let flashDisabledIcon = UIImage(
-          systemName: K.Icons.FlashDisabled,
-          withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
-        
-        flashButton.isUserInteractionEnabled = false
-        flashButton.layer.opacity = 0.3
-        flashButton.setImage(
-          flashDisabledIcon, for: .normal)
+        disableFlashButton()
       case .back:
-        let flashIcon = UIImage(
-          systemName: K.Icons.Flash,
-          withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
-        
-        flashButton.isUserInteractionEnabled = true
-        flashButton.layer.opacity = 1
-        flashButton.setImage(
-          flashIcon, for: .normal)
+        enableFlashButton()
       default:
         break
     }
@@ -142,22 +126,55 @@ class CameraControlsView: UIView {
   func toggleTorchButtonIcon(to state: AVCaptureDevice.TorchMode) {
     switch state {
       case .on:
-        let flashDisabledIcon = UIImage(
-          systemName: K.Icons.FlashDisabled,
+        let torchOffIcon = UIImage(
+          systemName: K.Icons.TorchOn,
           withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
-        
-        flashButton.setImage(
-          flashDisabledIcon, for: .normal)
+        torchButton.setImage(torchOffIcon, for: .normal)
       case .off:
-        let flashIcon = UIImage(
-          systemName: K.Icons.Flash,
+        let torchOnIcon = UIImage(
+          systemName: K.Icons.TorchOff,
           withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
-        
-        flashButton.setImage(
-          flashIcon, for: .normal)
+        torchButton.setImage(torchOnIcon, for: .normal)
       default:
         break
     }
+  }
+  
+  func toggleFlashButtonIcon(to state: AVCaptureDevice.FlashMode) {
+    switch state {
+      case .on:
+        let flashIcon = UIImage(
+          systemName: K.Icons.FlashOn,
+          withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
+        flashButton.setImage(flashIcon, for: .normal)
+      case .off:
+        let flashDisabledIcon = UIImage(
+          systemName: K.Icons.FlashOff,
+          withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
+        flashButton.setImage(flashDisabledIcon, for: .normal)
+      default:
+        break
+    }
+  }
+  
+  func enableFlashButton() {
+    let flashIcon = UIImage(
+      systemName: K.Icons.FlashOn,
+      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
+    
+    flashButton.isUserInteractionEnabled = true
+    flashButton.layer.opacity = 1
+    flashButton.setImage(flashIcon, for: .normal)
+  }
+  
+  func disableFlashButton() {
+    let flashDisabledIcon = UIImage(
+      systemName: K.Icons.FlashOff,
+      withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
+    
+    flashButton.isUserInteractionEnabled = false
+    flashButton.layer.opacity = 0.3
+    flashButton.setImage(flashDisabledIcon, for: .normal)
   }
   
   // MARK: - Initializers
@@ -197,7 +214,7 @@ fileprivate extension CameraControlsView {
   }
   
   func layoutCameraButtons() {
-    leadingButtonsContainer.addArrangedSubview(captureModeButton)
+    leadingButtonsContainer.addArrangedSubview(torchButton)
     leadingButtonsContainer.addArrangedSubview(galleryButton)
     
     trailingButtonsContainer.addArrangedSubview(flipButton)
@@ -208,8 +225,8 @@ fileprivate extension CameraControlsView {
     stackContainer.addArrangedSubview(trailingButtonsContainer)
     
     NSLayoutConstraint.activate([
-      captureModeButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
-      captureModeButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
+      torchButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
+      torchButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
       galleryButton.heightAnchor.constraint(equalToConstant: smallButtonSize),
       galleryButton.widthAnchor.constraint(equalToConstant: smallButtonSize),
       

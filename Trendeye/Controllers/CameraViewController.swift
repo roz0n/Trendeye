@@ -26,6 +26,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   // MARK: - AVKit Properties
   
   var captureSession: AVCaptureSession!
+  var captureSettings = AVCapturePhotoSettings()
+  var captureFlashMode: AVCaptureDevice.FlashMode = .off
   var imageOutput = AVCapturePhotoOutput()
   var videoDataOutput = AVCaptureVideoDataOutput()
   
@@ -36,6 +38,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   var activeCaptureDevice: AVCaptureDevice! {
     didSet {
       controlsView.toggleFlashButtonState(for: activeCaptureDevice.position)
+      controlsView.toggleFlashButtonIcon(to: captureFlashMode)
     }
   }
   
@@ -105,7 +108,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     displayCameraView()
     configureContainerView()
     configureCaptureDevices()
-    
+
     if !captureDeviceError {
       configureCaptureSession()
       configureLivePreview()
@@ -311,6 +314,19 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     navigationController?.setNavigationBarHidden(hidden, animated: animated)
   }
   
+  func toggleFlashMode() {
+    switch captureFlashMode {
+      case .on:
+        captureFlashMode = .off
+        controlsView.toggleFlashButtonIcon(to: .off)
+      case .off:
+        captureFlashMode = .on
+        controlsView.toggleFlashButtonIcon(to: .on)
+      default:
+        break
+    }
+  }
+  
   // MARK: - Confirmation View
   
   fileprivate func presentConfirmationView(with image: UIImage) {
@@ -421,10 +437,10 @@ fileprivate extension CameraViewController {
   
   func applyGestures() {
     configurePickerGesture()
-    configureCaptureModeGesture()
+    configureFlashGesture()
     configureShootGesture()
     configureFlipGesture()
-    configureFlashGesture()
+    configureTorchGesture()
     configureFocusGesture()
   }
   
@@ -443,14 +459,14 @@ fileprivate extension CameraViewController {
     controlsView.flipButton.addGestureRecognizer(flipGesture)
   }
   
+  func configureTorchGesture() {
+    let torchGesture = UITapGestureRecognizer(target: self, action: #selector(torchButtonTapped))
+    controlsView.torchButton.addGestureRecognizer(torchGesture)
+  }
+  
   func configureFlashGesture() {
     let flashGesture = UITapGestureRecognizer(target: self, action: #selector(flashButtonTapped))
     controlsView.flashButton.addGestureRecognizer(flashGesture)
-  }
-  
-  func configureCaptureModeGesture() {
-    let captureModeGesture = UITapGestureRecognizer(target: self, action: #selector(captureModeButtonTapped))
-    controlsView.captureModeButton.addGestureRecognizer(captureModeGesture)
   }
   
   func configureFocusGesture() {
@@ -465,8 +481,9 @@ fileprivate extension CameraViewController {
     present(albumImagePicker, animated: true, completion: nil)
   }
   
-  @objc func captureModeButtonTapped() {
-    print("Tapped captureMode button")
+  @objc func flashButtonTapped() {
+    print("Tapped flash button")
+    toggleFlashMode()
   }
   
   @objc func shootButtonTapped(_ sender: UITapGestureRecognizer) {
@@ -482,6 +499,7 @@ fileprivate extension CameraViewController {
         presentConfirmationView(with: correctedImage)
       case .manual:
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+        settings.flashMode = captureFlashMode
         imageOutput.capturePhoto(with: settings, delegate: self)
     }
   }
@@ -517,7 +535,7 @@ fileprivate extension CameraViewController {
     captureSession.commitConfiguration()
   }
   
-  @objc func flashButtonTapped() {
+  @objc func torchButtonTapped() {
     do {
       defer {
         activeCaptureDevice.unlockForConfiguration()
