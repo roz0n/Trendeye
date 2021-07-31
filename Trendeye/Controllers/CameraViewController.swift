@@ -335,8 +335,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   func drawFocusShape(at point: CGPoint) {
     let elipse = CAShapeLayer()
     let radius: CGFloat = 24
-    let path = UIBezierPath(arcCenter: point, radius: radius, startAngle: CGFloat(Double.pi), endAngle: CGFloat(Double.pi) * 4, clockwise: true)
-    
+    let path = UIBezierPath(arcCenter: point, radius: radius, startAngle: CGFloat(Double.pi/2), endAngle: CGFloat(Double.pi) * 4, clockwise: true)
+
     elipse.path = path.cgPath
     elipse.strokeColor = K.Colors.White.cgColor
     elipse.fillColor = UIColor.clear.cgColor
