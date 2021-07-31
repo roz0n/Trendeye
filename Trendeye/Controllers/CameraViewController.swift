@@ -576,6 +576,11 @@ fileprivate extension CameraViewController {
         
         activeCaptureDevice.focusMode = .autoFocus
         activeCaptureDevice.focusPointOfInterest = CGPoint(x: scaledPointX, y: scaledPointY)
+        
+        if sender.state == .ended {
+          let tapLocation = sender.location(in: self.view)
+          drawElipseLayer(at: tapLocation)
+        }
       } catch let error {
         print("Failed to focus capture device input")
         print("\(error)")
@@ -584,6 +589,30 @@ fileprivate extension CameraViewController {
         return
       }
     }
+  }
+  
+  // TODO: Move me!
+  
+  func drawElipseLayer(at point: CGPoint) {
+    print("DRAWINGGGGG")
+    print(point)
+    
+    let elipse = CAShapeLayer()
+    let radius: CGFloat = 20
+    let path = UIBezierPath(arcCenter: point, radius: radius, startAngle: CGFloat(Double.pi), endAngle: CGFloat(Double.pi) * 4, clockwise: true)
+    
+    elipse.path = path.cgPath
+    elipse.strokeColor = K.Colors.White.cgColor
+    elipse.fillColor = K.Colors.White.cgColor
+    elipse.lineWidth = 5
+    elipse.strokeStart = 0
+    elipse.strokeEnd = 1
+
+    view.layer.addSublayer(elipse)
+  }
+  
+  func animateElipseLayer(with duration: TimeInterval) {
+    
   }
   
 }
