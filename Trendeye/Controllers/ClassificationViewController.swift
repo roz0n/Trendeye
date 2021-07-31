@@ -65,13 +65,6 @@ final class ClassificationViewController: UITableViewController {
   
   // MARK: - View Lifecycle
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    
-    applyConfigurations()
-    applyLayouts()
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     configureClassifier()
@@ -80,6 +73,15 @@ final class ClassificationViewController: UITableViewController {
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
     stretchyHeaderContainer.updatePosition()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    configureNavigation()
+    configureTableView()
+    configureStretchyHeader()
+    applyLayouts()
   }
   
   override func viewSafeAreaInsetsDidChange() {
@@ -95,12 +97,6 @@ final class ClassificationViewController: UITableViewController {
   }
   
   // MARK: - Configurations
-  
-  fileprivate func applyConfigurations() {
-    configureNavigation()
-    configureTableView()
-    configureStretchyHeader()
-  }
   
   fileprivate func configureStretchyHeader() {
     let shouldImageScale = selectedImage.size.width > 300 || selectedImage.size.height > 300
@@ -121,6 +117,9 @@ final class ClassificationViewController: UITableViewController {
     
     // Adjusts the contentInset of the tableView to expose the header
     tableView.contentInset = UIEdgeInsets(top: stretchyHeaderHeight, left: 0, bottom: 0, right: 0)
+    
+    // This weird bug appeared when we added the table view header, this fixes it
+    tableView.setContentOffset(CGPoint(x: 0, y: -(stretchyHeaderHeight)), animated: true)
   }
   
   fileprivate func configureNavigation() {

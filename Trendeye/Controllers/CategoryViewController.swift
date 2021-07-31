@@ -119,6 +119,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   fileprivate func configureViewController() {
     navigationItem.largeTitleDisplayMode = .always
+    view.backgroundColor = K.Colors.Black
   }
   
   fileprivate func configureImageCollection() {
@@ -183,7 +184,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     if kind == UICollectionView.elementKindSectionHeader {
       let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier, for: indexPath) as! CategoryCollectionHeaderView
       
-      headerCell.setText(descriptionText ?? "sec")
+      headerCell.setText(descriptionText ?? "")
       
       return headerCell
     } else {
@@ -197,7 +198,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
       // We can take a hit on performance as the dequeuing will only occur twice at most (when the collection view initially loads and when it's reloaded after we fetch the category description text from the API).
       let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier, for: IndexPath()) as! CategoryCollectionHeaderView
       
-      headerCell.setText(descriptionText ?? "sexc")
+      headerCell.setText(descriptionText ?? "")
       imageCollectionHeaderHeight = headerCell.textView.sizeThatFits(headerCell.textView.bounds.size).height
     }
     

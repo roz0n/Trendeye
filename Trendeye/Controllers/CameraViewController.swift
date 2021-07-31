@@ -114,7 +114,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     
 //    SHORTCUT_PRESENT_CONFIRMATION()
 //    SHORTCUT_PRESENT_CLASSIFICATION()
-    SHORTCUT_PRESENT_CATEGORY()
+//    SHORTCUT_PRESENT_CATEGORY()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -195,54 +195,6 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       print("\(error.localizedDescription)")
     }
   }
-  
-  // TODO: Something about the way this method adds outputs causes the capture session to not end properly and results in an error when we navigate back to this VC from another
-  
-  //    fileprivate func configureCaptureSession() {
-  //        // Initialize the capture session with a quality preset
-  //        captureSession = AVCaptureSession()
-  //        captureSession.sessionPreset = .high
-  //
-  //        do {
-  //            // Attach the capture device (front or back camera) to the session
-  //            let input = try AVCaptureDeviceInput(device: activeCaptureDevice)
-  //
-  //            if !captureSession.canAddInput(input) {
-  //                captureDeviceError = true
-  //                return
-  //            } else {
-  //                captureSession.addInput(input)
-  //            }
-  //
-  //            // Configure video data output and imageOutput, attach them depending on selectedCaptureMode
-  //            videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32BGRA)]
-  //            videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue.global(qos: .default))
-  //            videoDataOutput.alwaysDiscardsLateVideoFrames = true
-  //
-  //            switch selectedCaptureMode {
-  //            case .manual:
-  //                if captureSession.canAddOutput(imageOutput) {
-  //                    captureSession.addOutput(imageOutput)
-  //                } else {
-  //                    captureDeviceError = true
-  //                    return
-  //                }
-  //            case .smart:
-  //                if captureSession.canAddOutput(videoDataOutput) {
-  //                    captureSession.addOutput(videoDataOutput)
-  //                } else {
-  //                    captureDeviceError = true
-  //                    return
-  //                }
-  //            }
-  //        } catch let error {
-  //            captureDeviceError = true
-  //
-  //            print("Failed to connect to input device")
-  //            print("\(error)")
-  //            print("\(error.localizedDescription)")
-  //        }
-  //    }
   
   fileprivate func configureLivePreview() {
     videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -577,8 +529,10 @@ fileprivate extension CameraViewController {
         switch activeCaptureDevice.torchMode {
           case .off:
             activeCaptureDevice.torchMode = .on
+            controlsView.toggleTorchButtonIcon(to: .on)
           case .on:
             activeCaptureDevice.torchMode = .off
+            controlsView.toggleTorchButtonIcon(to: .off)
           default:
             break
         }

@@ -16,8 +16,8 @@ extension UIImage {
     let newSize = CGSize(width: newWidth, height: newHeight)
     let renderer = UIGraphicsImageRenderer(size: newSize)
     
-    let scaledImage = renderer.image { [weak self] _ in
-      self?.draw(in: CGRect(origin: .zero, size: newSize))
+    let scaledImage = renderer.image { _ in
+      self.draw(in: CGRect(origin: .zero, size: newSize))
     }
     
     return scaledImage
@@ -47,8 +47,10 @@ extension UIImage {
     // To keep the aspect ratio, scale by the smaller scaling ratio
     let scaleFactor = min(widthScaleRatio, heightScaleRatio)
     
-    // Multiply the original image’s dimensions by the scale factor
-    // to determine the scaled image size that preserves aspect ratio
+    /*
+     Multiply the original image’s dimensions by the scale factor
+     to determine the scaled image size that preserves aspect ratio
+     */
     let scaledImageSize = CGSize(
       width: self.size.width * scaleFactor,
       height: self.size.height * scaleFactor

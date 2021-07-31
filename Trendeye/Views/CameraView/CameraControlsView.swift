@@ -139,6 +139,27 @@ class CameraControlsView: UIView {
     }
   }
   
+  func toggleTorchButtonIcon(to state: AVCaptureDevice.TorchMode) {
+    switch state {
+      case .on:
+        let flashDisabledIcon = UIImage(
+          systemName: K.Icons.FlashDisabled,
+          withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
+        
+        flashButton.setImage(
+          flashDisabledIcon, for: .normal)
+      case .off:
+        let flashIcon = UIImage(
+          systemName: K.Icons.Flash,
+          withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
+        
+        flashButton.setImage(
+          flashIcon, for: .normal)
+      default:
+        break
+    }
+  }
+  
   // MARK: - Initializers
   
   override init(frame: CGRect) {
