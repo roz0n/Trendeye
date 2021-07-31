@@ -16,7 +16,7 @@ enum CameraCaptureModes {
 
 final class CameraViewController: UIViewController, UINavigationControllerDelegate {
   
-  // MARK: -
+  // MARK: - General Properties
   
   var selectedCaptureMode: CameraCaptureModes = .manual
   var currentImage: UIImage?
@@ -46,6 +46,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   var detectionFrameContainer = CameraDetectionView()
   var detectionFrameLayer = CAShapeLayer()
+  var detectionBuffer: CVImageBuffer?
+  var detectionObservation: VNRectangleObservation?
   
   var isDetectionFrameVisible: Bool {
     get {
@@ -56,14 +58,11 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     }
   }
   
-  //  Rectangle Detection Output Properties
-  var detectionBuffer: CVImageBuffer?
-  var detectionObservation: VNRectangleObservation?
+  // MARK: - Views
   
-  // MARK: - Custom View Properties
-  
-  var watermarkView = AppLogoView()
-  var controlsView = CameraControlsView()
+  let welcomeScreenView = WelcomeSplashScreenController()
+  let watermarkView = AppLogoView()
+  let controlsView = CameraControlsView()
   let cameraErrorView = CameraErrorView()
   
   var captureDeviceError = false {
@@ -113,6 +112,10 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       configureCaptureSession()
       configureLivePreview()
       startCaptureSession()
+      
+      present(welcomeScreenView, animated: true) {
+        print("Presented welcome screen!")
+      }
     }
     
 //    SHORTCUT_PRESENT_CONFIRMATION()

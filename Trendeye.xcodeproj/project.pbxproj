@@ -50,6 +50,7 @@
 		23AAC2022630F41500744651 /* FullScreenImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC2012630F41500744651 /* FullScreenImageView.swift */; };
 		23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */; };
 		23CEC9C5263A5505009114B3 /* CameraErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C4263A5505009114B3 /* CameraErrorView.swift */; };
+		23DACBC726B527D7005D02CB /* WelcomeSplashScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DACBC626B527D7005D02CB /* WelcomeSplashScreenController.swift */; };
 		23EFD8E9263A6EFB005AB471 /* CameraViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8E8263A6EFB005AB471 /* CameraViewController+Ext.swift */; };
 		23EFD8ED263BD539005AB471 /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */; };
 		23EFD8EF263BE241005AB471 /* ClassifierConfidenceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EE263BE241005AB471 /* ClassifierConfidenceButton.swift */; };
@@ -117,6 +118,7 @@
 		23AAC2012630F41500744651 /* FullScreenImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageView.swift; sourceTree = "<group>"; };
 		23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyTableHeaderView.swift; sourceTree = "<group>"; };
 		23CEC9C4263A5505009114B3 /* CameraErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraErrorView.swift; sourceTree = "<group>"; };
+		23DACBC626B527D7005D02CB /* WelcomeSplashScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSplashScreenController.swift; sourceTree = "<group>"; };
 		23EFD8E8263A6EFB005AB471 /* CameraViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Ext.swift"; sourceTree = "<group>"; };
 		23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
 		23EFD8EE263BE241005AB471 /* ClassifierConfidenceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierConfidenceButton.swift; sourceTree = "<group>"; };
@@ -303,6 +305,14 @@
 			path = Error;
 			sourceTree = "<group>";
 		};
+		23DACBC526B527BC005D02CB /* SplashScreens */ = {
+			isa = PBXGroup;
+			children = (
+				23DACBC626B527D7005D02CB /* WelcomeSplashScreenController.swift */,
+			);
+			path = SplashScreens;
+			sourceTree = "<group>";
+		};
 		23F80A2C25E2EE2100241206 = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +384,7 @@
 		23F80A5A25E339D600241206 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				23DACBC526B527BC005D02CB /* SplashScreens */,
 				23CEC9C1263A5469009114B3 /* Error */,
 				232AA39926298B2D00E5E8A1 /* Global */,
 				23131AEB26216A4B00FFF2B3 /* LaunchScreen */,
@@ -548,6 +559,7 @@
 				23CEC9C5263A5505009114B3 /* CameraErrorView.swift in Sources */,
 				23AAC199262AC18600744651 /* NetworkManager.swift in Sources */,
 				23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */,
+				23DACBC726B527D7005D02CB /* WelcomeSplashScreenController.swift in Sources */,
 				23775AD726ACB5F500E839DD /* TENavigationController.swift in Sources */,
 				23AAC1FF2630C86800744651 /* CategoryCollectionHeaderView.swift in Sources */,
 			);
