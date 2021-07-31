@@ -142,12 +142,12 @@ class CameraControlsView: UIView {
   
   func toggleFlashButtonIcon(to state: AVCaptureDevice.FlashMode) {
     switch state {
-      case .on:
+      case .off:
         let flashIcon = UIImage(
           systemName: K.Icons.FlashOn,
           withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
         flashButton.setImage(flashIcon, for: .normal)
-      case .off:
+      case .on:
         let flashDisabledIcon = UIImage(
           systemName: K.Icons.FlashOff,
           withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .heavy))!
