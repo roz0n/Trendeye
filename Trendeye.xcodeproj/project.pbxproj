@@ -51,6 +51,7 @@
 		23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */; };
 		23CEC9C5263A5505009114B3 /* CameraErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C4263A5505009114B3 /* CameraErrorView.swift */; };
 		23DACBC726B527D7005D02CB /* WelcomeSplashScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DACBC626B527D7005D02CB /* WelcomeSplashScreenController.swift */; };
+		23DACBC926B60FF4005D02CB /* StackedBarsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DACBC826B60FF4005D02CB /* StackedBarsController.swift */; };
 		23EFD8E9263A6EFB005AB471 /* CameraViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8E8263A6EFB005AB471 /* CameraViewController+Ext.swift */; };
 		23EFD8ED263BD539005AB471 /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */; };
 		23EFD8EF263BE241005AB471 /* ClassifierConfidenceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EE263BE241005AB471 /* ClassifierConfidenceButton.swift */; };
@@ -119,6 +120,7 @@
 		23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyTableHeaderView.swift; sourceTree = "<group>"; };
 		23CEC9C4263A5505009114B3 /* CameraErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraErrorView.swift; sourceTree = "<group>"; };
 		23DACBC626B527D7005D02CB /* WelcomeSplashScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSplashScreenController.swift; sourceTree = "<group>"; };
+		23DACBC826B60FF4005D02CB /* StackedBarsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedBarsController.swift; sourceTree = "<group>"; };
 		23EFD8E8263A6EFB005AB471 /* CameraViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Ext.swift"; sourceTree = "<group>"; };
 		23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
 		23EFD8EE263BE241005AB471 /* ClassifierConfidenceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierConfidenceButton.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				234C91E42637CC7500B3A89E /* ContentErrorView.swift */,
 				234C91E62637D08400B3A89E /* AppLogoView.swift */,
 				23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */,
+				23DACBC826B60FF4005D02CB /* StackedBarsController.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				23AAC19D262ACB6800744651 /* TrendlistAPIModels.swift in Sources */,
 				23F80A5625E32F0E00241206 /* TrendClassificationManager.swift in Sources */,
 				23EFD8EF263BE241005AB471 /* ClassifierConfidenceButton.swift in Sources */,
+				23DACBC926B60FF4005D02CB /* StackedBarsController.swift in Sources */,
 				23AAC195262ABEBA00744651 /* CategoryImageCell.swift in Sources */,
 				23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */,
 				23EFD8E9263A6EFB005AB471 /* CameraViewController+Ext.swift in Sources */,

@@ -17,18 +17,20 @@ class ClassificationViewCell: UITableViewCell {
   var resultData: VNClassificationObservation! {
     didSet {
       identifierLabel.text = TrendClassificationManager.shared.indentifiers[resultData.identifier]
-      resultChip.metric = TrendClassificationManager.shared.getClassificationMetric(for: resultData)
+      resultBars.percentage = TrendClassificationManager.shared.convertConfidenceToPercent(resultData.confidence)
     }
   }
   
   // MARK: - Views
+  
+  var resultBars = StackedBarsController(percentage: 0, color: K.Colors.Icon)
   
   var container: UIStackView = {
     let view = UIStackView()
     view.translatesAutoresizingMaskIntoConstraints = false
     view.axis = .horizontal
     view.distribution = .fillProportionally
-    view.spacing = 10
+    view.spacing = 30
     view.layer.cornerRadius = 8
     view.layer.borderWidth = 1
     view.layer.borderColor = K.Colors.Borders.cgColor
@@ -46,12 +48,17 @@ class ClassificationViewCell: UITableViewCell {
     return label
   }()
   
-  var resultChip = ClassificationMetricChip()
-  
+  var resultBarsContainer: UIView = {
+    let view = UIView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.widthAnchor.constraint(equalToConstant: StackedBarsController.contentWidth).isActive = true
+    return view
+  }()
+    
   var disclosureIndicatorContainer: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.widthAnchor.constraint(equalToConstant: 30).isActive = true
+    view.widthAnchor.constraint(equalToConstant: 14).isActive = true
     return view
   }()
   
@@ -67,6 +74,8 @@ class ClassificationViewCell: UITableViewCell {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     self.backgroundColor = .clear
+    
+    configureResultBars()
     applyLayouts()
   }
   
@@ -78,6 +87,13 @@ class ClassificationViewCell: UITableViewCell {
     super.setSelected(selected, animated: animated)
     
     // Configure the view for the selected state
+  }
+  
+  // MARK: - Configurations
+  
+  func configureResultBars() {
+    // Something about this feels awkward, but it workd for now
+    resultBarsContainer.addSubview(resultBars.view)
   }
   
 }
@@ -105,7 +121,7 @@ fileprivate extension ClassificationViewCell {
   
   func layoutContent() {
     container.addArrangedSubview(identifierLabel)
-    container.addArrangedSubview(resultChip)
+    container.addArrangedSubview(resultBarsContainer)
     container.addArrangedSubview(disclosureIndicatorContainer)
   }
   
