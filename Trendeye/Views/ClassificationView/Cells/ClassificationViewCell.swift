@@ -17,13 +17,17 @@ class ClassificationViewCell: UITableViewCell {
   var resultData: VNClassificationObservation! {
     didSet {
       identifierLabel.text = TrendClassificationManager.shared.indentifiers[resultData.identifier]
-      resultBars.percentage = TrendClassificationManager.shared.convertConfidenceToPercent(resultData.confidence)
+      resultBars = StackedBarsController(percentage: TrendClassificationManager.shared.convertConfidenceToPercent(resultData.confidence), color: K.Colors.Icon)
     }
   }
   
   // MARK: - Views
   
-  var resultBars = StackedBarsController(percentage: 0, color: K.Colors.Icon)
+  var resultBars: StackedBarsController? {
+    didSet {
+      configureResultBars()
+    }
+  }
   
   var container: UIStackView = {
     let view = UIStackView()
@@ -74,8 +78,6 @@ class ClassificationViewCell: UITableViewCell {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     self.backgroundColor = .clear
-    
-    configureResultBars()
     applyLayouts()
   }
   
@@ -92,8 +94,10 @@ class ClassificationViewCell: UITableViewCell {
   // MARK: - Configurations
   
   func configureResultBars() {
-    // Something about this feels awkward, but it workd for now
-    resultBarsContainer.addSubview(resultBars.view)
+    // Something about this feels awkward, but it works for now
+    if let resultBars = resultBars {
+      resultBarsContainer.addSubview(resultBars.view)
+    }
   }
   
 }

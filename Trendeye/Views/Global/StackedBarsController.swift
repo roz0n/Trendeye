@@ -134,6 +134,10 @@ class StackedBarsController: UIViewController {
     let maxRangeValue = (index + 1) * incrementValue
     let fullRange = minRangeValue..<maxRangeValue
     
+    if percentage == 0 {
+      return false
+    }
+        
     return maxRangeValue <= percentage || fullRange ~= percentage
   }
   
