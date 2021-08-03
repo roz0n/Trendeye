@@ -1,13 +1,13 @@
 //
-//  FeedbackSubmissionTableViewController.swift
-//  FeedbackSubmissionTableViewController
+//  FeedbackSubmissionTableController.swift
+//  FeedbackSubmissionTableController
 //
 //  Created by Arnaldo Rozon on 8/3/21.
 //
 
 import UIKit
 
-class FeedbackSubmissionTableViewController: UITableViewController {
+class FeedbackSubmissionTableController: UITableViewController {
   
   // MARK: - Properties
   
@@ -63,7 +63,7 @@ class FeedbackSubmissionTableViewController: UITableViewController {
 
 // MARK: - Table view data source
 
-extension FeedbackSubmissionTableViewController {
+extension FeedbackSubmissionTableController {
   
   override func numberOfSections(in tableView: UITableView) -> Int {
     return 2

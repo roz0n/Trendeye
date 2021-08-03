@@ -31,7 +31,7 @@ class FeedbackViewController: UINavigationController {
   // MARK: - Initializers
   
   convenience init(with identifers: [String]) {
-    let incorrectClassificationTable = FeedbackTableView(type: .incorrect)
+    let incorrectClassificationTable = FeedbackSelectionTableController(type: .incorrect)
     
     incorrectClassificationTable.classificationIdentifiers = identifers
     incorrectClassificationTable.navigationItem.title = "Bad Classification"
@@ -51,7 +51,7 @@ class FeedbackViewController: UINavigationController {
   // MARK: - Helpers
   
   func presentCorrectClassificationTable() {
-    let correctClassificationTable = FeedbackTableView(type: .correct)
+    let correctClassificationTable = FeedbackSelectionTableController(type: .correct)
     
     correctClassificationTable.selectedIdentifiers = correctClassificationIdentifiers
     pushViewController(correctClassificationTable, animated: true)
@@ -61,7 +61,7 @@ class FeedbackViewController: UINavigationController {
     // TODO: Perform network call
     // TODO: Handle errors
     
-    let feedbackSubmissionTable = FeedbackSubmissionTableViewController(
+    let feedbackSubmissionTable = FeedbackSubmissionTableController(
       Array(incorrectClassificationIdentifiers.keys),
       Array(correctClassificationIdentifiers.keys),
       style: .insetGrouped)

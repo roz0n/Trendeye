@@ -1,13 +1,13 @@
 //
-//  FeedbackTableView.swift
-//  FeedbackTableView
+//  FeedbackSelectionTableController.swift
+//  FeedbackSelectionTableController
 //
 //  Created by Arnaldo Rozon on 8/2/21.
 //
 
 import UIKit
 
-class FeedbackTableView: UITableViewController {
+class FeedbackSelectionTableController: UITableViewController {
   
   // MARK: - Properties
   
@@ -96,7 +96,7 @@ class FeedbackTableView: UITableViewController {
 
 // MARK: - Table view data source
 
-extension FeedbackTableView {
+extension FeedbackSelectionTableController {
   
   override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
