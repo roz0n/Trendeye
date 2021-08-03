@@ -194,12 +194,12 @@ final class ClassificationViewController: UITableViewController {
   }
   
   @objc func tappedNegativeFeedback() {
-    let trendsTableViewController = FeedbackTableView()
+    guard let resultIdentifiers = resultIdentifiers else {
+      return
+    }
 
-    trendsTableViewController.classificationIdentifiers = resultIdentifiers
-    trendsTableViewController.navigationItem.title = "Bad Classification"
-    
-    present(FeedbackViewController(rootViewController: trendsTableViewController), animated: true, completion: nil)
+    let feedbackViewController = FeedbackViewController(with: resultIdentifiers)
+    present(feedbackViewController, animated: true, completion: nil)
   }
   
   // MARK: - Helpers
