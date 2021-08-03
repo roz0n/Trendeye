@@ -51,6 +51,11 @@ class FeedbackTableView: UITableViewController {
     tableView.register(FeedbackTableViewCell.self, forCellReuseIdentifier: FeedbackTableViewCell.reuseIdentifier)
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    // This corrects a bug when we navigation back to this view controller in its .correct state
+    nextButton?.isEnabled = getBarButtonStatus()
+  }
+  
   // MARK: - Initializers
   
   init(type: FeedbackTable) {
@@ -68,7 +73,7 @@ class FeedbackTableView: UITableViewController {
   
   func configureNavigationBar() {
     nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(tappedNextButton))
-    nextButton?.isEnabled = false
+    nextButton?.isEnabled = getBarButtonStatus()
     
     navigationItem.rightBarButtonItem = nextButton
   }
