@@ -34,7 +34,7 @@ class FeedbackViewController: UINavigationController {
     let incorrectClassificationTable = FeedbackSelectionTableController(type: .incorrect)
     
     incorrectClassificationTable.classificationIdentifiers = identifers
-    incorrectClassificationTable.navigationItem.title = "Bad Classification"
+    incorrectClassificationTable.navigationItem.title = "Report Inaccuracies"
     incorrectClassificationTable.navigationItem.backButtonTitle = ""
     
     self.init(rootViewController: incorrectClassificationTable)
@@ -54,6 +54,9 @@ class FeedbackViewController: UINavigationController {
     let correctClassificationTable = FeedbackSelectionTableController(type: .correct)
     
     correctClassificationTable.selectedIdentifiers = correctClassificationIdentifiers
+    correctClassificationTable.navigationItem.title = "Select Categories"
+    correctClassificationTable.navigationItem.backButtonTitle = ""
+    
     pushViewController(correctClassificationTable, animated: true)
   }
   
@@ -65,6 +68,8 @@ class FeedbackViewController: UINavigationController {
       Array(incorrectClassificationIdentifiers.keys),
       Array(correctClassificationIdentifiers.keys),
       style: .insetGrouped)
+    
+    feedbackSubmissionTable.title = "Confirm Feedback"
     pushViewController(feedbackSubmissionTable, animated: true)
   }
   

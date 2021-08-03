@@ -31,6 +31,7 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   }
   
   // We filter the results during a search, therefore we need a variable we can overwrite and not the computed variable above
+  // TODO: These need to be filtered for the trends from the classifier the user did not label as incorrect
   var trendIdentifiers: [String]?
   
   var selectedIdentifiers: [String: Bool] = [:] {
@@ -93,7 +94,6 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
     searchController?.hidesNavigationBarDuringPresentation = false
     searchController?.obscuresBackgroundDuringPresentation = false
     searchController?.definesPresentationContext = true
-    searchController?.searchBar.tintColor = UIColor(named: "AccentColor")
     searchController?.searchBar.placeholder = "Search"
     searchController?.searchBar.backgroundImage = UIImage()
     searchController?.searchBar.backgroundColor = .systemBackground
