@@ -35,7 +35,6 @@ class BarView: UIView {
     layer.cornerRadius = 2
     layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     layer.masksToBounds = true
-    layer.opacity = 0.25
   }
   
   required init?(coder: NSCoder) {
@@ -114,8 +113,12 @@ class StackedBarsController: UIViewController {
       let shouldFill = shouldBarFill(at: index, to: percentage, within: barSizes.count)
       
       if shouldFill {
-        bar.layer.opacity = 1.0
         bar.backgroundColor = color
+      } else {
+        // TODO: For some reason, alpha transparency in table view cells is inconsistent
+        // bar.layer.borderColor = K.Colors.Icon.withAlphaComponent(0.25).cgColor
+        bar.layer.borderColor = K.Colors.Gray.cgColor
+        bar.backgroundColor = UIColor.clear
       }
       
       barViews.append(bar)
@@ -137,7 +140,7 @@ class StackedBarsController: UIViewController {
     if percentage == 0 {
       return false
     }
-        
+    
     return maxRangeValue <= percentage || fullRange ~= percentage
   }
   

@@ -60,7 +60,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   // MARK: - Views
   
-  let welcomeScreenView = WelcomeSplashScreenController()
+  let welcomeScreenView = WelcomeScreenController()
   let watermarkView = AppLogoView()
   let controlsView = CameraControlsView()
   let cameraErrorView = CameraErrorView()

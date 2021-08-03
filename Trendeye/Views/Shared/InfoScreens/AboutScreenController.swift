@@ -1,13 +1,13 @@
 //
-//  WelcomeSplashScreenController.swift
-//  WelcomeSplashScreenController
+//  AboutScreenController.swift
+//  AboutScreenController
 //
-//  Created by Arnaldo Rozon on 7/31/21.
+//  Created by Arnaldo Rozon on 8/2/21.
 //
 
 import UIKit
 
-class WelcomeSplashScreenController: UIViewController {
+class AboutScreenController: UIViewController {
   
   // MARK: - Views
   
@@ -113,7 +113,7 @@ class WelcomeSplashScreenController: UIViewController {
 
 // MARK: - Layout
 
-fileprivate extension WelcomeSplashScreenController {
+fileprivate extension AboutScreenController {
   
   func applyLayouts() {
     layoutContainer()
@@ -137,5 +137,5 @@ fileprivate extension WelcomeSplashScreenController {
     container.addArrangedSubview(imageView)
     container.addArrangedSubview(actionButton)
   }
-  
+
 }

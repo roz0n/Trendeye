@@ -77,7 +77,8 @@ class ClassificationViewCell: UITableViewCell {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    self.backgroundColor = .clear
+    
+    backgroundColor = K.Colors.ViewBackground
     applyLayouts()
   }
   
@@ -85,11 +86,13 @@ class ClassificationViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    
-    // Configure the view for the selected state
-  }
+//  override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+//    super.setHighlighted(highlighted, animated: animated)
+//    
+//    if highlighted {
+//      container.backgroundColor = K.Colors.Icon
+//    }
+//  }
   
   // MARK: - Configurations
   

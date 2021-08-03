@@ -80,31 +80,11 @@ class ClassificationTableHeader: UITableViewHeaderFooterView {
   
   override init(reuseIdentifier: String?) {
     super.init(reuseIdentifier: reuseIdentifier)
-    
     applyLayouts()
-    configureGestures()
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
-  }
-  
-  // MARK: - Gestures
-  
-  func configureGestures() {
-    let positiveFeedbackGesture = UITapGestureRecognizer(target: self, action: #selector(tappedPositiveFeedback))
-    let negativeFeedbackGesture = UITapGestureRecognizer(target: self, action: #selector(tappedNegativeFeedback))
-    
-    positiveFeedbackButton.addGestureRecognizer(positiveFeedbackGesture)
-    negativeFeedbackButton.addGestureRecognizer(negativeFeedbackGesture)
-  }
-  
-  @objc func tappedPositiveFeedback() {
-    print("Tapped positive")
-  }
-  
-  @objc func tappedNegativeFeedback() {
-    print("Tapped negative")
   }
   
 }

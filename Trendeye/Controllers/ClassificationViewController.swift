@@ -41,6 +41,7 @@ final class ClassificationViewController: UITableViewController {
   var stretchyHeaderContainer = StretchyTableHeaderView()
   var stretchyHeaderHeight: CGFloat = 350
   var stretchyTableHeaderContent = ClassificationImageHeader()
+  var aboutScreenViewController = AboutScreenController()
   var tableFooter = ClassificationTableFooterView()
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -155,6 +156,42 @@ final class ClassificationViewController: UITableViewController {
     beginClassification(of: selectedImage)
   }
   
+  // MARK: - Gestures
+  
+  fileprivate func configureAboutButtonGesture(button: UIButton) {
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedAboutButton))
+    button.addGestureRecognizer(tapGesture)
+  }
+  
+  func configurePositiveFeedbackGesture(button: UIButton) {
+    let positiveFeedbackGesture = UITapGestureRecognizer(target: self, action: #selector(tappedPositiveFeedback))
+    button.addGestureRecognizer(positiveFeedbackGesture)
+  }
+  
+  func configureNegativeFeedbackGesture(button: UIButton) {
+    let negativeFeedbackGesture = UITapGestureRecognizer(target: self, action: #selector(tappedNegativeFeedback))
+    button.addGestureRecognizer(negativeFeedbackGesture)
+  }
+  
+  @objc func tappedAboutButton() {
+    present(aboutScreenViewController, animated: true, completion: nil)
+  }
+  
+  @objc func tappedPositiveFeedback() {
+    // TODO: This will probably another kind of screen...
+    
+    let positiveFeedbackViewController = FeedbackViewController(rootViewController: TrendsTableView())
+    present(positiveFeedbackViewController, animated: true, completion: nil)
+  }
+  
+  @objc func tappedNegativeFeedback() {
+    let trendsTableViewController = TrendsTableView()
+    let negativeFeedbackViewController = FeedbackViewController(rootViewController: trendsTableViewController)
+    
+    trendsTableViewController.navigationItem.title = "Bad Classification"
+    present(negativeFeedbackViewController, animated: true, completion: nil)
+  }
+  
   // MARK: - Helpers
   
   fileprivate func getNavigationBackgroundColor(metric: TrendClassificationMetric) -> UIColor? {
@@ -252,13 +289,21 @@ extension ClassificationViewController {
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: ClassificationViewCell.reuseIdentifier, for: indexPath) as! ClassificationViewCell
+    
     cell.resultData = results?[indexPath.row]
+    cell.selectionStyle = .none
     
     return cell
   }
   
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    return tableView.dequeueReusableHeaderFooterView(withIdentifier: ClassificationTableHeader.reuseIdentifier) as! ClassificationTableHeader
+    let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: ClassificationTableHeader.reuseIdentifier) as! ClassificationTableHeader
+    
+    configureAboutButtonGesture(button: cell.primaryButton)
+    configurePositiveFeedbackGesture(button: cell.positiveFeedbackButton)
+    configureNegativeFeedbackGesture(button: cell.negativeFeedbackButton)
+    
+    return cell
   }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
