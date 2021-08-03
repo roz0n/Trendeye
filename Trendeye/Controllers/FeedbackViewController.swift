@@ -7,7 +7,17 @@
 
 import UIKit
 
+enum ClassificationFeedback {
+  case positive
+  case negative
+}
+
 class FeedbackViewController: UINavigationController {
+  
+  // MARK: - Properties
+  
+  var badClassificationIdentifiers = [String: Bool]()
+  var correctClassificationIdentifiers =  [String: Bool]()
   
   // MARK: - Lifecycle
   
@@ -18,11 +28,10 @@ class FeedbackViewController: UINavigationController {
     view.backgroundColor = .systemPurple
   }
   
-  
   // MARK: - Initializers
   
 //  convenience init() {
-//    let classificationResultsViewController = TrendsTableView()
+//    let classificationResultsViewController = FeedbackTableView()
 //    self.init(rootViewController: classificationResultsViewController)
 //  }
   

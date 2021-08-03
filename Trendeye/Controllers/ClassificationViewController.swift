@@ -35,6 +35,15 @@ final class ClassificationViewController: UITableViewController {
     }
   }
   
+  var resultIdentifiers: [String]? {
+    guard let results = results else {
+      return []
+    }
+    
+    let allIdentifiers = results.map { $0.identifier }
+    return TrendClassificationManager.shared.indentifiers.filter { allIdentifiers.contains($0.key) }.map { $0.value }
+  }
+  
   // MARK: - UI Properties
   
   var selectedImage: UIImage!
@@ -180,16 +189,17 @@ final class ClassificationViewController: UITableViewController {
   @objc func tappedPositiveFeedback() {
     // TODO: This will probably another kind of screen...
     
-    let positiveFeedbackViewController = FeedbackViewController(rootViewController: TrendsTableView())
-    present(positiveFeedbackViewController, animated: true, completion: nil)
+//    let positiveFeedbackViewController = FeedbackViewController(rootViewController: FeedbackTableView())
+//    present(positiveFeedbackViewController, animated: true, completion: nil)
   }
   
   @objc func tappedNegativeFeedback() {
-    let trendsTableViewController = TrendsTableView()
-    let negativeFeedbackViewController = FeedbackViewController(rootViewController: trendsTableViewController)
-    
+    let trendsTableViewController = FeedbackTableView()
+
+    trendsTableViewController.classificationIdentifiers = resultIdentifiers
     trendsTableViewController.navigationItem.title = "Bad Classification"
-    present(negativeFeedbackViewController, animated: true, completion: nil)
+    
+    present(FeedbackViewController(rootViewController: trendsTableViewController), animated: true, completion: nil)
   }
   
   // MARK: - Helpers

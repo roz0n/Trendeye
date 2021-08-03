@@ -1,15 +1,21 @@
 //
-//  TrendsTableViewCell.swift
-//  TrendsTableViewCell
+//  FeedbackTableViewCell.swift
+//  FeedbackTableViewCell
 //
 //  Created by Arnaldo Rozon on 8/2/21.
 //
 
 import UIKit
 
-class TrendsTableViewCell: UITableViewCell {
+class FeedbackTableViewCell: UITableViewCell {
   
-  static let reuseIdentifier = "trendsTableCell"
+  // MARK: - Properties
+  
+  static let reuseIdentifier = "feedbackTableCell"
+  
+  var resultIdentifier: String?
+  
+  // MARK: - View Lifecycle
   
   override func awakeFromNib() {
     super.awakeFromNib()
