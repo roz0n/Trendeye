@@ -13,8 +13,8 @@ class FeedbackTableView: UITableViewController {
   
   let tableType: FeedbackTable
   
-  var feedbackNavigationController: FeedbackViewController {
-    return navigationController as! FeedbackViewController
+  var feedbackNavigationController: FeedbackViewController? {
+    return navigationController as? FeedbackViewController
   }
   
   var classificationIdentifiers: [String]?
@@ -25,13 +25,10 @@ class FeedbackTableView: UITableViewController {
   
   var selectedIdentifiers: [String: Bool] = [:] {
     didSet {
-      if !selectedIdentifiers.isEmpty {
-        
-        if tableType == .incorrect {
-          feedbackNavigationController.incorrectClassificationIdentifiers = selectedIdentifiers
-        } else {
-          feedbackNavigationController.correctClassificationIdentifiers = selectedIdentifiers
-        }
+      if tableType == .incorrect {
+        feedbackNavigationController?.incorrectClassificationIdentifiers = selectedIdentifiers
+      } else {
+        feedbackNavigationController?.correctClassificationIdentifiers = selectedIdentifiers
       }
     }
   }
@@ -72,13 +69,7 @@ class FeedbackTableView: UITableViewController {
   // MARK: - Gestures
   
   @objc func tappedNextButton() {
-    print("Tapped next button")
-    
-    if tableType == .incorrect {
-      feedbackNavigationController.presentCorrectClassificationTable()
-    } else {
-      feedbackNavigationController.presentSubmitScreen()
-    }
+    tableType == .incorrect ? feedbackNavigationController?.presentCorrectClassificationTable() : feedbackNavigationController?.presentSubmitScreen()
   }
   
 }

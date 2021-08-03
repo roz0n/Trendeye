@@ -52,6 +52,7 @@ class FeedbackViewController: UINavigationController {
   
   func presentCorrectClassificationTable() {
     let correctClassificationTable = FeedbackTableView(type: .correct)
+    correctClassificationTable.selectedIdentifiers = correctClassificationIdentifiers
     pushViewController(correctClassificationTable, animated: true)
   }
   
