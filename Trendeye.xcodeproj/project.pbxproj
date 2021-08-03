@@ -52,6 +52,7 @@
 		23AAC1AA262E9BC800744651 /* TrendlistAPINetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1A9262E9BC800744651 /* TrendlistAPINetworkError.swift */; };
 		23AAC1FF2630C86800744651 /* CategoryCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1FE2630C86800744651 /* CategoryCollectionHeaderView.swift */; };
 		23AAC2022630F41500744651 /* FullScreenImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC2012630F41500744651 /* FullScreenImageView.swift */; };
+		23C5702726B90BC600E8EC83 /* FeedbackSubmissionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5702626B90BC600E8EC83 /* FeedbackSubmissionTableViewController.swift */; };
 		23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */; };
 		23CEC9C5263A5505009114B3 /* CameraErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C4263A5505009114B3 /* CameraErrorView.swift */; };
 		23DACBC726B527D7005D02CB /* WelcomeScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DACBC626B527D7005D02CB /* WelcomeScreenController.swift */; };
@@ -125,6 +126,7 @@
 		23AAC1A9262E9BC800744651 /* TrendlistAPINetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendlistAPINetworkError.swift; sourceTree = "<group>"; };
 		23AAC1FE2630C86800744651 /* CategoryCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionHeaderView.swift; sourceTree = "<group>"; };
 		23AAC2012630F41500744651 /* FullScreenImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageView.swift; sourceTree = "<group>"; };
+		23C5702626B90BC600E8EC83 /* FeedbackSubmissionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSubmissionTableViewController.swift; sourceTree = "<group>"; };
 		23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyTableHeaderView.swift; sourceTree = "<group>"; };
 		23CEC9C4263A5505009114B3 /* CameraErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraErrorView.swift; sourceTree = "<group>"; };
 		23DACBC626B527D7005D02CB /* WelcomeScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenController.swift; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 			children = (
 				23496C1E26B8D09900805777 /* Cells */,
 				2303FA5826B8CDEB00EA133A /* FeedbackTableView.swift */,
+				23C5702626B90BC600E8EC83 /* FeedbackSubmissionTableViewController.swift */,
 			);
 			path = FeedbackView;
 			sourceTree = "<group>";
@@ -587,6 +590,7 @@
 				23F80A4F25E2EEA400241206 /* TrendClassifier.mlmodel in Sources */,
 				232AA3912628FF9A00E5E8A1 /* ClassificationTableFooterView.swift in Sources */,
 				23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */,
+				23C5702726B90BC600E8EC83 /* FeedbackSubmissionTableViewController.swift in Sources */,
 				23131B072622F67600FFF2B3 /* K.swift in Sources */,
 				23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */,
 				23AAC2022630F41500744651 /* FullScreenImageView.swift in Sources */,

@@ -17,6 +17,8 @@ class FeedbackTableView: UITableViewController {
     return navigationController as? FeedbackViewController
   }
   
+  // MARK: -
+  
   var classificationIdentifiers: [String]?
   
   var allTrendIdentifiers: [String] {
@@ -37,6 +39,10 @@ class FeedbackTableView: UITableViewController {
   var sourceIdentifiers: [String]? {
     return tableType == .incorrect ? classificationIdentifiers : allTrendIdentifiers
   }
+  
+  // MARK: -
+  
+  var nextButton: UIBarButtonItem?
   
   // MARK: - Lifecycle
   
@@ -61,15 +67,24 @@ class FeedbackTableView: UITableViewController {
   // MARK: - Configurations
   
   func configureNavigationBar() {
-    // TODO: Handle table type
-    let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(tappedNextButton))
+    nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(tappedNextButton))
+    nextButton?.isEnabled = false
+    
     navigationItem.rightBarButtonItem = nextButton
   }
   
   // MARK: - Gestures
   
   @objc func tappedNextButton() {
-    tableType == .incorrect ? feedbackNavigationController?.presentCorrectClassificationTable() : feedbackNavigationController?.presentSubmitScreen()
+    tableType == .incorrect ?
+    feedbackNavigationController?.presentCorrectClassificationTable() :
+    feedbackNavigationController?.presentSubmitScreen()
+  }
+  
+  // MARK: - Helpers
+  
+  func getBarButtonStatus() -> Bool {
+    return !selectedIdentifiers.isEmpty
   }
   
 }
@@ -120,6 +135,7 @@ extension FeedbackTableView {
       selectedIdentifiers[identifier]?.toggle()
     }
     
+    nextButton?.isEnabled = getBarButtonStatus()
     tableView.reloadRows(at: [indexPath], with: .automatic)
   }
   

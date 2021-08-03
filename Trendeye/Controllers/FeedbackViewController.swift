@@ -52,6 +52,7 @@ class FeedbackViewController: UINavigationController {
   
   func presentCorrectClassificationTable() {
     let correctClassificationTable = FeedbackTableView(type: .correct)
+    
     correctClassificationTable.selectedIdentifiers = correctClassificationIdentifiers
     pushViewController(correctClassificationTable, animated: true)
   }
@@ -60,10 +61,11 @@ class FeedbackViewController: UINavigationController {
     // TODO: Perform network call
     // TODO: Handle errors
     
-    let feedbackSubmissionScreen = UIViewController()
-    feedbackSubmissionScreen.view.backgroundColor = .yellow
-    
-    pushViewController(feedbackSubmissionScreen, animated: true)
+    let feedbackSubmissionTable = FeedbackSubmissionTableViewController(
+      Array(incorrectClassificationIdentifiers.keys),
+      Array(correctClassificationIdentifiers.keys),
+      style: .insetGrouped)
+    pushViewController(feedbackSubmissionTable, animated: true)
   }
   
 }
