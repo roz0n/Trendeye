@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FeedbackSelectionTableController: UITableViewController {
+class FeedbackSelectionTableController: UITableViewController, UISearchResultsUpdating {
   
   // MARK: - Properties
   
@@ -17,13 +17,21 @@ class FeedbackSelectionTableController: UITableViewController {
     return navigationController as? FeedbackViewController
   }
   
-  // MARK: -
+  // MARK: - Views
+  
+  var nextButton: UIBarButtonItem?
+  var searchController: UISearchController?
+  
+  // MARK: - Identifier Data Properties
   
   var classificationIdentifiers: [String]?
   
   var allTrendIdentifiers: [String] {
     return Array(TrendClassificationManager.shared.indentifiers.values)
   }
+  
+  // We filter the results during a search, therefore we need a variable we can overwrite and not the computed variable above
+  var trendIdentifiers: [String]?
   
   var selectedIdentifiers: [String: Bool] = [:] {
     didSet {
@@ -37,12 +45,8 @@ class FeedbackSelectionTableController: UITableViewController {
   
   // This variable determines the identifiers we use to populate the list of selected identifiers
   var sourceIdentifiers: [String]? {
-    return tableType == .incorrect ? classificationIdentifiers : allTrendIdentifiers
+    return tableType == .incorrect ? classificationIdentifiers : trendIdentifiers
   }
-  
-  // MARK: -
-  
-  var nextButton: UIBarButtonItem?
   
   // MARK: - Lifecycle
   
@@ -63,6 +67,11 @@ class FeedbackSelectionTableController: UITableViewController {
     super.init(style: .plain)
     
     configureNavigationBar()
+    
+    if tableType == .correct {
+      trendIdentifiers = allTrendIdentifiers
+      configureSearchController()
+    }
   }
   
   required init?(coder: NSCoder) {
@@ -76,6 +85,21 @@ class FeedbackSelectionTableController: UITableViewController {
     nextButton?.isEnabled = getBarButtonStatus()
     
     navigationItem.rightBarButtonItem = nextButton
+  }
+  
+  func configureSearchController() {
+    searchController = UISearchController(searchResultsController: nil)
+    searchController?.searchResultsUpdater = self
+    searchController?.hidesNavigationBarDuringPresentation = false
+    searchController?.obscuresBackgroundDuringPresentation = false
+    searchController?.definesPresentationContext = true
+    searchController?.searchBar.tintColor = UIColor(named: "AccentColor")
+    searchController?.searchBar.placeholder = "Search"
+    searchController?.searchBar.backgroundImage = UIImage()
+    searchController?.searchBar.backgroundColor = .systemBackground
+    
+    navigationItem.hidesSearchBarWhenScrolling = false
+    tableView.tableHeaderView = searchController!.searchBar
   }
   
   // MARK: - Gestures
@@ -92,9 +116,38 @@ class FeedbackSelectionTableController: UITableViewController {
     return !selectedIdentifiers.isEmpty
   }
   
+  func resetData() {
+    trendIdentifiers = allTrendIdentifiers
+    tableView.reloadData()
+  }
+  
+  func filterData(for query: String) {
+    trendIdentifiers?.removeAll()
+    trendIdentifiers = allTrendIdentifiers.filter { $0.lowercased().contains(query.lowercased()) }
+    tableView.reloadData()
+  }
+  
 }
 
-// MARK: - Table view data source
+// MARK: - UISearchResultsUpdating
+
+extension FeedbackSelectionTableController {
+  
+  func updateSearchResults(for searchController: UISearchController) {
+    // update results here
+    guard let query = searchController.searchBar.text else { return }
+    
+    guard query != "" else {
+      resetData()
+      return
+    }
+    
+    filterData(for: query)
+  }
+  
+}
+
+// MARK: - UITableViewDataSource
 
 extension FeedbackSelectionTableController {
   
@@ -103,7 +156,7 @@ extension FeedbackSelectionTableController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return tableType == .incorrect ? classificationIdentifiers!.count : allTrendIdentifiers.count
+    return tableType == .incorrect ? classificationIdentifiers?.count ?? 0 : trendIdentifiers?.count ?? 0
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

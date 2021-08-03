@@ -61,7 +61,7 @@ class FeedbackSubmissionTableController: UITableViewController {
   
 }
 
-// MARK: - Table view data source
+// MARK: - UITableViewDataSource
 
 extension FeedbackSubmissionTableController {
   

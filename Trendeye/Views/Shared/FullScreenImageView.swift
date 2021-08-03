@@ -186,10 +186,10 @@ fileprivate extension FullScreenImageView {
     view.addSubview(backgroundBlurView)
     
     NSLayoutConstraint.activate([
-      backgroundBlurView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-      backgroundBlurView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-      backgroundBlurView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-      backgroundBlurView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
+      backgroundBlurView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      backgroundBlurView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      backgroundBlurView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      backgroundBlurView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])
   }
   
