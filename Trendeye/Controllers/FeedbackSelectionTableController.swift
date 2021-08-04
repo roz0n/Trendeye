@@ -85,7 +85,7 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   
   // MARK: - Configurations
   
-  func configureTableHeader() {
+  fileprivate func configureTableHeader() {
     let instructionsView = UITextView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 100))
     let text = "Please select the incorrectly classified trends from your image analysis. Your selections will be used to better inform future analysis."
     let style = NSMutableParagraphStyle()
@@ -99,14 +99,14 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
     tableView.tableHeaderView = instructionsView
   }
   
-  func configureNavigationBar() {
+  fileprivate func configureNavigationBar() {
     nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(tappedNextButton))
     nextButton?.isEnabled = getBarButtonStatus()
     
     navigationItem.rightBarButtonItem = nextButton
   }
   
-  func configureSearchController() {
+  fileprivate func configureSearchController() {
     searchController = UISearchController(searchResultsController: nil)
     searchController?.searchResultsUpdater = self
     searchController?.hidesNavigationBarDuringPresentation = false
@@ -130,16 +130,16 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   
   // MARK: - Helpers
   
-  func getBarButtonStatus() -> Bool {
+  fileprivate func getBarButtonStatus() -> Bool {
     return !selectedIdentifiers.isEmpty
   }
   
-  func resetData() {
+  fileprivate func resetData() {
     trendIdentifiers = allIdentifiers
     tableView.reloadData()
   }
   
-  func filterData(for query: String) {
+  fileprivate func filterData(for query: String) {
     trendIdentifiers?.removeAll()
     trendIdentifiers = allIdentifiers?.filter { $0.lowercased().contains(query.lowercased()) }
     tableView.reloadData()

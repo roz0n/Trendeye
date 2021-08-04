@@ -19,7 +19,6 @@ class FeedbackSubmissionTableController: UITableViewController {
   
   let incorrectClassifications: [String]
   let correctClassifications: [String]
-  
   let sectionTitles = ["Incorrect Classifications", "Correct Classifications"]
   let sectionData: [Int: [String]]
   
@@ -51,12 +50,11 @@ class FeedbackSubmissionTableController: UITableViewController {
   // MARK: - Configurations
   
   fileprivate func configureNavigation() {
-    let submitButton = UIBarButtonItem(title: "Submit", style: .done, target: self, action: #selector(tappedSubmitButton))
-    navigationItem.rightBarButtonItem = submitButton
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .done, target: self, action: #selector(tappedSubmitButton))
   }
   
   @objc func tappedSubmitButton() {
-    print("Tapped submit")
+    presentSimpleAlert(title: "Feedback Submitted", message: "Thank you for helping improve Trendeye image analysis!", actionTitle: "Close")
   }
   
 }

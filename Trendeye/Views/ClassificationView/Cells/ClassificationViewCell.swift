@@ -17,13 +17,13 @@ class ClassificationViewCell: UITableViewCell {
   var resultData: VNClassificationObservation! {
     didSet {
       identifierLabel.text = TrendClassificationManager.shared.indentifiers[resultData.identifier]
-      resultBars = StackedBarsController(percentage: TrendClassificationManager.shared.convertConfidenceToPercent(resultData.confidence), color: K.Colors.Icon)
+      resultBars = StackedBarsView(percentage: TrendClassificationManager.shared.convertConfidenceToPercent(resultData.confidence), color: K.Colors.Icon)
     }
   }
   
   // MARK: - Views
   
-  var resultBars: StackedBarsController? {
+  var resultBars: StackedBarsView? {
     didSet {
       configureResultBars()
     }
@@ -55,7 +55,7 @@ class ClassificationViewCell: UITableViewCell {
   var resultBarsContainer: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.widthAnchor.constraint(equalToConstant: StackedBarsController.contentWidth).isActive = true
+    view.widthAnchor.constraint(equalToConstant: StackedBarsView.contentWidth).isActive = true
     return view
   }()
     

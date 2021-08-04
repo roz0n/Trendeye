@@ -43,7 +43,9 @@ class BarView: UIView {
   
 }
 
-class StackedBarsController: UIViewController {
+// TODO: This does not need to be a view controller, a regular UIView would suffice
+
+class StackedBarsView: UIViewController {
   
   // MARK: - Properties
   
@@ -55,7 +57,7 @@ class StackedBarsController: UIViewController {
   // MARK: - Views
   
   var barContainer: UIStackView = {
-    let view = UIStackView.init(frame: CGRect(x: 0, y: 0, width: StackedBarsController.contentWidth, height: 20))
+    let view = UIStackView.init(frame: CGRect(x: 0, y: 0, width: StackedBarsView.contentWidth, height: 20))
     view.distribution = .fillEqually
     view.axis = .horizontal
     view.spacing = 5

@@ -9,7 +9,7 @@ import UIKit
 
 // TODO: Add an error view incase there's a failure getting the large image
 // TODO: Add an error view incase access to photos is restricted and the file could not be saved
-class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
+class FullScreenImageViewController: UIViewController, UIGestureRecognizerDelegate {
   
   // MARK: - Properties
   
@@ -173,7 +173,7 @@ class FullScreenImageView: UIViewController, UIGestureRecognizerDelegate {
 
 // MARK: - Layout
 
-fileprivate extension FullScreenImageView {
+fileprivate extension FullScreenImageViewController {
   
   func applyLayouts() {
     layoutBackgroundBlurView()

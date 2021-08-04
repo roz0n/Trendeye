@@ -53,7 +53,7 @@ class FeedbackViewController: UINavigationController {
   
   // MARK: - Helpers
   
-  func getFilteredIdentifiers(classified classifiedIdentifiers: [String], all allIdentifiers: [String]) -> [String] {
+  fileprivate func getFilteredIdentifiers(classified classifiedIdentifiers: [String], all allIdentifiers: [String]) -> [String] {
     return allIdentifiers.filter { !classifiedIdentifiers.contains($0) }
   }
   
@@ -81,5 +81,9 @@ class FeedbackViewController: UINavigationController {
     feedbackSubmissionTable.title = "Confirm"
     pushViewController(feedbackSubmissionTable, animated: true)
   }
+  
+  // MARK: - Networking
+  
+  
   
 }
