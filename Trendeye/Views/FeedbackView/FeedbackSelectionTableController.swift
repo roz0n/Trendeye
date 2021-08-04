@@ -24,22 +24,22 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   
   // MARK: - Identifier Data Properties
   
+  // This is used when loading the "correct" table, it's a filtered list of all the identifiers
+  // It's not needed in the "incorrect" table, as that only loads the classified identifiers
+  var allIdentifiers: [String]?
   var classifiedIdentifiers: [String]?
   
-  var allTrendIdentifiers: [String] {
-    return Array(TrendClassificationManager.shared.indentifiers.values)
-  }
-  
-  // We filter the results during a search, therefore we need a variable we can overwrite and not the computed variable above
-  // TODO: These need to be filtered for the trends from the classifier the user did not label as incorrect
+  // This value is initially identical to `allIdentifiers` but is mutated during searches to present filtered results
   var trendIdentifiers: [String]?
   
+  // These are the identifiers the user has selected as correct and incorrect
+  // They are sent back to the parent view controller for processing upon completion of the feedback flow
   var selectedIdentifiers: [String: Bool] = [:] {
     didSet {
       if tableType == .incorrect {
-        feedbackNavigationController?.incorrectClassificationIdentifiers = selectedIdentifiers
+        feedbackNavigationController?.incorrectIdentifiers = selectedIdentifiers
       } else {
-        feedbackNavigationController?.correctClassificationIdentifiers = selectedIdentifiers
+        feedbackNavigationController?.correctIdentifiers = selectedIdentifiers
       }
     }
   }
@@ -63,14 +63,16 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   
   // MARK: - Initializers
   
-  init(type: FeedbackTable) {
+  init(type: FeedbackTable, identifiers: [String]?) {
     self.tableType = type
+    self.allIdentifiers = identifiers
+    
     super.init(style: .plain)
     
     configureNavigationBar()
     
     if tableType == .correct {
-      trendIdentifiers = allTrendIdentifiers
+      trendIdentifiers = allIdentifiers
       configureSearchController()
     } else {
       configureTableHeader()
@@ -133,13 +135,13 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   }
   
   func resetData() {
-    trendIdentifiers = allTrendIdentifiers
+    trendIdentifiers = allIdentifiers
     tableView.reloadData()
   }
   
   func filterData(for query: String) {
     trendIdentifiers?.removeAll()
-    trendIdentifiers = allTrendIdentifiers.filter { $0.lowercased().contains(query.lowercased()) }
+    trendIdentifiers = allIdentifiers?.filter { $0.lowercased().contains(query.lowercased()) }
     tableView.reloadData()
   }
   
@@ -150,7 +152,6 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
 extension FeedbackSelectionTableController {
   
   func updateSearchResults(for searchController: UISearchController) {
-    // update results here
     guard let query = searchController.searchBar.text else { return }
     
     guard query != "" else {

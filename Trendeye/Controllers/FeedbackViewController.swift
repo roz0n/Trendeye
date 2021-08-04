@@ -16,31 +16,34 @@ class FeedbackViewController: UINavigationController {
   
   // MARK: - Properties
   
-  var incorrectClassificationIdentifiers = [String: Bool]()
-  var correctClassificationIdentifiers =  [String: Bool]()
+  var classifiedIdentifiers: [String]
+  var incorrectIdentifiers = [String: Bool]()
+  var correctIdentifiers =  [String: Bool]()
+  
+  var allIdentifiers: [String] {
+    return Array(TrendClassificationManager.shared.indentifiers.values)
+  }
   
   // MARK: - Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    // Do any additional setup after loading the view.
-    view.backgroundColor = .systemPurple
   }
   
   // MARK: - Initializers
   
   convenience init(with identifers: [String]) {
-    let incorrectClassificationTable = FeedbackSelectionTableController(type: .incorrect)
+    let incorrectIdentifiersTable = FeedbackSelectionTableController(type: .incorrect, identifiers: nil)
     
-    incorrectClassificationTable.classifiedIdentifiers = identifers
-    incorrectClassificationTable.navigationItem.title = "Report Incorrect Analysis"
-    incorrectClassificationTable.navigationItem.backButtonTitle = ""
+    incorrectIdentifiersTable.classifiedIdentifiers = identifers
+    incorrectIdentifiersTable.navigationItem.title = "Report Incorrect Analysis"
+    incorrectIdentifiersTable.navigationItem.backButtonTitle = ""
     
-    self.init(rootViewController: incorrectClassificationTable)
+    self.init(rootViewController: incorrectIdentifiersTable, classifiedIdentifiers: identifers)
   }
   
-  override init(rootViewController: UIViewController) {
+  init(rootViewController: UIViewController, classifiedIdentifiers: [String]) {
+    self.classifiedIdentifiers = classifiedIdentifiers
     super.init(rootViewController: rootViewController)
   }
   
@@ -50,14 +53,20 @@ class FeedbackViewController: UINavigationController {
   
   // MARK: - Helpers
   
+  func getFilteredIdentifiers(classified classifiedIdentifiers: [String], all allIdentifiers: [String]) -> [String] {
+    return allIdentifiers.filter { !classifiedIdentifiers.contains($0) }
+  }
+  
   func presentCorrectClassificationTable() {
-    let correctClassificationTable = FeedbackSelectionTableController(type: .correct)
+    // The full list of identifiers needs to be filtered in order to remove the values that were present in the classification being reported
+    let filteredIdentifiers = getFilteredIdentifiers(classified: classifiedIdentifiers, all: allIdentifiers)
+    let correctIdentifiersTable = FeedbackSelectionTableController(type: .correct, identifiers: filteredIdentifiers)
     
-    correctClassificationTable.selectedIdentifiers = correctClassificationIdentifiers
-    correctClassificationTable.navigationItem.title = "Select Correct Trends"
-    correctClassificationTable.navigationItem.backButtonTitle = ""
+    correctIdentifiersTable.selectedIdentifiers = correctIdentifiers
+    correctIdentifiersTable.navigationItem.title = "Select Correct Trends"
+    correctIdentifiersTable.navigationItem.backButtonTitle = ""
     
-    pushViewController(correctClassificationTable, animated: true)
+    pushViewController(correctIdentifiersTable, animated: true)
   }
   
   func presentSubmitScreen() {
@@ -65,8 +74,8 @@ class FeedbackViewController: UINavigationController {
     // TODO: Handle errors
     
     let feedbackSubmissionTable = FeedbackSubmissionTableController(
-      Array(incorrectClassificationIdentifiers.keys),
-      Array(correctClassificationIdentifiers.keys),
+      Array(incorrectIdentifiers.keys),
+      Array(correctIdentifiers.keys),
       style: .insetGrouped)
     
     feedbackSubmissionTable.title = "Confirm"
