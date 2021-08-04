@@ -24,7 +24,7 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   
   // MARK: - Identifier Data Properties
   
-  var classificationIdentifiers: [String]?
+  var classifiedIdentifiers: [String]?
   
   var allTrendIdentifiers: [String] {
     return Array(TrendClassificationManager.shared.indentifiers.values)
@@ -46,7 +46,7 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   
   // This variable determines the identifiers we use to populate the list of selected identifiers
   var sourceIdentifiers: [String]? {
-    return tableType == .incorrect ? classificationIdentifiers : trendIdentifiers
+    return tableType == .incorrect ? classifiedIdentifiers : trendIdentifiers
   }
   
   // MARK: - Lifecycle
@@ -72,6 +72,8 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
     if tableType == .correct {
       trendIdentifiers = allTrendIdentifiers
       configureSearchController()
+    } else {
+      configureTableHeader()
     }
   }
   
@@ -80,6 +82,20 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   }
   
   // MARK: - Configurations
+  
+  func configureTableHeader() {
+    let instructionsView = UITextView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 100))
+    let text = "Please select the incorrectly classified trends from your image analysis. Your selections will be used to better inform future analysis."
+    let style = NSMutableParagraphStyle()
+    
+    style.lineSpacing = 4
+    instructionsView.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.paragraphStyle: style])
+    instructionsView.textContainerInset = UIEdgeInsets(top: 20, left: 12, bottom: 20, right: 12)
+    instructionsView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+    instructionsView.textColor = K.Colors.Icon.withAlphaComponent(0.5)
+    
+    tableView.tableHeaderView = instructionsView
+  }
   
   func configureNavigationBar() {
     nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(tappedNextButton))
@@ -156,7 +172,7 @@ extension FeedbackSelectionTableController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return tableType == .incorrect ? classificationIdentifiers?.count ?? 0 : trendIdentifiers?.count ?? 0
+    return tableType == .incorrect ? classifiedIdentifiers?.count ?? 0 : trendIdentifiers?.count ?? 0
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
