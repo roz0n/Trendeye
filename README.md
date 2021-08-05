@@ -12,7 +12,7 @@ Experimental graphic design trend classification on iOS powered by Vision, CoreM
 
 - [@roz0n](https://www.rozon.org/)
 
-> Design, mobile development, backend development, deployment, testing, and everything in-between. I am not a machine learning engineer (just an enthusiast).
+> Design, mobile development, backend development, deployment, testing, and everything in-between. I am not a machine learning engineer — just an enthusiast.
 
 ## Screenshots
 
@@ -24,11 +24,11 @@ Experimental graphic design trend classification on iOS powered by Vision, CoreM
 
 **Frontend:** Swift, UIKit (fully programmatic), AVKit, Vision, CoreML
 
-**Backend:** TypeScript, Node, MongoDB, Redis, Express (namely [JSDOM](https://github.com/jsdom/jsdom) and Node's [Stream API](https://nodejs.org/api/stream.html#stream_stream) for image scraping, tagging, and saving)
+**Backend:** TypeScript, Node, MongoDB Atlas, Redis, Express (namely [JSDOM](https://github.com/jsdom/jsdom) and Node's [Stream API](https://nodejs.org/api/stream.html#stream_stream) for image scraping, tagging, and saving)
 
 > For more information about the Trendeye backend, kindly visit the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) repo though it's currently undocumented.
 
-**Deployment:** Heroku (for its simplicity 😉 ) and MongoDB Atlas
+**Deployment:** ~~Digital Ocean, Terraform~~ Heroku (for simplicity 😉 )
 
 **Design:** Figma, Adobe Illustrator
 
