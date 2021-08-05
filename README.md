@@ -8,12 +8,6 @@
 Experimental graphic design trend classification on iOS powered by Vision, CoreML, and over 14,000 images featured in <a href="https://www.trendlist.org">TrendList.org</a>
 </p>
 
-## Authors
-
-- [@roz0n](https://www.rozon.org/)
-
-> Design, mobile development, backend development, deployment, testing, and everything in-between. I am not a machine learning engineer — just an enthusiast.
-
 ## Screenshots
 
 <p align="center" width="100%">
@@ -78,6 +72,12 @@ The project follows traditional iOS development conventions in the event you'd l
 3. Select the `Signing & Capabilities` tab.
 4. Change the team from the dropdown menu to your own developer account.
 5. Build the app: `⌘ + R`
+
+## Authors
+
+- [@roz0n](https://www.rozon.org/)
+
+> Design, mobile development, backend development, deployment, testing, and everything in-between. I am not a machine learning engineer — just an enthusiast.
 
 ## Acknowledgements
 
