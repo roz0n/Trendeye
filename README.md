@@ -26,7 +26,7 @@ Experimental graphic design trend classification on iOS powered by Vision, CoreM
 
 **Backend:** TypeScript, Node, MongoDB, Redis, Express (namely [JSDOM](https://github.com/jsdom/jsdom) and Node's [Stream API](https://nodejs.org/api/stream.html#stream_stream) for image scraping, tagging, and saving)
 
-> For more information about the Trendeye backend, kindly visit the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) repo, though it's currently undocumented.
+> For more information about the Trendeye backend, kindly visit the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) repo though it's currently undocumented.
 
 **Deployment:** Heroku (for its simplicity 😉 ) and MongoDB Atlas
 
@@ -67,11 +67,11 @@ Once submitted, the feedback report is stored in the cloud via MongoDB Atlas for
 - Continually improve the accuracy of the image classification model
 - Implement custom cropping
 
-## Run on a Local Device
+## Run on a Physical Device
 
 Because Trendeye relies on [`AVCaptureSession`](https://developer.apple.com/documentation/avfoundation/avcapturesession) it will not work inside a simulator without significant modifications to the [`CameraViewController`](https://github.com/roz0n/Trendeye/blob/master/Trendeye/Controllers/CameraViewController.swift) class. You will need to install it on a physical device to build it from source.
 
-The project follows traditional iOS development conventions in the event you'd like to do so:
+The project follows traditional iOS development conventions in the event you'd like to do so.
 
 1. Clone the repo and open the project.
 2. Select the app target in the Xcode's project navigator.
