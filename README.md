@@ -5,14 +5,14 @@
 <h1 align="center">Trendeye (Beta)</h1>
 
 <p align="center" width="100%">
-    Graphic design trend classification powered by CoreML and images from <a href="https://www.trendlist.org">TrendList.org</a>
+Experimental graphic design trend classification powered by Vision, CoreML, and images featured on <a href="https://www.trendlist.org">TrendList.org</a>
 </p>
 
 ## Authors
 
-- [@roz0n](https://www.linkedin.com/in/rozon)
+- [@roz0n](https://www.rozon.org/)
 
-> Design, development, deployment, testing, and everything in-between
+> Design, mobile development, backend development, deployment, testing, and everything in-between. I am not a machine learning engineer.
 
 ## Screenshots
 
@@ -22,50 +22,75 @@
 
 ## Stack
 
-**Client:** Swift, UIKit (fully programmatic MVC, zero storyboards or nibs), AVKit, CoreML
+**Frontend:** Swift, UIKit (fully programmatic UI), AVKit, Vision, CoreML
 
-**Server:** TypeScript, Node, Redis, Express (namely [JSDOM](https://github.com/jsdom/jsdom) and Node's [Stream API](https://nodejs.org/api/stream.html#stream_stream) for web and image scraping respectively)
+**Backend:** TypeScript, Node, MongoDB, Redis, Express (namely [JSDOM](https://github.com/jsdom/jsdom) and Node's [Stream API](https://nodejs.org/api/stream.html#stream_stream) for image scraping)
 
-> For more information about the Trendeye back-end, kindly visit the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) repo.
+> For more information about the Trendeye backend, kindly visit the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) repo, though it's currently undocumented.
 
-**Deployment:** Terraform, Docker, Ubuntu (via DigitalOcean), NGINX
+**Deployment:** Heroku (for simplicity 😉) and MongoDB Atlas
 
 **Design:** Figma, Adobe Illustrator
 
-> To view complete designs, kindly visit [this](https://www.figma.com/file/yb2EerWCmNrCjhuYVYR150/TRENDEYE-iOS-App?node-id=321%3A582) Figma artboard.
+## Background
+
+[TrendList.org](https://www.trendlist.org) was founded by **Ondřej Zita** and **Michal Sloboda** and has been featured in renowned publications such as [It's Nice That](https://www.itsnicethat.com/features/trend-list-graphic-design-trends-2020-preview-of-the-year-2020-opinion-060120). The aim of the portal, in the words of the founders:
+
+> Trend List was a reaction to ever-present formalism and the repetitive visual language in the works that we saw online. … We wanted to catalogue this to see if there are patterns in visual trends and how those evolve over time. In the early days, we received hate emails and requests of removal, but it soon changed. Over the years Trend List became a benchmark, a reference database and a source of inspiration for up-and-coming designers. Now there are designers submitting their own creations to Trend List daily.
 
 ## Features
 
-Trendeye is a simple app with a simple purpose and feature-set but contains some interesting UX goodies built from the ground up:
+Trendeye leverages [Vision](https://developer.apple.com/documentation/vision) and [CoreML](https://developer.apple.com/documentation/coreml) to analyze a given image and infer *multiple* trends that may be present, to some degree, in a given piece of graphic design work. The image classification model was trained by over **14,000** images present in the Trend List catalogue.
 
-- Snapchat-style full-screen camera view input powered by AVKit (namely `AVCaptureSession`)
-- Instagram-style image panning and zooming (leveraging `UIPanGestureRecognizer` and `UIPinchGestureRecognizer` in tandem)
-- Stretchy table headers (using a modified version of Michael Nachbaur's very eloquent [solution](https://nachbaur.com/2020/05/06/stretchable-tableview-header/))
+When launched, it initiates a thoroughly configured [`AVCaptureSession`](https://developer.apple.com/documentation/avfoundation/avcapturesession) that supports custom implementations of features commonly found in popular camera-based apps such as Instagram and Snapchat: tap-to-focus, pinch-to-zoom, and flash and torch toggling. Likewise, the user can select an image from their gallery using [`UIImagePickerController`](https://developer.apple.com/documentation/uikit/uiimagepickercontroller).
 
-Most importantly, the above was accomplished without a single third-party dependency. Though, in some ways I wish I had used _some_ as I encountered a fair number of bugs in UIKit along the way 🌝
+Upon classification, users can learn more about a specific trend by tapping its cell. Examples of the trend are presented in a [`UICollectionView`](https://developer.apple.com/documentation/uikit/uicollectionview) grid and a link is provided to view trend's page on Trend List via a [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview). Furthermore, users can choose to provide feedback regarding the accuracy of the analysis and help train the model itself.
+
+### Training the Model for Improved Accuracy
+
+ As it stands, a user feedback report is a JSON payload that consists of the following:
+
+| Property | Type | Description |
+|:--|:--|
+| `type` | `String` | Either "positive" or "negative" |
+| `classifiedIdentifiers` | `[String: Bool]` | Trends identified by the model that may be inaccurate |
+| `correctIdentifiers` | `[String]?` | Trends the user has identified as more accurate representations of the given image or `nil` if `type` is "positive" |
+| `date` | `Date` | A timestamp of the analysis |
+| `deviceId` | `String` | An anonymous, unique identifier of the user's device |
+|`classificationResult` | `String` | The classification's [`VNClassificationObservation`](https://developer.apple.com/documentation/vision/vnclassificationobservation) encoded to a JSON string |
+
+Once submitted, the feedback report is stored in the cloud via MongoDB Atlas for further processing with CoreML.
 
 ## Roadmap
+- Deploy to AppStore (currently available via TestFlight only)
+- Continually improve the accuracy of the image classification model
+- Implement custom cropping
 
-- **_Greatly_** improve the accuracy of the image classification model
-- Implement photo framing and cropping using `UIGraphicsImageRenderer`
-- Persist classification results locally on the device using CoreData and subsequently sync them with `CloudKit`
+## Run on a Local Device
 
-## Run Locally
+Because Trendeye relies on [`AVCaptureSession`](https://developer.apple.com/documentation/avfoundation/avcapturesession) it will not work inside a simulator without significant modifications to the [`CameraViewController`](https://github.com/roz0n/Trendeye/blob/master/Trendeye/Controllers/CameraViewController.swift) class. You will need to install it on a physical device to build it from source.
 
-## Run Tests
+The project follows traditional iOS development conventions in the event you'd like to do so:
+
+1. Clone the repo and open the project.
+2. Select the app target in the Xcode's project navigator.
+3. Select the `Signing & Capabilities` tab.
+4. Change the team from the dropdown menu to your own developer account.
+4. Build the app: `⌘ + R`
 
 ## Acknowledgements
 
-- [Trend List](https://www.trendlist.org/)
-- [Indian Type Foundry](https://www.indiantypefoundry.com/)
-- [FontShare](https://www.fontshare.com/)
+- [TrendList.org](https://www.trendlist.org/) and its founders
+- The legion of remarkably talented designers, artists, and studios, that have had their work cataloged on the [Trend List](https://www.trendlist.org) blog.
 
-... and most notably, the legion of talented designers/artists/studios that have had their work cataloged on the [Trend List](https://www.trendlist.org) blog. Thank you.
+Thank you.
 
 ## Contact Me
 
-For support, bug reports, inquiries, or a stern talking to, email arnold@rozon.dev
+For support, bug reports, inquiries, or a stern talking to, email [arnold@rozon.org](mailto:arnold@rozon.org)
 
 ## License
+
+Trendeye is entirely ad-free, open-source, and will be in perpetuity.
 
 [MPL-2.0 License](https://choosealicense.com/licenses/mpl-2.0/)
