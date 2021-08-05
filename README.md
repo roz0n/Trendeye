@@ -5,14 +5,14 @@
 <h1 align="center">Trendeye (Beta)</h1>
 
 <p align="center" width="100%">
-Experimental graphic design trend classification on iOS powered by Vision, CoreML, and images featured on <a href="https://www.trendlist.org">TrendList.org</a>
+Experimental graphic design trend classification on iOS powered by Vision, CoreML, and over 14,000 images featured in <a href="https://www.trendlist.org">TrendList.org</a>
 </p>
 
 ## Authors
 
 - [@roz0n](https://www.rozon.org/)
 
-> Design, mobile development, backend development, deployment, testing, and everything in-between. I am not a machine learning engineer.
+> Design, mobile development, backend development, deployment, testing, and everything in-between. I am not a machine learning engineer (just an enthusiast).
 
 ## Screenshots
 
@@ -20,7 +20,7 @@ Experimental graphic design trend classification on iOS powered by Vision, CoreM
     <img src="./README-Screenshots.png"> 
 </p>
 
-## Stack
+## Architecture
 
 **Frontend:** Swift, UIKit (fully programmatic), AVKit, Vision, CoreML
 
