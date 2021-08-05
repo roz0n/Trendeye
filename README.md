@@ -69,7 +69,7 @@ Once submitted, the feedback report is stored in the cloud via MongoDB Atlas for
 
 ## Run on a Physical Device
 
-Because Trendeye relies on [`AVCaptureSession`](https://developer.apple.com/documentation/avfoundation/avcapturesession) it will not work inside a simulator without significant modifications to the [`CameraViewController`](https://github.com/roz0n/Trendeye/blob/master/Trendeye/Controllers/CameraViewController.swift) class. You will need to install it on a physical device to build it from source.
+Because Trendeye relies on [`AVCaptureSession`](https://developer.apple.com/documentation/avfoundation/avcapturesession) it will not run on a simulator without significant modifications to the [`CameraViewController`](https://github.com/roz0n/Trendeye/blob/master/Trendeye/Controllers/CameraViewController.swift) class. You will need to install it on a physical device to build it from source.
 
 The project follows traditional iOS development conventions in the event you'd like to do so.
 
