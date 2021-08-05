@@ -8,12 +8,6 @@
 Experimental graphic design trend classification on iOS powered by Vision, CoreML, and over 14,000 images featured in <a href="https://www.trendlist.org">TrendList.org</a>
 </p>
 
-## Authors
-
-- [@roz0n](https://www.rozon.org/)
-
-> Design, mobile development, backend development, deployment, testing, and everything in-between. I am not a machine learning engineer — just an enthusiast.
-
 ## Screenshots
 
 <p align="center" width="100%">
@@ -28,7 +22,7 @@ Experimental graphic design trend classification on iOS powered by Vision, CoreM
 
 > For more information about the Trendeye backend, kindly visit the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) repo though it's currently undocumented.
 
-**Deployment:** ~~Digital Ocean, Terraform~~ Heroku (for simplicity 😉 )
+**Deployment:** Heroku
 
 **Design:** Figma, Adobe Illustrator
 
@@ -38,7 +32,7 @@ Experimental graphic design trend classification on iOS powered by Vision, CoreM
 
 > "Trend List was a reaction to ever-present formalism and the repetitive visual language in the works that we saw online. … We wanted to catalogue this to see if there are patterns in visual trends and how those evolve over time. In the early days, we received hate emails and requests of removal, but it soon changed. Over the years Trend List became a benchmark, a reference database and a source of inspiration for up-and-coming designers. Now there are designers submitting their own creations to Trend List daily."
 
-## Features
+## Feature Breakdown
 
 Trendeye leverages [Vision](https://developer.apple.com/documentation/vision) and [CoreML](https://developer.apple.com/documentation/coreml) to analyze a given image and infer _multiple_ trends that may be present, to some degree, in a given piece of graphic design work. The image classification model was trained by over **14,000** images present in the Trend List catalogue.
 
@@ -69,9 +63,9 @@ Once submitted, the feedback report is stored in the cloud via MongoDB Atlas for
 
 ## Run on a Physical Device
 
-Because Trendeye relies on [`AVCaptureSession`](https://developer.apple.com/documentation/avfoundation/avcapturesession) it will not work inside a simulator without significant modifications to the [`CameraViewController`](https://github.com/roz0n/Trendeye/blob/master/Trendeye/Controllers/CameraViewController.swift) class. You will need to install it on a physical device to build it from source.
+Because Trendeye relies on [`AVCaptureSession`](https://developer.apple.com/documentation/avfoundation/avcapturesession) it will not run on a simulator without significant modifications to the [`CameraViewController`](https://github.com/roz0n/Trendeye/blob/master/Trendeye/Controllers/CameraViewController.swift) class. You will need to install it on a physical device.
 
-The project follows traditional iOS development conventions in the event you'd like to do so.
+The project follows traditional iOS development conventions in the event you'd like to build it from source.
 
 1. Clone the repo and open the project.
 2. Select the app target in the Xcode's project navigator.
@@ -79,12 +73,16 @@ The project follows traditional iOS development conventions in the event you'd l
 4. Change the team from the dropdown menu to your own developer account.
 5. Build the app: `⌘ + R`
 
+## Authors
+
+- [@roz0n](https://www.rozon.org/)
+
+> Design, mobile development, backend development, deployment, testing, and everything in-between. I am not a machine learning engineer — just an enthusiast.
+
 ## Acknowledgements
 
 - [TrendList.org](https://www.trendlist.org/) and its founders Michal Sloboda and Ondřej Zita.
 - The legion of remarkably talented designers, artists, and studios, that have had their work cataloged on the [Trend List](https://www.trendlist.org) blog.
-
-Thank you.
 
 ## Contact Me
 
