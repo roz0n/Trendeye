@@ -28,7 +28,7 @@ Experimental graphic design trend classification on iOS powered by Vision, CoreM
 
 > For more information about the Trendeye backend, kindly visit the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) repo though it's currently undocumented.
 
-**Deployment:** ~~Digital Ocean, Terraform~~ Heroku (for simplicity 😉 )
+**Deployment:** Heroku
 
 **Design:** Figma, Adobe Illustrator
 
