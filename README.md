@@ -84,8 +84,6 @@ The project follows traditional iOS development conventions in the event you'd l
 - [TrendList.org](https://www.trendlist.org/) and its founders Michal Sloboda and Ondřej Zita.
 - The legion of remarkably talented designers, artists, and studios, that have had their work cataloged on the [Trend List](https://www.trendlist.org) blog.
 
-Thank you.
-
 ## Contact Me
 
 For support, bug reports, inquiries, or a stern talking to, email [arnold@rozon.org](mailto:arnold@rozon.org)
