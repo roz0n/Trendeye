@@ -106,18 +106,19 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     
     displayCameraView()
     configureContainerView()
-    configureCaptureDevices()
-
+    requestDeviceAccess()
+    
     if !captureDeviceError {
+      configureCaptureDevices()
       configureCaptureSession()
       configureLivePreview()
       startCaptureSession()
-//      presentWelcomeScreen()
+      // presentWelcomeScreen()
     }
     
-//    SHORTCUT_PRESENT_CONFIRMATION()
-    SHORTCUT_PRESENT_CLASSIFICATION()
-//    SHORTCUT_PRESENT_CATEGORY()
+    //    SHORTCUT_PRESENT_CONFIRMATION()
+    //    SHORTCUT_PRESENT_CLASSIFICATION()
+    //    SHORTCUT_PRESENT_CATEGORY()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -156,6 +157,23 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   // MARK: - Capture Session Configuration
   
+  fileprivate func requestDeviceAccess() {
+    let cameraUsageStatus = AVCaptureDevice.authorizationStatus(for: .video)
+    
+    if cameraUsageStatus != .authorized {
+      AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
+        DispatchQueue.main.async {
+          if granted {
+            self?.captureDeviceError = false
+          } else {
+            self?.captureDeviceError = true
+            print("User did not grant camera access")
+          }
+        }
+      }
+    }
+  }
+  
   fileprivate func selectBestDevice(for position: AVCaptureDevice.Position) -> AVCaptureDevice? {
     let discoverySession = AVCaptureDevice.DiscoverySession(
       deviceTypes: [
@@ -190,6 +208,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         captureSession.addInput(input)
         captureSession.addOutput(imageOutput)
         configureLivePreview()
+      } else {
+        captureDeviceError = true
       }
     } catch let error {
       captureDeviceError = true
@@ -336,17 +356,17 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     let elipse = CAShapeLayer()
     let radius: CGFloat = 24
     let path = UIBezierPath(arcCenter: point, radius: radius, startAngle: CGFloat(Double.pi/2), endAngle: CGFloat(Double.pi) * 4, clockwise: true)
-
+    
     elipse.path = path.cgPath
     elipse.strokeColor = K.Colors.White.cgColor
     elipse.fillColor = UIColor.clear.cgColor
     elipse.lineWidth = 2
-
+    
     // All values to represent the initial state as this will be animated
     elipse.opacity = 1
     elipse.strokeStart = 0
     elipse.strokeEnd = 0
-
+    
     view.layer.addSublayer(elipse)
     animateFocusShape(elipse, for: 0.30)
   }
