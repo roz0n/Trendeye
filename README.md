@@ -5,7 +5,7 @@
 <h1 align="center">Trendeye (Beta)</h1>
 
 <p align="center" width="100%">
-Experimental graphic design trend classification powered by Vision, CoreML, and images featured on <a href="https://www.trendlist.org">TrendList.org</a>
+Experimental graphic design trend classification on iOS powered by Vision, CoreML, and images featured on <a href="https://www.trendlist.org">TrendList.org</a>
 </p>
 
 ## Authors
@@ -28,7 +28,7 @@ Experimental graphic design trend classification powered by Vision, CoreML, and 
 
 > For more information about the Trendeye backend, kindly visit the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) repo, though it's currently undocumented.
 
-**Deployment:** Heroku (for simplicity 😉) and MongoDB Atlas
+**Deployment:** Heroku (for its simplicity 😉) and MongoDB Atlas
 
 **Design:** Figma, Adobe Illustrator
 
@@ -44,20 +44,20 @@ Trendeye leverages [Vision](https://developer.apple.com/documentation/vision) an
 
 When launched, it initiates a thoroughly configured [`AVCaptureSession`](https://developer.apple.com/documentation/avfoundation/avcapturesession) that supports custom implementations of features commonly found in popular camera-based apps such as Instagram and Snapchat: tap-to-focus, pinch-to-zoom, and flash and torch toggling. Likewise, the user can select an image from their gallery using [`UIImagePickerController`](https://developer.apple.com/documentation/uikit/uiimagepickercontroller).
 
-Upon classification, users can learn more about a specific trend by tapping its cell. Examples of the trend are presented in a [`UICollectionView`](https://developer.apple.com/documentation/uikit/uicollectionview) grid and a link is provided to view trend's page on Trend List via a [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview). Furthermore, users can choose to provide feedback regarding the accuracy of the analysis and help train the model itself.
+Upon classification, users can learn more about a specific trend by tapping its cell. Examples of the trend are presented in a [`UICollectionView`](https://developer.apple.com/documentation/uikit/uicollectionview) grid and a link is provided to view trend's page on Trend List via a [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview).  The image grid is powered by the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) which, amongst other things, is a complete RESTful API of the entire Trend List catalogue.
 
 ### Training the Model for Improved Accuracy
 
- As it stands, a user feedback report is a JSON payload that consists of the following:
+ Users can choose to provide feedback regarding the accuracy of the analysis and help train the model. As it stands, a user feedback report is a JSON payload that consists of the following:
 
 | Property | Type | Description |
-|:--|:--|
-| `type` | `String` | Either "positive" or "negative" |
-| `classifiedIdentifiers` | `[String: Bool]` | Trends identified by the model that may be inaccurate |
-| `correctIdentifiers` | `[String]?` | Trends the user has identified as more accurate representations of the given image or `nil` if `type` is "positive" |
-| `date` | `Date` | A timestamp of the analysis |
-| `deviceId` | `String` | An anonymous, unique identifier of the user's device |
+|:--|:--|:--|
+| `type` | `String` | Either `"positive"` or `"negative"` |
 |`classificationResult` | `String` | The classification's [`VNClassificationObservation`](https://developer.apple.com/documentation/vision/vnclassificationobservation) encoded to a JSON string |
+| `classifiedIdentifiers` | `[String: Bool]` | Trends identified by the model that may be inaccurate |
+| `correctIdentifiers` | `[String]?` | Trends the user has identified as more accurate representations of the given image or `nil` if `type` is `"positive"` |
+| `date` | `Date` | A UTC timestamp of the analysis |
+| `deviceId` | `String` | An anonymous, unique identifier of the user's device |
 
 Once submitted, the feedback report is stored in the cloud via MongoDB Atlas for further processing with CoreML.
 
