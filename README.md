@@ -40,28 +40,29 @@ Experimental graphic design trend classification on iOS powered by Vision, CoreM
 
 ## Features
 
-Trendeye leverages [Vision](https://developer.apple.com/documentation/vision) and [CoreML](https://developer.apple.com/documentation/coreml) to analyze a given image and infer *multiple* trends that may be present, to some degree, in a given piece of graphic design work. The image classification model was trained by over **14,000** images present in the Trend List catalogue.
+Trendeye leverages [Vision](https://developer.apple.com/documentation/vision) and [CoreML](https://developer.apple.com/documentation/coreml) to analyze a given image and infer _multiple_ trends that may be present, to some degree, in a given piece of graphic design work. The image classification model was trained by over **14,000** images present in the Trend List catalogue.
 
 When launched, the app starts a thoroughly configured [`AVCaptureSession`](https://developer.apple.com/documentation/avfoundation/avcapturesession) that supports custom implementations of features commonly found in popular camera-based apps such as Instagram and Snapchat: tap-to-focus, pinch-to-zoom, and flash and torch toggling. Likewise, the user can select an image from their gallery using [`UIImagePickerController`](https://developer.apple.com/documentation/uikit/uiimagepickercontroller).
 
-Upon classification, users can learn more about a specific trend by tapping its cell. Examples of the trend are presented in a [`UICollectionView`](https://developer.apple.com/documentation/uikit/uicollectionview) grid and a link is provided to view trend's page on Trend List via a [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview).  The image grid is powered by the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) which, amongst other things, is a complete RESTful API of the entire Trend List catalogue.
+Upon classification, users can learn more about a specific trend by tapping its cell. Examples of the trend are presented in a [`UICollectionView`](https://developer.apple.com/documentation/uikit/uicollectionview) grid and a link is provided to view trend's page on Trend List via a [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview). The image grid is powered by the [Unofficial TrendList API](https://github.com/roz0n/trendlist-api) which, amongst other things, is a complete RESTful API of the entire Trend List catalogue.
 
 ### Training the Model for Improved Accuracy
 
- Users can choose to provide feedback regarding the accuracy of the analysis and help train the model. As it stands, a user feedback report is a JSON payload that consists of the following:
+Users can choose to provide feedback regarding the accuracy of the analysis and help train the model. As it stands, a user feedback report is a JSON payload that consists of the following:
 
-| Property | Type | Description |
-|:--|:--|:--|
-| `type` | `String` | Either `"positive"` or `"negative"` |
-|`classificationResult` | `String` | The classification's [`VNClassificationObservation`](https://developer.apple.com/documentation/vision/vnclassificationobservation) encoded to a JSON string |
-| `classifiedIdentifiers` | `[String: Bool]` | Trends identified by the model that may be inaccurate |
-| `correctIdentifiers` | `[String]?` | Trends the user has identified as more accurate representations of the given image or `nil` if `type` is `"positive"` |
-| `date` | `Date` | A UTC timestamp of the analysis |
-| `deviceId` | `String` | An anonymous, unique identifier of the user's device |
+| Property                | Type             | Description                                                                                                                                                 |
+| :---------------------- | :--------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                  | `String`         | Either `"positive"` or `"negative"`                                                                                                                         |
+| `classificationResult`  | `String`         | The classification's [`VNClassificationObservation`](https://developer.apple.com/documentation/vision/vnclassificationobservation) encoded to a JSON string |
+| `classifiedIdentifiers` | `[String: Bool]` | Trends identified by the model that may be inaccurate                                                                                                       |
+| `correctIdentifiers`    | `[String]?`      | Trends the user has identified as more accurate representations of the given image or `nil` if `type` is `"positive"`                                       |
+| `date`                  | `Date`           | A UTC timestamp of the analysis                                                                                                                             |
+| `deviceId`              | `String`         | An anonymous, unique identifier of the user's device                                                                                                        |
 
 Once submitted, the feedback report is stored in the cloud via MongoDB Atlas for further processing with CoreML.
 
 ## Roadmap
+
 - Deploy to AppStore (currently available via TestFlight only)
 - Continually improve the accuracy of the image classification model
 - Implement custom cropping
@@ -76,7 +77,7 @@ The project follows traditional iOS development conventions in the event you'd l
 2. Select the app target in the Xcode's project navigator.
 3. Select the `Signing & Capabilities` tab.
 4. Change the team from the dropdown menu to your own developer account.
-4. Build the app: `⌘ + R`
+5. Build the app: `⌘ + R`
 
 ## Acknowledgements
 
