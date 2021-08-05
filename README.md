@@ -32,7 +32,7 @@ Experimental graphic design trend classification on iOS powered by Vision, CoreM
 
 > "Trend List was a reaction to ever-present formalism and the repetitive visual language in the works that we saw online. … We wanted to catalogue this to see if there are patterns in visual trends and how those evolve over time. In the early days, we received hate emails and requests of removal, but it soon changed. Over the years Trend List became a benchmark, a reference database and a source of inspiration for up-and-coming designers. Now there are designers submitting their own creations to Trend List daily."
 
-## Features
+## Feature Breakdown
 
 Trendeye leverages [Vision](https://developer.apple.com/documentation/vision) and [CoreML](https://developer.apple.com/documentation/coreml) to analyze a given image and infer _multiple_ trends that may be present, to some degree, in a given piece of graphic design work. The image classification model was trained by over **14,000** images present in the Trend List catalogue.
 
