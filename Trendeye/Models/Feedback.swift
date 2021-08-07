@@ -8,11 +8,11 @@
 import Foundation
 
 struct ClassificationFeedback: Codable {
-  var positive: Bool
+  var type: String
   var image: String
   var classificationResult: String
   var classificationIdentifiers: [String]
-  var correctIdentifiers: [String]
+  var correctIdentifiers: [String]?
   var date: String
   var deviceId: String
 }

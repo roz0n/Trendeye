@@ -82,8 +82,4 @@ class FeedbackViewController: UINavigationController {
     pushViewController(feedbackSubmissionTable, animated: true)
   }
   
-  // MARK: - Networking
-  
-  
-  
 }
