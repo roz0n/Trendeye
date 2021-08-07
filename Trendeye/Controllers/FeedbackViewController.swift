@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum FeedbackTable {
+enum FeedbackTable: String {
   case correct
   case incorrect
 }

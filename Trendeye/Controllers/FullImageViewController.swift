@@ -1,5 +1,5 @@
 //
-//  FullscreenImageView.swift
+//  FullImageViewController.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/21/21.
@@ -9,7 +9,7 @@ import UIKit
 
 // TODO: Add an error view incase there's a failure getting the large image
 // TODO: Add an error view incase access to photos is restricted and the file could not be saved
-class FullScreenImageViewController: UIViewController, UIGestureRecognizerDelegate {
+class FullImageViewController: UIViewController, UIGestureRecognizerDelegate {
   
   // MARK: - Properties
   
@@ -173,7 +173,7 @@ class FullScreenImageViewController: UIViewController, UIGestureRecognizerDelega
 
 // MARK: - Layout
 
-fileprivate extension FullScreenImageViewController {
+fileprivate extension FullImageViewController {
   
   func applyLayouts() {
     layoutBackgroundBlurView()

@@ -37,6 +37,7 @@
 		23775AD926AE3D8400E839DD /* ClassificationMetricChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23775AD826AE3D8400E839DD /* ClassificationMetricChip.swift */; };
 		2377FE6626BE16110041073F /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6526BE16110041073F /* Categories.swift */; };
 		2377FE6826BE16270041073F /* Projects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6726BE16270041073F /* Projects.swift */; };
+		2377FE6E26BE20280041073F /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6D26BE20280041073F /* Feedback.swift */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23AAC191262AA7A700744651 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC190262AA7A700744651 /* CategoryCollectionView.swift */; };
@@ -44,7 +45,7 @@
 		23AAC199262AC18600744651 /* TENetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC198262AC18600744651 /* TENetworkManager.swift */; };
 		23AAC1A1262D00A700744651 /* TECacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1A0262D00A700744651 /* TECacheManager.swift */; };
 		23AAC1FF2630C86800744651 /* CategoryCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1FE2630C86800744651 /* CategoryCollectionHeaderView.swift */; };
-		23AAC2022630F41500744651 /* FullScreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC2012630F41500744651 /* FullScreenImageViewController.swift */; };
+		23AAC2022630F41500744651 /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC2012630F41500744651 /* FullImageViewController.swift */; };
 		23C5702726B90BC600E8EC83 /* FeedbackSubmissionTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5702626B90BC600E8EC83 /* FeedbackSubmissionTableController.swift */; };
 		23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */; };
 		23CEC9C5263A5505009114B3 /* CameraErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C4263A5505009114B3 /* CameraErrorView.swift */; };
@@ -104,6 +105,7 @@
 		23775AD826AE3D8400E839DD /* ClassificationMetricChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationMetricChip.swift; sourceTree = "<group>"; };
 		2377FE6526BE16110041073F /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		2377FE6726BE16270041073F /* Projects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projects.swift; sourceTree = "<group>"; };
+		2377FE6D26BE20280041073F /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23AAC190262AA7A700744651 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
@@ -111,7 +113,7 @@
 		23AAC198262AC18600744651 /* TENetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TENetworkManager.swift; sourceTree = "<group>"; };
 		23AAC1A0262D00A700744651 /* TECacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TECacheManager.swift; sourceTree = "<group>"; };
 		23AAC1FE2630C86800744651 /* CategoryCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionHeaderView.swift; sourceTree = "<group>"; };
-		23AAC2012630F41500744651 /* FullScreenImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageViewController.swift; sourceTree = "<group>"; };
+		23AAC2012630F41500744651 /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
 		23C5702626B90BC600E8EC83 /* FeedbackSubmissionTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSubmissionTableController.swift; sourceTree = "<group>"; };
 		23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyTableHeaderView.swift; sourceTree = "<group>"; };
 		23CEC9C4263A5505009114B3 /* CameraErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraErrorView.swift; sourceTree = "<group>"; };
@@ -358,7 +360,7 @@
 				23C5702626B90BC600E8EC83 /* FeedbackSubmissionTableController.swift */,
 				23DACBC626B527D7005D02CB /* WelcomeScreenController.swift */,
 				234E14CE26B8C98C00B204D0 /* AboutScreenController.swift */,
-				23AAC2012630F41500744651 /* FullScreenImageViewController.swift */,
+				23AAC2012630F41500744651 /* FullImageViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -382,6 +384,7 @@
 			children = (
 				2377FE6526BE16110041073F /* Categories.swift */,
 				2377FE6726BE16270041073F /* Projects.swift */,
+				2377FE6D26BE20280041073F /* Feedback.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				23131AF526219D6A00FFF2B3 /* ClassificationViewController.swift in Sources */,
 				23131AD7261FE66400FFF2B3 /* UIView+Ext.swift in Sources */,
 				23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */,
+				2377FE6E26BE20280041073F /* Feedback.swift in Sources */,
 				234E14CF26B8C98C00B204D0 /* AboutScreenController.swift in Sources */,
 				237172A82633F21500D29B50 /* UIImage+Ext.swift in Sources */,
 				2371729C26327B5D00D29B50 /* CGSize+Ext.swift in Sources */,
@@ -533,7 +537,7 @@
 				23C5702726B90BC600E8EC83 /* FeedbackSubmissionTableController.swift in Sources */,
 				23131B072622F67600FFF2B3 /* K.swift in Sources */,
 				23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */,
-				23AAC2022630F41500744651 /* FullScreenImageViewController.swift in Sources */,
+				23AAC2022630F41500744651 /* FullImageViewController.swift in Sources */,
 				23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */,
 				23CEC9C5263A5505009114B3 /* CameraErrorView.swift in Sources */,
 				23AAC199262AC18600744651 /* TENetworkManager.swift in Sources */,

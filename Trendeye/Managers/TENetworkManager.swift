@@ -8,14 +8,16 @@
 import Foundation
 
 enum TENetworkError: String, Error {
-  case urlSessionError = "Error: URLSession request failed"
-  case networkError = "Error: Server returned a non-status 200 response"
-  case dataError = "Error: Malformed or nil data recieved from network response"
-  case decoderError = "Error: Failed to decode response data"
-  case none = "Error: Category network request handler unexpectedly returned nil"
+  case urlSessionError = "URLSession request failed"
+  case networkError = "Server returned a non-status 200 response"
+  case dataError = "Malformed or nil data recieved from network response"
+  case decoderError = "Failed to decode response data"
+  case none = "Category network request handler unexpectedly returned nil"
 }
 
 final class TENetworkManager {
+  
+  // MARK: - Properties
   
   static let shared = TENetworkManager()
   lazy var decoder = JSONDecoder()
@@ -23,9 +25,13 @@ final class TENetworkManager {
   let baseUrl = "https://unofficial-trendlist.herokuapp.com/"
   let trendListUrl = "https://www.trendlist.org/"
   
+  // MARK: - Helpers
+  
   func getEndpoint(_ resource: String, endpoint: String?, type: String? = "api") -> String {
     return "\(type == "api" ? baseUrl : trendListUrl)\(resource)/\(endpoint ?? "")"
   }
+  
+  // MARK: - GET Methods
   
   func fetchCategoryDescription(_ category: String, completion: @escaping (_ responseData: Result<CategoryDescriptionResponse, TENetworkError>?, _ cachedData: String?) -> Void) {
     guard let url = URL(string: getEndpoint("categories/desc", endpoint: category)) else { return }
@@ -104,6 +110,12 @@ final class TENetworkManager {
         completion(.failure(.decoderError))
       }
     }.resume()
+  }
+  
+  // MARK: - POST Methods
+  
+  func postClassificationFeedback(type feedbackType: FeedbackTable, data feedbackData: ClassificationFeedback, completion: @escaping (_ responseData: Result<ClassificationFeedbackResponse, TENetworkError>) -> Void) {
+    
   }
   
 }
