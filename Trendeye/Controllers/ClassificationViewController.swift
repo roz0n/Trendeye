@@ -12,9 +12,9 @@ final class ClassificationViewController: UITableViewController {
   
   // MARK: - Classifier Properties
   
-  var classifier = TrendClassificationManager()
+  var classifier = TEClassificationManager()
   var confidenceButton = ClassifierConfidenceButton(type: .system)
-  var topResultMetric: TrendClassificationMetric?
+  var topResultMetric: TEClassificationMetric?
   
   var results: [VNClassificationObservation]? {
     didSet {
@@ -30,7 +30,7 @@ final class ClassificationViewController: UITableViewController {
     didSet {
       guard let topResult = topResult else { return }
       
-      topResultMetric = TrendClassificationManager.shared.getClassificationMetric(for: topResult)
+      topResultMetric = TEClassificationManager.shared.getClassificationMetric(for: topResult)
       confidenceButton.classificationMetric = topResultMetric
     }
   }
@@ -41,7 +41,7 @@ final class ClassificationViewController: UITableViewController {
     }
     
     let allIdentifiers = results.map { $0.identifier }
-    return TrendClassificationManager.shared.indentifiers.filter { allIdentifiers.contains($0.key) }.map { $0.value }
+    return TEClassificationManager.shared.indentifiers.filter { allIdentifiers.contains($0.key) }.map { $0.value }
   }
   
   // MARK: - UI Properties
@@ -204,7 +204,7 @@ final class ClassificationViewController: UITableViewController {
   
   // MARK: - Helpers
   
-  fileprivate func getNavigationBackgroundColor(metric: TrendClassificationMetric) -> UIColor? {
+  fileprivate func getNavigationBackgroundColor(metric: TEClassificationMetric) -> UIColor? {
     switch metric {
       case .low:
         return K.Colors.Red
@@ -260,9 +260,9 @@ extension ClassificationViewController {
 
 // MARK: - TrendClassifierDelegate
 
-extension ClassificationViewController: TrendClassificationDelegate {
+extension ClassificationViewController: TEClassificationDelegate {
   
-  func didFinishClassifying(_ sender: TrendClassificationManager?, results: inout [VNClassificationObservation]) {
+  func didFinishClassifying(_ sender: TEClassificationManager?, results: inout [VNClassificationObservation]) {
     if !results.isEmpty {
       self.results = sanitizeClassificationResults(&results)
     } else {
@@ -270,9 +270,9 @@ extension ClassificationViewController: TrendClassificationDelegate {
     }
   }
   
-  func didError(_ sender: TrendClassificationManager?, error: Error?) {
+  func didError(_ sender: TEClassificationManager?, error: Error?) {
     if let error = error {
-      switch error as! TrendClassificationError {
+      switch error as! TEClassificationError {
         case .modelError:
           print("Classification error: failed to initialize model")
         case .classificationError:
@@ -318,7 +318,7 @@ extension ClassificationViewController {
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let result = results?[indexPath.row]
-    let category = TrendClassificationManager.shared.indentifiers[result!.identifier]
+    let category = TEClassificationManager.shared.indentifiers[result!.identifier]
     let categoryViewController = CategoryViewController()
     
     categoryViewController.title = category

@@ -11,7 +11,7 @@ class ClassificationMetricChip: UIButton {
   
   // MARK: - Properties
   
-  var metric: TrendClassificationMetric? {
+  var metric: TEClassificationMetric? {
     didSet {
       guard let metric = metric else { return }
       setAppearance(to: metric)
@@ -50,7 +50,7 @@ class ClassificationMetricChip: UIButton {
   
   // MARK: - Helpers
   
-  func setAppearance(to metric: TrendClassificationMetric) {
+  func setAppearance(to metric: TEClassificationMetric) {
     switch metric {
       case .low:
         setTitle("Low".uppercased(), for: .normal)

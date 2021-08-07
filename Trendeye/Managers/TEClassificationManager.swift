@@ -1,5 +1,5 @@
 //
-//  TrendClassificationManager.swift
+//  TEClassificationManager.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 2/21/21.
@@ -9,28 +9,28 @@ import UIKit
 import CoreML
 import Vision
 
-enum TrendClassificationError: Error {
+enum TEClassificationError: Error {
   case modelError
   case classificationError
   case handlerError
 }
 
-enum TrendClassificationMetric: String {
+enum TEClassificationMetric: String {
   case low = "low"
   case mild = "mild"
   case high = "high"
 }
 
-protocol TrendClassificationDelegate {
-  func didFinishClassifying(_ sender: TrendClassificationManager?, results: inout [VNClassificationObservation])
-  func didError(_ sender: TrendClassificationManager?, error: Error?)
+protocol TEClassificationDelegate {
+  func didFinishClassifying(_ sender: TEClassificationManager?, results: inout [VNClassificationObservation])
+  func didError(_ sender: TEClassificationManager?, error: Error?)
 }
 
-class TrendClassificationManager {
+class TEClassificationManager {
   
-  static let shared = TrendClassificationManager()
+  static let shared = TEClassificationManager()
   
-  var delegate: TrendClassificationDelegate?
+  var delegate: TEClassificationDelegate?
   
   let indentifiers: [String: String] = [
     "ik-blue": "IK Blue",
@@ -78,7 +78,7 @@ class TrendClassificationManager {
     let visionHandler = VNImageRequestHandler(ciImage: image)
     
     guard let mlModel = try? VNCoreMLModel(for: TrendClassifier(configuration: configuration).model) else {
-      self.delegate?.didError(self, error: TrendClassificationError.modelError)
+      self.delegate?.didError(self, error: TEClassificationError.modelError)
       return
     }
     
@@ -89,7 +89,7 @@ class TrendClassificationManager {
       }
       
       guard var results = request.results as? [VNClassificationObservation] else {
-        self?.delegate?.didError(self, error: TrendClassificationError.classificationError)
+        self?.delegate?.didError(self, error: TEClassificationError.classificationError)
         return
       }
       
@@ -99,7 +99,7 @@ class TrendClassificationManager {
     do {
       try visionHandler.perform([visionRequest])
     } catch {
-      self.delegate?.didError(self, error: TrendClassificationError.handlerError)
+      self.delegate?.didError(self, error: TEClassificationError.handlerError)
     }
   }
   
@@ -107,7 +107,7 @@ class TrendClassificationManager {
     return Int((score * 100).rounded())
   }
   
-  func getClassificationMetric(for result: VNClassificationObservation) -> TrendClassificationMetric? {
+  func getClassificationMetric(for result: VNClassificationObservation) -> TEClassificationMetric? {
     let resultValue = (result.confidence) * 100
     
     if 0...33 ~= resultValue {

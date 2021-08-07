@@ -21,8 +21,8 @@ class FullScreenImageViewController: UIViewController, UIGestureRecognizerDelega
   var url: String! {
     didSet {
       self.url = url.replacingOccurrences(of: "small", with: "big")
-      CacheManager.shared.fetchAndCacheImage(from: self.url)
-      imageView.image = CacheManager.shared.imageCache.object(forKey: self.url! as NSString)
+      TECacheManager.shared.fetchAndCacheImage(from: self.url)
+      imageView.image = TECacheManager.shared.imageCache.object(forKey: self.url! as NSString)
     }
   }
   

@@ -9,7 +9,7 @@ import UIKit
 
 class ClassifierConfidenceButton: UIButton {
   
-  var classificationMetric: TrendClassificationMetric? {
+  var classificationMetric: TEClassificationMetric? {
     didSet {
       configureLabelText()
     }

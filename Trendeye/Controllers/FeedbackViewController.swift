@@ -21,7 +21,7 @@ class FeedbackViewController: UINavigationController {
   var correctIdentifiers =  [String: Bool]()
   
   var allIdentifiers: [String] {
-    return Array(TrendClassificationManager.shared.indentifiers.values)
+    return Array(TEClassificationManager.shared.indentifiers.values)
   }
   
   // MARK: - Lifecycle

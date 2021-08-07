@@ -142,7 +142,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   fileprivate func configureWebView() {
-    let url = URL(string: NetworkManager.shared.getEndpoint("trends", endpoint: identifier, type: "web"))
+    let url = URL(string: TENetworkManager.shared.getEndpoint("trends", endpoint: identifier, type: "web"))
     
     trendListWebView = SFSafariViewController(url: url!)
     trendListWebView.modalPresentationCapturesStatusBarAppearance = true
@@ -222,7 +222,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     // TODO: When we resume the app from a suspended state, the cache clears these images. Either increase the size of the cache, or fetch them again.
     
     let imageKey = (imageCollectionLinks?[indexPath.row])! as NSString
-    let imageData = CacheManager.shared.imageCache.object(forKey: imageKey)
+    let imageData = TECacheManager.shared.imageCache.object(forKey: imageKey)
     let imageView = UIImageView(frame: cell.contentView.bounds)
     
     imageView.image = imageData
@@ -261,7 +261,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   fileprivate func fetchDescription() {
-    NetworkManager.shared.fetchCategoryDescription(identifier) { [weak self] (result, cachedData) in
+    TENetworkManager.shared.fetchCategoryDescription(identifier) { [weak self] (result, cachedData) in
       DispatchQueue.main.async {
         guard cachedData == nil else {
           print("Using cached description data")
@@ -278,21 +278,21 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
             self?.descriptionText = "Description not available"
             print(error)
           case .none:
-            fatalError(TrendlistAPINetworkError.none.rawValue)
+            fatalError(TENetworkError.none.rawValue)
         }
       }
     }
   }
   
   fileprivate func fetchImages() {
-    NetworkManager.shared.fetchCategoryImages(identifier, imageCollectionLimit) { [weak self] (result) in
+    TENetworkManager.shared.fetchCategoryImages(identifier, imageCollectionLimit) { [weak self] (result) in
       switch result {
         case .success(let imageData):
           print("Category image links fetch success: will use cached versions if available")
           self?.imageCollectionLinks = imageData.data.map { $0.images.small }
           self?.imageCollectionLinks?.forEach {
             // The cache manager will not make a request for the image if it is already cached :)
-            CacheManager.shared.fetchAndCacheImage(from: $0)
+            TECacheManager.shared.fetchAndCacheImage(from: $0)
             
           }
         case .failure(let error):

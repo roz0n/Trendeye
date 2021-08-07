@@ -1,5 +1,5 @@
 //
-//  NetworkManager.swift
+//  TENetworkManager.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/17/21.
@@ -7,9 +7,17 @@
 
 import Foundation
 
-final class NetworkManager {
+enum TENetworkError: String, Error {
+  case urlSessionError = "Error: URLSession request failed"
+  case networkError = "Error: Server returned a non-status 200 response"
+  case dataError = "Error: Malformed or nil data recieved from network response"
+  case decoderError = "Error: Failed to decode response data"
+  case none = "Error: Category network request handler unexpectedly returned nil"
+}
+
+final class TENetworkManager {
   
-  static let shared = NetworkManager()
+  static let shared = TENetworkManager()
   lazy var decoder = JSONDecoder()
   
   let baseUrl = "https://unofficial-trendlist.herokuapp.com/"
@@ -19,15 +27,15 @@ final class NetworkManager {
     return "\(type == "api" ? baseUrl : trendListUrl)\(resource)/\(endpoint ?? "")"
   }
   
-  func fetchCategoryDescription(_ category: String, completion: @escaping (_ responseData: Result<CategoryDescriptionResponse, TrendlistAPINetworkError>?, _ cachedData: String?) -> Void) {
+  func fetchCategoryDescription(_ category: String, completion: @escaping (_ responseData: Result<CategoryDescriptionResponse, TENetworkError>?, _ cachedData: String?) -> Void) {
     guard let url = URL(string: getEndpoint("categories/desc", endpoint: category)) else { return }
     
     // MARK: - Category Description Cache Check
     
-    let isCached = CacheManager.shared.checkCache(in: CacheManager.shared.descriptionCache as! NSCache<AnyObject, AnyObject>, for: url.absoluteString)
+    let isCached = TECacheManager.shared.checkCache(in: TECacheManager.shared.descriptionCache as! NSCache<AnyObject, AnyObject>, for: url.absoluteString)
     
     guard !isCached else {
-      let cachedData = CacheManager.shared.descriptionCache.object(forKey: url.absoluteString as NSString)
+      let cachedData = TECacheManager.shared.descriptionCache.object(forKey: url.absoluteString as NSString)
       completion(nil, cachedData! as String)
       return
     }
@@ -52,7 +60,7 @@ final class NetworkManager {
       
       do {
         defer {
-          CacheManager.shared.fetchAndCacheDescription(from: url.absoluteString)
+          TECacheManager.shared.fetchAndCacheDescription(from: url.absoluteString)
         }
         
         let decodedData = try self?.decoder.decode(CategoryDescriptionResponse.self, from: data)
@@ -64,7 +72,7 @@ final class NetworkManager {
     }.resume()
   }
   
-  func fetchCategoryImages(_ category: String, _ limit: Int, completion: @escaping (_ responseData: Result<CategoryImagesResponse, TrendlistAPINetworkError>) -> Void) {
+  func fetchCategoryImages(_ category: String, _ limit: Int, completion: @escaping (_ responseData: Result<CategoryImagesResponse, TENetworkError>) -> Void) {
     var urlComponents = URLComponents(string: getEndpoint("categories", endpoint: category))
     urlComponents?.queryItems = [URLQueryItem(name: "limit", value: String(limit))]
     

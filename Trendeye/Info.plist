@@ -28,14 +28,6 @@
 	<string>Access to your camera is needed to take photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Access to your photo library is needed to upload photos</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Satoshi-Regular.otf</string>
-		<string>Satoshi-Medium.otf</string>
-		<string>Satoshi-Light.otf</string>
-		<string>Satoshi-Black.otf</string>
-		<string>Satoshi-Bold.otf</string>
-	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

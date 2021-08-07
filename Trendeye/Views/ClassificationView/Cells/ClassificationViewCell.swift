@@ -16,8 +16,8 @@ class ClassificationViewCell: UITableViewCell {
   
   var resultData: VNClassificationObservation! {
     didSet {
-      identifierLabel.text = TrendClassificationManager.shared.indentifiers[resultData.identifier]
-      resultBars = StackedBarsView(percentage: TrendClassificationManager.shared.convertConfidenceToPercent(resultData.confidence), color: K.Colors.Icon)
+      identifierLabel.text = TEClassificationManager.shared.indentifiers[resultData.identifier]
+      resultBars = StackedBarsView(percentage: TEClassificationManager.shared.convertConfidenceToPercent(resultData.confidence), color: K.Colors.Icon)
     }
   }
   
