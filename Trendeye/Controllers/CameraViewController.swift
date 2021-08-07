@@ -117,7 +117,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     }
     
     //    SHORTCUT_PRESENT_CONFIRMATION()
-        SHORTCUT_PRESENT_CLASSIFICATION()
+//        SHORTCUT_PRESENT_CLASSIFICATION()
     //    SHORTCUT_PRESENT_CATEGORY()
   }
   

@@ -38,6 +38,7 @@
 		2377FE6626BE16110041073F /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6526BE16110041073F /* Categories.swift */; };
 		2377FE6826BE16270041073F /* Projects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6726BE16270041073F /* Projects.swift */; };
 		2377FE6E26BE20280041073F /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6D26BE20280041073F /* Feedback.swift */; };
+		2377FE7026BE8F7E0041073F /* VNClassificationObservation+Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6F26BE8F7E0041073F /* VNClassificationObservation+Encoder.swift */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23AAC191262AA7A700744651 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC190262AA7A700744651 /* CategoryCollectionView.swift */; };
@@ -106,6 +107,7 @@
 		2377FE6526BE16110041073F /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		2377FE6726BE16270041073F /* Projects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projects.swift; sourceTree = "<group>"; };
 		2377FE6D26BE20280041073F /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
+		2377FE6F26BE8F7E0041073F /* VNClassificationObservation+Encoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VNClassificationObservation+Encoder.swift"; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23AAC190262AA7A700744651 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				23EFD8E8263A6EFB005AB471 /* CameraViewController+Ext.swift */,
 				23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */,
 				2363BC23267720C800564849 /* CG+Ext.swift */,
+				2377FE6F26BE8F7E0041073F /* VNClassificationObservation+Encoder.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */,
 				2363BC24267720C800564849 /* CG+Ext.swift in Sources */,
 				23131AE22621586C00FFF2B3 /* ConfirmationButton.swift in Sources */,
+				2377FE7026BE8F7E0041073F /* VNClassificationObservation+Encoder.swift in Sources */,
 				232AA39526298B0D00E5E8A1 /* PhotoEnlargeButton.swift in Sources */,
 				235E651926AA770A004E8B26 /* ClassificationTableHeader.swift in Sources */,
 				2377FE6626BE16110041073F /* Categories.swift in Sources */,

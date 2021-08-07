@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Vision
 
 enum FeedbackTable: String {
   case correct
@@ -15,8 +16,10 @@ enum FeedbackTable: String {
 class FeedbackViewController: UINavigationController {
   
   // MARK: - Properties
-  
-  var classifiedIdentifiers: [String]
+  // TODO: This makes `classificationIdentifiers` redundant, it could just be a computed variable
+  var classificationResults: [VNClassificationObservation]
+  var classificationImage: UIImage
+  var classificationIdentifiers: [String]
   var incorrectIdentifiers = [String: Bool]()
   var correctIdentifiers =  [String: Bool]()
   
@@ -32,18 +35,21 @@ class FeedbackViewController: UINavigationController {
   
   // MARK: - Initializers
   
-  convenience init(with identifers: [String]) {
+  convenience init(for image: UIImage, with identifers: [String], results: [VNClassificationObservation]) {
     let incorrectIdentifiersTable = FeedbackSelectionTableController(type: .incorrect, identifiers: nil)
     
     incorrectIdentifiersTable.classifiedIdentifiers = identifers
     incorrectIdentifiersTable.navigationItem.title = "Report Incorrect Analysis"
     incorrectIdentifiersTable.navigationItem.backButtonTitle = ""
     
-    self.init(rootViewController: incorrectIdentifiersTable, classifiedIdentifiers: identifers)
+    self.init(rootViewController: incorrectIdentifiersTable, classifiedIdentifiers: identifers, classifiedImage: image, results: results)
   }
   
-  init(rootViewController: UIViewController, classifiedIdentifiers: [String]) {
-    self.classifiedIdentifiers = classifiedIdentifiers
+  init(rootViewController: UIViewController, classifiedIdentifiers: [String], classifiedImage: UIImage, results: [VNClassificationObservation]) {
+    self.classificationIdentifiers = classifiedIdentifiers
+    self.classificationImage = classifiedImage
+    self.classificationResults = results
+    
     super.init(rootViewController: rootViewController)
   }
   
@@ -59,7 +65,7 @@ class FeedbackViewController: UINavigationController {
   
   func presentCorrectClassificationTable() {
     // The full list of identifiers needs to be filtered in order to remove the values that were present in the classification being reported
-    let filteredIdentifiers = getFilteredIdentifiers(classified: classifiedIdentifiers, all: allIdentifiers)
+    let filteredIdentifiers = getFilteredIdentifiers(classified: classificationIdentifiers, all: allIdentifiers)
     let correctIdentifiersTable = FeedbackSelectionTableController(type: .correct, identifiers: filteredIdentifiers)
     
     correctIdentifiersTable.selectedIdentifiers = correctIdentifiers

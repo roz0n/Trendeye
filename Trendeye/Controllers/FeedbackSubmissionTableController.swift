@@ -1,15 +1,15 @@
-  //
-  //  FeedbackSubmissionTableController.swift
-  //  FeedbackSubmissionTableController
-  //
-  //  Created by Arnaldo Rozon on 8/3/21.
-  //
+//
+//  FeedbackSubmissionTableController.swift
+//  FeedbackSubmissionTableController
+//
+//  Created by Arnaldo Rozon on 8/3/21.
+//
 
 import UIKit
 
 class FeedbackSubmissionTableController: UITableViewController {
   
-    // MARK: - Properties
+  // MARK: - Properties
   
   let cellIdentifier = "feedbackSubmissionCell"
   
@@ -23,7 +23,7 @@ class FeedbackSubmissionTableController: UITableViewController {
   let sectionTitles = ["Incorrect Classifications", "Correct Classifications"]
   let sectionData: [Int: [String]]
   
-    // MARK: - Initializers
+  // MARK: - Initializers
   
   init(_ incorrect: [String], _ correct: [String], style: UITableView.Style) {
     self.incorrectClassifications = incorrect
@@ -37,7 +37,7 @@ class FeedbackSubmissionTableController: UITableViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-    // MARK: - Lifecycle
+  // MARK: - Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -48,7 +48,7 @@ class FeedbackSubmissionTableController: UITableViewController {
     configureNavigation()
   }
   
-    // MARK: - Configurations
+  // MARK: - Configurations
   
   fileprivate func configureNavigation() {
     navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .done, target: self, action: #selector(tappedSubmitButton))
@@ -58,17 +58,40 @@ class FeedbackSubmissionTableController: UITableViewController {
     submitFeedbackData()
   }
   
-    // MARK: - Networking
+  // MARK: - Networking
   
+  // TODO: Lots of refactoring here
   func submitFeedbackData() {
+    // Image
+    let encodedImage = feedbackNavigationController?.classificationImage.scaleAndEncode()
+    
+    // Classification results
+    let classificationResults = feedbackNavigationController?.classificationResults
+    var encodedResultsStr: String?
+    
+    if let encodedResults = try? JSONEncoder().encode(classificationResults), let response = String(data: encodedResults, encoding: .utf8) {
+      encodedResultsStr = response
+    } else {
+      encodedResultsStr = nil
+    }
+    
+    // Classifications
+    
+    // Date
+    let dateStr = String(Date().timeIntervalSince1970)
+    
+    // Device id
+    let deviceId = UIDevice.current.identifierForVendor?.uuidString
+    
     let classificationData = ClassificationFeedback(
       type: "negative",
-      image: "ios-image",
-      classificationResult: "ios-classification-result",
-      classificationIdentifiers: ["ios", "ios2", "ios3"],
-      correctIdentifiers: ["ios-identifiers2", "ios-identifiers3", "ios-identifiers4"],
-      date: "ios-date",
-      deviceId: "ios-device-id")
+      // TODO: Handle these nil values
+      image: encodedImage!,
+      classificationResult: encodedResultsStr!,
+      classificationIdentifiers: incorrectClassifications,
+      correctIdentifiers: correctClassifications,
+      date: dateStr,
+      deviceId: deviceId!)
     
     networkManager.postClassificationFeedback(type: .negative, data: classificationData) { [weak self] (result) in
       switch result {
@@ -79,12 +102,13 @@ class FeedbackSubmissionTableController: UITableViewController {
             self?.presentFeedbackSubmissionAlert()
           }
         case .failure(let error):
-        print("Error posting feedback data:, \(error.rawValue)")
-        }
+          print("Error posting feedback data:, \(error.rawValue)")
+          return
+      }
     }
   }
   
-    // MARK: - Helpers
+  // MARK: - Helpers
   
   func presentFeedbackSubmissionAlert() {
     let alert = UIAlertController(title: "Feedback Submitted", message: "Thank you for helping improve Trendeye image analysis!", preferredStyle: .alert)
@@ -98,7 +122,7 @@ class FeedbackSubmissionTableController: UITableViewController {
   
 }
 
-  // MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension FeedbackSubmissionTableController {
   

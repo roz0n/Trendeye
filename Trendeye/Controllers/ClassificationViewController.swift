@@ -114,7 +114,7 @@ final class ClassificationViewController: UITableViewController {
     // Configure header content
     stretchyTableHeaderContent = ClassificationImageHeader()
     stretchyTableHeaderContent.translatesAutoresizingMaskIntoConstraints = false
-    stretchyTableHeaderContent.classificationImage = shouldImageScale ? selectedImage.scaleToPercentage(10) : selectedImage
+    stretchyTableHeaderContent.classificationImage = shouldImageScale ? selectedImage.scaleToPercent(10) : selectedImage
     
     // Configure header container
     stretchyHeaderContainer.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -189,16 +189,16 @@ final class ClassificationViewController: UITableViewController {
   @objc func tappedPositiveFeedback() {
     // TODO: This will probably another kind of screen...
     
-//    let positiveFeedbackViewController = FeedbackViewController(rootViewController: FeedbackTableView())
-//    present(positiveFeedbackViewController, animated: true, completion: nil)
+    //    let positiveFeedbackViewController = FeedbackViewController(rootViewController: FeedbackTableView())
+    //    present(positiveFeedbackViewController, animated: true, completion: nil)
   }
   
   @objc func tappedNegativeFeedback() {
     guard let resultIdentifiers = resultIdentifiers else {
       return
     }
-
-    let feedbackViewController = FeedbackViewController(with: resultIdentifiers)
+    
+    let feedbackViewController = FeedbackViewController(for: selectedImage, with: resultIdentifiers, results: results!)
     present(feedbackViewController, animated: true, completion: nil)
   }
   

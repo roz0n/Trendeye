@@ -9,7 +9,7 @@ import UIKit
 
 extension UIImage {
   
-  func scaleToPercentage(_ percent: CGFloat) -> UIImage {
+  func scaleToPercent(_ percent: CGFloat) -> UIImage {
     let newWidth: CGFloat = self.size.width * (percent / 100)
     let newHeight: CGFloat = self.size.height * (percent / 100)
     
@@ -37,9 +37,7 @@ extension UIImage {
     return scaledImage
   }
   
-  func scaleToSizeWithAspectRatio(_ targetSize: CGSize) -> UIImage {
-    let renderer = UIGraphicsImageRenderer(size: targetSize)
-    
+  func scaleMaintainingAspectRatio(_ targetSize: CGSize) -> UIImage {
     // Compute the scaling ratio for the width and height separately
     let widthScaleRatio = targetSize.width / self.size.width
     let heightScaleRatio = targetSize.height / self.size.height
@@ -56,7 +54,7 @@ extension UIImage {
       height: self.size.height * scaleFactor
     )
     
-    let scaledImage = renderer.image { _ in
+    let scaledImage = UIGraphicsImageRenderer(size: scaledImageSize).image { _ in
       self.draw(in: CGRect(origin: .zero, size: scaledImageSize))
     }
     
@@ -71,6 +69,13 @@ extension UIImage {
     
     UIGraphicsEndImageContext()
     return croppedImage ?? nil
+  }
+  
+  func scaleAndEncode() -> String? {
+    let image = self.scaleMaintainingAspectRatio(CGSize(width: 150, height: 150))
+    let data = image.jpegData(compressionQuality: 0.5)
+    
+    return data?.base64EncodedString()
   }
   
 }
