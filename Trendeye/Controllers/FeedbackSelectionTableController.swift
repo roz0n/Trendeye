@@ -27,7 +27,7 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   // This is used when loading the "correct" table, it's a filtered list of all the identifiers
   // It's not needed in the "incorrect" table, as that only loads the classified identifiers
   var allIdentifiers: [String]?
-  var classifiedIdentifiers: [String]?
+  var classificationIdentifiers: [String]?
   
   // This value is initially identical to `allIdentifiers` but is mutated during searches to present filtered results
   var trendIdentifiers: [String]?
@@ -36,7 +36,7 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   // They are sent back to the parent view controller for processing upon completion of the feedback flow
   var selectedIdentifiers: [String: Bool] = [:] {
     didSet {
-      if tableType == .incorrect {
+      if tableType == .incorrectIdentifiers {
         feedbackNavigationController?.incorrectIdentifiers = selectedIdentifiers
       } else {
         feedbackNavigationController?.correctIdentifiers = selectedIdentifiers
@@ -46,14 +46,16 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   
   // This variable determines the identifiers we use to populate the list of selected identifiers
   var sourceIdentifiers: [String]? {
-    return tableType == .incorrect ? classifiedIdentifiers : trendIdentifiers
+    return tableType == .incorrectIdentifiers ? classificationIdentifiers : trendIdentifiers
   }
   
   // MARK: - Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    tableView.register(FeedbackTableViewCell.self, forCellReuseIdentifier: FeedbackTableViewCell.reuseIdentifier)
+    
+    configureView()
+    configureTableView()
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -71,7 +73,7 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
     
     configureNavigationBar()
     
-    if tableType == .correct {
+    if tableType == .correctIdentifiers {
       trendIdentifiers = allIdentifiers
       configureSearchController()
     } else {
@@ -85,6 +87,15 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   
   // MARK: - Configurations
   
+  fileprivate func configureView() {
+    view.backgroundColor = K.Colors.Black
+  }
+  
+  fileprivate func configureTableView() {
+    tableView.backgroundColor = K.Colors.Black
+    tableView.register(FeedbackTableViewCell.self, forCellReuseIdentifier: FeedbackTableViewCell.reuseIdentifier)
+  }
+  
   fileprivate func configureTableHeader() {
     let instructionsView = UITextView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 100))
     let text = "Please select the incorrectly classified trends from your image analysis. Your selections will be used to better inform future analysis."
@@ -95,6 +106,8 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
     instructionsView.textContainerInset = UIEdgeInsets(top: 20, left: 12, bottom: 20, right: 12)
     instructionsView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
     instructionsView.textColor = K.Colors.Icon.withAlphaComponent(0.5)
+    instructionsView.backgroundColor = .clear
+    instructionsView.isUserInteractionEnabled = false
     
     tableView.tableHeaderView = instructionsView
   }
@@ -114,7 +127,7 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
     searchController?.definesPresentationContext = true
     searchController?.searchBar.placeholder = "Search"
     searchController?.searchBar.backgroundImage = UIImage()
-    searchController?.searchBar.backgroundColor = .systemBackground
+    searchController?.searchBar.backgroundColor = K.Colors.Black
     
     navigationItem.hidesSearchBarWhenScrolling = false
     tableView.tableHeaderView = searchController!.searchBar
@@ -123,7 +136,7 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   // MARK: - Gestures
   
   @objc func tappedNextButton() {
-    tableType == .incorrect ?
+    tableType == .incorrectIdentifiers ?
     feedbackNavigationController?.presentCorrectClassificationTable() :
     feedbackNavigationController?.presentSubmitScreen()
   }
@@ -173,7 +186,7 @@ extension FeedbackSelectionTableController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return tableType == .incorrect ? classifiedIdentifiers?.count ?? 0 : trendIdentifiers?.count ?? 0
+    return tableType == .incorrectIdentifiers ? classificationIdentifiers?.count ?? 0 : trendIdentifiers?.count ?? 0
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

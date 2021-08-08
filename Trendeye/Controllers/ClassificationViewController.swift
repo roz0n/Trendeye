@@ -187,18 +187,23 @@ final class ClassificationViewController: UITableViewController {
   }
   
   @objc func tappedPositiveFeedback() {
-    // TODO: This will probably another kind of screen...
-    
-    //    let positiveFeedbackViewController = FeedbackViewController(rootViewController: FeedbackTableView())
-    //    present(positiveFeedbackViewController, animated: true, completion: nil)
+    print("Positive feedback button tapped")
   }
   
   @objc func tappedNegativeFeedback() {
-    guard let resultIdentifiers = resultIdentifiers else {
+    guard let resultIdentifiers = resultIdentifiers, results != nil else {
       return
     }
     
-    let feedbackViewController = FeedbackViewController(for: selectedImage, with: resultIdentifiers, results: results!)
+    let feedbackViewController = FeedbackViewController(
+      type: .negative,
+      for: results!,
+      classificationIdentifiers: resultIdentifiers,
+      classificationImage: selectedImage)
+    
+    feedbackViewController.modalPresentationStyle = .formSheet
+    feedbackViewController.modalTransitionStyle = .crossDissolve
+
     present(feedbackViewController, animated: true, completion: nil)
   }
   

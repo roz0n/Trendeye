@@ -45,13 +45,17 @@ class FeedbackSubmissionTableController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    tableView.allowsSelection = false
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-    
+    configureTableView()
     configureNavigation()
   }
   
   // MARK: - Configurations
+  
+  func configureTableView() {
+    tableView.allowsSelection = false
+    tableView.backgroundColor = K.Colors.Black
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+  }
   
   fileprivate func configureNavigation() {
     navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .done, target: self, action: #selector(tappedSubmitButton))
@@ -155,6 +159,7 @@ extension FeedbackSubmissionTableController {
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+    cell.backgroundColor = .clear
     
     guard let cellSectionData = sectionData[indexPath.section] else {
       return cell
