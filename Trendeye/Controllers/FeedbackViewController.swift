@@ -17,8 +17,8 @@ class FeedbackViewController: UINavigationController {
   
   // MARK: - Properties
   // TODO: This makes `classificationIdentifiers` redundant, it could just be a computed variable
-  var classificationResults: [VNClassificationObservation]
   var classificationImage: UIImage
+  var classificationResults: [VNClassificationObservation]
   var classificationIdentifiers: [String]
   var incorrectIdentifiers = [String: Bool]()
   var correctIdentifiers =  [String: Bool]()
@@ -76,15 +76,13 @@ class FeedbackViewController: UINavigationController {
   }
   
   func presentSubmitScreen() {
-    // TODO: Perform network call
-    // TODO: Handle errors
-    
     let feedbackSubmissionTable = FeedbackSubmissionTableController(
-      Array(incorrectIdentifiers.keys),
-      Array(correctIdentifiers.keys),
+      type: .negative,
+      incorrectIdentifiers: Array(incorrectIdentifiers.keys),
+      correctIdentifiers: Array(correctIdentifiers.keys),
       style: .insetGrouped)
     
-    feedbackSubmissionTable.title = "Confirm"
+    feedbackSubmissionTable.title = "Confirm Feedback"
     pushViewController(feedbackSubmissionTable, animated: true)
   }
   

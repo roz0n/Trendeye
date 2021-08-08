@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Vision
 
 class FeedbackSubmissionTableController: UITableViewController {
   
@@ -18,6 +19,7 @@ class FeedbackSubmissionTableController: UITableViewController {
   }
   
   let networkManager = TENetworkManager()
+  let feedbackType: ClassificationFeedbackType
   let incorrectIdentifiers: [String]
   let correctIdentifiers: [String]
   let sectionTitles = ["Incorrect Classifications", "Correct Classifications"]
@@ -25,10 +27,11 @@ class FeedbackSubmissionTableController: UITableViewController {
   
   // MARK: - Initializers
   
-  init(_ incorrect: [String], _ correct: [String], style: UITableView.Style) {
-    self.incorrectIdentifiers = incorrect
-    self.correctIdentifiers = correct
+  init(type feedbackType: ClassificationFeedbackType, incorrectIdentifiers: [String], correctIdentifiers: [String], style: UITableView.Style) {
+    self.incorrectIdentifiers = incorrectIdentifiers
+    self.correctIdentifiers = correctIdentifiers
     self.sectionData = [0: incorrectIdentifiers, 1: correctIdentifiers]
+    self.feedbackType = feedbackType
     
     super.init(style: style)
   }
@@ -55,43 +58,36 @@ class FeedbackSubmissionTableController: UITableViewController {
   }
   
   @objc func tappedSubmitButton() {
-    submitFeedbackData()
+    submitFeedbackData(type: feedbackType)
   }
   
   // MARK: - Networking
   
-  // TODO: Lots of refactoring here
-  func submitFeedbackData() {
-    // Image
+  func submitFeedbackData(type: ClassificationFeedbackType) {
     let encodedImage = feedbackNavigationController?.classificationImage.scaleAndEncode()
+    let encodedClassificationResult = encodeClassificationResults(results: feedbackNavigationController?.classificationResults)
+    let encodedDate = String(Date().timeIntervalSince1970)
+    let deviceInfo = UIDevice().getDeviceInfo()
     
-    // Classification results
-    let classificationResults = feedbackNavigationController?.classificationResults
-    var encodedResultsStr: String?
+    var incorrectClassificationIdentifiers: [String]?
+    var correctClassificationIdentifiers: [String]?
     
-    if let encodedResults = try? JSONEncoder().encode(classificationResults), let response = String(data: encodedResults, encoding: .utf8) {
-      encodedResultsStr = response
-    } else {
-      encodedResultsStr = nil
+    switch type {
+      case .positive:
+        break
+      case .negative:
+        incorrectClassificationIdentifiers = incorrectIdentifiers
+        correctClassificationIdentifiers = correctIdentifiers
     }
     
-    // Classifications
-    
-    // Date
-    let dateStr = String(Date().timeIntervalSince1970)
-    
-    // Device id
-    let deviceId = UIDevice.current.identifierForVendor?.uuidString
-    
     let classificationData = ClassificationFeedback(
-      type: .negative,
-      // TODO: Handle these nil values
-      image: encodedImage!,
-      classificationResult: encodedResultsStr!,
-      incorrectIdentifiers: incorrectIdentifiers,
-      correctIdentifiers: correctIdentifiers,
-      date: dateStr,
-      deviceId: deviceId!)
+      type: type.rawValue,
+      image: encodedImage,
+      classificationResults: encodedClassificationResult,
+      incorrectIdentifiers: incorrectClassificationIdentifiers,
+      correctIdentifiers: correctClassificationIdentifiers,
+      date: encodedDate,
+      deviceInfo: deviceInfo)
     
     networkManager.postClassificationFeedback(type: .negative, data: classificationData) { [weak self] (result) in
       switch result {
@@ -99,10 +95,10 @@ class FeedbackSubmissionTableController: UITableViewController {
           print("Successfully posted feedback data")
           
           DispatchQueue.main.async {
-            self?.presentFeedbackSubmissionAlert(title: "Feedback Submitted", message: "Thank you for helping improve Trendeye image analysis!")
+            self?.presentFeedbackSubmissionAlert(title: "Feedback Submitted", message: "Thank you for helping improve image analysis.")
           }
         case .failure(let error):
-          print("Error posting feedback data:, \(error.rawValue)")
+          print("Error posting feedback data: \(error.rawValue)")
           
           DispatchQueue.main.async {
             self?.presentFeedbackSubmissionAlert(title: "Oops", message: "Something went wrong, please try again later.")
@@ -113,6 +109,20 @@ class FeedbackSubmissionTableController: UITableViewController {
   }
   
   // MARK: - Helpers
+  
+  func encodeClassificationResults(results: [VNClassificationObservation]?) -> String? {
+    guard let results = results else {
+      return nil
+    }
+    
+    let encodedResults = try? JSONEncoder().encode(results)
+    
+    guard let encodedResults = encodedResults else {
+      return nil
+    }
+    
+    return String(data: encodedResults, encoding: .utf8)
+  }
   
   func presentFeedbackSubmissionAlert(title: String, message: String) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

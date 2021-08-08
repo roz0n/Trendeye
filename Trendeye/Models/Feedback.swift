@@ -8,20 +8,20 @@
 import Foundation
 
 struct ClassificationFeedback: Codable {
-  var type: ClassificationFeedbackTypes
-  var image: String
-  var classificationResult: String
-  var incorrectIdentifiers: [String]
+  var type: ClassificationFeedbackType.RawValue
+  var image: String?
+  var classificationResults: String?
+  var incorrectIdentifiers: [String]?
   var correctIdentifiers: [String]?
   var date: String
-  var deviceId: String
+  var deviceInfo: String
 }
 
 struct ClassificationFeedbackResponse: Codable {
   var success: Bool
 }
 
-enum ClassificationFeedbackTypes: String, Codable {
+enum ClassificationFeedbackType: String, Codable {
   case positive = "positive"
   case negative = "negative"
 }

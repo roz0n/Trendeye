@@ -39,6 +39,7 @@
 		2377FE6826BE16270041073F /* Projects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6726BE16270041073F /* Projects.swift */; };
 		2377FE6E26BE20280041073F /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6D26BE20280041073F /* Feedback.swift */; };
 		2377FE7026BE8F7E0041073F /* VNClassificationObservation+Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6F26BE8F7E0041073F /* VNClassificationObservation+Encoder.swift */; };
+		2377FE7226BF7E1D0041073F /* UIDevice+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE7126BF7E1D0041073F /* UIDevice+Ext.swift */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23AAC191262AA7A700744651 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC190262AA7A700744651 /* CategoryCollectionView.swift */; };
@@ -108,6 +109,7 @@
 		2377FE6726BE16270041073F /* Projects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projects.swift; sourceTree = "<group>"; };
 		2377FE6D26BE20280041073F /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		2377FE6F26BE8F7E0041073F /* VNClassificationObservation+Encoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VNClassificationObservation+Encoder.swift"; sourceTree = "<group>"; };
+		2377FE7126BF7E1D0041073F /* UIDevice+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Ext.swift"; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23AAC190262AA7A700744651 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */,
 				2363BC23267720C800564849 /* CG+Ext.swift */,
 				2377FE6F26BE8F7E0041073F /* VNClassificationObservation+Encoder.swift */,
+				2377FE7126BF7E1D0041073F /* UIDevice+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				23DACBC726B527D7005D02CB /* WelcomeScreenController.swift in Sources */,
 				23775AD726ACB5F500E839DD /* TENavigationController.swift in Sources */,
 				23AAC1FF2630C86800744651 /* CategoryCollectionHeaderView.swift in Sources */,
+				2377FE7226BF7E1D0041073F /* UIDevice+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
