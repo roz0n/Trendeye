@@ -18,17 +18,17 @@ class FeedbackSubmissionTableController: UITableViewController {
   }
   
   let networkManager = TENetworkManager()
-  let incorrectClassifications: [String]
-  let correctClassifications: [String]
+  let incorrectIdentifiers: [String]
+  let correctIdentifiers: [String]
   let sectionTitles = ["Incorrect Classifications", "Correct Classifications"]
   let sectionData: [Int: [String]]
   
   // MARK: - Initializers
   
   init(_ incorrect: [String], _ correct: [String], style: UITableView.Style) {
-    self.incorrectClassifications = incorrect
-    self.correctClassifications = correct
-    self.sectionData = [0: incorrectClassifications, 1: correctClassifications]
+    self.incorrectIdentifiers = incorrect
+    self.correctIdentifiers = correct
+    self.sectionData = [0: incorrectIdentifiers, 1: correctIdentifiers]
     
     super.init(style: style)
   }
@@ -84,12 +84,12 @@ class FeedbackSubmissionTableController: UITableViewController {
     let deviceId = UIDevice.current.identifierForVendor?.uuidString
     
     let classificationData = ClassificationFeedback(
-      type: "negative",
+      type: .negative,
       // TODO: Handle these nil values
       image: encodedImage!,
       classificationResult: encodedResultsStr!,
-      classificationIdentifiers: incorrectClassifications,
-      correctIdentifiers: correctClassifications,
+      incorrectIdentifiers: incorrectIdentifiers,
+      correctIdentifiers: correctIdentifiers,
       date: dateStr,
       deviceId: deviceId!)
     
@@ -99,10 +99,14 @@ class FeedbackSubmissionTableController: UITableViewController {
           print("Successfully posted feedback data")
           
           DispatchQueue.main.async {
-            self?.presentFeedbackSubmissionAlert()
+            self?.presentFeedbackSubmissionAlert(title: "Feedback Submitted", message: "Thank you for helping improve Trendeye image analysis!")
           }
         case .failure(let error):
           print("Error posting feedback data:, \(error.rawValue)")
+          
+          DispatchQueue.main.async {
+            self?.presentFeedbackSubmissionAlert(title: "Oops", message: "Something went wrong, please try again later.")
+          }
           return
       }
     }
@@ -110,8 +114,8 @@ class FeedbackSubmissionTableController: UITableViewController {
   
   // MARK: - Helpers
   
-  func presentFeedbackSubmissionAlert() {
-    let alert = UIAlertController(title: "Feedback Submitted", message: "Thank you for helping improve Trendeye image analysis!", preferredStyle: .alert)
+  func presentFeedbackSubmissionAlert(title: String, message: String) {
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
     let action = UIAlertAction(title: "Close", style: .default) { [weak self] action in
       self?.dismiss(animated: true, completion: nil)
     }

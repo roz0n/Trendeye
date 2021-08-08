@@ -124,7 +124,7 @@ final class TENetworkManager {
   
   func postClassificationFeedback(type feedbackType: TEFeedback, data feedbackData: ClassificationFeedback, completion: @escaping (_ responseData: Result<ClassificationFeedbackResponse, TENetworkError>) -> Void) {
     // Configure URL
-    var urlComponents = URLComponents(string: "https://ec0cd1747217.ngrok.io/feedback")
+    var urlComponents = URLComponents(string: "https://020b67760809.ngrok.io/feedback")
     urlComponents?.queryItems = [URLQueryItem(name: "type", value: "negative")]
     
     guard let url = URL(string: (urlComponents?.url!.absoluteString)!) else { return }
