@@ -63,11 +63,17 @@ class FeedbackSubmissionTableController: UITableViewController {
   
   // MARK: - Networking
   
-  func submitFeedbackData(type: ClassificationFeedbackType) {
+  fileprivate func submitFeedbackData(type: ClassificationFeedbackType) {
     let encodedImage = feedbackNavigationController?.classificationImage.scaleAndEncode()
-    let encodedClassificationResult = encodeClassificationResults(results: feedbackNavigationController?.classificationResults)
+    let encodedClassificationResult = feedbackNavigationController?.classificationResults.encodeToString()
     let encodedDate = String(Date().timeIntervalSince1970)
     let deviceInfo = UIDevice().getDeviceInfo()
+    
+    // Ensure the classification result is properly encoded before proceeding
+    guard let encodedClassificationResult = encodedClassificationResult else {
+      presentErrorAlert()
+      return
+    }
     
     var incorrectClassificationIdentifiers: [String]?
     var correctClassificationIdentifiers: [String]?
@@ -95,13 +101,13 @@ class FeedbackSubmissionTableController: UITableViewController {
           print("Successfully posted feedback data")
           
           DispatchQueue.main.async {
-            self?.presentFeedbackSubmissionAlert(title: "Feedback Submitted", message: "Thank you for helping improve image analysis.")
+            self?.presentSuccessAlert()
           }
         case .failure(let error):
           print("Error posting feedback data: \(error.rawValue)")
           
           DispatchQueue.main.async {
-            self?.presentFeedbackSubmissionAlert(title: "Oops", message: "Something went wrong, please try again later.")
+            self?.presentErrorAlert()
           }
           return
       }
@@ -110,21 +116,15 @@ class FeedbackSubmissionTableController: UITableViewController {
   
   // MARK: - Helpers
   
-  func encodeClassificationResults(results: [VNClassificationObservation]?) -> String? {
-    guard let results = results else {
-      return nil
-    }
-    
-    let encodedResults = try? JSONEncoder().encode(results)
-    
-    guard let encodedResults = encodedResults else {
-      return nil
-    }
-    
-    return String(data: encodedResults, encoding: .utf8)
+  fileprivate func presentSuccessAlert() {
+    self.presentFeedbackSubmissionAlert(title: "Feedback Submitted", message: "Thank you for helping improve image analysis.")
   }
   
-  func presentFeedbackSubmissionAlert(title: String, message: String) {
+  fileprivate func presentErrorAlert() {
+    self.presentFeedbackSubmissionAlert(title: "Oops", message: "Something went wrong, please try again later.")
+  }
+  
+  fileprivate func presentFeedbackSubmissionAlert(title: String, message: String) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
     let action = UIAlertAction(title: "Close", style: .default) { [weak self] action in
       self?.dismiss(animated: true, completion: nil)
