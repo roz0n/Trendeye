@@ -1,13 +1,13 @@
 //
-//  WelcomeScreenController.swift
-//  WelcomeScreenController
+//  WelcomeViewController.swift
+//  WelcomeViewController
 //
 //  Created by Arnaldo Rozon on 7/31/21.
 //
 
 import UIKit
 
-class WelcomeScreenController: UIViewController {
+class WelcomeViewController: UIViewController {
   
   // MARK: - Views
   
@@ -113,7 +113,7 @@ class WelcomeScreenController: UIViewController {
 
 // MARK: - Layout
 
-fileprivate extension WelcomeScreenController {
+fileprivate extension WelcomeViewController {
   
   func applyLayouts() {
     layoutContainer()

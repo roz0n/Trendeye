@@ -50,7 +50,7 @@ final class ClassificationViewController: UITableViewController {
   var stretchyHeaderContainer = StretchyTableHeaderView()
   var stretchyHeaderHeight: CGFloat = 350
   var stretchyTableHeaderContent = ClassificationImageHeader()
-  var aboutScreenViewController = AboutScreenController()
+  var aboutScreenViewController = AboutAnalysisViewController()
   var tableFooter = ClassificationTableFooterView()
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -187,7 +187,17 @@ final class ClassificationViewController: UITableViewController {
   }
   
   @objc func tappedPositiveFeedback() {
-    print("Positive feedback button tapped")
+    guard results != nil else {
+      return
+    }
+    
+    let positiveFeedbackController = FeedbackViewController(
+      type: .positive,
+      for: results!,
+      classificationIdentifiers: nil,
+      classificationImage: selectedImage)
+    
+    present(positiveFeedbackController, animated: true, completion: nil)
   }
   
   @objc func tappedNegativeFeedback() {
@@ -195,16 +205,16 @@ final class ClassificationViewController: UITableViewController {
       return
     }
     
-    let feedbackViewController = FeedbackViewController(
+    let negativeFeedbackController = FeedbackViewController(
       type: .negative,
       for: results!,
       classificationIdentifiers: resultIdentifiers,
       classificationImage: selectedImage)
     
-    feedbackViewController.modalPresentationStyle = .formSheet
-    feedbackViewController.modalTransitionStyle = .crossDissolve
+    negativeFeedbackController.modalPresentationStyle = .formSheet
+    negativeFeedbackController.modalTransitionStyle = .crossDissolve
 
-    present(feedbackViewController, animated: true, completion: nil)
+    present(negativeFeedbackController, animated: true, completion: nil)
   }
   
   // MARK: - Helpers

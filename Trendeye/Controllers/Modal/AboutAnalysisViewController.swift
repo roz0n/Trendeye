@@ -1,13 +1,13 @@
 //
-//  AboutScreenController.swift
-//  AboutScreenController
+//  AboutAnalysisViewController.swift
+//  AboutAnalysisViewController
 //
 //  Created by Arnaldo Rozon on 8/2/21.
 //
 
 import UIKit
 
-class AboutScreenController: UIViewController {
+class AboutAnalysisViewController: UIViewController {
   
   // MARK: - Views
   
@@ -113,7 +113,7 @@ class AboutScreenController: UIViewController {
 
 // MARK: - Layout
 
-fileprivate extension AboutScreenController {
+fileprivate extension AboutAnalysisViewController {
   
   func applyLayouts() {
     layoutContainer()

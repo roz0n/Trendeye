@@ -19,7 +19,7 @@ class FeedbackViewController: UINavigationController {
   var feedbackType: ClassificationFeedbackType
   var classificationImage: UIImage
   var classificationResults: [VNClassificationObservation]
-  var classificationIdentifiers: [String]
+  var classificationIdentifiers: [String]?
   var incorrectIdentifiers = [String: Bool]()
   var correctIdentifiers =  [String: Bool]()
   
@@ -34,14 +34,21 @@ class FeedbackViewController: UINavigationController {
     configureController()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    if (feedbackType == .positive) {
+      setNavigationBarHidden(true, animated: animated)
+    }
+  }
+  
   // MARK: - Initializers
   
-  convenience init(type feedbackType: ClassificationFeedbackType, for classificationResults: [VNClassificationObservation], classificationIdentifiers: [String], classificationImage: UIImage) {
+  convenience init(type feedbackType: ClassificationFeedbackType, for classificationResults: [VNClassificationObservation], classificationIdentifiers: [String]?, classificationImage: UIImage) {
     switch feedbackType {
       case .positive:
-        let rootViewController = FeedbackSelectionTableController(type: .incorrectIdentifiers, identifiers: nil)
-        rootViewController.classificationIdentifiers = classificationIdentifiers
-        rootViewController.navigationItem.title = "Report Incorrect Analysis"
+        let rootViewController = PositiveFeedbackViewController()
+        rootViewController.navigationItem.title = "Looking good?"
         rootViewController.navigationItem.backButtonTitle = ""
         
         self.init(rootViewController: rootViewController, type: feedbackType, classificationResults: classificationResults, classificationIdentifiers: classificationIdentifiers, classificationImage: classificationImage)
@@ -55,7 +62,7 @@ class FeedbackViewController: UINavigationController {
     }
   }
   
-  init(rootViewController: UIViewController, type feedbackType: ClassificationFeedbackType, classificationResults: [VNClassificationObservation], classificationIdentifiers: [String], classificationImage: UIImage) {
+  init(rootViewController: UIViewController, type feedbackType: ClassificationFeedbackType, classificationResults: [VNClassificationObservation], classificationIdentifiers: [String]?, classificationImage: UIImage) {
     self.feedbackType = feedbackType
     self.classificationResults = classificationResults
     self.classificationIdentifiers = classificationIdentifiers
@@ -82,6 +89,10 @@ class FeedbackViewController: UINavigationController {
   }
   
   public func presentCorrectClassificationTable() {
+    guard let classificationIdentifiers = classificationIdentifiers else {
+      return
+    }
+    
     // The full list of identifiers needs to be filtered in order to remove the values that were present in the classification being reported
     let filteredIdentifiers = getFilteredIdentifiers(classified: classificationIdentifiers, all: allIdentifiers)
     let correctIdentifiersTable = FeedbackSelectionTableController(type: .correctIdentifiers, identifiers: filteredIdentifiers)
