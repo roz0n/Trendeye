@@ -50,9 +50,21 @@ final class ClassificationViewController: UITableViewController {
   var stretchyHeaderContainer = StretchyTableHeaderView()
   var stretchyHeaderHeight: CGFloat = 350
   var stretchyTableHeaderContent = ClassificationImageHeader()
-  var aboutView = InfoModalViewController(iconSymbol: K.Icons.Analysis, titleText: "About Analysis", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.", buttonText: "Close")
-  var confidenceView = InfoModalViewController(iconSymbol: K.Icons.Classifier, titleText: "Confidence", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi.", buttonText: "Close")
   var tableFooter = ClassificationTableFooterView()
+  
+  var aboutView: InfoModalViewController = {
+    let view = InfoModalViewController(iconSymbol: K.Icons.Analysis, titleText: "About Analysis", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.", buttonText: "Close")
+    view.modalPresentationStyle = .formSheet
+    view.modalTransitionStyle = .crossDissolve
+    return view
+  }()
+  
+  var confidenceView: InfoModalViewController = {
+    let view = InfoModalViewController(iconSymbol: K.Icons.Classifier, titleText: "Confidence", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi.", buttonText: "Close")
+    view.modalPresentationStyle = .formSheet
+    view.modalTransitionStyle = .crossDissolve
+    return view
+  }()
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .darkContent
@@ -208,6 +220,9 @@ final class ClassificationViewController: UITableViewController {
       classificationIdentifiers: nil,
       classificationImage: selectedImage)
     
+    positiveFeedbackController.modalPresentationStyle = .formSheet
+    positiveFeedbackController.modalTransitionStyle = .crossDissolve
+
     present(positiveFeedbackController, animated: true, completion: nil)
   }
   
@@ -224,7 +239,7 @@ final class ClassificationViewController: UITableViewController {
     
     negativeFeedbackController.modalPresentationStyle = .formSheet
     negativeFeedbackController.modalTransitionStyle = .crossDissolve
-
+    
     present(negativeFeedbackController, animated: true, completion: nil)
   }
   
@@ -374,13 +389,13 @@ extension ClassificationViewController {
   }
   
   @objc func handleFullScreenButton() {
-    let fullView = FullImageViewController()
+    let fullScreenImageView = FullImageViewController()
     
-    fullView.modalPresentationStyle = .formSheet
-    fullView.modalTransitionStyle = .crossDissolve
-    fullView.image = selectedImage
+    fullScreenImageView.modalPresentationStyle = .formSheet
+    fullScreenImageView.modalTransitionStyle = .crossDissolve
+    fullScreenImageView.image = selectedImage
     
-    present(fullView, animated: true, completion: nil)
+    present(fullScreenImageView, animated: true, completion: nil)
   }
   
 }

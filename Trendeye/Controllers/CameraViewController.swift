@@ -60,10 +60,16 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   // MARK: - Views
   
-  let welcomeView = InfoModalViewController(iconSymbol: K.Icons.Eyes, titleText: "Hello there!", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.", buttonText: "Get Started")
   let watermarkView = AppLogoView()
   let controlsView = CameraControlsView()
   let cameraErrorView = CameraErrorView()
+  
+  let welcomeView: InfoModalViewController = {
+    let view = InfoModalViewController(iconSymbol: K.Icons.Eyes, titleText: "Hello there!", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.", buttonText: "Get Started")
+    view.modalPresentationStyle = .formSheet
+    view.modalTransitionStyle = .crossDissolve
+    return view
+  }()
   
   var captureDeviceError = false {
     didSet {
@@ -113,11 +119,11 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       configureCaptureSession()
       configureLivePreview()
       startCaptureSession()
-//      presentWelcomeScreen()
+      //      presentWelcomeScreen()
     }
     
     //    SHORTCUT_PRESENT_CONFIRMATION()
-        SHORTCUT_PRESENT_CLASSIFICATION()
+    SHORTCUT_PRESENT_CLASSIFICATION()
     //    SHORTCUT_PRESENT_CATEGORY()
   }
   

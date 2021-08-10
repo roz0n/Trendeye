@@ -7,6 +7,8 @@
 
 import UIKit
 
+// TODO: There is an ambigious size for the scroll view here, fix it later
+
 class InfoModalViewController: UIViewController {
   
   // MARK: - Properties
@@ -34,6 +36,8 @@ class InfoModalViewController: UIViewController {
       actionButton.setTitle(buttonText, for: .normal)
     }
   }
+  
+  var bodyContent: UIView?
   
   // MARK: - Views
   
@@ -88,6 +92,13 @@ class InfoModalViewController: UIViewController {
     view.isScrollEnabled = false
     view.isEditable = false
     view.isSelectable = false
+    return view
+  }()
+  
+  var bodyContentContainer: UIView = {
+    let view = UIView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.backgroundColor = .red
     return view
   }()
   
@@ -192,6 +203,10 @@ fileprivate extension InfoModalViewController {
     layoutIcon()
     layoutTitleLabel()
     layoutBodyText()
+    
+    if bodyContent != nil {
+      layoutBodyContent()
+    }
   }
   
   func layoutBackground() {
@@ -203,9 +218,9 @@ fileprivate extension InfoModalViewController {
     backgroundBlurView.contentView.addSubview(scrollContainer)
     
     NSLayoutConstraint.activate([
-      scrollContainer.topAnchor.constraint(equalTo: backgroundBlurView.contentView.safeAreaLayoutGuide.topAnchor, constant: 42),
-      scrollContainer.leadingAnchor.constraint(equalTo: backgroundBlurView.contentView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-      scrollContainer.trailingAnchor.constraint(equalTo: backgroundBlurView.contentView.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+      scrollContainer.topAnchor.constraint(equalTo: backgroundBlurView.contentView.topAnchor, constant: 42),
+      scrollContainer.leadingAnchor.constraint(equalTo: backgroundBlurView.contentView.leadingAnchor, constant: 20),
+      scrollContainer.trailingAnchor.constraint(equalTo: backgroundBlurView.contentView.trailingAnchor, constant: -20),
     ])
   }
   
@@ -256,8 +271,23 @@ fileprivate extension InfoModalViewController {
     NSLayoutConstraint.activate([
       bodyTextView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
       bodyTextView.centerXAnchor.constraint(equalTo: scrollContainer.centerXAnchor),
-      bodyTextView.widthAnchor.constraint(equalTo: scrollContainer.widthAnchor),
-      bodyTextView.bottomAnchor.constraint(equalTo: scrollContainer.bottomAnchor)
+      bodyTextView.widthAnchor.constraint(equalTo: scrollContainer.widthAnchor)
+    ])
+    
+    if bodyContent == nil {
+      bodyTextView.bottomAnchor.constraint(equalTo: scrollContainer.bottomAnchor).isActive = true
+    }
+  }
+  
+  func layoutBodyContent() {
+    guard let bodyContent = bodyContent else { return }
+    scrollContainer.addSubview(bodyContent)
+    
+    NSLayoutConstraint.activate([
+      bodyContent.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 30),
+      bodyContent.centerXAnchor.constraint(equalTo: bodyTextView.centerXAnchor),
+      bodyContent.widthAnchor.constraint(equalTo: bodyTextView.widthAnchor),
+      bodyContent.bottomAnchor.constraint(equalTo: bodyTextView.bottomAnchor)
     ])
   }
   
