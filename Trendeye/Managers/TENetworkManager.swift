@@ -124,12 +124,7 @@ final class TENetworkManager {
   
   func postClassificationFeedback(type feedbackType: TEFeedback, data feedbackData: ClassificationFeedback, completion: @escaping (_ responseData: Result<ClassificationFeedbackResponse, TENetworkError>) -> Void) {
     // Configure URL
-    var urlComponents = URLComponents(string: "https://7ee4d38ab690.ngrok.io/feedback")
-    urlComponents?.queryItems = [URLQueryItem(name: "type", value: "negative")]
-    
-    guard let url = URL(string: (urlComponents?.url!.absoluteString)!) else { return }
-    guard let payload = try? encoder.encode(feedbackData) else {
-      print("Unable to encode JSON payload")
+    guard let url = URL(string: "https://147f17e4d673.ngrok.io/feedback"), let payload = try? encoder.encode(feedbackData) else {
       return
     }
     

@@ -47,6 +47,7 @@ struct K {
     static let CaptureManual = "crop"
     static let ArrowRight = "chevron.forward"
     static let Info = "info.circle.fill"
+    static let Eyes = "eyes"
   }
   
   struct Sizes {

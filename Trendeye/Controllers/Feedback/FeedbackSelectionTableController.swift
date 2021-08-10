@@ -137,8 +137,8 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   
   @objc func tappedNextButton() {
     tableType == .incorrectIdentifiers ?
-    feedbackNavigationController?.presentCorrectClassificationTable() :
-    feedbackNavigationController?.presentSubmitScreen()
+    feedbackNavigationController?.presentCorrectClassificationTableView() :
+    feedbackNavigationController?.presentNegativeFeedbackSubmissionView()
   }
   
   // MARK: - Helpers

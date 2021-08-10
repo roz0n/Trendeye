@@ -53,7 +53,7 @@
 		23C5702726B90BC600E8EC83 /* FeedbackSubmissionTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5702626B90BC600E8EC83 /* FeedbackSubmissionTableController.swift */; };
 		23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */; };
 		23CEC9C5263A5505009114B3 /* CameraErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C4263A5505009114B3 /* CameraErrorView.swift */; };
-		23DACBC726B527D7005D02CB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DACBC626B527D7005D02CB /* WelcomeViewController.swift */; };
+		23DACBC726B527D7005D02CB /* InfoModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DACBC626B527D7005D02CB /* InfoModalViewController.swift */; };
 		23DACBC926B60FF4005D02CB /* StackedBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DACBC826B60FF4005D02CB /* StackedBarsView.swift */; };
 		23EFD8E9263A6EFB005AB471 /* CameraViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8E8263A6EFB005AB471 /* CameraViewController+Ext.swift */; };
 		23EFD8ED263BD539005AB471 /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */; };
@@ -125,7 +125,7 @@
 		23C5702626B90BC600E8EC83 /* FeedbackSubmissionTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSubmissionTableController.swift; sourceTree = "<group>"; };
 		23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyTableHeaderView.swift; sourceTree = "<group>"; };
 		23CEC9C4263A5505009114B3 /* CameraErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraErrorView.swift; sourceTree = "<group>"; };
-		23DACBC626B527D7005D02CB /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		23DACBC626B527D7005D02CB /* InfoModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModalViewController.swift; sourceTree = "<group>"; };
 		23DACBC826B60FF4005D02CB /* StackedBarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedBarsView.swift; sourceTree = "<group>"; };
 		23EFD8E8263A6EFB005AB471 /* CameraViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Ext.swift"; sourceTree = "<group>"; };
 		23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
@@ -300,13 +300,13 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		2377FE7726BFA1490041073F /* Modal */ = {
+		2377FE7726BFA1490041073F /* Modals */ = {
 			isa = PBXGroup;
 			children = (
-				23DACBC626B527D7005D02CB /* WelcomeViewController.swift */,
+				23DACBC626B527D7005D02CB /* InfoModalViewController.swift */,
 				234E14CE26B8C98C00B204D0 /* AboutAnalysisViewController.swift */,
 			);
-			path = Modal;
+			path = Modals;
 			sourceTree = "<group>";
 		};
 		23AAC193262ABE8A00744651 /* Cells */ = {
@@ -317,12 +317,12 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		23AAC19B262ACB1900744651 /* Classifier Models */ = {
+		23AAC19B262ACB1900744651 /* Classifiers */ = {
 			isa = PBXGroup;
 			children = (
 				23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */,
 			);
-			path = "Classifier Models";
+			path = Classifiers;
 			sourceTree = "<group>";
 		};
 		23CEC9C1263A5469009114B3 /* Error */ = {
@@ -354,7 +354,7 @@
 		23F80A3725E2EE2100241206 /* Trendeye */ = {
 			isa = PBXGroup;
 			children = (
-				23AAC19B262ACB1900744651 /* Classifier Models */,
+				23AAC19B262ACB1900744651 /* Classifiers */,
 				23F80A5825E339B400241206 /* Application */,
 				23131B022622F62300FFF2B3 /* Constants */,
 				23131AD5261FE65800FFF2B3 /* Extensions */,
@@ -390,7 +390,7 @@
 		23F80A5925E339C300241206 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2377FE7726BFA1490041073F /* Modal */,
+				2377FE7726BFA1490041073F /* Modals */,
 				2377FE7626BFA1100041073F /* Shared */,
 				2377FE7526BFA1000041073F /* Feedback */,
 				23A009D5261FBD5C007A091D /* CameraViewController.swift */,
@@ -582,7 +582,7 @@
 				23AAC199262AC18600744651 /* TENetworkManager.swift in Sources */,
 				234E14D326B8CCDA00B204D0 /* FeedbackViewController.swift in Sources */,
 				23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */,
-				23DACBC726B527D7005D02CB /* WelcomeViewController.swift in Sources */,
+				23DACBC726B527D7005D02CB /* InfoModalViewController.swift in Sources */,
 				23775AD726ACB5F500E839DD /* TENavigationController.swift in Sources */,
 				23AAC1FF2630C86800744651 /* CategoryCollectionHeaderView.swift in Sources */,
 				2377FE7226BF7E1D0041073F /* UIDevice+Ext.swift in Sources */,

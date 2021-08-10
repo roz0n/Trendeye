@@ -39,14 +39,14 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     didSet {
       DispatchQueue.main.async { [weak self] in
         self?.layoutErrorView()
-        self?.contrentContainer.layoutSubviews()
+        self?.contentContainer.layoutSubviews()
       }
     }
   }
   
     // MARK: - Views
   
-  var contrentContainer: UIStackView = {
+  var contentContainer: UIStackView = {
     let view = UIStackView()
     
     view.translatesAutoresizingMaskIntoConstraints = false
@@ -319,17 +319,17 @@ fileprivate extension CategoryViewController {
   }
   
   func layoutContainer() {
-    view.addSubview(contrentContainer)
+    view.addSubview(contentContainer)
     
     NSLayoutConstraint.activate([
-      contrentContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      contrentContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-      contrentContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      contentContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      contentContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      contentContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
     ])
   }
   
   func layoutImageCollection() {
-    contrentContainer.addArrangedSubview(imageCollectionContainer)
+    contentContainer.addArrangedSubview(imageCollectionContainer)
     imageCollectionContainer.addSubview(imageCollection)
     imageCollection.fillOther(view: imageCollectionContainer)
   }
@@ -338,13 +338,13 @@ fileprivate extension CategoryViewController {
     let padding: CGFloat = 16
     
     imageCollectionContainer.removeFromSuperview()
-    contrentContainer.addSubview(contentErrorView)
+    contentContainer.addSubview(contentErrorView)
     
     NSLayoutConstraint.activate([
-      contentErrorView.topAnchor.constraint(equalTo: contrentContainer.topAnchor, constant: padding),
-      contentErrorView.leadingAnchor.constraint(equalTo: contrentContainer.leadingAnchor),
-      contentErrorView.trailingAnchor.constraint(equalTo: contrentContainer.trailingAnchor),
-      contentErrorView.centerYAnchor.constraint(equalTo: contrentContainer.centerYAnchor)
+      contentErrorView.topAnchor.constraint(equalTo: contentContainer.topAnchor, constant: padding),
+      contentErrorView.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor),
+      contentErrorView.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor),
+      contentErrorView.centerYAnchor.constraint(equalTo: contentContainer.centerYAnchor)
     ])
   }
   
@@ -357,7 +357,7 @@ fileprivate extension CategoryViewController {
     trendListButtonContainer.addSubview(trendListButton)
     
     NSLayoutConstraint.activate([
-      trendListButtonContainer.topAnchor.constraint(equalTo: contrentContainer.bottomAnchor),
+      trendListButtonContainer.topAnchor.constraint(equalTo: contentContainer.bottomAnchor),
       trendListButtonContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
       trendListButtonContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
       trendListButtonContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -369,7 +369,7 @@ fileprivate extension CategoryViewController {
       trendListButton.heightAnchor.constraint(equalToConstant: buttonHeight),
       
       // NOTE: This constraint is needed here to center the error content to the superview
-      contrentContainer.bottomAnchor.constraint(equalTo: trendListButtonContainer.topAnchor)
+      contentContainer.bottomAnchor.constraint(equalTo: trendListButtonContainer.topAnchor)
     ])
   }
   

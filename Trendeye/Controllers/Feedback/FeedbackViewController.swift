@@ -88,7 +88,7 @@ class FeedbackViewController: UINavigationController {
     return allIdentifiers.filter { !classifiedIdentifiers.contains($0) }
   }
   
-  public func presentCorrectClassificationTable() {
+  func presentCorrectClassificationTableView() {
     guard let classificationIdentifiers = classificationIdentifiers else {
       return
     }
@@ -104,11 +104,14 @@ class FeedbackViewController: UINavigationController {
     pushViewController(correctIdentifiersTable, animated: true)
   }
   
-  public func presentSubmitScreen() {
+  func presentNegativeFeedbackSubmissionView() {
+    let incorrectIdentifiers = Array(incorrectIdentifiers.keys)
+    let correctIdentifiers = Array(correctIdentifiers.keys)
+    
     let feedbackSubmissionTable = FeedbackSubmissionTableController(
       type: .negative,
-      incorrectIdentifiers: Array(incorrectIdentifiers.keys),
-      correctIdentifiers: Array(correctIdentifiers.keys),
+      incorrectIdentifiers: incorrectIdentifiers,
+      correctIdentifiers: correctIdentifiers,
       style: .insetGrouped)
     
     feedbackSubmissionTable.title = "Confirm Feedback"
