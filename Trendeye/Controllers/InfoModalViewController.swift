@@ -52,6 +52,7 @@ class InfoModalViewController: UIViewController {
   var scrollContainer: UIScrollView = {
     let view = UIScrollView()
     view.translatesAutoresizingMaskIntoConstraints = false
+    view.showsVerticalScrollIndicator = false
     return view
   }()
   
@@ -259,7 +260,7 @@ fileprivate extension InfoModalViewController {
     scrollContainer.addSubview(titleLabel)
     
     NSLayoutConstraint.activate([
-      titleLabel.topAnchor.constraint(equalTo: iconContainer.bottomAnchor, constant: 30),
+      titleLabel.topAnchor.constraint(equalTo: iconContainer.bottomAnchor, constant: 20),
       titleLabel.centerXAnchor.constraint(equalTo: scrollContainer.centerXAnchor),
       titleLabel.widthAnchor.constraint(equalTo: scrollContainer.widthAnchor)
     ])
@@ -269,7 +270,7 @@ fileprivate extension InfoModalViewController {
     scrollContainer.addSubview(bodyTextView)
     
     NSLayoutConstraint.activate([
-      bodyTextView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+      bodyTextView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
       bodyTextView.centerXAnchor.constraint(equalTo: scrollContainer.centerXAnchor),
       bodyTextView.widthAnchor.constraint(equalTo: scrollContainer.widthAnchor)
     ])
@@ -285,9 +286,9 @@ fileprivate extension InfoModalViewController {
     
     NSLayoutConstraint.activate([
       bodyContent.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 30),
-      bodyContent.centerXAnchor.constraint(equalTo: bodyTextView.centerXAnchor),
-      bodyContent.widthAnchor.constraint(equalTo: bodyTextView.widthAnchor),
-      bodyContent.bottomAnchor.constraint(equalTo: bodyTextView.bottomAnchor)
+      bodyContent.centerXAnchor.constraint(equalTo: scrollContainer.centerXAnchor),
+      bodyContent.widthAnchor.constraint(equalTo: scrollContainer.widthAnchor),
+      bodyContent.bottomAnchor.constraint(equalTo: scrollContainer.bottomAnchor)
     ])
   }
   

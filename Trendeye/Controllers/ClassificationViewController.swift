@@ -103,6 +103,7 @@ final class ClassificationViewController: UITableViewController {
     
     configureNavigation()
     configureConfidenceButtonGesture()
+    configureConfidenceView()
     configureTableView()
     configureStretchyHeader()
     applyLayouts()
@@ -179,6 +180,10 @@ final class ClassificationViewController: UITableViewController {
     beginClassification(of: selectedImage)
   }
   
+  fileprivate func configureConfidenceView() {
+    confidenceView.bodyContent = getConfidenceMetricsListItems()
+  }
+  
   fileprivate func configureConfidenceButtonGesture() {
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedConfidenceButton))
     confidenceButton.addGestureRecognizer(tapGesture)
@@ -222,7 +227,7 @@ final class ClassificationViewController: UITableViewController {
     
     positiveFeedbackController.modalPresentationStyle = .formSheet
     positiveFeedbackController.modalTransitionStyle = .crossDissolve
-
+    
     present(positiveFeedbackController, animated: true, completion: nil)
   }
   
@@ -244,6 +249,20 @@ final class ClassificationViewController: UITableViewController {
   }
   
   // MARK: - Helpers
+  
+  fileprivate func getConfidenceMetricsListItems() -> UIStackView {
+    let container = UIStackView()
+    
+    container.translatesAutoresizingMaskIntoConstraints = false
+    container.axis = .vertical
+    container.spacing = 20
+    
+    container.addArrangedSubview(InfoListItemView(iconSymbol: K.Icons.ArrowUpSquare, iconColor: K.Colors.Green, headerText: "High Confidence", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. "))
+    container.addArrangedSubview(InfoListItemView(iconSymbol: K.Icons.ArrowMidSquare, iconColor: K.Colors.Yellow, headerText: "Mild Confidence", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. "))
+    container.addArrangedSubview(InfoListItemView(iconSymbol: K.Icons.ArrowDownSquare, iconColor: K.Colors.Red, headerText: "Low Confidence", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. "))
+    
+    return container
+  }
   
   fileprivate func getNavigationBackgroundColor(metric: TEClassificationMetric) -> UIColor? {
     switch metric {

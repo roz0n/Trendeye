@@ -50,6 +50,9 @@ struct K {
     static let Eyes = "eyes"
     static let ApprovalSeal = "checkmark.seal.fill"
     static let Analysis = "sparkles.square.fill.on.square"
+    static let ArrowUpSquare = "arrow.up.square.fill"
+    static let ArrowMidSquare = "arrow.left.and.right.square.fill"
+    static let ArrowDownSquare = "arrow.down.square.fill"
   }
   
   struct Sizes {
