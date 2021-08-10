@@ -50,7 +50,8 @@ final class ClassificationViewController: UITableViewController {
   var stretchyHeaderContainer = StretchyTableHeaderView()
   var stretchyHeaderHeight: CGFloat = 350
   var stretchyTableHeaderContent = ClassificationImageHeader()
-  var aboutScreenViewController = AboutAnalysisViewController()
+  var aboutView = InfoModalViewController(iconSymbol: K.Icons.Analysis, titleText: "About Analysis", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.", buttonText: "Close")
+  var confidenceView = InfoModalViewController(iconSymbol: K.Icons.Classifier, titleText: "Confidence", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi.", buttonText: "Close")
   var tableFooter = ClassificationTableFooterView()
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -89,6 +90,7 @@ final class ClassificationViewController: UITableViewController {
     super.viewWillAppear(animated)
     
     configureNavigation()
+    configureConfidenceButtonGesture()
     configureTableView()
     configureStretchyHeader()
     applyLayouts()
@@ -165,7 +167,10 @@ final class ClassificationViewController: UITableViewController {
     beginClassification(of: selectedImage)
   }
   
-  // MARK: - Gestures
+  fileprivate func configureConfidenceButtonGesture() {
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedConfidenceButton))
+    confidenceButton.addGestureRecognizer(tapGesture)
+  }
   
   fileprivate func configureAboutButtonGesture(button: UIButton) {
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedAboutButton))
@@ -182,8 +187,14 @@ final class ClassificationViewController: UITableViewController {
     button.addGestureRecognizer(negativeFeedbackGesture)
   }
   
+  // MARK: - Gestures
+  
+  @objc func tappedConfidenceButton() {
+    present(confidenceView, animated: true, completion: nil)
+  }
+  
   @objc func tappedAboutButton() {
-    present(aboutScreenViewController, animated: true, completion: nil)
+    present(aboutView, animated: true, completion: nil)
   }
   
   @objc func tappedPositiveFeedback() {

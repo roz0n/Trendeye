@@ -48,6 +48,8 @@ struct K {
     static let ArrowRight = "chevron.forward"
     static let Info = "info.circle.fill"
     static let Eyes = "eyes"
+    static let ApprovalSeal = "checkmark.seal.fill"
+    static let Analysis = "sparkles.square.fill.on.square"
   }
   
   struct Sizes {
