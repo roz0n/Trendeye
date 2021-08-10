@@ -40,7 +40,6 @@
 		2377FE7026BE8F7E0041073F /* VNClassificationObservation+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6F26BE8F7E0041073F /* VNClassificationObservation+Ext.swift */; };
 		2377FE7226BF7E1D0041073F /* UIDevice+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE7126BF7E1D0041073F /* UIDevice+Ext.swift */; };
 		2377FE7426BF86970041073F /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE7326BF86970041073F /* Array+Ext.swift */; };
-		2377FE7926BFA1930041073F /* PositiveFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE7826BFA1930041073F /* PositiveFeedbackViewController.swift */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23AAC191262AA7A700744651 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC190262AA7A700744651 /* CategoryCollectionView.swift */; };
@@ -111,7 +110,6 @@
 		2377FE6F26BE8F7E0041073F /* VNClassificationObservation+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VNClassificationObservation+Ext.swift"; sourceTree = "<group>"; };
 		2377FE7126BF7E1D0041073F /* UIDevice+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Ext.swift"; sourceTree = "<group>"; };
 		2377FE7326BF86970041073F /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
-		2377FE7826BFA1930041073F /* PositiveFeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositiveFeedbackViewController.swift; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23AAC190262AA7A700744651 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
@@ -284,7 +282,6 @@
 				234E14D226B8CCDA00B204D0 /* FeedbackViewController.swift */,
 				2303FA5826B8CDEB00EA133A /* FeedbackSelectionTableController.swift */,
 				23C5702626B90BC600E8EC83 /* FeedbackSubmissionTableController.swift */,
-				2377FE7826BFA1930041073F /* PositiveFeedbackViewController.swift */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -549,7 +546,6 @@
 				2371729926327B4400D29B50 /* CGFloat+Ext.swift in Sources */,
 				23F80A5625E32F0E00241206 /* TEClassificationManager.swift in Sources */,
 				23EFD8EF263BE241005AB471 /* ClassifierConfidenceButton.swift in Sources */,
-				2377FE7926BFA1930041073F /* PositiveFeedbackViewController.swift in Sources */,
 				23DACBC926B60FF4005D02CB /* StackedBarsView.swift in Sources */,
 				23AAC195262ABEBA00744651 /* CategoryImageCell.swift in Sources */,
 				23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */,

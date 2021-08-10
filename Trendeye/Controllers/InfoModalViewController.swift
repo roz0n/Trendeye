@@ -39,57 +39,45 @@ class InfoModalViewController: UIViewController {
   
   let backgroundBlurView: UIVisualEffectView = {
     let view = UIVisualEffectView(effect: UIBlurEffect(style: .systemChromeMaterialDark))
-    
     view.translatesAutoresizingMaskIntoConstraints = false
     view.layer.cornerRadius = 8
     view.layer.masksToBounds = true
-    
     return view
   }()
   
-  var containerView: UIStackView = {
-    let view = UIStackView()
-    
+  var scrollContainer: UIScrollView = {
+    let view = UIScrollView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.axis = .vertical
-    view.spacing = 24
-    
     return view
   }()
   
   var iconContainer: UIView = {
-    let view = UIView()
-    
+    let view = UIView(frame: CGRect(x: 0, y: 0, width: 110, height: 110))
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    
+    view.backgroundColor = .blue
+    view.makeCircular()
     return view
   }()
   
   var iconView: UIImageView = {
-    let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 110, height: 110))
-    
+    let view = UIImageView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.backgroundColor = .blue
     view.contentMode = .center
-    view.makeCircular()
-    
     return view
   }()
   
   var titleLabel: UILabel = {
     let label = UILabel()
-    
+    label.translatesAutoresizingMaskIntoConstraints = false
     label.textAlignment = .center
     label.lineBreakMode = .byWordWrapping
     label.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
-    
     return label
   }()
   
   var bodyTextView: UITextView = {
     let view = UITextView()
-    
+    view.translatesAutoresizingMaskIntoConstraints = false
     view.textContainer.maximumNumberOfLines = 0
     view.textAlignment = .center
     view.font = UIFont.systemFont(ofSize: 12, weight: .medium)
@@ -97,21 +85,19 @@ class InfoModalViewController: UIViewController {
     view.backgroundColor = .clear
     view.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     view.isUserInteractionEnabled = false
+    view.isScrollEnabled = false
     view.isEditable = false
     view.isSelectable = false
-    
     return view
   }()
   
   var actionButton: UIButton = {
     let button = UIButton(type: .system)
-    
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitleColor(K.Colors.White, for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
     button.layer.cornerRadius = 8
     button.backgroundColor = K.Colors.Blue
-    
     return button
   }()
   
@@ -203,8 +189,9 @@ fileprivate extension InfoModalViewController {
     layoutBackground()
     layoutContainer()
     layoutButton()
-    layoutContent()
     layoutIcon()
+    layoutTitleLabel()
+    layoutBodyText()
   }
   
   func layoutBackground() {
@@ -213,48 +200,64 @@ fileprivate extension InfoModalViewController {
   }
   
   func layoutContainer() {
-    backgroundBlurView.contentView.addSubview(containerView)
+    backgroundBlurView.contentView.addSubview(scrollContainer)
     
     NSLayoutConstraint.activate([
-      containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 42),
-      containerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-      containerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+      scrollContainer.topAnchor.constraint(equalTo: backgroundBlurView.contentView.safeAreaLayoutGuide.topAnchor, constant: 42),
+      scrollContainer.leadingAnchor.constraint(equalTo: backgroundBlurView.contentView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+      scrollContainer.trailingAnchor.constraint(equalTo: backgroundBlurView.contentView.safeAreaLayoutGuide.trailingAnchor, constant: -20)
     ])
   }
   
   func layoutButton() {
-    view.addSubview(actionButton)
+    backgroundBlurView.contentView.addSubview(actionButton)
     
     NSLayoutConstraint.activate([
       actionButton.heightAnchor.constraint(equalToConstant: 64),
-      actionButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-      actionButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-      actionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+      actionButton.leadingAnchor.constraint(equalTo: backgroundBlurView.contentView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+      actionButton.trailingAnchor.constraint(equalTo: backgroundBlurView.contentView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+      actionButton.bottomAnchor.constraint(equalTo: backgroundBlurView.contentView.safeAreaLayoutGuide.bottomAnchor, constant: -20),
       
       // Necessary for the button to sit beneath the scroll view
-      containerView.bottomAnchor.constraint(equalTo: actionButton.topAnchor)
+      scrollContainer.bottomAnchor.constraint(equalTo: actionButton.topAnchor, constant: -20)
     ])
   }
   
-  func layoutContent() {
-    containerView.addArrangedSubview(iconContainer)
-    containerView.addArrangedSubview(titleLabel)
-    containerView.addArrangedSubview(bodyTextView)
+  func layoutIcon() {
+    scrollContainer.addSubview(iconContainer)
+    iconContainer.addSubview(iconView)
+        
+    NSLayoutConstraint.activate([
+      // Container
+      iconContainer.topAnchor.constraint(equalTo: scrollContainer.topAnchor),
+      iconContainer.centerXAnchor.constraint(equalTo: scrollContainer.centerXAnchor),
+      iconContainer.heightAnchor.constraint(equalToConstant: 110),
+      iconContainer.widthAnchor.constraint(equalToConstant: 110),
+
+      // Icon
+      iconView.centerXAnchor.constraint(equalTo: iconContainer.centerXAnchor),
+      iconView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor)
+    ])
   }
   
-  func layoutIcon() {
-    iconContainer.addSubview(iconView)
+  func layoutTitleLabel() {
+    scrollContainer.addSubview(titleLabel)
     
     NSLayoutConstraint.activate([
-      // Icon
-      iconView.widthAnchor.constraint(equalToConstant: 110),
-      iconView.heightAnchor.constraint(equalToConstant: 110),
-      iconView.centerXAnchor.constraint(equalTo: iconContainer.centerXAnchor),
-      iconView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor),
-      
-      // Container
-      iconContainer.widthAnchor.constraint(equalTo: containerView.widthAnchor),
-      iconContainer.heightAnchor.constraint(equalToConstant: 110),
+      titleLabel.topAnchor.constraint(equalTo: iconContainer.bottomAnchor, constant: 30),
+      titleLabel.centerXAnchor.constraint(equalTo: scrollContainer.centerXAnchor),
+      titleLabel.widthAnchor.constraint(equalTo: scrollContainer.widthAnchor)
+    ])
+  }
+  
+  func layoutBodyText() {
+    scrollContainer.addSubview(bodyTextView)
+    
+    NSLayoutConstraint.activate([
+      bodyTextView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+      bodyTextView.centerXAnchor.constraint(equalTo: scrollContainer.centerXAnchor),
+      bodyTextView.widthAnchor.constraint(equalTo: scrollContainer.widthAnchor),
+      bodyTextView.bottomAnchor.constraint(equalTo: scrollContainer.bottomAnchor)
     ])
   }
   

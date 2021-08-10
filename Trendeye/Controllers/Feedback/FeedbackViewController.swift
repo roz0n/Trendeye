@@ -47,7 +47,7 @@ class FeedbackViewController: UINavigationController {
   convenience init(type feedbackType: ClassificationFeedbackType, for classificationResults: [VNClassificationObservation], classificationIdentifiers: [String]?, classificationImage: UIImage) {
     switch feedbackType {
       case .positive:
-        let rootViewController = PositiveFeedbackViewController()
+        let rootViewController = InfoModalViewController(iconSymbol: K.Icons.ApprovalSeal, titleText: "Valid Analysis", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.", buttonText: "Send Feedback")
         rootViewController.navigationItem.title = "Looking good?"
         rootViewController.navigationItem.backButtonTitle = ""
         
@@ -78,7 +78,7 @@ class FeedbackViewController: UINavigationController {
   // MARK: - Configurations
   
   fileprivate func configureController() {
-    view.backgroundColor = K.Colors.ViewBackground
+    view.backgroundColor = .clear
     navigationBar.backgroundColor = K.Colors.ViewBackground
   }
   
