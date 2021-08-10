@@ -9,6 +9,8 @@ import UIKit
 
 class InfoModalViewController: UIViewController {
   
+  // MARK: - Properties
+  
   var iconSymbol: String {
     didSet {
       configureIconView(with: iconSymbol)
@@ -35,41 +37,59 @@ class InfoModalViewController: UIViewController {
   
   // MARK: - Views
   
+  let backgroundBlurView: UIVisualEffectView = {
+    let view = UIVisualEffectView(effect: UIBlurEffect(style: .systemChromeMaterialDark))
+    
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.layer.cornerRadius = 8
+    view.layer.masksToBounds = true
+    
+    return view
+  }()
+  
   var containerView: UIStackView = {
     let view = UIStackView()
+    
     view.translatesAutoresizingMaskIntoConstraints = false
     view.axis = .vertical
     view.spacing = 24
-    view.backgroundColor = .red
+    
     return view
   }()
   
   var iconContainer: UIView = {
-    let view = UIView(frame: CGRect(x: 0, y: 0, width: 110, height: 110))
+    let view = UIView()
+    
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.backgroundColor = .yellow
+    view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    
     return view
   }()
   
   var iconView: UIImageView = {
     let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 110, height: 110))
+    
     view.translatesAutoresizingMaskIntoConstraints = false
     view.backgroundColor = .blue
     view.contentMode = .center
     view.makeCircular()
+    
     return view
   }()
   
   var titleLabel: UILabel = {
     let label = UILabel()
+    
     label.textAlignment = .center
     label.lineBreakMode = .byWordWrapping
     label.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
+    
     return label
   }()
   
   var bodyTextView: UITextView = {
     let view = UITextView()
+    
     view.textContainer.maximumNumberOfLines = 0
     view.textAlignment = .center
     view.font = UIFont.systemFont(ofSize: 12, weight: .medium)
@@ -79,19 +99,19 @@ class InfoModalViewController: UIViewController {
     view.isUserInteractionEnabled = false
     view.isEditable = false
     view.isSelectable = false
-    view.backgroundColor = .green
-    view.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+    
     return view
   }()
   
   var actionButton: UIButton = {
     let button = UIButton(type: .system)
+    
     button.translatesAutoresizingMaskIntoConstraints = false
-    button.setTitle("Get Started", for: .normal)
     button.setTitleColor(K.Colors.White, for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
     button.layer.cornerRadius = 8
     button.backgroundColor = K.Colors.Blue
+    
     return button
   }()
   
@@ -127,7 +147,7 @@ class InfoModalViewController: UIViewController {
   // MARK: - Configurations
   
   fileprivate func configureViewController() {
-    view.backgroundColor = K.Colors.ViewBackground
+    view.backgroundColor = .clear
   }
   
   fileprivate func configureTextViews() {
@@ -180,15 +200,20 @@ func setBodyText(to text: String) -> NSMutableAttributedString {
 fileprivate extension InfoModalViewController {
   
   func applyLayouts() {
+    layoutBackground()
     layoutContainer()
     layoutButton()
     layoutContent()
     layoutIcon()
   }
   
+  func layoutBackground() {
+    view.addSubview(backgroundBlurView)
+    backgroundBlurView.fillOther(view: view)
+  }
   
   func layoutContainer() {
-    view.addSubview(containerView)
+    backgroundBlurView.contentView.addSubview(containerView)
     
     NSLayoutConstraint.activate([
       containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 42),
@@ -204,11 +229,17 @@ fileprivate extension InfoModalViewController {
       actionButton.heightAnchor.constraint(equalToConstant: 64),
       actionButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
       actionButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-      actionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      actionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
       
       // Necessary for the button to sit beneath the scroll view
       containerView.bottomAnchor.constraint(equalTo: actionButton.topAnchor)
     ])
+  }
+  
+  func layoutContent() {
+    containerView.addArrangedSubview(iconContainer)
+    containerView.addArrangedSubview(titleLabel)
+    containerView.addArrangedSubview(bodyTextView)
   }
   
   func layoutIcon() {
@@ -225,12 +256,6 @@ fileprivate extension InfoModalViewController {
       iconContainer.widthAnchor.constraint(equalTo: containerView.widthAnchor),
       iconContainer.heightAnchor.constraint(equalToConstant: 110),
     ])
-  }
-  
-  func layoutContent() {
-    containerView.addArrangedSubview(iconContainer)
-    containerView.addArrangedSubview(titleLabel)
-    containerView.addArrangedSubview(bodyTextView)
   }
   
 }
