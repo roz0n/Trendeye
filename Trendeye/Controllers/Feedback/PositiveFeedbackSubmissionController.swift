@@ -72,7 +72,7 @@ class PositiveFeedbackSubmissionController: UITableViewController {
   // MARK: - Gestures
   
   @objc func tappedSubmitButton() {
-    feedbackNavigationController?.submitFeedbackData(type: .positive, correctIdentifiers: classificationIdentifiers, incorrectIdentifiers: nil, onSuccess: presentSuccessAlert, onError: presentErrorAlert)
+    feedbackNavigationController?.submitFeedbackData(type: .positive, validIdentifiers: classificationIdentifiers, invalidIdentifiers: nil, onSuccess: presentSuccessAlert, onError: presentErrorAlert)
   }
   
   fileprivate func presentSuccessAlert() {

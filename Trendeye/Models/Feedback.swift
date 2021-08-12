@@ -11,8 +11,8 @@ struct ClassificationFeedback: Codable {
   var type: ClassificationFeedbackType.RawValue
   var image: String?
   var classificationResults: String
-  var incorrectIdentifiers: [String]?
-  var correctIdentifiers: [String]?
+  var invalidIdentifiers: [String]?
+  var validIdentifiers: [String]?
   var date: String
   var deviceInfo: String
 }

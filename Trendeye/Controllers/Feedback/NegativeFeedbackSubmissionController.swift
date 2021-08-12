@@ -19,17 +19,17 @@ class NegativeFeedbackSubmissionController: UITableViewController {
   }
   
   let feedbackType: ClassificationFeedbackType
-  let incorrectIdentifiers: [String]
-  let correctIdentifiers: [String]
-  let sectionTitles = ["Incorrect Classifications", "Correct Classifications"]
+  let invalidIdentifiers: [String]
+  let validIdentifiers: [String]
+  let sectionTitles = ["Invalid Trends", "Valid Trends"]
   let sectionData: [Int: [String]]
   
   // MARK: - Initializers
   
-  init(type feedbackType: ClassificationFeedbackType, incorrectIdentifiers: [String], correctIdentifiers: [String], style: UITableView.Style) {
-    self.incorrectIdentifiers = incorrectIdentifiers
-    self.correctIdentifiers = correctIdentifiers
-    self.sectionData = [0: incorrectIdentifiers, 1: correctIdentifiers]
+  init(type feedbackType: ClassificationFeedbackType, invalidIdentifiers: [String], validIdentifiers: [String], style: UITableView.Style) {
+    self.invalidIdentifiers = invalidIdentifiers
+    self.validIdentifiers = validIdentifiers
+    self.sectionData = [0: invalidIdentifiers, 1: validIdentifiers]
     self.feedbackType = feedbackType
     
     super.init(style: style)
@@ -63,8 +63,8 @@ class NegativeFeedbackSubmissionController: UITableViewController {
   @objc func tappedSubmitButton() {
     feedbackNavigationController?.submitFeedbackData(
       type: feedbackType,
-      correctIdentifiers: correctIdentifiers,
-      incorrectIdentifiers: incorrectIdentifiers,
+      validIdentifiers: validIdentifiers,
+      invalidIdentifiers: invalidIdentifiers,
       onSuccess: presentSuccessAlert,
       onError: presentErrorAlert)
   }

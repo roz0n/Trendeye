@@ -24,29 +24,29 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
   
   // MARK: - Identifier Data Properties
   
-  // This is used when loading the "correct" table, it's a filtered list of all the identifiers
-  // It's not needed in the "incorrect" table, as that only loads the classified identifiers
+  // This is used when loading the "valid" table, it's a filtered list of all the identifiers
+  // It's not needed in the "invalid" table, as that only loads the classified identifiers
   var allIdentifiers: [String]?
   var classificationIdentifiers: [String]?
   
   // This value is initially identical to `allIdentifiers` but is mutated during searches to present filtered results
   var trendIdentifiers: [String]?
   
-  // These are the identifiers the user has selected as correct and incorrect
+  // These are the identifiers the user has selected as valid and invalid
   // They are sent back to the parent view controller for processing upon completion of the feedback flow
   var selectedIdentifiers: [String: Bool] = [:] {
     didSet {
-      if tableType == .incorrectIdentifiers {
-        feedbackNavigationController?.incorrectIdentifiers = selectedIdentifiers
+      if tableType == .invalidIdentifiers {
+        feedbackNavigationController?.invalidIdentifiers = selectedIdentifiers
       } else {
-        feedbackNavigationController?.correctIdentifiers = selectedIdentifiers
+        feedbackNavigationController?.validIdentifiers = selectedIdentifiers
       }
     }
   }
   
   // This variable determines the identifiers we use to populate the list of selected identifiers
   var sourceIdentifiers: [String]? {
-    return tableType == .incorrectIdentifiers ? classificationIdentifiers : trendIdentifiers
+    return tableType == .invalidIdentifiers ? classificationIdentifiers : trendIdentifiers
   }
   
   // MARK: - Lifecycle
@@ -59,7 +59,7 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
   }
   
   override func viewDidAppear(_ animated: Bool) {
-    // This corrects a bug when we navigation back to this view controller in its .correct state
+    // This corrects a bug when we navigation back to this view controller in its .valid state
     nextButton?.isEnabled = getBarButtonStatus()
   }
   
@@ -73,7 +73,7 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
     
     configureNavigationBar()
     
-    if tableType == .correctIdentifiers {
+    if tableType == .validIdentifiers {
       trendIdentifiers = allIdentifiers
       configureSearchController()
     } else {
@@ -99,7 +99,7 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
   
   fileprivate func configureTableHeader() {
     let instructionsView = UITextView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 100))
-    let text = "Please select the incorrectly classified trends from your image analysis. Your selections will be used to better inform future analysis."
+    let text = "Please select the invalidly classified trends from your image analysis. Your selections will be used to better inform future analysis."
     let style = NSMutableParagraphStyle()
     
     style.lineSpacing = 4
@@ -137,8 +137,8 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
   // MARK: - Gestures
   
   @objc func tappedNextButton() {
-    tableType == .incorrectIdentifiers ?
-    feedbackNavigationController?.presentCorrectClassificationTableView() :
+    tableType == .invalidIdentifiers ?
+    feedbackNavigationController?.presentValidClassificationTableView() :
     feedbackNavigationController?.presentFeedbackSubmissionTable(type: .negative)
   }
   
@@ -187,7 +187,7 @@ extension NegativeFeedbackSelectionController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return tableType == .incorrectIdentifiers ? classificationIdentifiers?.count ?? 0 : trendIdentifiers?.count ?? 0
+    return tableType == .invalidIdentifiers ? classificationIdentifiers?.count ?? 0 : trendIdentifiers?.count ?? 0
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

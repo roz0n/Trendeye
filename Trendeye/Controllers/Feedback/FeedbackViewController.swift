@@ -9,8 +9,8 @@ import UIKit
 import Vision
 
 enum FeedbackTable: String {
-  case correctIdentifiers
-  case incorrectIdentifiers
+  case validIdentifiers
+  case invalidIdentifiers
 }
 
 class FeedbackViewController: UINavigationController {
@@ -22,8 +22,8 @@ class FeedbackViewController: UINavigationController {
   var classificationImage: UIImage
   var classificationResults: [VNClassificationObservation]
   var classificationIdentifiers: [String]?
-  var incorrectIdentifiers = [String: Bool]()
-  var correctIdentifiers =  [String: Bool]()
+  var invalidIdentifiers = [String: Bool]()
+  var validIdentifiers =  [String: Bool]()
   
   var allIdentifiers: [String] {
     return Array(TEClassificationManager.shared.indentifiers.values)
@@ -47,7 +47,7 @@ class FeedbackViewController: UINavigationController {
         
         self.init(rootViewController: positiveFeedbackController, type: feedbackType, classificationResults: classificationResults, classificationIdentifiers: classificationIdentifiers, classificationImage: classificationImage)
       case .negative:
-        let negativeFeedbackController = NegativeFeedbackSelectionController(type: .incorrectIdentifiers, identifiers: nil)
+        let negativeFeedbackController = NegativeFeedbackSelectionController(type: .invalidIdentifiers, identifiers: nil)
         negativeFeedbackController.classificationIdentifiers = classificationIdentifiers
         negativeFeedbackController.navigationItem.title = "Feedback Report"
         negativeFeedbackController.navigationItem.backButtonTitle = ""
@@ -82,30 +82,30 @@ class FeedbackViewController: UINavigationController {
     return allIdentifiers.filter { !classifiedIdentifiers.contains($0) }
   }
   
-  func presentCorrectClassificationTableView() {
+  func presentValidClassificationTableView() {
     guard let classificationIdentifiers = classificationIdentifiers else {
       return
     }
     
     // The full list of identifiers needs to be filtered in order to remove the values that were present in the classification being reported
     let filteredIdentifiers = getFilteredIdentifiers(classified: classificationIdentifiers, all: allIdentifiers)
-    let correctIdentifiersTable = NegativeFeedbackSelectionController(type: .correctIdentifiers, identifiers: filteredIdentifiers)
+    let validIdentifiersTable = NegativeFeedbackSelectionController(type: .validIdentifiers, identifiers: filteredIdentifiers)
     
-    correctIdentifiersTable.selectedIdentifiers = correctIdentifiers
-    correctIdentifiersTable.navigationItem.title = "Select Correct Trends"
-    correctIdentifiersTable.navigationItem.backButtonTitle = ""
+    validIdentifiersTable.selectedIdentifiers = validIdentifiers
+    validIdentifiersTable.navigationItem.title = "Select Valid Trends"
+    validIdentifiersTable.navigationItem.backButtonTitle = ""
     
-    pushViewController(correctIdentifiersTable, animated: true)
+    pushViewController(validIdentifiersTable, animated: true)
   }
   
   func presentFeedbackSubmissionTable(type feedbackType: ClassificationFeedbackType) {
-    let incorrectIdentifiers = Array(incorrectIdentifiers.keys)
-    let correctIdentifiers = Array(correctIdentifiers.keys)
+    let invalidIdentifiers = Array(invalidIdentifiers.keys)
+    let validIdentifiers = Array(validIdentifiers.keys)
     
     let feedbackSubmissionTable = NegativeFeedbackSubmissionController(
       type: feedbackType,
-      incorrectIdentifiers: incorrectIdentifiers,
-      correctIdentifiers: correctIdentifiers,
+      invalidIdentifiers: invalidIdentifiers,
+      validIdentifiers: validIdentifiers,
       style: .insetGrouped)
     
     feedbackSubmissionTable.title = "Confirm Feedback"
@@ -114,7 +114,7 @@ class FeedbackViewController: UINavigationController {
   
   // MARK: - Networking
   
-  func submitFeedbackData(type: ClassificationFeedbackType, correctIdentifiers: [String]?, incorrectIdentifiers: [String]?, onSuccess: @escaping () -> Void?, onError: @escaping () -> Void?) {
+  func submitFeedbackData(type: ClassificationFeedbackType, validIdentifiers: [String]?, invalidIdentifiers: [String]?, onSuccess: @escaping () -> Void?, onError: @escaping () -> Void?) {
     let encodedImage = classificationImage.scaleAndEncode()
     let encodedClassificationResult = classificationResults.encodeToString()
     let encodedDate = String(Date().timeIntervalSince1970)
@@ -126,24 +126,24 @@ class FeedbackViewController: UINavigationController {
       return
     }
     
-    var incorrectClassificationIdentifiers: [String]?
-    var correctClassificationIdentifiers: [String]?
+    var invalidClassificationIdentifiers: [String]?
+    var validClassificationIdentifiers: [String]?
     
     switch type {
       case .positive:
-        incorrectClassificationIdentifiers = nil
-        correctClassificationIdentifiers = correctIdentifiers
+        invalidClassificationIdentifiers = nil
+        validClassificationIdentifiers = validIdentifiers
       case .negative:
-        incorrectClassificationIdentifiers = incorrectIdentifiers
-        correctClassificationIdentifiers = correctIdentifiers
+        invalidClassificationIdentifiers = invalidIdentifiers
+        validClassificationIdentifiers = validIdentifiers
     }
     
     let classificationData = ClassificationFeedback(
       type: type.rawValue,
       image: encodedImage,
       classificationResults: encodedClassificationResult,
-      incorrectIdentifiers: incorrectClassificationIdentifiers,
-      correctIdentifiers: correctClassificationIdentifiers,
+      invalidIdentifiers: invalidClassificationIdentifiers,
+      validIdentifiers: validClassificationIdentifiers,
       date: encodedDate,
       deviceInfo: deviceInfo)
     
