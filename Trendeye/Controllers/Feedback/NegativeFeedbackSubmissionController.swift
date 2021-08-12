@@ -18,7 +18,6 @@ class NegativeFeedbackSubmissionController: UITableViewController {
     return navigationController as? FeedbackViewController
   }
   
-  let networkManager = TENetworkManager()
   let feedbackType: ClassificationFeedbackType
   let incorrectIdentifiers: [String]
   let correctIdentifiers: [String]
@@ -62,60 +61,12 @@ class NegativeFeedbackSubmissionController: UITableViewController {
   }
   
   @objc func tappedSubmitButton() {
-    submitFeedbackData(type: feedbackType)
-  }
-  
-  // MARK: - Networking
-  
-  fileprivate func submitFeedbackData(type: ClassificationFeedbackType) {
-    let encodedImage = feedbackNavigationController?.classificationImage.scaleAndEncode()
-    let encodedClassificationResult = feedbackNavigationController?.classificationResults.encodeToString()
-    let encodedDate = String(Date().timeIntervalSince1970)
-    let deviceInfo = UIDevice().getDeviceInfo()
-    
-    // Ensure the classification result is properly encoded before proceeding
-    guard let encodedClassificationResult = encodedClassificationResult else {
-      presentErrorAlert()
-      return
-    }
-    
-    var incorrectClassificationIdentifiers: [String]?
-    var correctClassificationIdentifiers: [String]?
-    
-    switch type {
-      case .positive:
-        break
-      case .negative:
-        incorrectClassificationIdentifiers = incorrectIdentifiers
-        correctClassificationIdentifiers = correctIdentifiers
-    }
-    
-    let classificationData = ClassificationFeedback(
-      type: type.rawValue,
-      image: encodedImage,
-      classificationResults: encodedClassificationResult,
-      incorrectIdentifiers: incorrectClassificationIdentifiers,
-      correctIdentifiers: correctClassificationIdentifiers,
-      date: encodedDate,
-      deviceInfo: deviceInfo)
-    
-    networkManager.postClassificationFeedback(data: classificationData) { [weak self] (result) in
-      switch result {
-        case .success(_):
-          print("Successfully posted feedback data")
-          
-          DispatchQueue.main.async {
-            self?.presentSuccessAlert()
-          }
-        case .failure(let error):
-          print("Error posting feedback data: \(error.rawValue)")
-          
-          DispatchQueue.main.async {
-            self?.presentErrorAlert()
-          }
-          return
-      }
-    }
+    feedbackNavigationController?.submitFeedbackData(
+      type: feedbackType,
+      correctIdentifiers: correctIdentifiers,
+      incorrectIdentifiers: incorrectIdentifiers,
+      onSuccess: presentSuccessAlert,
+      onError: presentErrorAlert)
   }
   
   // MARK: - Helpers

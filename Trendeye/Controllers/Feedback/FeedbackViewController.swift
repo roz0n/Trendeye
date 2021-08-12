@@ -16,6 +16,8 @@ enum FeedbackTable: String {
 class FeedbackViewController: UINavigationController {
   
   // MARK: - Properties
+  
+  let networkManager = TENetworkManager()
   var feedbackType: ClassificationFeedbackType
   var classificationImage: UIImage
   var classificationResults: [VNClassificationObservation]
@@ -118,19 +120,58 @@ class FeedbackViewController: UINavigationController {
     pushViewController(feedbackSubmissionTable, animated: true)
   }
   
-  // TODO: Move and rename me
+  // MARK: - Networking
   
-  func handleSubmitButtonGestures() {
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedPositiveFeedback))
-    let vc = getRootViewController() as? InfoModalViewController
-
-    if let vc = vc {
-      vc.actionButton.addGestureRecognizer(tapGesture)
+  func submitFeedbackData(type: ClassificationFeedbackType, correctIdentifiers: [String]?, incorrectIdentifiers: [String]?, onSuccess: @escaping () -> Void?, onError: @escaping () -> Void?) {
+    let encodedImage = classificationImage.scaleAndEncode()
+    let encodedClassificationResult = classificationResults.encodeToString()
+    let encodedDate = String(Date().timeIntervalSince1970)
+    let deviceInfo = UIDevice().getDeviceInfo()
+    
+    // Ensure the classification result is properly encoded before proceeding
+    guard let encodedClassificationResult = encodedClassificationResult else {
+      onError()
+      return
     }
-  }
-
-  @objc func tappedPositiveFeedback() {
-    presentFeedbackSubmissionTable(type: .positive)
+    
+    var incorrectClassificationIdentifiers: [String]?
+    var correctClassificationIdentifiers: [String]?
+    
+    switch type {
+      case .positive:
+        incorrectClassificationIdentifiers = nil
+        correctClassificationIdentifiers = correctIdentifiers
+      case .negative:
+        incorrectClassificationIdentifiers = incorrectIdentifiers
+        correctClassificationIdentifiers = correctIdentifiers
+    }
+    
+    let classificationData = ClassificationFeedback(
+      type: type.rawValue,
+      image: encodedImage,
+      classificationResults: encodedClassificationResult,
+      incorrectIdentifiers: incorrectClassificationIdentifiers,
+      correctIdentifiers: correctClassificationIdentifiers,
+      date: encodedDate,
+      deviceInfo: deviceInfo)
+    
+    networkManager.postClassificationFeedback(data: classificationData) { result in
+      switch result {
+        case .success(_):
+          print("Successfully posted feedback data")
+          
+          DispatchQueue.main.async {
+            onSuccess()
+          }
+        case .failure(let error):
+          print("Error posting feedback data: \(error.rawValue)")
+          
+          DispatchQueue.main.async {
+            onError()
+          }
+          return
+      }
+    }
   }
   
 }
