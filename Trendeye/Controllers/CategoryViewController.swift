@@ -1,20 +1,21 @@
-  //
-  //  CategoryViewController.swift
-  //  Trendeye
-  //
-  //  Created by Arnaldo Rozon on 4/11/21.
-  //
+//
+//  CategoryViewController.swift
+//  Trendeye
+//
+//  Created by Arnaldo Rozon on 4/11/21.
+//
 
 import UIKit
 import SafariServices
 
 final class CategoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SFSafariViewControllerDelegate {
   
-    // MARK: - Properties
+  // MARK: - Properties
   
   var identifier: String!
   var name: String!
   var contentErrorView: ContentErrorView!
+  var networkManager = TENetworkManager()
   var imageCollection: CategoryCollectionView!
   var imageCollectionLayout = UICollectionViewFlowLayout()
   var imageCollectionLimit = 15
@@ -27,11 +28,11 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   var descriptionFetchError: Bool = false {
     didSet {
-        //      DispatchQueue.main.async { [weak self] in
-        //        if let text = self?.descriptionText {
-        //          self?.configureDescription(text: text)
-        //        }
-        //      }
+      //      DispatchQueue.main.async { [weak self] in
+      //        if let text = self?.descriptionText {
+      //          self?.configureDescription(text: text)
+      //        }
+      //      }
     }
   }
   
@@ -44,7 +45,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
   }
   
-    // MARK: - Views
+  // MARK: - Views
   
   var contentContainer: UIStackView = {
     let view = UIStackView()
@@ -52,31 +53,13 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     view.translatesAutoresizingMaskIntoConstraints = false
     view.axis = .vertical
     view.spacing = 0
-    view.backgroundColor = K.Colors.Red
     
     return view
   }()
   
-  var descriptionView: UITextView = {
-    let textView = UITextView()
-    
-    textView.translatesAutoresizingMaskIntoConstraints = false
-    textView.textContainer.maximumNumberOfLines = 0
-    textView.textContainer.lineBreakMode = .byWordWrapping
-    textView.isScrollEnabled = false
-    textView.isEditable = false
-    textView.isUserInteractionEnabled = false
-    textView.backgroundColor = K.Colors.Yellow
-    
-    return textView
-  }()
-  
   var imageCollectionContainer: UIView = {
     let view = UIView()
-    
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.backgroundColor = .purple
-    
     return view
   }()
   
@@ -100,7 +83,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     return button
   }()
   
-    // MARK: - View Lifecycle
+  // MARK: - View Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -115,7 +98,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     applyLayouts()
   }
   
-    // MARK: - Configurations
+  // MARK: - Configurations
   
   fileprivate func configureViewController() {
     navigationItem.largeTitleDisplayMode = .always
@@ -123,7 +106,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   fileprivate func configureImageCollection() {
-    imageCollectionLayout.sectionInset = UIEdgeInsets(top: imageCollectionSpacing, left: imageCollectionSpacing, bottom: imageCollectionSpacing, right: imageCollectionSpacing)
+    imageCollectionLayout.sectionInset = UIEdgeInsets(top: 0, left: imageCollectionSpacing, bottom: imageCollectionSpacing, right: imageCollectionSpacing)
     imageCollectionLayout.minimumLineSpacing = imageCollectionSpacing
     imageCollectionLayout.minimumInteritemSpacing = imageCollectionSpacing
     imageCollection = CategoryCollectionView(frame: .zero, collectionViewLayout: imageCollectionLayout)
@@ -142,7 +125,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   fileprivate func configureWebView() {
-    let url = URL(string: TENetworkManager.shared.getEndpoint("trends", endpoint: identifier, type: "web"))
+    let url = URL(string: networkManager.getEndpoint("trends", endpoint: identifier, type: "web"))
     
     trendListWebView = SFSafariViewController(url: url!)
     trendListWebView.modalPresentationCapturesStatusBarAppearance = true
@@ -153,13 +136,13 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     trendListButton.addTarget(self, action: #selector(handleTrendListButtonTap), for: .touchUpInside)
   }
   
-    // MARK: - Gestures
+  // MARK: - Gestures
   
   @objc func handleTrendListButtonTap() {
     present(trendListWebView, animated: true, completion: nil)
   }
   
-    // MARK: - UICollectionView Methods
+  // MARK: - UICollectionView Methods
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1
@@ -169,12 +152,12 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     let cellsInRow: CGFloat = 3
     let cellPadding: CGFloat = imageCollectionSpacing
     
-      // Obtain amount of total padding required by the row
+    // Obtain amount of total padding required by the row
     let totalInsetSize: CGFloat = (imageCollectionSpacing * 2)
     let totalCellPadding: CGFloat = (cellsInRow - 1) * cellPadding // cellsInRow - 1 because the last item in the row goes without padding
     let totalPadding = totalInsetSize + totalCellPadding
     
-      // Subtract the total padding from the width of the gallery view and divide by the number of cells in the row
+    // Subtract the total padding from the width of the gallery view and divide by the number of cells in the row
     let cellSize: CGFloat = (imageCollection.bounds.width - totalPadding) / 3
     
     return CGSize(width: cellSize, height: cellSize).customRound()
@@ -194,8 +177,8 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
     if descriptionText != nil && imageCollectionHeaderHeight == nil {
-        // This isn't ideal -- dequeuing the cell in this method -- but this seems like the only reasonable, non-hacky way to get a dynamically sized collection view header.
-        // We can take a hit on performance as the dequeuing will only occur twice at most (when the collection view initially loads and when it's reloaded after we fetch the category description text from the API).
+      // This isn't ideal -- dequeuing the cell in this method -- but this seems like the only reasonable, non-hacky way to get a dynamically sized collection view header.
+      // We can take a hit on performance as the dequeuing will only occur twice at most (when the collection view initially loads and when it's reloaded after we fetch the category description text from the API).
       let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier, for: IndexPath()) as! CategoryCollectionHeaderView
       
       headerCell.setText(descriptionText ?? "")
@@ -213,13 +196,13 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     let cell = imageCollection.dequeueReusableCell(withReuseIdentifier: CategoryImageCell.reuseIdentifier, for: indexPath) as! CategoryImageCell
     
     guard imageCollectionLinks != nil && !imageCollectionLinks!.isEmpty && imageCollectionLinks!.count >= indexPath.row else {
-        // There are no images for the category or at this index.
-        // Don't bother to check the cache, just return empty cells with no border.
+      // There are no images for the category or at this index.
+      // Don't bother to check the cache, just return empty cells with no border.
       return cell
     }
     
-      // MARK: - Cell Image Cache Check
-      // TODO: When we resume the app from a suspended state, the cache clears these images. Either increase the size of the cache, or fetch them again.
+    // MARK: - Cell Image Cache Check
+    // TODO: When we resume the app from a suspended state, the cache clears these images. Either increase the size of the cache, or fetch them again.
     
     let imageKey = (imageCollectionLinks?[indexPath.row])! as NSString
     let imageData = TECacheManager.shared.imageCache.object(forKey: imageKey)
@@ -241,7 +224,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     presentFullscreenImage(url)
   }
   
-    // MARK: - Helpers
+  // MARK: - Helpers
   
   fileprivate func presentFullscreenImage(_ url: String) {
     let fullView = FullImageViewController()
@@ -253,7 +236,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     present(fullView, animated: true, completion: nil)
   }
   
-    // MARK: - Data Fetching
+  // MARK: - Data Fetching
   
   fileprivate func fetchData() {
     fetchDescription()
@@ -261,7 +244,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   fileprivate func fetchDescription() {
-    TENetworkManager.shared.fetchCategoryDescription(identifier) { [weak self] (result, cachedData) in
+    networkManager.fetchCategoryDescription(identifier) { [weak self] (result, cachedData) in
       DispatchQueue.main.async {
         guard cachedData == nil else {
           print("Using cached description data")
@@ -285,13 +268,13 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   fileprivate func fetchImages() {
-    TENetworkManager.shared.fetchCategoryImages(identifier, imageCollectionLimit) { [weak self] (result) in
+    networkManager.fetchCategoryImages(identifier, imageCollectionLimit) { [weak self] (result) in
       switch result {
         case .success(let imageData):
           print("Category image links fetch success: will use cached versions if available")
           self?.imageCollectionLinks = imageData.data.map { $0.images.small }
           self?.imageCollectionLinks?.forEach {
-              // The cache manager will not make a request for the image if it is already cached :)
+            // The cache manager will not make a request for the image if it is already cached :)
             TECacheManager.shared.fetchAndCacheImage(from: $0)
             
           }
@@ -308,7 +291,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
 }
 
-  // MARK: - Layout
+// MARK: - Layout
 
 fileprivate extension CategoryViewController {
   

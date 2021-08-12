@@ -9,10 +9,12 @@ import UIKit
 
 class CategoryCollectionView: UICollectionView {
   
+  // MARK: - Initializers
+  
   override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
     super.init(frame: frame, collectionViewLayout: layout)
-    
     translatesAutoresizingMaskIntoConstraints = false
+    
     register(CategoryImageCell.self, forCellWithReuseIdentifier: CategoryImageCell.reuseIdentifier)
     register(CategoryCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier)
   }

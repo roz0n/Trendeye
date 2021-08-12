@@ -70,7 +70,6 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
     self.allIdentifiers = identifiers
     
     super.init(style: .plain)
-    
     configureNavigationBar()
     
     if tableType == .validIdentifiers {

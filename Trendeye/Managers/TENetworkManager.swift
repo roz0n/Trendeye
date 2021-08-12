@@ -24,9 +24,7 @@ enum TEFeedback {
 final class TENetworkManager {
   
   // MARK: - Properties
-  
-  static let shared = TENetworkManager()
-  
+    
   lazy var encoder = JSONEncoder()
   lazy var decoder = JSONDecoder()
   
