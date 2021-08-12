@@ -23,18 +23,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   let imageCollectionSpacing: CGFloat = 16
   var imageCollectionHeaderHeight: CGFloat?
   var trendListWebView: SFSafariViewController!
-  
   var descriptionText: String?
-  
-  var descriptionFetchError: Bool = false {
-    didSet {
-      //      DispatchQueue.main.async { [weak self] in
-      //        if let text = self?.descriptionText {
-      //          self?.configureDescription(text: text)
-      //        }
-      //      }
-    }
-  }
   
   var imageFetchError: Bool = false {
     didSet {
@@ -202,7 +191,6 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     // MARK: - Cell Image Cache Check
-    // TODO: When we resume the app from a suspended state, the cache clears these images. Either increase the size of the cache, or fetch them again.
     
     let imageKey = (imageCollectionLinks?[indexPath.row])! as NSString
     let imageData = TECacheManager.shared.imageCache.object(forKey: imageKey)
@@ -257,7 +245,6 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
             print("Using fresh description data")
             self?.descriptionText = descriptionData.data.description
           case .failure(let error):
-            self?.descriptionFetchError = true
             self?.descriptionText = "Description not available"
             print(error)
           case .none:
