@@ -36,31 +36,23 @@ class FeedbackViewController: UINavigationController {
     configureController()
   }
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    
-    if (feedbackType == .positive) {
-      setNavigationBarHidden(true, animated: animated)
-    }
-  }
-  
   // MARK: - Initializers
   
   convenience init(type feedbackType: ClassificationFeedbackType, for classificationResults: [VNClassificationObservation], classificationIdentifiers: [String]?, classificationImage: UIImage) {
     switch feedbackType {
       case .positive:
-        let rootViewController = PositiveFeedbackSubmissionController()
-        rootViewController.navigationItem.title = "Report Correct Analysis"
-        rootViewController.navigationItem.backButtonTitle = ""
+        let positiveFeedbackController = PositiveFeedbackSubmissionController(identifiers: classificationIdentifiers)
+        positiveFeedbackController.navigationItem.title = "Feedback Report"
+        positiveFeedbackController.navigationItem.backButtonTitle = ""
         
-        self.init(rootViewController: rootViewController, type: feedbackType, classificationResults: classificationResults, classificationIdentifiers: classificationIdentifiers, classificationImage: classificationImage)
+        self.init(rootViewController: positiveFeedbackController, type: feedbackType, classificationResults: classificationResults, classificationIdentifiers: classificationIdentifiers, classificationImage: classificationImage)
       case .negative:
-        let rootViewController = NegativeFeedbackSelectionController(type: .incorrectIdentifiers, identifiers: nil)
-        rootViewController.classificationIdentifiers = classificationIdentifiers
-        rootViewController.navigationItem.title = "Report Incorrect Analysis"
-        rootViewController.navigationItem.backButtonTitle = ""
+        let negativeFeedbackController = NegativeFeedbackSelectionController(type: .incorrectIdentifiers, identifiers: nil)
+        negativeFeedbackController.classificationIdentifiers = classificationIdentifiers
+        negativeFeedbackController.navigationItem.title = "Feedback Report"
+        negativeFeedbackController.navigationItem.backButtonTitle = ""
         
-        self.init(rootViewController: rootViewController, type: feedbackType, classificationResults: classificationResults, classificationIdentifiers: classificationIdentifiers, classificationImage: classificationImage)
+        self.init(rootViewController: negativeFeedbackController, type: feedbackType, classificationResults: classificationResults, classificationIdentifiers: classificationIdentifiers, classificationImage: classificationImage)
     }
   }
   

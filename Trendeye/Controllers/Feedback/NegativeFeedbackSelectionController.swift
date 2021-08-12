@@ -93,6 +93,7 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
   
   fileprivate func configureTableView() {
     tableView.backgroundColor = K.Colors.Black
+    tableView.tableFooterView = UIView()
     tableView.register(FeedbackTableViewCell.self, forCellReuseIdentifier: FeedbackTableViewCell.reuseIdentifier)
   }
   

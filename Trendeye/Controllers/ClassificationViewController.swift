@@ -222,7 +222,7 @@ final class ClassificationViewController: UITableViewController {
     let positiveFeedbackController = FeedbackViewController(
       type: .positive,
       for: results!,
-      classificationIdentifiers: nil,
+      classificationIdentifiers: resultIdentifiers,
       classificationImage: selectedImage)
     
     positiveFeedbackController.modalPresentationStyle = .formSheet
