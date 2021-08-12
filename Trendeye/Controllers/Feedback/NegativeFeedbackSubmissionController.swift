@@ -1,6 +1,6 @@
 //
-//  FeedbackSubmissionTableController.swift
-//  FeedbackSubmissionTableController
+//  NegativeFeedbackSubmissionController.swift
+//  NegativeFeedbackSubmissionController
 //
 //  Created by Arnaldo Rozon on 8/3/21.
 //
@@ -8,11 +8,11 @@
 import UIKit
 import Vision
 
-class FeedbackSubmissionTableController: UITableViewController {
+class NegativeFeedbackSubmissionController: UITableViewController {
   
   // MARK: - Properties
   
-  let cellIdentifier = "feedbackSubmissionCell"
+  let cellIdentifier = "negativefeedbackSubmissionCell"
   
   var feedbackNavigationController: FeedbackViewController? {
     return navigationController as? FeedbackViewController
@@ -99,7 +99,7 @@ class FeedbackSubmissionTableController: UITableViewController {
       date: encodedDate,
       deviceInfo: deviceInfo)
     
-    networkManager.postClassificationFeedback(type: .negative, data: classificationData) { [weak self] (result) in
+    networkManager.postClassificationFeedback(data: classificationData) { [weak self] (result) in
       switch result {
         case .success(_):
           print("Successfully posted feedback data")
@@ -142,7 +142,7 @@ class FeedbackSubmissionTableController: UITableViewController {
 
 // MARK: - UITableViewDataSource
 
-extension FeedbackSubmissionTableController {
+extension NegativeFeedbackSubmissionController {
   
   override func numberOfSections(in tableView: UITableView) -> Int {
     return 2

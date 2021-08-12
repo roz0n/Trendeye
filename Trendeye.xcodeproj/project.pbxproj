@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2303FA5926B8CDEB00EA133A /* FeedbackSelectionTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2303FA5826B8CDEB00EA133A /* FeedbackSelectionTableController.swift */; };
+		2303FA5926B8CDEB00EA133A /* NegativeFeedbackSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2303FA5826B8CDEB00EA133A /* NegativeFeedbackSelectionController.swift */; };
 		23130D14263823CD003BEDCB /* TrendeyeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23130D13263823CD003BEDCB /* TrendeyeTests.swift */; };
 		23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AD1261FC5EC00FFF2B3 /* CameraButton.swift */; };
 		23131AD7261FE66400FFF2B3 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AD6261FE66400FFF2B3 /* UIView+Ext.swift */; };
@@ -41,6 +41,8 @@
 		2377FE7226BF7E1D0041073F /* UIDevice+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE7126BF7E1D0041073F /* UIDevice+Ext.swift */; };
 		2377FE7426BF86970041073F /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE7326BF86970041073F /* Array+Ext.swift */; };
 		23988A2226C2CB820042BC28 /* InfoListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2126C2CB820042BC28 /* InfoListItemView.swift */; };
+		23988A2626C4D95E0042BC28 /* UINavigationController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2526C4D95E0042BC28 /* UINavigationController+Ext.swift */; };
+		23988A2C26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2B26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift */; };
 		23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		23A009DA261FC03B007A091D /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
 		23AAC191262AA7A700744651 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC190262AA7A700744651 /* CategoryCollectionView.swift */; };
@@ -49,7 +51,7 @@
 		23AAC1A1262D00A700744651 /* TECacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1A0262D00A700744651 /* TECacheManager.swift */; };
 		23AAC1FF2630C86800744651 /* CategoryCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1FE2630C86800744651 /* CategoryCollectionHeaderView.swift */; };
 		23AAC2022630F41500744651 /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC2012630F41500744651 /* FullImageViewController.swift */; };
-		23C5702726B90BC600E8EC83 /* FeedbackSubmissionTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5702626B90BC600E8EC83 /* FeedbackSubmissionTableController.swift */; };
+		23C5702726B90BC600E8EC83 /* NegativeFeedbackSubmissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5702626B90BC600E8EC83 /* NegativeFeedbackSubmissionController.swift */; };
 		23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */; };
 		23CEC9C5263A5505009114B3 /* CameraErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C4263A5505009114B3 /* CameraErrorView.swift */; };
 		23DACBC726B527D7005D02CB /* InfoModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DACBC626B527D7005D02CB /* InfoModalViewController.swift */; };
@@ -76,7 +78,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2303FA5826B8CDEB00EA133A /* FeedbackSelectionTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSelectionTableController.swift; sourceTree = "<group>"; };
+		2303FA5826B8CDEB00EA133A /* NegativeFeedbackSelectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeFeedbackSelectionController.swift; sourceTree = "<group>"; };
 		23130D11263823CD003BEDCB /* TrendeyeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrendeyeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23130D13263823CD003BEDCB /* TrendeyeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendeyeTests.swift; sourceTree = "<group>"; };
 		23130D15263823CD003BEDCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -112,6 +114,8 @@
 		2377FE7126BF7E1D0041073F /* UIDevice+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Ext.swift"; sourceTree = "<group>"; };
 		2377FE7326BF86970041073F /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
 		23988A2126C2CB820042BC28 /* InfoListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoListItemView.swift; sourceTree = "<group>"; };
+		23988A2526C4D95E0042BC28 /* UINavigationController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Ext.swift"; sourceTree = "<group>"; };
+		23988A2B26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositiveFeedbackSubmissionController.swift; sourceTree = "<group>"; };
 		23A009D5261FBD5C007A091D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		23A009D9261FC03B007A091D /* CameraControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlsView.swift; sourceTree = "<group>"; };
 		23AAC190262AA7A700744651 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
@@ -120,7 +124,7 @@
 		23AAC1A0262D00A700744651 /* TECacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TECacheManager.swift; sourceTree = "<group>"; };
 		23AAC1FE2630C86800744651 /* CategoryCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionHeaderView.swift; sourceTree = "<group>"; };
 		23AAC2012630F41500744651 /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
-		23C5702626B90BC600E8EC83 /* FeedbackSubmissionTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSubmissionTableController.swift; sourceTree = "<group>"; };
+		23C5702626B90BC600E8EC83 /* NegativeFeedbackSubmissionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeFeedbackSubmissionController.swift; sourceTree = "<group>"; };
 		23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyTableHeaderView.swift; sourceTree = "<group>"; };
 		23CEC9C4263A5505009114B3 /* CameraErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraErrorView.swift; sourceTree = "<group>"; };
 		23DACBC626B527D7005D02CB /* InfoModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModalViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +193,7 @@
 				2377FE6F26BE8F7E0041073F /* VNClassificationObservation+Ext.swift */,
 				2377FE7126BF7E1D0041073F /* UIDevice+Ext.swift */,
 				2377FE7326BF86970041073F /* Array+Ext.swift */,
+				23988A2526C4D95E0042BC28 /* UINavigationController+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -283,8 +288,9 @@
 			isa = PBXGroup;
 			children = (
 				234E14D226B8CCDA00B204D0 /* FeedbackViewController.swift */,
-				2303FA5826B8CDEB00EA133A /* FeedbackSelectionTableController.swift */,
-				23C5702626B90BC600E8EC83 /* FeedbackSubmissionTableController.swift */,
+				2303FA5826B8CDEB00EA133A /* NegativeFeedbackSelectionController.swift */,
+				23C5702626B90BC600E8EC83 /* NegativeFeedbackSubmissionController.swift */,
+				23988A2B26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -531,8 +537,9 @@
 			files = (
 				23AAC191262AA7A700744651 /* CategoryCollectionView.swift in Sources */,
 				23775AD926AE3D8400E839DD /* ClassificationMetricChip.swift in Sources */,
+				23988A2626C4D95E0042BC28 /* UINavigationController+Ext.swift in Sources */,
 				2363BC2226771CA100564849 /* CameraDetectionView.swift in Sources */,
-				2303FA5926B8CDEB00EA133A /* FeedbackSelectionTableController.swift in Sources */,
+				2303FA5926B8CDEB00EA133A /* NegativeFeedbackSelectionController.swift in Sources */,
 				23131B0B2623863200FFF2B3 /* ClassificationImageHeader.swift in Sources */,
 				23131AFE2622E38400FFF2B3 /* CategoryViewController.swift in Sources */,
 				237172A52633C91D00D29B50 /* UIViewController+Ext.swift in Sources */,
@@ -568,7 +575,7 @@
 				232AA3912628FF9A00E5E8A1 /* ClassificationTableFooterView.swift in Sources */,
 				23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */,
 				2377FE6826BE16270041073F /* Projects.swift in Sources */,
-				23C5702726B90BC600E8EC83 /* FeedbackSubmissionTableController.swift in Sources */,
+				23C5702726B90BC600E8EC83 /* NegativeFeedbackSubmissionController.swift in Sources */,
 				23131B072622F67600FFF2B3 /* K.swift in Sources */,
 				23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */,
 				23AAC2022630F41500744651 /* FullImageViewController.swift in Sources */,
@@ -578,6 +585,7 @@
 				234E14D326B8CCDA00B204D0 /* FeedbackViewController.swift in Sources */,
 				23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */,
 				23DACBC726B527D7005D02CB /* InfoModalViewController.swift in Sources */,
+				23988A2C26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift in Sources */,
 				23775AD726ACB5F500E839DD /* TENavigationController.swift in Sources */,
 				23988A2226C2CB820042BC28 /* InfoListItemView.swift in Sources */,
 				23AAC1FF2630C86800744651 /* CategoryCollectionHeaderView.swift in Sources */,

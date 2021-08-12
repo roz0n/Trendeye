@@ -1,13 +1,13 @@
 //
-//  FeedbackSelectionTableController.swift
-//  FeedbackSelectionTableController
+//  NegativeFeedbackSelectionController.swift
+//  NegativeFeedbackSelectionController
 //
 //  Created by Arnaldo Rozon on 8/2/21.
 //
 
 import UIKit
 
-class FeedbackSelectionTableController: UITableViewController, UISearchResultsUpdating {
+class NegativeFeedbackSelectionController: UITableViewController, UISearchResultsUpdating {
   
   // MARK: - Properties
   
@@ -138,7 +138,7 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
   @objc func tappedNextButton() {
     tableType == .incorrectIdentifiers ?
     feedbackNavigationController?.presentCorrectClassificationTableView() :
-    feedbackNavigationController?.presentNegativeFeedbackSubmissionView()
+    feedbackNavigationController?.presentFeedbackSubmissionTable(type: .negative)
   }
   
   // MARK: - Helpers
@@ -162,7 +162,7 @@ class FeedbackSelectionTableController: UITableViewController, UISearchResultsUp
 
 // MARK: - UISearchResultsUpdating
 
-extension FeedbackSelectionTableController {
+extension NegativeFeedbackSelectionController {
   
   func updateSearchResults(for searchController: UISearchController) {
     guard let query = searchController.searchBar.text else { return }
@@ -179,7 +179,7 @@ extension FeedbackSelectionTableController {
 
 // MARK: - UITableViewDataSource
 
-extension FeedbackSelectionTableController {
+extension NegativeFeedbackSelectionController {
   
   override func numberOfSections(in tableView: UITableView) -> Int {
     return 1

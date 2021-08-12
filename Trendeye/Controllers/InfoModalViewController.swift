@@ -8,7 +8,6 @@
 import UIKit
 
 // TODO: There is an ambigious size for the scroll view here, fix it later
-
 class InfoModalViewController: UIViewController {
   
   // MARK: - Properties
@@ -125,7 +124,7 @@ class InfoModalViewController: UIViewController {
     
     configureTextViews()
     configureIconView(with: iconSymbol)
-    configureButton()
+    configureActionButton()
   }
   
   required init?(coder: NSCoder) {
@@ -158,7 +157,7 @@ class InfoModalViewController: UIViewController {
     iconView.image = UIImage(systemName: symbol, withConfiguration: configuration)?.withTintColor(K.Colors.White, renderingMode: .alwaysOriginal)
   }
   
-  fileprivate func configureButton() {
+  fileprivate func configureActionButton() {
     actionButton.setTitle(buttonText, for: .normal)
   }
   
@@ -170,7 +169,6 @@ class InfoModalViewController: UIViewController {
   }
   
   @objc func tappedActionButton() {
-    dismiss(animated: true, completion: nil)
     dismiss(animated: true) {
       // TODO: Save to userDefaults that this screen has been presented already as it should only be presented once.
       print("Dismissed welcome screen")

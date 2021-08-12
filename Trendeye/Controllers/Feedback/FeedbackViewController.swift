@@ -47,13 +47,13 @@ class FeedbackViewController: UINavigationController {
   convenience init(type feedbackType: ClassificationFeedbackType, for classificationResults: [VNClassificationObservation], classificationIdentifiers: [String]?, classificationImage: UIImage) {
     switch feedbackType {
       case .positive:
-        let rootViewController = InfoModalViewController(iconSymbol: K.Icons.ApprovalSeal, titleText: "Valid Analysis", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.", buttonText: "Send Feedback")
-        rootViewController.navigationItem.title = "Looking good?"
+        let rootViewController = PositiveFeedbackSubmissionController()
+        rootViewController.navigationItem.title = "Report Correct Analysis"
         rootViewController.navigationItem.backButtonTitle = ""
         
         self.init(rootViewController: rootViewController, type: feedbackType, classificationResults: classificationResults, classificationIdentifiers: classificationIdentifiers, classificationImage: classificationImage)
       case .negative:
-        let rootViewController = FeedbackSelectionTableController(type: .incorrectIdentifiers, identifiers: nil)
+        let rootViewController = NegativeFeedbackSelectionController(type: .incorrectIdentifiers, identifiers: nil)
         rootViewController.classificationIdentifiers = classificationIdentifiers
         rootViewController.navigationItem.title = "Report Incorrect Analysis"
         rootViewController.navigationItem.backButtonTitle = ""
@@ -95,7 +95,7 @@ class FeedbackViewController: UINavigationController {
     
     // The full list of identifiers needs to be filtered in order to remove the values that were present in the classification being reported
     let filteredIdentifiers = getFilteredIdentifiers(classified: classificationIdentifiers, all: allIdentifiers)
-    let correctIdentifiersTable = FeedbackSelectionTableController(type: .correctIdentifiers, identifiers: filteredIdentifiers)
+    let correctIdentifiersTable = NegativeFeedbackSelectionController(type: .correctIdentifiers, identifiers: filteredIdentifiers)
     
     correctIdentifiersTable.selectedIdentifiers = correctIdentifiers
     correctIdentifiersTable.navigationItem.title = "Select Correct Trends"
@@ -104,18 +104,33 @@ class FeedbackViewController: UINavigationController {
     pushViewController(correctIdentifiersTable, animated: true)
   }
   
-  func presentNegativeFeedbackSubmissionView() {
+  func presentFeedbackSubmissionTable(type feedbackType: ClassificationFeedbackType) {
     let incorrectIdentifiers = Array(incorrectIdentifiers.keys)
     let correctIdentifiers = Array(correctIdentifiers.keys)
     
-    let feedbackSubmissionTable = FeedbackSubmissionTableController(
-      type: .negative,
+    let feedbackSubmissionTable = NegativeFeedbackSubmissionController(
+      type: feedbackType,
       incorrectIdentifiers: incorrectIdentifiers,
       correctIdentifiers: correctIdentifiers,
       style: .insetGrouped)
     
     feedbackSubmissionTable.title = "Confirm Feedback"
     pushViewController(feedbackSubmissionTable, animated: true)
+  }
+  
+  // TODO: Move and rename me
+  
+  func handleSubmitButtonGestures() {
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedPositiveFeedback))
+    let vc = getRootViewController() as? InfoModalViewController
+
+    if let vc = vc {
+      vc.actionButton.addGestureRecognizer(tapGesture)
+    }
+  }
+
+  @objc func tappedPositiveFeedback() {
+    presentFeedbackSubmissionTable(type: .positive)
   }
   
 }

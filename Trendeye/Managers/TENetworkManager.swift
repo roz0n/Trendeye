@@ -122,7 +122,7 @@ final class TENetworkManager {
   
   // MARK: - POST Methods
   
-  func postClassificationFeedback(type feedbackType: TEFeedback, data feedbackData: ClassificationFeedback, completion: @escaping (_ responseData: Result<ClassificationFeedbackResponse, TENetworkError>) -> Void) {
+  func postClassificationFeedback(data feedbackData: ClassificationFeedback, completion: @escaping (_ responseData: Result<ClassificationFeedbackResponse, TENetworkError>) -> Void) {
     // Configure URL
     guard let url = URL(string: "https://147f17e4d673.ngrok.io/feedback"), let payload = try? encoder.encode(feedbackData) else {
       return
