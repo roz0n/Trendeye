@@ -14,6 +14,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   var identifier: String!
   var name: String!
+  var activityIndicator = UIActivityIndicatorView(style: .large)
   var contentErrorView: ContentErrorView!
   var networkManager = TENetworkManager()
   var imageCollection: CategoryCollectionView!
@@ -38,11 +39,9 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   var contentContainer: UIStackView = {
     let view = UIStackView()
-    
     view.translatesAutoresizingMaskIntoConstraints = false
     view.axis = .vertical
     view.spacing = 0
-    
     return view
   }()
   
@@ -61,14 +60,12 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   var trendListButton: UIButton = {
     let button = UIButton(type: .system)
     let fontSize: CGFloat = 18
-    
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitle("View on Trend List", for: .normal)
     button.setTitleColor(K.Colors.White, for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     button.layer.cornerRadius = 8
     button.backgroundColor = K.Colors.Blue
-    
     return button
   }()
   
@@ -82,7 +79,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     configureContentErrorView()
     configureWebView()
     configureTrendListButton()
-    
+        
     fetchData()
     applyLayouts()
   }
@@ -255,6 +252,8 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   }
   
   fileprivate func fetchImages() {
+    activityIndicator.startAnimating()
+    
     networkManager.fetchCategoryImages(identifier, imageCollectionLimit) { [weak self] (result) in
       switch result {
         case .success(let imageData):
@@ -267,11 +266,13 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
           }
         case .failure(let error):
           self?.imageFetchError = true
+          self?.activityIndicator.stopAnimating()
           print(error)
       }
       
       DispatchQueue.main.async { [weak self] in
         self?.imageCollection.reloadData()
+        self?.activityIndicator.stopAnimating()
       }
     }
   }
@@ -302,6 +303,15 @@ fileprivate extension CategoryViewController {
     contentContainer.addArrangedSubview(imageCollectionContainer)
     imageCollectionContainer.addSubview(imageCollection)
     imageCollection.fillOther(view: imageCollectionContainer)
+    
+    // Activity indicator
+    imageCollectionContainer.addSubview(activityIndicator)
+    activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+    
+    NSLayoutConstraint.activate([
+      activityIndicator.centerYAnchor.constraint(equalTo: imageCollectionContainer.centerYAnchor),
+      activityIndicator.centerXAnchor.constraint(equalTo: imageCollectionContainer.centerXAnchor)
+    ])
   }
   
   func layoutErrorView() {
