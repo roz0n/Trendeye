@@ -79,7 +79,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     configureContentErrorView()
     configureWebView()
     configureTrendListButton()
-        
+    
     fetchData()
     applyLayouts()
   }
@@ -286,6 +286,7 @@ fileprivate extension CategoryViewController {
   func applyLayouts() {
     layoutContainer()
     layoutImageCollection()
+    layoutActivityIndicator()
     layoutButton()
   }
   
@@ -303,8 +304,9 @@ fileprivate extension CategoryViewController {
     contentContainer.addArrangedSubview(imageCollectionContainer)
     imageCollectionContainer.addSubview(imageCollection)
     imageCollection.fillOther(view: imageCollectionContainer)
-    
-    // Activity indicator
+  }
+  
+  func layoutActivityIndicator() {
     imageCollectionContainer.addSubview(activityIndicator)
     activityIndicator.translatesAutoresizingMaskIntoConstraints = false
     
