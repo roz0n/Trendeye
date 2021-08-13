@@ -25,11 +25,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Access is needed to take photos</string>
+	<string>Access is needed to take trendy photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Access is needed to upload photos for analysis</string>
+	<string>Access is needed to save trendy images</string>
 	<key>LSApplicationCategoryType</key>
-	<string>utilities</string>
+	<string>public.app-category.utilities</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

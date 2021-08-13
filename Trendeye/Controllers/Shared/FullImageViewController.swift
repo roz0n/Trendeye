@@ -7,8 +7,6 @@
 
 import UIKit
 
-// TODO: Add an error view incase there's a failure getting the large image
-// TODO: Add an error view incase access to photos is restricted and the file could not be saved
 class FullImageViewController: UIViewController, UIGestureRecognizerDelegate {
   
   // MARK: - Properties
@@ -68,7 +66,7 @@ class FullImageViewController: UIViewController, UIGestureRecognizerDelegate {
   override func viewDidLoad() {
     configureHeaderControls()
     configureGestures()
-    applyLayouts()    
+    applyLayouts()
   }
   
   // MARK: - Configurations
@@ -112,10 +110,21 @@ class FullImageViewController: UIViewController, UIGestureRecognizerDelegate {
   
   @objc func handleSaveTap() {
     guard let image = self.imageView.image else { return }
-    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-    presentSimpleAlert(title: "Saved Successfully",
-                       message: "This image has been saved to your camera roll.",
-                       actionTitle: "Close")
+    UIImageWriteToSavedPhotosAlbum(image, self, #selector(handleSaveImage(image:didFinishSavingWithError:contextInfo:)), nil)
+  }
+  
+  @objc func handleSaveImage(image: UIImage, didFinishSavingWithError: NSError, contextInfo: () -> Void) {
+    if !didFinishSavingWithError.userInfo.isEmpty {
+      presentSimpleAlert(
+        title: "Error",
+        message: "You must allow gallery access in Settings to save images.",
+        actionTitle: "Close")
+    } else {
+      presentSimpleAlert(
+        title: "Saved Image",
+        message: "The image has been saved to your camera roll.",
+        actionTitle: "Close")
+    }
   }
   
   @objc func handlePinchGesture(sender: UIPinchGestureRecognizer) {
