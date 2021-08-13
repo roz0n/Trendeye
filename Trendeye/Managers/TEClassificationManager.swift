@@ -77,7 +77,7 @@ class TEClassificationManager {
     let configuration = MLModelConfiguration()
     let visionHandler = VNImageRequestHandler(ciImage: image)
     
-    guard let mlModel = try? VNCoreMLModel(for: TrendClassifier(configuration: configuration).model) else {
+    guard let mlModel = try? VNCoreMLModel(for: TrendeyeClassifier(configuration: configuration).model) else {
       self.delegate?.didError(self, error: TEClassificationError.modelError)
       return
     }

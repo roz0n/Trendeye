@@ -17,7 +17,7 @@ class ClassificationTableFooterView: UITextView {
     backgroundColor = .clear
     alpha = 0.35
     font = UIFont.boldSystemFont(ofSize: 14)
-    text = "Powered by data from TrendList.org"
+    text = "Powered by images from TrendList.org"
     textAlignment = .center
     textContainer?.maximumNumberOfLines = 1
     textContainer?.lineFragmentPadding = 0

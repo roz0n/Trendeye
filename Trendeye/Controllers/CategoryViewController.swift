@@ -242,7 +242,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
             print("Using fresh description data")
             self?.descriptionText = descriptionData.data.description
           case .failure(let error):
-            self?.descriptionText = "Description not available"
+            self?.descriptionText = "No description available"
             print(error)
           case .none:
             fatalError(TENetworkError.none.rawValue)

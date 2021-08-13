@@ -65,7 +65,11 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   let cameraErrorView = CameraErrorView()
   
   let welcomeView: InfoModalViewController = {
-    let view = InfoModalViewController(iconSymbol: K.Icons.Eyes, titleText: "Hello there!", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.", buttonText: "Get Started")
+    let view = InfoModalViewController(
+      iconSymbol: K.Icons.Eyes,
+      titleText: "Hello there!",
+      bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.",
+      buttonText: "Get Started")
     view.modalPresentationStyle = .formSheet
     view.modalTransitionStyle = .crossDissolve
     return view

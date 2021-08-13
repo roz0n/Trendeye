@@ -9,6 +9,8 @@ import UIKit
 
 class ContentErrorView: UIView {
   
+  // MARK: - Properties
+  
   var image: UIImage? {
     didSet {
       imageView.image = image
@@ -27,61 +29,58 @@ class ContentErrorView: UIView {
     }
   }
   
+  // MARK: - Views
+  
   let container: UIStackView = {
     let stack = UIStackView()
-    
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.distribution = .fillProportionally
     stack.axis = .vertical
-    
     return stack
   }()
   
   let imageView: UIImageView = {
     let view = UIImageView()
-    
     view.translatesAutoresizingMaskIntoConstraints = false
     view.contentMode = .center
     view.tintColor = K.Colors.Icon
-    
     return view
   }()
   
   let titleLabel: UILabel = {
     let label = UILabel()
     let fontSize: CGFloat = 20
-    
     label.translatesAutoresizingMaskIntoConstraints = false
     label.numberOfLines = 0
     label.textAlignment = .center
     label.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     label.tintColor = K.Colors.DarkGray
-    
     return label
   }()
   
   let messageView: UITextView = {
-    let textView = UITextView()
+    let view = UITextView()
     let fontSize: CGFloat = 16
-    
-    textView.translatesAutoresizingMaskIntoConstraints = false
-    textView.textAlignment = .center
-    textView.font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
-    textView.textContainer.maximumNumberOfLines = 0
-    textView.textContainer.lineBreakMode = .byWordWrapping
-    textView.isScrollEnabled = false
-    textView.isEditable = false
-    textView.backgroundColor = .clear
-    textView.tintColor = K.Colors.DarkGray
-    textView.textContainerInset = UIEdgeInsets(top: (fontSize / 2), left: fontSize, bottom: 0, right: fontSize)
-    
-    return textView
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.textAlignment = .center
+    view.font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
+    view.textContainer.maximumNumberOfLines = 0
+    view.textContainer.lineBreakMode = .byWordWrapping
+    view.isScrollEnabled = false
+    view.isEditable = false
+    view.isUserInteractionEnabled = false
+    view.backgroundColor = .clear
+    view.tintColor = K.Colors.DarkGray
+    view.textContainerInset = UIEdgeInsets(top: (fontSize / 2), left: fontSize, bottom: 0, right: fontSize)
+    return view
   }()
+  
+  // MARK: - Initializers
   
   init(image: UIImage, title: String, message: String) {
     super.init(frame: .zero)
+    translatesAutoresizingMaskIntoConstraints = false
     
-    self.translatesAutoresizingMaskIntoConstraints = false
     self.image = image
     self.title = title
     self.message = message

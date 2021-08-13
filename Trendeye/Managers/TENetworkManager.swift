@@ -24,12 +24,15 @@ enum TEFeedback {
 final class TENetworkManager {
   
   // MARK: - Properties
-    
+  
   lazy var encoder = JSONEncoder()
   lazy var decoder = JSONDecoder()
   
-  let baseUrl = "https://unofficial-trendlist.herokuapp.com/"
   let trendListUrl = "https://www.trendlist.org/"
+
+  var baseUrl: String {
+    return Bundle.infoPlistValue(inFile: "Endpoints", forKey: "API_URL")!
+  }
   
   // MARK: - Helpers
   
@@ -122,7 +125,7 @@ final class TENetworkManager {
   
   func postClassificationFeedback(data feedbackData: ClassificationFeedback, completion: @escaping (_ responseData: Result<ClassificationFeedbackResponse, TENetworkError>) -> Void) {
     // Configure URL
-    guard let url = URL(string: "https://147f17e4d673.ngrok.io/feedback"), let payload = try? encoder.encode(feedbackData) else {
+    guard let url = URL(string: "https://www.trendeye.app/feedback"), let payload = try? encoder.encode(feedbackData) else {
       return
     }
     

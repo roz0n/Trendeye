@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2303FA5926B8CDEB00EA133A /* NegativeFeedbackSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2303FA5826B8CDEB00EA133A /* NegativeFeedbackSelectionController.swift */; };
+		230DEF2C26C6513A006E38B8 /* Endpoints.plist in Resources */ = {isa = PBXBuildFile; fileRef = 230DEF2B26C6513A006E38B8 /* Endpoints.plist */; };
+		230DEF2E26C6529E006E38B8 /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF2D26C6529E006E38B8 /* Bundle+Ext.swift */; };
+		230DEF3026C658E6006E38B8 /* TrendeyeClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF2F26C658E6006E38B8 /* TrendeyeClassifier.mlmodel */; };
 		23130D14263823CD003BEDCB /* TrendeyeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23130D13263823CD003BEDCB /* TrendeyeTests.swift */; };
 		23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AD1261FC5EC00FFF2B3 /* CameraButton.swift */; };
 		23131AD7261FE66400FFF2B3 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AD6261FE66400FFF2B3 /* UIView+Ext.swift */; };
@@ -63,7 +66,6 @@
 		23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3A25E2EE2100241206 /* SceneDelegate.swift */; };
 		23F80A4225E2EE2400241206 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4125E2EE2400241206 /* Assets.xcassets */; };
 		23F80A4525E2EE2400241206 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4325E2EE2400241206 /* LaunchScreen.storyboard */; };
-		23F80A4F25E2EEA400241206 /* TrendClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */; };
 		23F80A5625E32F0E00241206 /* TEClassificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A5525E32F0E00241206 /* TEClassificationManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +81,9 @@
 
 /* Begin PBXFileReference section */
 		2303FA5826B8CDEB00EA133A /* NegativeFeedbackSelectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeFeedbackSelectionController.swift; sourceTree = "<group>"; };
+		230DEF2B26C6513A006E38B8 /* Endpoints.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Endpoints.plist; sourceTree = "<group>"; };
+		230DEF2D26C6529E006E38B8 /* Bundle+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Ext.swift"; sourceTree = "<group>"; };
+		230DEF2F26C658E6006E38B8 /* TrendeyeClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TrendeyeClassifier.mlmodel; sourceTree = "<group>"; };
 		23130D11263823CD003BEDCB /* TrendeyeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrendeyeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23130D13263823CD003BEDCB /* TrendeyeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendeyeTests.swift; sourceTree = "<group>"; };
 		23130D15263823CD003BEDCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -138,7 +143,6 @@
 		23F80A4125E2EE2400241206 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		23F80A4425E2EE2400241206 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		23F80A4625E2EE2400241206 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TrendClassifier.mlmodel; sourceTree = "<group>"; };
 		23F80A5525E32F0E00241206 /* TEClassificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEClassificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -194,6 +198,7 @@
 				2377FE7126BF7E1D0041073F /* UIDevice+Ext.swift */,
 				2377FE7326BF86970041073F /* Array+Ext.swift */,
 				23988A2526C4D95E0042BC28 /* UINavigationController+Ext.swift */,
+				230DEF2D26C6529E006E38B8 /* Bundle+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -323,7 +328,7 @@
 		23AAC19B262ACB1900744651 /* Classifiers */ = {
 			isa = PBXGroup;
 			children = (
-				23F80A4E25E2EEA400241206 /* TrendClassifier.mlmodel */,
+				230DEF2F26C658E6006E38B8 /* TrendeyeClassifier.mlmodel */,
 			);
 			path = Classifiers;
 			sourceTree = "<group>";
@@ -367,6 +372,7 @@
 				23F80A5A25E339D600241206 /* Views */,
 				23F80A4125E2EE2400241206 /* Assets.xcassets */,
 				23F80A4625E2EE2400241206 /* Info.plist */,
+				230DEF2B26C6513A006E38B8 /* Endpoints.plist */,
 			);
 			path = Trendeye;
 			sourceTree = "<group>";
@@ -516,6 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23F80A4525E2EE2400241206 /* LaunchScreen.storyboard in Resources */,
+				230DEF2C26C6513A006E38B8 /* Endpoints.plist in Resources */,
 				23F80A4225E2EE2400241206 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -560,6 +567,7 @@
 				2377FE7026BE8F7E0041073F /* VNClassificationObservation+Ext.swift in Sources */,
 				232AA39526298B0D00E5E8A1 /* PhotoEnlargeButton.swift in Sources */,
 				235E651926AA770A004E8B26 /* ClassificationTableHeader.swift in Sources */,
+				230DEF2E26C6529E006E38B8 /* Bundle+Ext.swift in Sources */,
 				2377FE6626BE16110041073F /* Categories.swift in Sources */,
 				2371729926327B4400D29B50 /* CGFloat+Ext.swift in Sources */,
 				23F80A5625E32F0E00241206 /* TEClassificationManager.swift in Sources */,
@@ -571,7 +579,6 @@
 				23EFD8E9263A6EFB005AB471 /* CameraViewController+Ext.swift in Sources */,
 				23131ADB2621504A00FFF2B3 /* ConfirmationViewController.swift in Sources */,
 				234C91E52637CC7500B3A89E /* ContentErrorView.swift in Sources */,
-				23F80A4F25E2EEA400241206 /* TrendClassifier.mlmodel in Sources */,
 				232AA3912628FF9A00E5E8A1 /* ClassificationTableFooterView.swift in Sources */,
 				23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */,
 				2377FE6826BE16270041073F /* Projects.swift in Sources */,
@@ -590,6 +597,7 @@
 				23988A2226C2CB820042BC28 /* InfoListItemView.swift in Sources */,
 				23AAC1FF2630C86800744651 /* CategoryCollectionHeaderView.swift in Sources */,
 				2377FE7226BF7E1D0041073F /* UIDevice+Ext.swift in Sources */,
+				230DEF3026C658E6006E38B8 /* TrendeyeClassifier.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
