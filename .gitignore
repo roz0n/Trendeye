@@ -91,6 +91,4 @@ iOSInjectionProject/
 
 .DS_STORE
 *.mlmodelkey
-*/Endpoints.plist
-**/**/Endpoints.plist
-Endpoints.plist
+*/Endpoints.plisT
