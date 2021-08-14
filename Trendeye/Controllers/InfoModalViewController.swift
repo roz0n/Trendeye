@@ -7,7 +7,6 @@
 
 import UIKit
 
-// TODO: There is an ambigious size for the scroll view here, fix it later
 class InfoModalViewController: UIViewController {
   
   // MARK: - Properties
@@ -37,6 +36,7 @@ class InfoModalViewController: UIViewController {
   }
   
   var bodyContent: UIView?
+  var dismissHandler: (() -> Void)?
   
   // MARK: - Views
   
@@ -115,11 +115,12 @@ class InfoModalViewController: UIViewController {
   
   // MARK: - Initializers
   
-  init(iconSymbol: String, titleText: String, bodyText: String, buttonText: String) {
+  init(iconSymbol: String, titleText: String, bodyText: String, buttonText: String, dismissHandler: (() -> Void)?) {
     self.iconSymbol = iconSymbol
     self.titleText = titleText
     self.bodyText = bodyText
     self.buttonText = buttonText
+    self.dismissHandler = dismissHandler
     
     super.init(nibName: nil, bundle: nil)
     
@@ -170,9 +171,12 @@ class InfoModalViewController: UIViewController {
   }
   
   @objc func tappedActionButton() {
-    dismiss(animated: true) {
-      // TODO: Save to userDefaults that this screen has been presented already as it should only be presented once.
-      print("Dismissed welcome screen")
+    dismiss(animated: true) { [weak self] in
+      guard let dismissHandler = self?.dismissHandler else {
+        return
+      }
+      
+      dismissHandler()
     }
   }
   
@@ -195,6 +199,8 @@ func setBodyText(to text: String) -> NSMutableAttributedString {
 // MARK: - Layout
 
 fileprivate extension InfoModalViewController {
+  
+  // TODO: There is an ambigious size for the scroll view here, fix it later
   
   func applyLayouts() {
     layoutBackground()

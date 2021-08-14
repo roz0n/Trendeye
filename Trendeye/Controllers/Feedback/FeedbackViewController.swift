@@ -42,14 +42,14 @@ class FeedbackViewController: UINavigationController {
     switch feedbackType {
       case .positive:
         let positiveFeedbackController = PositiveFeedbackSubmissionController(identifiers: classificationIdentifiers)
-        positiveFeedbackController.navigationItem.title = "Feedback Report"
+        positiveFeedbackController.navigationItem.title = "Valid Analysis"
         positiveFeedbackController.navigationItem.backButtonTitle = ""
         
         self.init(rootViewController: positiveFeedbackController, type: feedbackType, classificationResults: classificationResults, classificationIdentifiers: classificationIdentifiers, classificationImage: classificationImage)
       case .negative:
         let negativeFeedbackController = NegativeFeedbackSelectionController(type: .invalidIdentifiers, identifiers: nil)
         negativeFeedbackController.classificationIdentifiers = classificationIdentifiers
-        negativeFeedbackController.navigationItem.title = "Feedback Report"
+        negativeFeedbackController.navigationItem.title = "Invalid Analysis"
         negativeFeedbackController.navigationItem.backButtonTitle = ""
         
         self.init(rootViewController: negativeFeedbackController, type: feedbackType, classificationResults: classificationResults, classificationIdentifiers: classificationIdentifiers, classificationImage: classificationImage)

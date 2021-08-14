@@ -63,13 +63,14 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   let watermarkView = AppLogoView()
   let controlsView = CameraControlsView()
   let cameraErrorView = CameraErrorView()
+  let welcomeModalDefaultsKey = "showWelcomeModal"
   
-  let welcomeView: InfoModalViewController = {
+  let welcomeModalView: InfoModalViewController = {
     let view = InfoModalViewController(
       iconSymbol: K.Icons.Eyes,
       titleText: "Hello there!",
       bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.",
-      buttonText: "Get Started")
+      buttonText: "Get Started", dismissHandler: nil)
     view.modalPresentationStyle = .formSheet
     view.modalTransitionStyle = .crossDissolve
     return view
@@ -102,6 +103,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     applyGestures()
     applyAnimations()
     applyLayouts()
+    
+    configureWelcomeView()
     configureViewController()
     configurePicker()
   }
@@ -123,7 +126,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       configureCaptureSession()
       configureLivePreview()
       startCaptureSession()
-      presentWelcomeScreen()
+      presentWelcomeModal()
     }
     
     // SHORTCUT_PRESENT_CONFIRMATION()
@@ -147,6 +150,10 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   
   fileprivate func configureContainerView() {
     view.backgroundColor = K.Colors.Background
+  }
+  
+  fileprivate func configureWelcomeView() {
+    welcomeModalView.dismissHandler = setWelcomeModalVisibility
   }
   
   fileprivate func configureCaptureDevices() {
@@ -334,9 +341,16 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     view.isHidden = false
   }
   
-  func presentWelcomeScreen() {
-    // TODO: Check userDefaults and see if it is the first launch
-    present(welcomeView, animated: true, completion: nil)
+  func presentWelcomeModal() {
+    let shouldShowModal = TEDefaultsManager.shared.get(key: welcomeModalDefaultsKey, as: Bool())
+    
+    if shouldShowModal == true || shouldShowModal == nil {
+      present(welcomeModalView, animated: true, completion: nil)
+    }
+  }
+  
+  func setWelcomeModalVisibility() {
+    TEDefaultsManager.shared.set(key: welcomeModalDefaultsKey, value: false)
   }
   
   func hideCameraViewEndSession() {

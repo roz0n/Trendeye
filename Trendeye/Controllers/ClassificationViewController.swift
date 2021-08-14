@@ -53,14 +53,14 @@ final class ClassificationViewController: UITableViewController {
   var tableFooter = ClassificationTableFooterView()
   
   var aboutView: InfoModalViewController = {
-    let view = InfoModalViewController(iconSymbol: K.Icons.Analysis, titleText: "About Analysis", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.", buttonText: "Close")
+    let view = InfoModalViewController(iconSymbol: K.Icons.Analysis, titleText: "About Analysis", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.", buttonText: "Close", dismissHandler: nil)
     view.modalPresentationStyle = .formSheet
     view.modalTransitionStyle = .crossDissolve
     return view
   }()
   
   var confidenceView: InfoModalViewController = {
-    let view = InfoModalViewController(iconSymbol: K.Icons.Classifier, titleText: "Confidence", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi.", buttonText: "Close")
+    let view = InfoModalViewController(iconSymbol: K.Icons.Classifier, titleText: "Confidence", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi.", buttonText: "Close", dismissHandler: nil)
     view.modalPresentationStyle = .formSheet
     view.modalTransitionStyle = .crossDissolve
     return view

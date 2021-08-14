@@ -11,6 +11,7 @@
 		230DEF2C26C6513A006E38B8 /* Endpoints.plist in Resources */ = {isa = PBXBuildFile; fileRef = 230DEF2B26C6513A006E38B8 /* Endpoints.plist */; };
 		230DEF2E26C6529E006E38B8 /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF2D26C6529E006E38B8 /* Bundle+Ext.swift */; };
 		230DEF3026C658E6006E38B8 /* TrendeyeClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF2F26C658E6006E38B8 /* TrendeyeClassifier.mlmodel */; };
+		230DEF3226C7AFF4006E38B8 /* TEDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF3126C7AFF4006E38B8 /* TEDefaultsManager.swift */; };
 		23130D14263823CD003BEDCB /* TrendeyeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23130D13263823CD003BEDCB /* TrendeyeTests.swift */; };
 		23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AD1261FC5EC00FFF2B3 /* CameraButton.swift */; };
 		23131AD7261FE66400FFF2B3 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AD6261FE66400FFF2B3 /* UIView+Ext.swift */; };
@@ -84,6 +85,7 @@
 		230DEF2B26C6513A006E38B8 /* Endpoints.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Endpoints.plist; sourceTree = "<group>"; };
 		230DEF2D26C6529E006E38B8 /* Bundle+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Ext.swift"; sourceTree = "<group>"; };
 		230DEF2F26C658E6006E38B8 /* TrendeyeClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TrendeyeClassifier.mlmodel; sourceTree = "<group>"; };
+		230DEF3126C7AFF4006E38B8 /* TEDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEDefaultsManager.swift; sourceTree = "<group>"; };
 		23130D11263823CD003BEDCB /* TrendeyeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrendeyeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23130D13263823CD003BEDCB /* TrendeyeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendeyeTests.swift; sourceTree = "<group>"; };
 		23130D15263823CD003BEDCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				23F80A5525E32F0E00241206 /* TEClassificationManager.swift */,
 				23AAC198262AC18600744651 /* TENetworkManager.swift */,
 				23AAC1A0262D00A700744651 /* TECacheManager.swift */,
+				230DEF3126C7AFF4006E38B8 /* TEDefaultsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				235E651926AA770A004E8B26 /* ClassificationTableHeader.swift in Sources */,
 				230DEF2E26C6529E006E38B8 /* Bundle+Ext.swift in Sources */,
 				2377FE6626BE16110041073F /* Categories.swift in Sources */,
+				230DEF3226C7AFF4006E38B8 /* TEDefaultsManager.swift in Sources */,
 				2371729926327B4400D29B50 /* CGFloat+Ext.swift in Sources */,
 				23F80A5625E32F0E00241206 /* TEClassificationManager.swift in Sources */,
 				23EFD8EF263BE241005AB471 /* ClassifierConfidenceButton.swift in Sources */,
