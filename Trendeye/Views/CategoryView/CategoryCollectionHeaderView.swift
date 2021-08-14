@@ -21,7 +21,7 @@ class CategoryCollectionHeaderView: UICollectionReusableView {
     let paddingX: CGFloat = 12
     view.translatesAutoresizingMaskIntoConstraints = false
     view.textContainer.maximumNumberOfLines = 0
-    view.textContainer.lineBreakMode = .byWordWrapping
+    view.textContainer.lineBreakMode = .byCharWrapping
     view.textContainerInset = UIEdgeInsets(top: paddingY, left: paddingX, bottom: paddingY, right: paddingX)
     view.isScrollEnabled = false
     view.isUserInteractionEnabled = false

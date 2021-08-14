@@ -54,7 +54,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   var actionButtonContainer: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.addBorder(side: .top, color: K.Colors.LightGray, width: 1)
+    view.addBorder(side: .top, color: K.Colors.Borders, width: 1)
     return view
   }()
   
@@ -96,6 +96,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     imageCollectionLayout.sectionInset = UIEdgeInsets(top: 0, left: imageCollectionSpacing, bottom: imageCollectionSpacing, right: imageCollectionSpacing)
     imageCollectionLayout.minimumLineSpacing = imageCollectionSpacing
     imageCollectionLayout.minimumInteritemSpacing = imageCollectionSpacing
+    
     imageCollection = CategoryCollectionView(frame: .zero, collectionViewLayout: imageCollectionLayout)
     imageCollection.delegate = self
     imageCollection.dataSource = self
@@ -154,7 +155,6 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
     if kind == UICollectionView.elementKindSectionHeader {
       let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CategoryCollectionHeaderView.reuseIdentifier, for: indexPath) as! CategoryCollectionHeaderView
-      
       headerCell.setText(descriptionText ?? "")
       
       return headerCell

@@ -86,14 +86,6 @@ class ClassificationViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-//  override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-//    super.setHighlighted(highlighted, animated: animated)
-//    
-//    if highlighted {
-//      container.backgroundColor = K.Colors.Icon
-//    }
-//  }
-  
   // MARK: - Configurations
   
   func configureResultBars() {

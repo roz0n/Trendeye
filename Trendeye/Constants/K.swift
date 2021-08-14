@@ -13,7 +13,6 @@ struct K {
     static let Black = UIColor(named: "Black")!
     static let Blue = UIColor(named: "AccentColor")!
     static let Gray = UIColor(named: "Gray")!
-    static let LightGray = UIColor(named: "Gray")!.withAlphaComponent(0.15)
     static let Green = UIColor(named: "Green")!
     static let Red = UIColor(named: "Red")!
     static let Yellow = UIColor(named: "Yellow")!
