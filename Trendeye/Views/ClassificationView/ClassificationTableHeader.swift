@@ -51,7 +51,7 @@ class ClassificationTableHeader: UITableViewHeaderFooterView {
   
   var positiveFeedbackButton: UIButton = {
     let button = UIButton(type: .system)
-    let image = UIImage(systemName: "hand.thumbsup.fill")?.withTintColor(K.Colors.Black, renderingMode: .alwaysOriginal)
+    let image = UIImage(systemName: "hand.thumbsup.fill")?.withTintColor(K.Colors.Foreground, renderingMode: .alwaysOriginal)
     button.translatesAutoresizingMaskIntoConstraints = false
     button.widthAnchor.constraint(equalToConstant: 55).isActive = true
     button.heightAnchor.constraint(equalToConstant: 55).isActive = true
@@ -59,13 +59,13 @@ class ClassificationTableHeader: UITableViewHeaderFooterView {
     button.layer.borderWidth = 1
     button.layer.borderColor = K.Colors.Borders.cgColor
     button.setImage(image, for: .normal)
-    button.backgroundColor = K.Colors.White
+    button.backgroundColor = K.Colors.Background
     return button
   }()
   
   var negativeFeedbackButton: UIButton = {
     let button = UIButton(type: .system)
-    let image = UIImage(systemName: "hand.thumbsdown.fill")?.withTintColor(K.Colors.Black, renderingMode: .alwaysOriginal)
+    let image = UIImage(systemName: "hand.thumbsdown.fill")?.withTintColor(K.Colors.Foreground, renderingMode: .alwaysOriginal)
     button.translatesAutoresizingMaskIntoConstraints = false
     button.widthAnchor.constraint(equalToConstant: 55).isActive = true
     button.heightAnchor.constraint(equalToConstant: 55).isActive = true
@@ -73,7 +73,7 @@ class ClassificationTableHeader: UITableViewHeaderFooterView {
     button.layer.borderWidth = 1
     button.layer.borderColor = K.Colors.Borders.cgColor
     button.setImage(image, for: .normal)
-    button.backgroundColor = K.Colors.White
+    button.backgroundColor = K.Colors.Background
     return button
   }()
   

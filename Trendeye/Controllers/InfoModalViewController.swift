@@ -76,6 +76,7 @@ class InfoModalViewController: UIViewController {
     label.textAlignment = .center
     label.lineBreakMode = .byWordWrapping
     label.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
+    label.textColor = K.Colors.White
     return label
   }()
   
@@ -227,7 +228,7 @@ fileprivate extension InfoModalViewController {
     backgroundBlurView.contentView.addSubview(actionButton)
     
     NSLayoutConstraint.activate([
-      actionButton.heightAnchor.constraint(equalToConstant: 64),
+      actionButton.heightAnchor.constraint(equalToConstant: 56),
       actionButton.leadingAnchor.constraint(equalTo: backgroundBlurView.contentView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
       actionButton.trailingAnchor.constraint(equalTo: backgroundBlurView.contentView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
       actionButton.bottomAnchor.constraint(equalTo: backgroundBlurView.contentView.safeAreaLayoutGuide.bottomAnchor, constant: -20),

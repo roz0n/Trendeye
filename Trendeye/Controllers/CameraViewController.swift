@@ -123,7 +123,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       configureCaptureSession()
       configureLivePreview()
       startCaptureSession()
-      //      presentWelcomeScreen()
+      presentWelcomeScreen()
     }
     
 //    SHORTCUT_PRESENT_CONFIRMATION()

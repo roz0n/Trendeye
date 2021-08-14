@@ -40,6 +40,7 @@ class InfoListItemView: UIView {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
     label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+    label.textColor = K.Colors.White
     return label
   }()
   
@@ -49,6 +50,7 @@ class InfoListItemView: UIView {
     view.numberOfLines = 0
     view.lineBreakMode = .byWordWrapping
     view.isUserInteractionEnabled = false
+    view.textColor = K.Colors.White
     return view
   }()
   
