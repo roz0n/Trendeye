@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     window?.rootViewController = homeNavigationController
     window?.makeKeyAndVisible()
     
-    applyConfigurations()
+    configureNavigationBar()
   }
   
   func sceneDidDisconnect(_ scene: UIScene) {
@@ -62,10 +62,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
   
   // MARK: - Global Configurations
-  
-  fileprivate func applyConfigurations() {
-    configureNavigationBar()
-  }
   
   fileprivate func configureNavigationBar() {
     // MARK: - Navigation Bar

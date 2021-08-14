@@ -10,7 +10,7 @@ import AVKit
 
 class CameraControlsView: UIView {
   
-  // MARK: - Button Properties
+  // MARK: - Properties
   
   var shootButton: CameraButton!
   var flipButton: CameraButton!
@@ -23,7 +23,7 @@ class CameraControlsView: UIView {
   let largeButtonSize: CGFloat = 100
   let smallButtonSize: CGFloat = 42
   
-  // MARK: - Container Properties
+  // MARK: - Views
   
   var stackContainer: UIStackView = {
     let stack = UIStackView()
@@ -51,10 +51,6 @@ class CameraControlsView: UIView {
   }()
   
   // MARK: - Configurations
-  
-  fileprivate func applyConfigurations() {
-    configureControlButtons()
-  }
   
   fileprivate func configureControlButtons() {
     let shootIcon = UIImage(
@@ -183,7 +179,7 @@ class CameraControlsView: UIView {
     super.init(frame: frame)
     translatesAutoresizingMaskIntoConstraints = false
     
-    applyConfigurations()
+    configureControlButtons()
     applyLayouts()
   }
   

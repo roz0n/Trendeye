@@ -30,8 +30,8 @@ class ConfirmationControlsView: UIView {
     super.init(frame: frame)
     translatesAutoresizingMaskIntoConstraints = false
     
-    applyStyles()
-    applyConfigurations()
+    configureViewController()
+    configureButtons()
     applyLayouts()
   }
   
@@ -39,14 +39,11 @@ class ConfirmationControlsView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  fileprivate func applyStyles() {
-    backgroundColor = K.Colors.Background
-  }
-  
   // MARK: - Configuration
   
-  fileprivate func applyConfigurations() {
-    configureButtons()
+  fileprivate func configureViewController() {
+    backgroundColor = K.Colors.Background
+    addBorder(side: .top, color: K.Colors.Borders, width: 1)
   }
   
   fileprivate func configureButtons() {
