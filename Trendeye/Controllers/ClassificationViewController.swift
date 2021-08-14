@@ -79,7 +79,7 @@ final class ClassificationViewController: UITableViewController {
     tableView = UITableView.init(frame: self.tableView.frame, style: .grouped)
     tableView.register(ClassificationViewCell.self, forCellReuseIdentifier: ClassificationViewCell.reuseIdentifier)
     tableView.register(ClassificationTableHeader.self, forHeaderFooterViewReuseIdentifier: ClassificationTableHeader.reuseIdentifier)
-    tableView.backgroundColor = K.Colors.ViewBackground
+    tableView.backgroundColor = K.Colors.Background
   }
   
   required init?(coder: NSCoder) {
@@ -279,7 +279,7 @@ final class ClassificationViewController: UITableViewController {
     navigationController?.navigationBar.isTranslucent = true
     navigationController?.navigationBar.isOpaque = false
     navigationController?.navigationBar.barTintColor = nil
-    navigationController?.navigationBar.tintColor = K.Colors.Icon
+    navigationController?.navigationBar.tintColor = K.Colors.Foreground
   }
   
   // MARK: - Classification Helpers

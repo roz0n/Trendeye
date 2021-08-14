@@ -40,7 +40,7 @@ class ConfirmationControlsView: UIView {
   }
   
   fileprivate func applyStyles() {
-    backgroundColor = K.Colors.ViewBackground
+    backgroundColor = K.Colors.Background
   }
   
   // MARK: - Configuration

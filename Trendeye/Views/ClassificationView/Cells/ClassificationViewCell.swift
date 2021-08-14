@@ -17,7 +17,7 @@ class ClassificationViewCell: UITableViewCell {
   var resultData: VNClassificationObservation! {
     didSet {
       identifierLabel.text = TEClassificationManager.shared.indentifiers[resultData.identifier]
-      resultBars = StackedBarsView(percentage: TEClassificationManager.shared.convertConfidenceToPercent(resultData.confidence), color: K.Colors.Icon)
+      resultBars = StackedBarsView(percentage: TEClassificationManager.shared.convertConfidenceToPercent(resultData.confidence), color: K.Colors.Foreground)
     }
   }
   
@@ -69,7 +69,7 @@ class ClassificationViewCell: UITableViewCell {
   var disclosureIndicator: UIImageView = {
     let view = UIImageView()
     view.translatesAutoresizingMaskIntoConstraints = false
-    view.image = UIImage.init(systemName: K.Icons.ArrowRight)?.withTintColor(K.Colors.Icon, renderingMode: .alwaysOriginal )
+    view.image = UIImage.init(systemName: K.Icons.ArrowRight)?.withTintColor(K.Colors.Foreground, renderingMode: .alwaysOriginal )
     return view
   }()
   
@@ -78,7 +78,7 @@ class ClassificationViewCell: UITableViewCell {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     
-    backgroundColor = K.Colors.ViewBackground
+    backgroundColor = K.Colors.Background
     applyLayouts()
   }
   

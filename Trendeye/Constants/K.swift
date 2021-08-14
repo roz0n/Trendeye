@@ -12,15 +12,13 @@ struct K {
   struct Colors {
     static let Black = UIColor(named: "Black")!
     static let Blue = UIColor(named: "AccentColor")!
-    static let DarkGray = UIColor(named: "DarkGray")!
     static let Gray = UIColor(named: "Gray")!
     static let Green = UIColor(named: "Green")!
     static let Red = UIColor(named: "Red")!
     static let Yellow = UIColor(named: "Yellow")!
     static let White = UIColor(named: "White")!
-    static let ViewBackground = UIColor(named: "ViewBackground")!
-//    static let NavigationBar = UIColor(named: "NavigationBar")!
-    static let Icon = UIColor(named: "Icons")!
+    static let Background = UIColor(named: "Background")!
+    static let Foreground = UIColor(named: "Foreground")!
     static let TransparentButtons = UIColor(named: "TransparentButtons")!
     static let Borders = UIColor(named: "Borders")!
   }

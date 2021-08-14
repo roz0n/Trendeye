@@ -43,7 +43,7 @@ class ContentErrorView: UIView {
     let view = UIImageView()
     view.translatesAutoresizingMaskIntoConstraints = false
     view.contentMode = .center
-    view.tintColor = K.Colors.Icon
+    view.tintColor = K.Colors.Foreground
     return view
   }()
   
@@ -54,7 +54,7 @@ class ContentErrorView: UIView {
     label.numberOfLines = 0
     label.textAlignment = .center
     label.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
-    label.tintColor = K.Colors.DarkGray
+    label.tintColor = K.Colors.Foreground
     return label
   }()
   
@@ -70,7 +70,7 @@ class ContentErrorView: UIView {
     view.isEditable = false
     view.isUserInteractionEnabled = false
     view.backgroundColor = .clear
-    view.tintColor = K.Colors.DarkGray
+    view.tintColor = K.Colors.Foreground
     view.textContainerInset = UIEdgeInsets(top: (fontSize / 2), left: fontSize, bottom: 0, right: fontSize)
     return view
   }()

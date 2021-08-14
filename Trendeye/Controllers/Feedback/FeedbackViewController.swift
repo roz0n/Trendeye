@@ -73,7 +73,7 @@ class FeedbackViewController: UINavigationController {
   
   fileprivate func configureController() {
     view.backgroundColor = .clear
-    navigationBar.backgroundColor = K.Colors.ViewBackground
+    navigationBar.backgroundColor = K.Colors.Background
   }
   
   // MARK: - Helpers

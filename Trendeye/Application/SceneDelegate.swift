@@ -73,7 +73,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let iconSize: CGFloat = 18
     let backButton = UIImage(systemName: K.Icons.Back, withConfiguration: UIImage.SymbolConfiguration(pointSize: iconSize, weight: .semibold))
     
-    UINavigationBar.appearance().tintColor = K.Colors.Icon
+    UINavigationBar.appearance().tintColor = K.Colors.Foreground
     UINavigationBar.appearance().backIndicatorImage = backButton
     UINavigationBar.appearance().backIndicatorTransitionMaskImage = backButton
     

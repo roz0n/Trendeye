@@ -105,7 +105,7 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
     instructionsView.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.paragraphStyle: style])
     instructionsView.textContainerInset = UIEdgeInsets(top: 20, left: 12, bottom: 20, right: 12)
     instructionsView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-    instructionsView.textColor = K.Colors.Icon.withAlphaComponent(0.5)
+    instructionsView.textColor = K.Colors.Foreground.withAlphaComponent(0.5)
     instructionsView.backgroundColor = .clear
     instructionsView.isUserInteractionEnabled = false
     

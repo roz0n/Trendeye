@@ -50,11 +50,11 @@ final class ConfirmationViewController: UIViewController {
   // MARK: - Configurations
   
   fileprivate func configureViewController() {
-    view.backgroundColor = K.Colors.ViewBackground
+    view.backgroundColor = K.Colors.Background
   }
   
   fileprivate func configureHeader() {
-    headerView.backgroundColor = K.Colors.ViewBackground
+    headerView.backgroundColor = K.Colors.Background
     headerLabel.font = UIFont.systemFont(ofSize: K.Sizes.NavigationHeader, weight: .heavy)
     headerLabel.textAlignment = .center
   }
