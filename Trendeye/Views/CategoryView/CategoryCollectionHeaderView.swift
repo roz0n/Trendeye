@@ -19,15 +19,13 @@ class CategoryCollectionHeaderView: UICollectionReusableView {
     let view = UITextView()
     let paddingY: CGFloat = 24
     let paddingX: CGFloat = 12
-    
     view.translatesAutoresizingMaskIntoConstraints = false
     view.textContainer.maximumNumberOfLines = 0
     view.textContainer.lineBreakMode = .byWordWrapping
     view.textContainerInset = UIEdgeInsets(top: paddingY, left: paddingX, bottom: paddingY, right: paddingX)
     view.isScrollEnabled = false
     view.isUserInteractionEnabled = false
-    view.backgroundColor = .clear
-    
+    view.backgroundColor = K.Colors.Background
     return view
   }()
   
@@ -54,7 +52,7 @@ class CategoryCollectionHeaderView: UICollectionReusableView {
   
   func setText(_ text: String) {
     let paragraphStyle = NSMutableParagraphStyle()
-    let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium), NSAttributedString.Key.paragraphStyle: paragraphStyle, NSAttributedString.Key.foregroundColor: K.Colors.White]
+    let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium), NSAttributedString.Key.paragraphStyle: paragraphStyle, NSAttributedString.Key.foregroundColor: K.Colors.Foreground]
     
     paragraphStyle.lineSpacing = 8
     textView.attributedText = NSAttributedString(string: text, attributes: attributes)

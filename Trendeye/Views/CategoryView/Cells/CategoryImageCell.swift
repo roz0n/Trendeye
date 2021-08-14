@@ -9,26 +9,34 @@ import UIKit
 
 class CategoryImageCell: UICollectionViewCell {
   
+  // MARK: - Properties
+  
   static let reuseIdentifier = "CategoryImageCell"
+  
+  // MARK: - Initializers
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    applyStyles()
+    configureView()
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
-  fileprivate func applyStyles() {
+  // MARK: - Configurations
+  
+  fileprivate func configureView() {
     contentView.clipsToBounds = true
     layer.cornerRadius = 8
   }
   
-  public func applyBorder() {
+  // MARK: - Helpers
+  
+  func addBorder() {
     // This method is called externally when the cell is dequeued if needed
     layer.borderWidth = 1
-//    layer.borderColor = K.Colors.BorderColor.cgColor
+    layer.borderColor = K.Colors.LightGray.withAlphaComponent(0.15).cgColor
   }
   
 }

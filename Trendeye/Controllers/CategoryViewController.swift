@@ -51,9 +51,10 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     return view
   }()
   
-  var trendListButtonContainer: UIView = {
+  var actionButtonContainer: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
+    view.addBorder(side: .top, color: K.Colors.LightGray, width: 1)
     return view
   }()
   
@@ -88,7 +89,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
   
   fileprivate func configureViewController() {
     navigationItem.largeTitleDisplayMode = .always
-    view.backgroundColor = K.Colors.Black
+    view.backgroundColor = K.Colors.Background
   }
   
   fileprivate func configureImageCollection() {
@@ -98,6 +99,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     imageCollection = CategoryCollectionView(frame: .zero, collectionViewLayout: imageCollectionLayout)
     imageCollection.delegate = self
     imageCollection.dataSource = self
+    imageCollection.backgroundColor = K.Colors.Background
   }
   
   fileprivate func configureContentErrorView() {
@@ -198,7 +200,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     imageView.contentMode = .scaleAspectFill
     imageView.layer.cornerRadius = 8
     
-    cell.applyBorder()
+    cell.addBorder()
     cell.contentView.addSubview(imageView)
     
     return cell
@@ -335,23 +337,23 @@ fileprivate extension CategoryViewController {
     let buttonXPadding: CGFloat = 16
     let buttonHeight: CGFloat = 50
     
-    view.addSubview(trendListButtonContainer)
-    trendListButtonContainer.addSubview(trendListButton)
+    view.addSubview(actionButtonContainer)
+    actionButtonContainer.addSubview(trendListButton)
     
     NSLayoutConstraint.activate([
-      trendListButtonContainer.topAnchor.constraint(equalTo: contentContainer.bottomAnchor),
-      trendListButtonContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-      trendListButtonContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-      trendListButtonContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      actionButtonContainer.topAnchor.constraint(equalTo: contentContainer.bottomAnchor),
+      actionButtonContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      actionButtonContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      actionButtonContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
       
-      trendListButton.topAnchor.constraint(equalTo: trendListButtonContainer.topAnchor, constant: buttonYPadding),
-      trendListButton.leadingAnchor.constraint(equalTo: trendListButtonContainer.leadingAnchor, constant: buttonXPadding),
-      trendListButton.trailingAnchor.constraint(equalTo: trendListButtonContainer.trailingAnchor, constant: -(buttonXPadding)),
-      trendListButton.bottomAnchor.constraint(equalTo: trendListButtonContainer.bottomAnchor, constant: -(buttonYPadding)),
+      trendListButton.topAnchor.constraint(equalTo: actionButtonContainer.topAnchor, constant: buttonYPadding),
+      trendListButton.leadingAnchor.constraint(equalTo: actionButtonContainer.leadingAnchor, constant: buttonXPadding),
+      trendListButton.trailingAnchor.constraint(equalTo: actionButtonContainer.trailingAnchor, constant: -(buttonXPadding)),
+      trendListButton.bottomAnchor.constraint(equalTo: actionButtonContainer.bottomAnchor, constant: -(buttonYPadding)),
       trendListButton.heightAnchor.constraint(equalToConstant: buttonHeight),
       
       // NOTE: This constraint is needed here to center the error content to the superview
-      contentContainer.bottomAnchor.constraint(equalTo: trendListButtonContainer.topAnchor)
+      contentContainer.bottomAnchor.constraint(equalTo: actionButtonContainer.topAnchor)
     ])
   }
   
