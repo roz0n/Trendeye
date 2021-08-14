@@ -87,11 +87,11 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
   // MARK: - Configurations
   
   fileprivate func configureView() {
-    view.backgroundColor = K.Colors.Black
+    view.backgroundColor = K.Colors.Background
   }
   
   fileprivate func configureTableView() {
-    tableView.backgroundColor = K.Colors.Black
+    tableView.backgroundColor = K.Colors.Background
     tableView.tableFooterView = UIView()
     tableView.register(FeedbackTableViewCell.self, forCellReuseIdentifier: FeedbackTableViewCell.reuseIdentifier)
   }
@@ -105,7 +105,7 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
     instructionsView.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.paragraphStyle: style])
     instructionsView.textContainerInset = UIEdgeInsets(top: 20, left: 12, bottom: 20, right: 12)
     instructionsView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-    instructionsView.textColor = K.Colors.Foreground.withAlphaComponent(0.5)
+    instructionsView.textColor = K.Colors.Foreground
     instructionsView.backgroundColor = .clear
     instructionsView.isUserInteractionEnabled = false
     
@@ -127,7 +127,7 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
     searchController?.definesPresentationContext = true
     searchController?.searchBar.placeholder = "Search"
     searchController?.searchBar.backgroundImage = UIImage()
-    searchController?.searchBar.backgroundColor = K.Colors.Black
+    searchController?.searchBar.backgroundColor = K.Colors.Background
     
     navigationItem.hidesSearchBarWhenScrolling = false
     tableView.tableHeaderView = searchController!.searchBar
@@ -160,7 +160,7 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
   
 }
 
-// MARK: - UISearchResultsUpdating
+// MARK: - Search Bar Methods
 
 extension NegativeFeedbackSelectionController {
   
@@ -177,7 +177,7 @@ extension NegativeFeedbackSelectionController {
   
 }
 
-// MARK: - UITableViewDataSource
+// MARK: - Table View Methods
 
 extension NegativeFeedbackSelectionController {
   

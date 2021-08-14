@@ -11,7 +11,7 @@ class PositiveFeedbackSubmissionController: UITableViewController {
   
   // MARK: - Properties
   
-  static let cellIdentifier = "positiveFeedbackSubmissionCell"
+  static let reuseIdentifier = "PositiveFeedbackSubmissionCell"
   
   let classificationIdentifiers: [String]?
   
@@ -47,10 +47,10 @@ class PositiveFeedbackSubmissionController: UITableViewController {
   }
   
   func configureTableView() {
-    tableView.backgroundColor = K.Colors.Black
+    tableView.backgroundColor = K.Colors.Background
     tableView.allowsSelection = false
     tableView.tableFooterView = UIView()
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: PositiveFeedbackSubmissionController.cellIdentifier)
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: PositiveFeedbackSubmissionController.reuseIdentifier)
   }
   
   fileprivate func configureTableHeader() {
@@ -62,7 +62,7 @@ class PositiveFeedbackSubmissionController: UITableViewController {
     instructionsView.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.paragraphStyle: style])
     instructionsView.textContainerInset = UIEdgeInsets(top: 20, left: 12, bottom: 20, right: 12)
     instructionsView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-    instructionsView.textColor = K.Colors.Foreground.withAlphaComponent(0.5)
+    instructionsView.textColor = K.Colors.Foreground
     instructionsView.backgroundColor = .clear
     instructionsView.isUserInteractionEnabled = false
     
@@ -108,13 +108,14 @@ extension PositiveFeedbackSubmissionController {
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: PositiveFeedbackSubmissionController.cellIdentifier, for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: PositiveFeedbackSubmissionController.reuseIdentifier, for: indexPath)
     
     guard let classificationIdentifiers = classificationIdentifiers else {
       return cell
     }
     
     cell.textLabel?.text = classificationIdentifiers[indexPath.row]
+    cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
     cell.backgroundColor = .clear
     
     return cell

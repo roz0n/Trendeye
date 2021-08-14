@@ -104,7 +104,7 @@ fileprivate extension InfoListItemView {
     textContainerView.addArrangedSubview(headerLabel)
     textContainerView.addArrangedSubview(bodyLabel)
     
-    // Full contained
+    // Full container
     contentContainerView.addArrangedSubview(textContainerView)
   }
   

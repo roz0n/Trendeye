@@ -12,7 +12,7 @@ class NegativeFeedbackSubmissionController: UITableViewController {
   
   // MARK: - Properties
   
-  let cellIdentifier = "negativefeedbackSubmissionCell"
+  let reuseIdentifier = "NegativefeedbackSubmissionCell"
   
   var feedbackNavigationController: FeedbackViewController? {
     return navigationController as? FeedbackViewController
@@ -52,8 +52,8 @@ class NegativeFeedbackSubmissionController: UITableViewController {
   
   func configureTableView() {
     tableView.allowsSelection = false
-    tableView.backgroundColor = K.Colors.Black
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+    tableView.backgroundColor = K.Colors.Background
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
   }
   
   fileprivate func configureNavigation() {
@@ -109,7 +109,7 @@ extension NegativeFeedbackSubmissionController {
   
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
     cell.backgroundColor = .clear
     
     guard let cellSectionData = sectionData[indexPath.section] else {

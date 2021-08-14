@@ -11,7 +11,7 @@ class FeedbackTableViewCell: UITableViewCell {
   
   // MARK: - Properties
   
-  static let reuseIdentifier = "feedbackTableCell"
+  static let reuseIdentifier = "FeedbackTableCell"
   
   var resultIdentifier: String?
   
@@ -19,7 +19,9 @@ class FeedbackTableViewCell: UITableViewCell {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    
     backgroundColor = .clear
+    textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
   }
   
   required init?(coder: NSCoder) {
