@@ -62,7 +62,7 @@ class PositiveFeedbackSubmissionController: UITableViewController {
     instructionsView.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.paragraphStyle: style])
     instructionsView.textContainerInset = UIEdgeInsets(top: 20, left: 12, bottom: 20, right: 12)
     instructionsView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-    instructionsView.textColor = K.Colors.Foreground
+    instructionsView.textColor = K.Colors.DimmedForeground
     instructionsView.backgroundColor = .clear
     instructionsView.isUserInteractionEnabled = false
     

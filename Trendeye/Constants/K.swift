@@ -19,6 +19,7 @@ struct K {
     static let White = UIColor(named: "White")!
     static let Background = UIColor(named: "Background")!
     static let Foreground = UIColor(named: "Foreground")!
+    static let DimmedForeground = UIColor(named: "Foreground")!.withAlphaComponent(0.65)
     static let TransparentButtons = UIColor(named: "TransparentButtons")!
     static let Borders = UIColor(named: "Borders")!
   }
