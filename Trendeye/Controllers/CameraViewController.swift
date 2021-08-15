@@ -109,7 +109,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     
     configureWelcomeView()
     configureViewController()
-    configurePicker()    
+    configurePicker()
   }
   
   override func viewWillAppear(_ animated: Bool) {

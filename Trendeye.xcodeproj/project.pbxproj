@@ -106,6 +106,8 @@
 		2387D5C926C8C35600AF6F5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4325E2EE2400241206 /* LaunchScreen.storyboard */; };
 		2387D5CA26C8C35600AF6F5E /* Endpoints.plist in Resources */ = {isa = PBXBuildFile; fileRef = 230DEF2B26C6513A006E38B8 /* Endpoints.plist */; };
 		2387D5CB26C8C35600AF6F5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4125E2EE2400241206 /* Assets.xcassets */; };
+		2387D5D226C8CF0A00AF6F5E /* Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2387D5D126C8CF0A00AF6F5E /* Dev-Info.plist */; };
+		2387D5D326C8CF0A00AF6F5E /* Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2387D5D126C8CF0A00AF6F5E /* Dev-Info.plist */; };
 		23988A2226C2CB820042BC28 /* InfoListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2126C2CB820042BC28 /* InfoListItemView.swift */; };
 		23988A2626C4D95E0042BC28 /* UINavigationController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2526C4D95E0042BC28 /* UINavigationController+Ext.swift */; };
 		23988A2C26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2B26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift */; };
@@ -184,7 +186,7 @@
 		2377FE7126BF7E1D0041073F /* UIDevice+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Ext.swift"; sourceTree = "<group>"; };
 		2377FE7326BF86970041073F /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
 		2387D5CF26C8C35600AF6F5E /* Trendeye Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trendeye Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2387D5D026C8C35600AF6F5E /* Trendeye copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Trendeye copy-Info.plist"; path = "/Users/arnaldo/Development/ios/projects/Trendeye/Trendeye copy-Info.plist"; sourceTree = "<absolute>"; };
+		2387D5D126C8CF0A00AF6F5E /* Dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Dev-Info.plist"; sourceTree = "<group>"; };
 		23988A2126C2CB820042BC28 /* InfoListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoListItemView.swift; sourceTree = "<group>"; };
 		23988A2526C4D95E0042BC28 /* UINavigationController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Ext.swift"; sourceTree = "<group>"; };
 		23988A2B26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositiveFeedbackSubmissionController.swift; sourceTree = "<group>"; };
@@ -429,7 +431,6 @@
 				23F80A3725E2EE2100241206 /* Trendeye */,
 				23130D12263823CD003BEDCB /* TrendeyeTests */,
 				23F80A3625E2EE2100241206 /* Products */,
-				2387D5D026C8C35600AF6F5E /* Trendeye copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -457,6 +458,7 @@
 				23F80A5A25E339D600241206 /* Views */,
 				23F80A4125E2EE2400241206 /* Assets.xcassets */,
 				23F80A4625E2EE2400241206 /* Info.plist */,
+				2387D5D126C8CF0A00AF6F5E /* Dev-Info.plist */,
 				230DEF2B26C6513A006E38B8 /* Endpoints.plist */,
 			);
 			path = Trendeye;
@@ -627,6 +629,7 @@
 			files = (
 				2387D5C926C8C35600AF6F5E /* LaunchScreen.storyboard in Resources */,
 				2387D5CA26C8C35600AF6F5E /* Endpoints.plist in Resources */,
+				2387D5D326C8CF0A00AF6F5E /* Dev-Info.plist in Resources */,
 				2387D5CB26C8C35600AF6F5E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -637,6 +640,7 @@
 			files = (
 				23F80A4525E2EE2400241206 /* LaunchScreen.storyboard in Resources */,
 				230DEF2C26C6513A006E38B8 /* Endpoints.plist in Resources */,
+				2387D5D226C8CF0A00AF6F5E /* Dev-Info.plist in Resources */,
 				23F80A4225E2EE2400241206 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -854,7 +858,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RYK6GDE7V9;
-				INFOPLIST_FILE = "Trendeye copy-Info.plist";
+				INFOPLIST_FILE = "Trendeye/Dev-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -876,7 +880,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RYK6GDE7V9;
-				INFOPLIST_FILE = "Trendeye copy-Info.plist";
+				INFOPLIST_FILE = "Trendeye/Dev-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
