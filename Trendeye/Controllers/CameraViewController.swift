@@ -28,6 +28,9 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   var captureSession: AVCaptureSession!
   var captureSettings = AVCapturePhotoSettings()
   var captureFlashMode: AVCaptureDevice.FlashMode = .off
+  var captureActiveZoom: CGFloat = 1.0
+  let captureMinZoom: CGFloat = 1.0
+  let captureMaxZoom: CGFloat = 3.0
   var imageOutput = AVCapturePhotoOutput()
   var videoDataOutput = AVCaptureVideoDataOutput()
   
@@ -395,6 +398,12 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     animateFocusShape(elipse, for: 0.30)
   }
   
+  // Return zoom value between the minimum and maximum zoom values
+  func getZoomValue(_ factor: CGFloat, device: AVCaptureDevice) -> CGFloat {
+    // Credit: https://stackoverflow.com/a/42928452
+    return min(min(max(factor, captureMinZoom), captureMaxZoom), device.activeFormat.videoMaxZoomFactor)
+  }
+  
   // MARK: - Confirmation View
   
   fileprivate func presentConfirmationView(with image: UIImage) {
@@ -510,6 +519,7 @@ fileprivate extension CameraViewController {
     configureFlipGesture()
     configureTorchGesture()
     configureFocusGesture()
+    configurePinchGesture()
   }
   
   func configureShootGesture() {
@@ -540,6 +550,11 @@ fileprivate extension CameraViewController {
   func configureFocusGesture() {
     let focusGesture = UITapGestureRecognizer(target: self, action: #selector(cameraViewTapped(_:)))
     cameraView.addGestureRecognizer(focusGesture)
+  }
+  
+  func configurePinchGesture() {
+    let pinchGesture = UIPinchGestureRecognizer(target: self, action:#selector(cameraViewPinched(_:)))
+    view.addGestureRecognizer(pinchGesture)
   }
   
   // MARK: -
@@ -656,6 +671,35 @@ fileprivate extension CameraViewController {
         
         return
       }
+    }
+  }
+  
+  @objc func cameraViewPinched(_ pinch: UIPinchGestureRecognizer) {
+    // Credit: https://stackoverflow.com/a/42928452
+    guard let device = self.activeCaptureDevice else { return }
+    
+    func updateZoomFactor(scale factor: CGFloat) {
+      do {
+        try device.lockForConfiguration()
+        defer { device.unlockForConfiguration() }
+        device.videoZoomFactor = factor
+      } catch {
+        print("Error updating zoom factor: \(error.localizedDescription)")
+      }
+    }
+    
+    let newScaleFactor = getZoomValue(pinch.scale * captureActiveZoom, device: device)
+    
+    switch pinch.state {
+      case .began:
+        fallthrough
+      case .changed:
+        updateZoomFactor(scale: newScaleFactor)
+      case .ended:
+        captureActiveZoom = getZoomValue(newScaleFactor, device: device)
+        updateZoomFactor(scale: captureActiveZoom)
+      default:
+        break
     }
   }
   
