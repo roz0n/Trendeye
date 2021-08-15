@@ -29,10 +29,14 @@ final class TENetworkManager {
   lazy var decoder = JSONDecoder()
   
   let trendListUrl = "https://www.trendlist.org/"
-
+  
+#if DEVELOPMENT
+  var baseUrl: String = "https://23d205d72155.ngrok.io/"
+#else
   var baseUrl: String {
     return Bundle.infoPlistValue(inFile: "Endpoints", forKey: "API_URL")!
   }
+#endif
   
   // MARK: - Helpers
   
@@ -125,7 +129,9 @@ final class TENetworkManager {
   
   func postClassificationFeedback(data feedbackData: ClassificationFeedback, completion: @escaping (_ responseData: Result<ClassificationFeedbackResponse, TENetworkError>) -> Void) {
     // Configure URL
-    guard let url = URL(string: "https://www.trendeye.app/feedback"), let payload = try? encoder.encode(feedbackData) else {
+    let endpoint = getEndpoint("feedback", endpoint: nil, type: "api")
+    
+    guard let url = URL(string: endpoint), let payload = try? encoder.encode(feedbackData) else {
       return
     }
     

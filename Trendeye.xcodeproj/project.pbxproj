@@ -12,6 +12,7 @@
 		230DEF2E26C6529E006E38B8 /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF2D26C6529E006E38B8 /* Bundle+Ext.swift */; };
 		230DEF3026C658E6006E38B8 /* TrendeyeClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF2F26C658E6006E38B8 /* TrendeyeClassifier.mlmodel */; };
 		230DEF3226C7AFF4006E38B8 /* TEDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF3126C7AFF4006E38B8 /* TEDefaultsManager.swift */; };
+		230DEF3526C8AFB8006E38B8 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF3426C8AFB8006E38B8 /* Strings.swift */; };
 		23130D14263823CD003BEDCB /* TrendeyeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23130D13263823CD003BEDCB /* TrendeyeTests.swift */; };
 		23131AD2261FC5EC00FFF2B3 /* CameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AD1261FC5EC00FFF2B3 /* CameraButton.swift */; };
 		23131AD7261FE66400FFF2B3 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AD6261FE66400FFF2B3 /* UIView+Ext.swift */; };
@@ -44,6 +45,67 @@
 		2377FE7026BE8F7E0041073F /* VNClassificationObservation+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6F26BE8F7E0041073F /* VNClassificationObservation+Ext.swift */; };
 		2377FE7226BF7E1D0041073F /* UIDevice+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE7126BF7E1D0041073F /* UIDevice+Ext.swift */; };
 		2377FE7426BF86970041073F /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE7326BF86970041073F /* Array+Ext.swift */; };
+		2387D58D26C8C35600AF6F5E /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC190262AA7A700744651 /* CategoryCollectionView.swift */; };
+		2387D58E26C8C35600AF6F5E /* ClassificationMetricChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23775AD826AE3D8400E839DD /* ClassificationMetricChip.swift */; };
+		2387D58F26C8C35600AF6F5E /* UINavigationController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2526C4D95E0042BC28 /* UINavigationController+Ext.swift */; };
+		2387D59026C8C35600AF6F5E /* CameraDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363BC2126771CA100564849 /* CameraDetectionView.swift */; };
+		2387D59126C8C35600AF6F5E /* NegativeFeedbackSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2303FA5826B8CDEB00EA133A /* NegativeFeedbackSelectionController.swift */; };
+		2387D59226C8C35600AF6F5E /* ClassificationImageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B0A2623863200FFF2B3 /* ClassificationImageHeader.swift */; };
+		2387D59326C8C35600AF6F5E /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AFD2622E38400FFF2B3 /* CategoryViewController.swift */; };
+		2387D59426C8C35600AF6F5E /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237172A42633C91D00D29B50 /* UIViewController+Ext.swift */; };
+		2387D59526C8C35600AF6F5E /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */; };
+		2387D59626C8C35600AF6F5E /* AppLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234C91E62637D08400B3A89E /* AppLogoView.swift */; };
+		2387D59726C8C35600AF6F5E /* ClassificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AF426219D6A00FFF2B3 /* ClassificationViewController.swift */; };
+		2387D59826C8C35600AF6F5E /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AD6261FE66400FFF2B3 /* UIView+Ext.swift */; };
+		2387D59926C8C35600AF6F5E /* CameraControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D9261FC03B007A091D /* CameraControlsView.swift */; };
+		2387D59A26C8C35600AF6F5E /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6D26BE20280041073F /* Feedback.swift */; };
+		2387D59B26C8C35600AF6F5E /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237172A72633F21500D29B50 /* UIImage+Ext.swift */; };
+		2387D59C26C8C35600AF6F5E /* CGSize+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729B26327B5D00D29B50 /* CGSize+Ext.swift */; };
+		2387D59D26C8C35600AF6F5E /* TECacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1A0262D00A700744651 /* TECacheManager.swift */; };
+		2387D59E26C8C35600AF6F5E /* ClassificationViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235E651626AA562A004E8B26 /* ClassificationViewCell.swift */; };
+		2387D59F26C8C35600AF6F5E /* CameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AD1261FC5EC00FFF2B3 /* CameraButton.swift */; };
+		2387D5A026C8C35600AF6F5E /* CG+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363BC23267720C800564849 /* CG+Ext.swift */; };
+		2387D5A126C8C35600AF6F5E /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE7326BF86970041073F /* Array+Ext.swift */; };
+		2387D5A226C8C35600AF6F5E /* ConfirmationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131AE12621586C00FFF2B3 /* ConfirmationButton.swift */; };
+		2387D5A326C8C35600AF6F5E /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF3426C8AFB8006E38B8 /* Strings.swift */; };
+		2387D5A426C8C35600AF6F5E /* VNClassificationObservation+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6F26BE8F7E0041073F /* VNClassificationObservation+Ext.swift */; };
+		2387D5A526C8C35600AF6F5E /* PhotoEnlargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA39426298B0D00E5E8A1 /* PhotoEnlargeButton.swift */; };
+		2387D5A626C8C35600AF6F5E /* ClassificationTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235E651826AA770A004E8B26 /* ClassificationTableHeader.swift */; };
+		2387D5A726C8C35600AF6F5E /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF2D26C6529E006E38B8 /* Bundle+Ext.swift */; };
+		2387D5A826C8C35600AF6F5E /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6526BE16110041073F /* Categories.swift */; };
+		2387D5A926C8C35600AF6F5E /* TEDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF3126C7AFF4006E38B8 /* TEDefaultsManager.swift */; };
+		2387D5AA26C8C35600AF6F5E /* CGFloat+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729826327B4400D29B50 /* CGFloat+Ext.swift */; };
+		2387D5AB26C8C35600AF6F5E /* TEClassificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A5525E32F0E00241206 /* TEClassificationManager.swift */; };
+		2387D5AC26C8C35600AF6F5E /* ClassifierConfidenceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EE263BE241005AB471 /* ClassifierConfidenceButton.swift */; };
+		2387D5AD26C8C35600AF6F5E /* StackedBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DACBC826B60FF4005D02CB /* StackedBarsView.swift */; };
+		2387D5AE26C8C35600AF6F5E /* CategoryImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC194262ABEBA00744651 /* CategoryImageCell.swift */; };
+		2387D5AF26C8C35600AF6F5E /* ConfirmationControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131ADE2621563500FFF2B3 /* ConfirmationControlsView.swift */; };
+		2387D5B026C8C35600AF6F5E /* FeedbackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23496C1F26B8D0BE00805777 /* FeedbackTableViewCell.swift */; };
+		2387D5B126C8C35600AF6F5E /* CameraViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8E8263A6EFB005AB471 /* CameraViewController+Ext.swift */; };
+		2387D5B226C8C35600AF6F5E /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131ADA2621504A00FFF2B3 /* ConfirmationViewController.swift */; };
+		2387D5B326C8C35600AF6F5E /* ContentErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234C91E42637CC7500B3A89E /* ContentErrorView.swift */; };
+		2387D5B426C8C35600AF6F5E /* ClassificationTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232AA3902628FF9A00E5E8A1 /* ClassificationTableFooterView.swift */; };
+		2387D5B526C8C35600AF6F5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3825E2EE2100241206 /* AppDelegate.swift */; };
+		2387D5B626C8C35600AF6F5E /* Projects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE6726BE16270041073F /* Projects.swift */; };
+		2387D5B726C8C35600AF6F5E /* NegativeFeedbackSubmissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5702626B90BC600E8EC83 /* NegativeFeedbackSubmissionController.swift */; };
+		2387D5B826C8C35600AF6F5E /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B062622F67600FFF2B3 /* K.swift */; };
+		2387D5B926C8C35600AF6F5E /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */; };
+		2387D5BA26C8C35600AF6F5E /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC2012630F41500744651 /* FullImageViewController.swift */; };
+		2387D5BB26C8C35600AF6F5E /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
+		2387D5BC26C8C35600AF6F5E /* CameraErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C4263A5505009114B3 /* CameraErrorView.swift */; };
+		2387D5BD26C8C35600AF6F5E /* TENetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC198262AC18600744651 /* TENetworkManager.swift */; };
+		2387D5BE26C8C35600AF6F5E /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234E14D226B8CCDA00B204D0 /* FeedbackViewController.swift */; };
+		2387D5BF26C8C35600AF6F5E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3A25E2EE2100241206 /* SceneDelegate.swift */; };
+		2387D5C026C8C35600AF6F5E /* InfoModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DACBC626B527D7005D02CB /* InfoModalViewController.swift */; };
+		2387D5C126C8C35600AF6F5E /* PositiveFeedbackSubmissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2B26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift */; };
+		2387D5C226C8C35600AF6F5E /* TENavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23775AD626ACB5F500E839DD /* TENavigationController.swift */; };
+		2387D5C326C8C35600AF6F5E /* InfoListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2126C2CB820042BC28 /* InfoListItemView.swift */; };
+		2387D5C426C8C35600AF6F5E /* CategoryCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1FE2630C86800744651 /* CategoryCollectionHeaderView.swift */; };
+		2387D5C526C8C35600AF6F5E /* UIDevice+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2377FE7126BF7E1D0041073F /* UIDevice+Ext.swift */; };
+		2387D5C626C8C35600AF6F5E /* TrendeyeClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF2F26C658E6006E38B8 /* TrendeyeClassifier.mlmodel */; };
+		2387D5C926C8C35600AF6F5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4325E2EE2400241206 /* LaunchScreen.storyboard */; };
+		2387D5CA26C8C35600AF6F5E /* Endpoints.plist in Resources */ = {isa = PBXBuildFile; fileRef = 230DEF2B26C6513A006E38B8 /* Endpoints.plist */; };
+		2387D5CB26C8C35600AF6F5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4125E2EE2400241206 /* Assets.xcassets */; };
 		23988A2226C2CB820042BC28 /* InfoListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2126C2CB820042BC28 /* InfoListItemView.swift */; };
 		23988A2626C4D95E0042BC28 /* UINavigationController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2526C4D95E0042BC28 /* UINavigationController+Ext.swift */; };
 		23988A2C26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2B26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift */; };
@@ -86,6 +148,7 @@
 		230DEF2D26C6529E006E38B8 /* Bundle+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Ext.swift"; sourceTree = "<group>"; };
 		230DEF2F26C658E6006E38B8 /* TrendeyeClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TrendeyeClassifier.mlmodel; sourceTree = "<group>"; };
 		230DEF3126C7AFF4006E38B8 /* TEDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEDefaultsManager.swift; sourceTree = "<group>"; };
+		230DEF3426C8AFB8006E38B8 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		23130D11263823CD003BEDCB /* TrendeyeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrendeyeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23130D13263823CD003BEDCB /* TrendeyeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendeyeTests.swift; sourceTree = "<group>"; };
 		23130D15263823CD003BEDCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -120,6 +183,8 @@
 		2377FE6F26BE8F7E0041073F /* VNClassificationObservation+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VNClassificationObservation+Ext.swift"; sourceTree = "<group>"; };
 		2377FE7126BF7E1D0041073F /* UIDevice+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Ext.swift"; sourceTree = "<group>"; };
 		2377FE7326BF86970041073F /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
+		2387D5CF26C8C35600AF6F5E /* Trendeye Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trendeye Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2387D5D026C8C35600AF6F5E /* Trendeye copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Trendeye copy-Info.plist"; path = "/Users/arnaldo/Development/ios/projects/Trendeye/Trendeye copy-Info.plist"; sourceTree = "<absolute>"; };
 		23988A2126C2CB820042BC28 /* InfoListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoListItemView.swift; sourceTree = "<group>"; };
 		23988A2526C4D95E0042BC28 /* UINavigationController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Ext.swift"; sourceTree = "<group>"; };
 		23988A2B26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositiveFeedbackSubmissionController.swift; sourceTree = "<group>"; };
@@ -156,6 +221,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2387D5C726C8C35600AF6F5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		23F80A3225E2EE2100241206 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -166,6 +238,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		230DEF3326C8AFA9006E38B8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				230DEF3426C8AFB8006E38B8 /* Strings.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		23130D12263823CD003BEDCB /* TrendeyeTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,6 +429,7 @@
 				23F80A3725E2EE2100241206 /* Trendeye */,
 				23130D12263823CD003BEDCB /* TrendeyeTests */,
 				23F80A3625E2EE2100241206 /* Products */,
+				2387D5D026C8C35600AF6F5E /* Trendeye copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -357,6 +438,7 @@
 			children = (
 				23F80A3525E2EE2100241206 /* Trendeye.app */,
 				23130D11263823CD003BEDCB /* TrendeyeTests.xctest */,
+				2387D5CF26C8C35600AF6F5E /* Trendeye Dev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -364,6 +446,7 @@
 		23F80A3725E2EE2100241206 /* Trendeye */ = {
 			isa = PBXGroup;
 			children = (
+				230DEF3326C8AFA9006E38B8 /* Utilities */,
 				23AAC19B262ACB1900744651 /* Classifiers */,
 				23F80A5825E339B400241206 /* Application */,
 				23131B022622F62300FFF2B3 /* Constants */,
@@ -458,6 +541,23 @@
 			productReference = 23130D11263823CD003BEDCB /* TrendeyeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		2387D58B26C8C35600AF6F5E /* Trendeye Dev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2387D5CC26C8C35600AF6F5E /* Build configuration list for PBXNativeTarget "Trendeye Dev" */;
+			buildPhases = (
+				2387D58C26C8C35600AF6F5E /* Sources */,
+				2387D5C726C8C35600AF6F5E /* Frameworks */,
+				2387D5C826C8C35600AF6F5E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Trendeye Dev";
+			productName = Trendeye;
+			productReference = 2387D5CF26C8C35600AF6F5E /* Trendeye Dev.app */;
+			productType = "com.apple.product-type.application";
+		};
 		23F80A3425E2EE2100241206 /* Trendeye */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 23F80A4925E2EE2400241206 /* Build configuration list for PBXNativeTarget "Trendeye" */;
@@ -507,6 +607,7 @@
 			projectRoot = "";
 			targets = (
 				23F80A3425E2EE2100241206 /* Trendeye */,
+				2387D58B26C8C35600AF6F5E /* Trendeye Dev */,
 				23130D10263823CD003BEDCB /* TrendeyeTests */,
 			);
 		};
@@ -517,6 +618,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2387D5C826C8C35600AF6F5E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2387D5C926C8C35600AF6F5E /* LaunchScreen.storyboard in Resources */,
+				2387D5CA26C8C35600AF6F5E /* Endpoints.plist in Resources */,
+				2387D5CB26C8C35600AF6F5E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +649,71 @@
 			buildActionMask = 2147483647;
 			files = (
 				23130D14263823CD003BEDCB /* TrendeyeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2387D58C26C8C35600AF6F5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2387D58D26C8C35600AF6F5E /* CategoryCollectionView.swift in Sources */,
+				2387D58E26C8C35600AF6F5E /* ClassificationMetricChip.swift in Sources */,
+				2387D58F26C8C35600AF6F5E /* UINavigationController+Ext.swift in Sources */,
+				2387D59026C8C35600AF6F5E /* CameraDetectionView.swift in Sources */,
+				2387D59126C8C35600AF6F5E /* NegativeFeedbackSelectionController.swift in Sources */,
+				2387D59226C8C35600AF6F5E /* ClassificationImageHeader.swift in Sources */,
+				2387D59326C8C35600AF6F5E /* CategoryViewController.swift in Sources */,
+				2387D59426C8C35600AF6F5E /* UIViewController+Ext.swift in Sources */,
+				2387D59526C8C35600AF6F5E /* UITextView+Ext.swift in Sources */,
+				2387D59626C8C35600AF6F5E /* AppLogoView.swift in Sources */,
+				2387D59726C8C35600AF6F5E /* ClassificationViewController.swift in Sources */,
+				2387D59826C8C35600AF6F5E /* UIView+Ext.swift in Sources */,
+				2387D59926C8C35600AF6F5E /* CameraControlsView.swift in Sources */,
+				2387D59A26C8C35600AF6F5E /* Feedback.swift in Sources */,
+				2387D59B26C8C35600AF6F5E /* UIImage+Ext.swift in Sources */,
+				2387D59C26C8C35600AF6F5E /* CGSize+Ext.swift in Sources */,
+				2387D59D26C8C35600AF6F5E /* TECacheManager.swift in Sources */,
+				2387D59E26C8C35600AF6F5E /* ClassificationViewCell.swift in Sources */,
+				2387D59F26C8C35600AF6F5E /* CameraButton.swift in Sources */,
+				2387D5A026C8C35600AF6F5E /* CG+Ext.swift in Sources */,
+				2387D5A126C8C35600AF6F5E /* Array+Ext.swift in Sources */,
+				2387D5A226C8C35600AF6F5E /* ConfirmationButton.swift in Sources */,
+				2387D5A326C8C35600AF6F5E /* Strings.swift in Sources */,
+				2387D5A426C8C35600AF6F5E /* VNClassificationObservation+Ext.swift in Sources */,
+				2387D5A526C8C35600AF6F5E /* PhotoEnlargeButton.swift in Sources */,
+				2387D5A626C8C35600AF6F5E /* ClassificationTableHeader.swift in Sources */,
+				2387D5A726C8C35600AF6F5E /* Bundle+Ext.swift in Sources */,
+				2387D5A826C8C35600AF6F5E /* Categories.swift in Sources */,
+				2387D5A926C8C35600AF6F5E /* TEDefaultsManager.swift in Sources */,
+				2387D5AA26C8C35600AF6F5E /* CGFloat+Ext.swift in Sources */,
+				2387D5AB26C8C35600AF6F5E /* TEClassificationManager.swift in Sources */,
+				2387D5AC26C8C35600AF6F5E /* ClassifierConfidenceButton.swift in Sources */,
+				2387D5AD26C8C35600AF6F5E /* StackedBarsView.swift in Sources */,
+				2387D5AE26C8C35600AF6F5E /* CategoryImageCell.swift in Sources */,
+				2387D5AF26C8C35600AF6F5E /* ConfirmationControlsView.swift in Sources */,
+				2387D5B026C8C35600AF6F5E /* FeedbackTableViewCell.swift in Sources */,
+				2387D5B126C8C35600AF6F5E /* CameraViewController+Ext.swift in Sources */,
+				2387D5B226C8C35600AF6F5E /* ConfirmationViewController.swift in Sources */,
+				2387D5B326C8C35600AF6F5E /* ContentErrorView.swift in Sources */,
+				2387D5B426C8C35600AF6F5E /* ClassificationTableFooterView.swift in Sources */,
+				2387D5B526C8C35600AF6F5E /* AppDelegate.swift in Sources */,
+				2387D5B626C8C35600AF6F5E /* Projects.swift in Sources */,
+				2387D5B726C8C35600AF6F5E /* NegativeFeedbackSubmissionController.swift in Sources */,
+				2387D5B826C8C35600AF6F5E /* K.swift in Sources */,
+				2387D5B926C8C35600AF6F5E /* StretchyTableHeaderView.swift in Sources */,
+				2387D5BA26C8C35600AF6F5E /* FullImageViewController.swift in Sources */,
+				2387D5BB26C8C35600AF6F5E /* CameraViewController.swift in Sources */,
+				2387D5BC26C8C35600AF6F5E /* CameraErrorView.swift in Sources */,
+				2387D5BD26C8C35600AF6F5E /* TENetworkManager.swift in Sources */,
+				2387D5BE26C8C35600AF6F5E /* FeedbackViewController.swift in Sources */,
+				2387D5BF26C8C35600AF6F5E /* SceneDelegate.swift in Sources */,
+				2387D5C026C8C35600AF6F5E /* InfoModalViewController.swift in Sources */,
+				2387D5C126C8C35600AF6F5E /* PositiveFeedbackSubmissionController.swift in Sources */,
+				2387D5C226C8C35600AF6F5E /* TENavigationController.swift in Sources */,
+				2387D5C326C8C35600AF6F5E /* InfoListItemView.swift in Sources */,
+				2387D5C426C8C35600AF6F5E /* CategoryCollectionHeaderView.swift in Sources */,
+				2387D5C526C8C35600AF6F5E /* UIDevice+Ext.swift in Sources */,
+				2387D5C626C8C35600AF6F5E /* TrendeyeClassifier.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,6 +743,7 @@
 				2363BC24267720C800564849 /* CG+Ext.swift in Sources */,
 				2377FE7426BF86970041073F /* Array+Ext.swift in Sources */,
 				23131AE22621586C00FFF2B3 /* ConfirmationButton.swift in Sources */,
+				230DEF3526C8AFB8006E38B8 /* Strings.swift in Sources */,
 				2377FE7026BE8F7E0041073F /* VNClassificationObservation+Ext.swift in Sources */,
 				232AA39526298B0D00E5E8A1 /* PhotoEnlargeButton.swift in Sources */,
 				235E651926AA770A004E8B26 /* ClassificationTableHeader.swift in Sources */,
@@ -666,6 +843,49 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Trendeye.app/Trendeye";
+			};
+			name = Release;
+		};
+		2387D5CD26C8C35600AF6F5E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dev";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = RYK6GDE7V9;
+				INFOPLIST_FILE = "Trendeye copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arnaldorozon.trendeye-dev";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEVELOPMENT;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		2387D5CE26C8C35600AF6F5E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dev";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = RYK6GDE7V9;
+				INFOPLIST_FILE = "Trendeye copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arnaldorozon.trendeye-dev";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -843,6 +1063,15 @@
 			buildConfigurations = (
 				23130D19263823CD003BEDCB /* Debug */,
 				23130D1A263823CD003BEDCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2387D5CC26C8C35600AF6F5E /* Build configuration list for PBXNativeTarget "Trendeye Dev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2387D5CD26C8C35600AF6F5E /* Debug */,
+				2387D5CE26C8C35600AF6F5E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

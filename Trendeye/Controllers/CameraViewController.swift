@@ -71,9 +71,9 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
   let welcomeModalView: InfoModalViewController = {
     let view = InfoModalViewController(
       iconSymbol: K.Icons.Eyes,
-      titleText: "Hello there!",
-      bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.",
-      buttonText: "Get Started", dismissHandler: nil)
+      titleText: CameraViewStrings.welcomeModalTitle,
+      bodyText: CameraViewStrings.welcomeModalBody,
+      buttonText: CameraViewStrings.welcomeButtonText, dismissHandler: nil)
     view.modalPresentationStyle = .formSheet
     view.modalTransitionStyle = .crossDissolve
     return view
@@ -109,7 +109,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     
     configureWelcomeView()
     configureViewController()
-    configurePicker()
+    configurePicker()    
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -234,7 +234,6 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     } catch let error {
       captureDeviceError = true
       print("Failed to connect to input device")
-      print("\(error)")
       print("\(error.localizedDescription)")
     }
   }
@@ -415,7 +414,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     denyButton?.addTarget(self, action: #selector(handleDenyTap), for: .touchUpInside)
     
     confirmationViewController.selectedImage = image
-    confirmationViewController.navigationItem.title = "Confirm Photo"
+    confirmationViewController.navigationItem.title = CameraViewStrings.conformationViewTitle
     confirmationViewController.modalPresentationStyle = .overFullScreen
     
     currentImage = image
@@ -430,7 +429,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       let classificationViewController = ClassificationViewController(with: (self?.currentImage)!)
       
       classificationViewController.navigationItem.hidesBackButton = true
-      classificationViewController.title = "Trend Analysis"
+      classificationViewController.title = CameraViewStrings.classificationViewTitle
       
       self?.navigationController?.pushViewController(classificationViewController, animated: true)
     }
@@ -471,6 +470,7 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
       let sequenceRequestHandler = VNSequenceRequestHandler()
       try sequenceRequestHandler.perform([detectRectanglesRequest], on: imageBuffer, orientation: .right)
     } catch {
+      print("Error performing vision request")
       print(error.localizedDescription)
     }
   }
@@ -565,7 +565,6 @@ fileprivate extension CameraViewController {
   }
   
   @objc func flashButtonTapped() {
-    print("Tapped flash button")
     toggleFlashMode()
   }
   
@@ -611,7 +610,6 @@ fileprivate extension CameraViewController {
       captureDeviceError = true
       
       print("Failed to swap capture session device")
-      print("\(error)")
       print("\(error.localizedDescription)")
     }
     
@@ -639,7 +637,7 @@ fileprivate extension CameraViewController {
         }
       }
     } catch let error {
-      print("\(error)")
+      print("Error toggling torch")
       print("\(error.localizedDescription)")
     }
   }
@@ -666,7 +664,6 @@ fileprivate extension CameraViewController {
         }
       } catch let error {
         print("Failed to focus capture device input")
-        print("\(error)")
         print("\(error.localizedDescription)")
         
         return
