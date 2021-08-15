@@ -107,7 +107,6 @@
 		2387D5CA26C8C35600AF6F5E /* Endpoints.plist in Resources */ = {isa = PBXBuildFile; fileRef = 230DEF2B26C6513A006E38B8 /* Endpoints.plist */; };
 		2387D5CB26C8C35600AF6F5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4125E2EE2400241206 /* Assets.xcassets */; };
 		2387D5D226C8CF0A00AF6F5E /* Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2387D5D126C8CF0A00AF6F5E /* Dev-Info.plist */; };
-		2387D5D326C8CF0A00AF6F5E /* Dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2387D5D126C8CF0A00AF6F5E /* Dev-Info.plist */; };
 		23988A2226C2CB820042BC28 /* InfoListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2126C2CB820042BC28 /* InfoListItemView.swift */; };
 		23988A2626C4D95E0042BC28 /* UINavigationController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2526C4D95E0042BC28 /* UINavigationController+Ext.swift */; };
 		23988A2C26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23988A2B26C4E1B70042BC28 /* PositiveFeedbackSubmissionController.swift */; };
@@ -629,7 +628,6 @@
 			files = (
 				2387D5C926C8C35600AF6F5E /* LaunchScreen.storyboard in Resources */,
 				2387D5CA26C8C35600AF6F5E /* Endpoints.plist in Resources */,
-				2387D5D326C8CF0A00AF6F5E /* Dev-Info.plist in Resources */,
 				2387D5CB26C8C35600AF6F5E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
