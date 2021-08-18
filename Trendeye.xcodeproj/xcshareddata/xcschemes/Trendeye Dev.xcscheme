@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2387D58B26C8C35600AF6F5E"
-               BuildableName = "Trendeye copy.app"
+               BuildableName = "Trendeye Dev.app"
                BlueprintName = "Trendeye Dev"
                ReferencedContainer = "container:Trendeye.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2387D58B26C8C35600AF6F5E"
-            BuildableName = "Trendeye copy.app"
+            BuildableName = "Trendeye Dev.app"
             BlueprintName = "Trendeye Dev"
             ReferencedContainer = "container:Trendeye.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2387D58B26C8C35600AF6F5E"
-            BuildableName = "Trendeye copy.app"
+            BuildableName = "Trendeye Dev.app"
             BlueprintName = "Trendeye Dev"
             ReferencedContainer = "container:Trendeye.xcodeproj">
          </BuildableReference>
