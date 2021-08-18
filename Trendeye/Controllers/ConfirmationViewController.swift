@@ -25,7 +25,7 @@ final class ConfirmationViewController: UIViewController {
   
   var headerLabel: UILabel = {
     let label = UILabel()
-    let text = "Confirm Photo"
+    let text = ConfirmationViewStrings.navigationTitle
     label.translatesAutoresizingMaskIntoConstraints = false
     label.text = text
     return label

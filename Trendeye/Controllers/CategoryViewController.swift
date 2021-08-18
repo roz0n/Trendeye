@@ -62,7 +62,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     let button = UIButton(type: .system)
     let fontSize: CGFloat = 18
     button.translatesAutoresizingMaskIntoConstraints = false
-    button.setTitle("View on Trend List", for: .normal)
+    button.setTitle(CategoryViewStrings.trendlistButton, for: .normal)
     button.setTitleColor(K.Colors.White, for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     button.layer.cornerRadius = 8
@@ -109,8 +109,8 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     
     contentErrorView = ContentErrorView(
       image: errorIcon!,
-      title: "Unable to Load Trend Images",
-      message: "Looks like we’re having some trouble connecting to our servers. Try again later.")
+      title: CategoryViewStrings.errorViewTitle,
+      message: CategoryViewStrings.errorViewBody)
   }
   
   fileprivate func configureWebView() {
@@ -268,7 +268,11 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
           }
         case .failure(let error):
           self?.imageFetchError = true
-          self?.activityIndicator.stopAnimating()
+          
+          DispatchQueue.main.async { [weak self] in
+            self?.activityIndicator.stopAnimating()
+          }
+          
           print(error)
       }
       

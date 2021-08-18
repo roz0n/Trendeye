@@ -73,7 +73,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       iconSymbol: K.Icons.Eyes,
       titleText: CameraViewStrings.welcomeModalTitle,
       bodyText: CameraViewStrings.welcomeModalBody,
-      buttonText: CameraViewStrings.welcomeButtonText, dismissHandler: nil)
+      buttonText: CameraViewStrings.welcomeButton, dismissHandler: nil)
     view.modalPresentationStyle = .formSheet
     view.modalTransitionStyle = .crossDissolve
     return view
@@ -129,8 +129,11 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       configureCaptureSession()
       configureLivePreview()
       startCaptureSession()
-      presentWelcomeModal()
     }
+    
+//    SHORTCUT_PRESENT_CONFIRMATION()
+//    SHORTCUT_PRESENT_CLASSIFICATION()
+    SHORTCUT_PRESENT_CATEGORY()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -181,6 +184,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
         DispatchQueue.main.async {
           if granted {
             self?.captureDeviceError = false
+            self?.presentWelcomeModal()
           } else {
             self?.captureDeviceError = true
             print("User did not grant camera access")

@@ -53,14 +53,22 @@ final class ClassificationViewController: UITableViewController {
   var tableFooter = ClassificationTableFooterView()
   
   var aboutView: InfoModalViewController = {
-    let view = InfoModalViewController(iconSymbol: K.Icons.Analysis, titleText: "About Analysis", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim.", buttonText: "Close", dismissHandler: nil)
+    let view = InfoModalViewController(
+      iconSymbol: K.Icons.Analysis,
+      titleText: ClassificationViewStrings.aboutModalTitle,
+      bodyText: ClassificationViewStrings.aboutModalBody,
+      buttonText: ClassificationViewStrings.aboutModalButton, dismissHandler: nil)
     view.modalPresentationStyle = .formSheet
     view.modalTransitionStyle = .crossDissolve
     return view
   }()
   
   var confidenceView: InfoModalViewController = {
-    let view = InfoModalViewController(iconSymbol: K.Icons.Classifier, titleText: "Confidence", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi.", buttonText: "Close", dismissHandler: nil)
+    let view = InfoModalViewController(
+      iconSymbol: K.Icons.Classifier,
+      titleText: ClassificationViewStrings.confidenceModalTitle,
+      bodyText: ClassificationViewStrings.confidenceBodyTitle,
+      buttonText: ClassificationViewStrings.confidenceModalButton, dismissHandler: nil)
     view.modalPresentationStyle = .formSheet
     view.modalTransitionStyle = .crossDissolve
     return view
@@ -257,9 +265,24 @@ final class ClassificationViewController: UITableViewController {
     container.axis = .vertical
     container.spacing = 20
     
-    container.addArrangedSubview(InfoListItemView(iconSymbol: K.Icons.ArrowUpSquare, iconColor: K.Colors.Green, headerText: "High Confidence", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. "))
-    container.addArrangedSubview(InfoListItemView(iconSymbol: K.Icons.ArrowMidSquare, iconColor: K.Colors.Yellow, headerText: "Mild Confidence", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. "))
-    container.addArrangedSubview(InfoListItemView(iconSymbol: K.Icons.ArrowDownSquare, iconColor: K.Colors.Red, headerText: "Low Confidence", bodyText: "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. "))
+    container.addArrangedSubview(
+      InfoListItemView(
+        iconSymbol: K.Icons.ArrowUpSquare,
+        iconColor: K.Colors.Green,
+        headerText: ClassificationViewStrings.highConfidenceHeader,
+        bodyText: ClassificationViewStrings.highConfidenceBody))
+    container.addArrangedSubview(
+      InfoListItemView(
+        iconSymbol: K.Icons.ArrowMidSquare,
+        iconColor: K.Colors.Yellow,
+        headerText: ClassificationViewStrings.mildConfidenceHeader,
+        bodyText: ClassificationViewStrings.mildConfidenceBody))
+    container.addArrangedSubview(
+      InfoListItemView(
+        iconSymbol: K.Icons.ArrowDownSquare,
+        iconColor: K.Colors.Red,
+        headerText: ClassificationViewStrings.lowConfidenceHeader,
+        bodyText: ClassificationViewStrings.lowConfidenceBody))
     
     return container
   }
@@ -326,7 +349,10 @@ extension ClassificationViewController: TEClassificationDelegate {
     if !results.isEmpty {
       self.results = sanitizeClassificationResults(&results)
     } else {
-      presentSimpleAlert(title: "Classification Error", message: "Failed to classify image. Please try another or try again later.", actionTitle: "Close")
+      presentSimpleAlert(
+        title: ClassificationViewStrings.classificationErrorTitle,
+        message: ClassificationViewStrings.classificationErrorMessage,
+        actionTitle: ClassificationViewStrings.classificationErrorButton)
     }
   }
   
