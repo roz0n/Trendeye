@@ -90,7 +90,7 @@
 		2387D5B726C8C35600AF6F5E /* NegativeFeedbackSubmissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5702626B90BC600E8EC83 /* NegativeFeedbackSubmissionController.swift */; };
 		2387D5B826C8C35600AF6F5E /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131B062622F67600FFF2B3 /* K.swift */; };
 		2387D5B926C8C35600AF6F5E /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */; };
-		2387D5BA26C8C35600AF6F5E /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC2012630F41500744651 /* FullImageViewController.swift */; };
+		2387D5BA26C8C35600AF6F5E /* FullscreenImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC2012630F41500744651 /* FullscreenImageController.swift */; };
 		2387D5BB26C8C35600AF6F5E /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A009D5261FBD5C007A091D /* CameraViewController.swift */; };
 		2387D5BC26C8C35600AF6F5E /* CameraErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C4263A5505009114B3 /* CameraErrorView.swift */; };
 		2387D5BD26C8C35600AF6F5E /* TENetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC198262AC18600744651 /* TENetworkManager.swift */; };
@@ -117,7 +117,7 @@
 		23AAC199262AC18600744651 /* TENetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC198262AC18600744651 /* TENetworkManager.swift */; };
 		23AAC1A1262D00A700744651 /* TECacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1A0262D00A700744651 /* TECacheManager.swift */; };
 		23AAC1FF2630C86800744651 /* CategoryCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC1FE2630C86800744651 /* CategoryCollectionHeaderView.swift */; };
-		23AAC2022630F41500744651 /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC2012630F41500744651 /* FullImageViewController.swift */; };
+		23AAC2022630F41500744651 /* FullscreenImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC2012630F41500744651 /* FullscreenImageController.swift */; };
 		23C5702726B90BC600E8EC83 /* NegativeFeedbackSubmissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5702626B90BC600E8EC83 /* NegativeFeedbackSubmissionController.swift */; };
 		23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */; };
 		23CEC9C5263A5505009114B3 /* CameraErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CEC9C4263A5505009114B3 /* CameraErrorView.swift */; };
@@ -196,7 +196,7 @@
 		23AAC198262AC18600744651 /* TENetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TENetworkManager.swift; sourceTree = "<group>"; };
 		23AAC1A0262D00A700744651 /* TECacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TECacheManager.swift; sourceTree = "<group>"; };
 		23AAC1FE2630C86800744651 /* CategoryCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionHeaderView.swift; sourceTree = "<group>"; };
-		23AAC2012630F41500744651 /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
+		23AAC2012630F41500744651 /* FullscreenImageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenImageController.swift; sourceTree = "<group>"; };
 		23C5702626B90BC600E8EC83 /* NegativeFeedbackSubmissionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeFeedbackSubmissionController.swift; sourceTree = "<group>"; };
 		23CEC9C2263A54C2009114B3 /* StretchyTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyTableHeaderView.swift; sourceTree = "<group>"; };
 		23CEC9C4263A5505009114B3 /* CameraErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraErrorView.swift; sourceTree = "<group>"; };
@@ -386,7 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				23775AD626ACB5F500E839DD /* TENavigationController.swift */,
-				23AAC2012630F41500744651 /* FullImageViewController.swift */,
+				23AAC2012630F41500744651 /* FullscreenImageController.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -702,7 +702,7 @@
 				2387D5B726C8C35600AF6F5E /* NegativeFeedbackSubmissionController.swift in Sources */,
 				2387D5B826C8C35600AF6F5E /* K.swift in Sources */,
 				2387D5B926C8C35600AF6F5E /* StretchyTableHeaderView.swift in Sources */,
-				2387D5BA26C8C35600AF6F5E /* FullImageViewController.swift in Sources */,
+				2387D5BA26C8C35600AF6F5E /* FullscreenImageController.swift in Sources */,
 				2387D5BB26C8C35600AF6F5E /* CameraViewController.swift in Sources */,
 				2387D5BC26C8C35600AF6F5E /* CameraErrorView.swift in Sources */,
 				2387D5BD26C8C35600AF6F5E /* TENetworkManager.swift in Sources */,
@@ -766,7 +766,7 @@
 				23C5702726B90BC600E8EC83 /* NegativeFeedbackSubmissionController.swift in Sources */,
 				23131B072622F67600FFF2B3 /* K.swift in Sources */,
 				23CEC9C3263A54C2009114B3 /* StretchyTableHeaderView.swift in Sources */,
-				23AAC2022630F41500744651 /* FullImageViewController.swift in Sources */,
+				23AAC2022630F41500744651 /* FullscreenImageController.swift in Sources */,
 				23A009D6261FBD5C007A091D /* CameraViewController.swift in Sources */,
 				23CEC9C5263A5505009114B3 /* CameraErrorView.swift in Sources */,
 				23AAC199262AC18600744651 /* TENetworkManager.swift in Sources */,

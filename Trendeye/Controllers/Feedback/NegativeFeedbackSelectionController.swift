@@ -98,7 +98,7 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
   
   fileprivate func configureTableHeader() {
     let instructionsView = UITextView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 100))
-    let text = "Please select the invalidly classified trends from your image analysis. Your selections will be used to better inform future analysis."
+    let text = NegativeFeedbackStrings.tableHeader
     let style = NSMutableParagraphStyle()
     
     style.lineSpacing = 4
@@ -113,7 +113,7 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
   }
   
   fileprivate func configureNavigationBar() {
-    nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(tappedNextButton))
+    nextButton = UIBarButtonItem(title: NegativeFeedbackStrings.nextButton, style: .plain, target: self, action: #selector(tappedNextButton))
     nextButton?.isEnabled = getBarButtonStatus()
     
     navigationItem.rightBarButtonItem = nextButton
@@ -125,7 +125,7 @@ class NegativeFeedbackSelectionController: UITableViewController, UISearchResult
     searchController?.hidesNavigationBarDuringPresentation = false
     searchController?.obscuresBackgroundDuringPresentation = false
     searchController?.definesPresentationContext = true
-    searchController?.searchBar.placeholder = "Search"
+    searchController?.searchBar.placeholder = NegativeFeedbackStrings.searchBarPlaceholder
     searchController?.searchBar.backgroundImage = UIImage()
     searchController?.searchBar.backgroundColor = K.Colors.Background
     

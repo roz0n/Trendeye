@@ -1,5 +1,5 @@
 //
-//  FullImageViewController.swift
+//  FullscreenImageController.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/21/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FullImageViewController: UIViewController, UIGestureRecognizerDelegate {
+class FullscreenImageController: UIViewController, UIGestureRecognizerDelegate {
   
   // MARK: - Properties
   
@@ -116,14 +116,14 @@ class FullImageViewController: UIViewController, UIGestureRecognizerDelegate {
   @objc func handleSaveImage(image: UIImage, didFinishSavingWithError: NSError, contextInfo: () -> Void) {
     if !didFinishSavingWithError.userInfo.isEmpty {
       presentSimpleAlert(
-        title: "Error",
-        message: "You must allow gallery access in Settings to save images.",
-        actionTitle: "Close")
+        title: FullscreenImageStrings.errorAlertTitle,
+        message: FullscreenImageStrings.errorAlertBody,
+        actionTitle: FullscreenImageStrings.errorAlertButton)
     } else {
       presentSimpleAlert(
-        title: "Saved Image",
-        message: "The image has been saved to your camera roll.",
-        actionTitle: "Close")
+        title: FullscreenImageStrings.errorAlertTitle,
+        message: FullscreenImageStrings.errorAlertBody,
+        actionTitle: FullscreenImageStrings.errorAlertButton)
     }
   }
   
@@ -182,7 +182,7 @@ class FullImageViewController: UIViewController, UIGestureRecognizerDelegate {
 
 // MARK: - Layout
 
-fileprivate extension FullImageViewController {
+fileprivate extension FullscreenImageController {
   
   func applyLayouts() {
     layoutBackgroundBlurView()

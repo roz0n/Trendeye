@@ -8,7 +8,12 @@
 import UIKit
 
 class CameraDetectionView: UIView {
+  
+  // MARK: - Properties
+  
   var boundingBox = CGRect.zero
+  
+  // MARK: - Helpers
   
   func clear() {
     boundingBox = .zero
@@ -30,9 +35,7 @@ class CameraDetectionView: UIView {
     }
     
     context.addRect(boundingBox)
-    
     UIColor.red.setStroke()
-    
     context.strokePath()
   }
   

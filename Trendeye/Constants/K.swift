@@ -52,6 +52,8 @@ struct K {
     static let ArrowUpSquare = "arrow.up.square.fill"
     static let ArrowMidSquare = "arrow.left.and.right.square.fill"
     static let ArrowDownSquare = "arrow.down.square.fill"
+    static let ThumbUp = "hand.thumbsup.fill"
+    static let ThumbDown = "hand.thumbsdown.fill"
   }
   
   struct Sizes {

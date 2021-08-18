@@ -42,3 +42,50 @@ struct CategoryViewStrings {
   static let errorViewTitle = "Unable to Load Trend Images"
   static let errorViewBody = "Looks like we’re having some trouble connecting to our servers. Try again later."
 }
+
+struct FeedbackViewStrings {
+  static let positiveFeedbackTitle = "Valid Analysis"
+  static let negativeFeedbackTitle = "Invalid Analysis"
+  static let validIdentifiersTitle = "Select Valid Trends"
+  static let feedbackSubmissionTitle = "Confirm Feedback"
+}
+
+struct NegativeFeedbackStrings {
+  static let tableHeader = "Please select the invalidly classified trends from your image analysis. Your selections will be used to better inform future analysis."
+  static let nextButton = "Next"
+  static let searchBarPlaceholder = "Search"
+}
+
+struct NegativeFeedbackSubmissionStrings {
+  static let invalidSectionTitle = "Invalid Trends"
+  static let validSectionTitle = "Valid Trends"
+  static let submitButton = "Submit"
+  static let successAlertTitle = "Feedback Submitted"
+  static let successAlertBody = "Thank you for helping improve image analysis."
+  static let errorAlertTitle = "Oops"
+  static let errorAlertBody = "Something went wrong, please try again later."
+  static let submissionAlertButton = "Close"
+}
+
+struct PositiveFeedbackSubmissionStrings {
+  static let submitButton = "Submit"
+  static let tableHeader = "Duis efficitur metus feugiat, ultrices nibh ac, imperdiet mauris. Aliquam eu justo vehicula, tristique enim ut, dignissim diam."
+  static let successAlertTitle = "Feedback Submitted"
+  static let successAlertBody = "Thank you for helping improve image analysis."
+  static let errorAlertTitle = "Oops"
+  static let errorAlertBody = "Something went wrong, please try again later."
+  static let alertButton = "Close"
+}
+
+struct FullscreenImageStrings {
+  static let errorAlertTitle = "Error"
+  static let errorAlertBody = "You must allow gallery access in Settings to save images."
+  static let errorAlertButton = "Close"
+  static let saveAlertTitle = "Saved Image"
+  static let saveAlertBody = "The image has been saved to your camera roll."
+  static let saveAlertButton = "Close"
+}
+
+struct ClassificationTableHeaderStrings {
+  static let primaryButton = "About analysis"
+}

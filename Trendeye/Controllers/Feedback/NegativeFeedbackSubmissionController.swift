@@ -21,7 +21,7 @@ class NegativeFeedbackSubmissionController: UITableViewController {
   let feedbackType: ClassificationFeedbackType
   let invalidIdentifiers: [String]
   let validIdentifiers: [String]
-  let sectionTitles = ["Invalid Trends", "Valid Trends"]
+  let sectionTitles = [NegativeFeedbackSubmissionStrings.invalidSectionTitle, NegativeFeedbackSubmissionStrings.validSectionTitle]
   let sectionData: [Int: [String]]
   
   // MARK: - Initializers
@@ -57,7 +57,11 @@ class NegativeFeedbackSubmissionController: UITableViewController {
   }
   
   fileprivate func configureNavigation() {
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .done, target: self, action: #selector(tappedSubmitButton))
+    navigationItem.rightBarButtonItem = UIBarButtonItem(
+      title: NegativeFeedbackSubmissionStrings.submitButton,
+      style: .done,
+      target: self,
+      action: #selector(tappedSubmitButton))
   }
   
   @objc func tappedSubmitButton() {
@@ -72,16 +76,20 @@ class NegativeFeedbackSubmissionController: UITableViewController {
   // MARK: - Helpers
   
   fileprivate func presentSuccessAlert() {
-    self.presentFeedbackSubmissionAlert(title: "Feedback Submitted", message: "Thank you for helping improve image analysis.")
+    self.presentFeedbackSubmissionAlert(
+      title: NegativeFeedbackSubmissionStrings.successAlertTitle,
+      message: NegativeFeedbackSubmissionStrings.successAlertBody)
   }
   
   fileprivate func presentErrorAlert() {
-    self.presentFeedbackSubmissionAlert(title: "Oops", message: "Something went wrong, please try again later.")
+    self.presentFeedbackSubmissionAlert(
+      title: NegativeFeedbackSubmissionStrings.errorAlertTitle,
+      message: NegativeFeedbackSubmissionStrings.errorAlertBody)
   }
   
   fileprivate func presentFeedbackSubmissionAlert(title: String, message: String) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    let action = UIAlertAction(title: "Close", style: .default) { [weak self] action in
+    let action = UIAlertAction(title: NegativeFeedbackSubmissionStrings.submissionAlertButton, style: .default) { [weak self] action in
       self?.dismiss(animated: true, completion: nil)
     }
     

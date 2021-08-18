@@ -43,7 +43,7 @@ class PositiveFeedbackSubmissionController: UITableViewController {
   // MARK: - Configurations
   
   fileprivate func configureNavigation() {
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .done, target: self, action: #selector(tappedSubmitButton))
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: PositiveFeedbackSubmissionStrings.submitButton, style: .done, target: self, action: #selector(tappedSubmitButton))
   }
   
   func configureTableView() {
@@ -55,7 +55,7 @@ class PositiveFeedbackSubmissionController: UITableViewController {
   
   fileprivate func configureTableHeader() {
     let instructionsView = UITextView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 100))
-    let text = "Duis efficitur metus feugiat, ultrices nibh ac, imperdiet mauris. Aliquam eu justo vehicula, tristique enim ut, dignissim diam."
+    let text = PositiveFeedbackSubmissionStrings.tableHeader
     let style = NSMutableParagraphStyle()
     
     style.lineSpacing = 4
@@ -72,20 +72,29 @@ class PositiveFeedbackSubmissionController: UITableViewController {
   // MARK: - Gestures
   
   @objc func tappedSubmitButton() {
-    feedbackNavigationController?.submitFeedbackData(type: .positive, validIdentifiers: classificationIdentifiers, invalidIdentifiers: nil, onSuccess: presentSuccessAlert, onError: presentErrorAlert)
+    feedbackNavigationController?.submitFeedbackData(
+      type: .positive,
+      validIdentifiers: classificationIdentifiers,
+      invalidIdentifiers: nil,
+      onSuccess: presentSuccessAlert,
+      onError: presentErrorAlert)
   }
   
   fileprivate func presentSuccessAlert() {
-    self.presentFeedbackSubmissionAlert(title: "Feedback Submitted", message: "Thank you for helping improve image analysis.")
+    self.presentFeedbackSubmissionAlert(
+      title: PositiveFeedbackSubmissionStrings.successAlertTitle,
+      message: PositiveFeedbackSubmissionStrings.successAlertBody)
   }
   
   fileprivate func presentErrorAlert() {
-    self.presentFeedbackSubmissionAlert(title: "Oops", message: "Something went wrong, please try again later.")
+    self.presentFeedbackSubmissionAlert(
+      title: PositiveFeedbackSubmissionStrings.errorAlertTitle,
+      message: PositiveFeedbackSubmissionStrings.errorAlertBody)
   }
   
   fileprivate func presentFeedbackSubmissionAlert(title: String, message: String) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    let action = UIAlertAction(title: "Close", style: .default) { [weak self] action in
+    let action = UIAlertAction(title: PositiveFeedbackSubmissionStrings.alertButton, style: .default) { [weak self] action in
       self?.dismiss(animated: true, completion: nil)
     }
     

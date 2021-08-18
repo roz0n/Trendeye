@@ -39,7 +39,7 @@ class ClassificationTableHeader: UITableViewHeaderFooterView {
     let buttonTitle = NSMutableAttributedString()
     buttonIcon.image = UIImage(systemName: K.Icons.Info)?.withTintColor(K.Colors.White, renderingMode: .alwaysTemplate)
     buttonTitle.append(NSAttributedString(attachment: buttonIcon))
-    buttonTitle.append(NSAttributedString(string: "  About analysis", attributes: [
+    buttonTitle.append(NSAttributedString(string: "  \(ClassificationTableHeaderStrings.primaryButton)", attributes: [
       NSMutableAttributedString.Key.foregroundColor: K.Colors.White,
       NSMutableAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .bold)
     ]))
@@ -51,7 +51,7 @@ class ClassificationTableHeader: UITableViewHeaderFooterView {
   
   var positiveFeedbackButton: UIButton = {
     let button = UIButton(type: .system)
-    let image = UIImage(systemName: "hand.thumbsup.fill")?.withTintColor(K.Colors.Foreground, renderingMode: .alwaysOriginal)
+    let image = UIImage(systemName: K.Icons.ThumbUp)?.withTintColor(K.Colors.Foreground, renderingMode: .alwaysOriginal)
     button.translatesAutoresizingMaskIntoConstraints = false
     button.widthAnchor.constraint(equalToConstant: 55).isActive = true
     button.heightAnchor.constraint(equalToConstant: 55).isActive = true
@@ -65,7 +65,7 @@ class ClassificationTableHeader: UITableViewHeaderFooterView {
   
   var negativeFeedbackButton: UIButton = {
     let button = UIButton(type: .system)
-    let image = UIImage(systemName: "hand.thumbsdown.fill")?.withTintColor(K.Colors.Foreground, renderingMode: .alwaysOriginal)
+    let image = UIImage(systemName: K.Icons.ThumbDown)?.withTintColor(K.Colors.Foreground, renderingMode: .alwaysOriginal)
     button.translatesAutoresizingMaskIntoConstraints = false
     button.widthAnchor.constraint(equalToConstant: 55).isActive = true
     button.heightAnchor.constraint(equalToConstant: 55).isActive = true

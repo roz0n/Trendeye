@@ -9,6 +9,8 @@ import UIKit
 
 class CameraButton: UIButton {
   
+  // MARK: - Initializers
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     translatesAutoresizingMaskIntoConstraints = false
@@ -17,6 +19,8 @@ class CameraButton: UIButton {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
+  // MARK: - Lifecycle
   
   override func layoutSubviews() {
     super.layoutSubviews()

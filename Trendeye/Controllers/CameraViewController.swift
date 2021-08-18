@@ -131,9 +131,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       startCaptureSession()
     }
     
-//    SHORTCUT_PRESENT_CONFIRMATION()
-//    SHORTCUT_PRESENT_CLASSIFICATION()
-    SHORTCUT_PRESENT_CATEGORY()
+    SHORTCUT_PRESENT_CLASSIFICATION()
   }
   
   override func viewWillDisappear(_ animated: Bool) {

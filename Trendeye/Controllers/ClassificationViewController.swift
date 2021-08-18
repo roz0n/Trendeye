@@ -434,7 +434,7 @@ extension ClassificationViewController {
   }
   
   @objc func handleFullScreenButton() {
-    let fullScreenImageView = FullImageViewController()
+    let fullScreenImageView = FullscreenImageController()
     
     fullScreenImageView.modalPresentationStyle = .formSheet
     fullScreenImageView.modalTransitionStyle = .crossDissolve

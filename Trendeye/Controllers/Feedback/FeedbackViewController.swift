@@ -42,17 +42,29 @@ class FeedbackViewController: UINavigationController {
     switch feedbackType {
       case .positive:
         let positiveFeedbackController = PositiveFeedbackSubmissionController(identifiers: classificationIdentifiers)
-        positiveFeedbackController.navigationItem.title = "Valid Analysis"
+        
+        positiveFeedbackController.navigationItem.title = FeedbackViewStrings.positiveFeedbackTitle
         positiveFeedbackController.navigationItem.backButtonTitle = ""
         
-        self.init(rootViewController: positiveFeedbackController, type: feedbackType, classificationResults: classificationResults, classificationIdentifiers: classificationIdentifiers, classificationImage: classificationImage)
+        self.init(
+          rootViewController: positiveFeedbackController,
+          type: feedbackType,
+          classificationResults: classificationResults,
+          classificationIdentifiers: classificationIdentifiers,
+          classificationImage: classificationImage)
       case .negative:
         let negativeFeedbackController = NegativeFeedbackSelectionController(type: .invalidIdentifiers, identifiers: nil)
+        
         negativeFeedbackController.classificationIdentifiers = classificationIdentifiers
-        negativeFeedbackController.navigationItem.title = "Invalid Analysis"
+        negativeFeedbackController.navigationItem.title = FeedbackViewStrings.negativeFeedbackTitle
         negativeFeedbackController.navigationItem.backButtonTitle = ""
         
-        self.init(rootViewController: negativeFeedbackController, type: feedbackType, classificationResults: classificationResults, classificationIdentifiers: classificationIdentifiers, classificationImage: classificationImage)
+        self.init(
+          rootViewController: negativeFeedbackController,
+          type: feedbackType,
+          classificationResults: classificationResults,
+          classificationIdentifiers: classificationIdentifiers,
+          classificationImage: classificationImage)
     }
   }
   
@@ -92,7 +104,7 @@ class FeedbackViewController: UINavigationController {
     let validIdentifiersTable = NegativeFeedbackSelectionController(type: .validIdentifiers, identifiers: filteredIdentifiers)
     
     validIdentifiersTable.selectedIdentifiers = validIdentifiers
-    validIdentifiersTable.navigationItem.title = "Select Valid Trends"
+    validIdentifiersTable.navigationItem.title = FeedbackViewStrings.validIdentifiersTitle
     validIdentifiersTable.navigationItem.backButtonTitle = ""
     
     pushViewController(validIdentifiersTable, animated: true)
@@ -108,7 +120,7 @@ class FeedbackViewController: UINavigationController {
       validIdentifiers: validIdentifiers,
       style: .insetGrouped)
     
-    feedbackSubmissionTable.title = "Confirm Feedback"
+    feedbackSubmissionTable.title = FeedbackViewStrings.feedbackSubmissionTitle
     pushViewController(feedbackSubmissionTable, animated: true)
   }
   
