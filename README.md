@@ -24,7 +24,7 @@ Experimental graphic design trend classification on iOS powered by Vision, CoreM
 
 For the better part of the last decade, Trend List has been a staple in my bookmarks toolbar as a point of reference for inspiration while also being useful to keep up with burgeoning graphic design trends. Though the editors do a good job of categorizing submissions within individual trends, I find that many works are often contain *multiple* ones.
 
-Trendeye is an attempt to leverage Vision and CoreML's image classification APIs to identify multiple experimental trends in a contained in an image based on 15,000+ experimental works posted to Trend List.
+Trendeye is an attempt to leverage Vision and CoreML's image classification APIs to identify experimental trends contained in a given piece of work.
 
 Image classification is tricky and the degree of precision required to achieve the desired results increase further when dealing with heavily text-based images. While early results have been promising, it's clear that there is still work to be done tuning the classification model for accuracy.
 
