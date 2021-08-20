@@ -61,7 +61,7 @@ Because Trendeye relies on [`AVCaptureSession`](https://developer.apple.com/docu
 
 - [@roz0n](https://www.rozon.org/)
 
-> Design, mobile development, backend development, deployment, and testing. I am not a machine learning engineer — just an enthusiast.
+> Design, mobile development, backend development, deployment, and testing. I am not a machine learning engineer, just an enthusiast.
 
 ## Acknowledgements
 
