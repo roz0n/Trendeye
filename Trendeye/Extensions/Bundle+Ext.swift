@@ -9,7 +9,7 @@ import Foundation
 
 extension Bundle {
   
-  static func infoPlistValue(inFile file: String, forKey key: String) -> String? {
+  static func infoPlistValue(file: String, key: String) -> String? {
     // TODO: It would be nice if this was generic
     guard let path = Bundle.main.path(forResource: file, ofType: ".plist") else { return nil }
     guard let keys = NSDictionary.init(contentsOfFile: path) else { return nil }

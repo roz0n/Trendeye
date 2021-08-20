@@ -31,10 +31,10 @@ final class TENetworkManager {
   let trendListUrl = "https://www.trendlist.org/"
   
 #if DEVELOPMENT
-  var baseUrl: String = "https://65e844b7f8ac.ngrok.io/"
+  var baseUrl: String = "https://f3ddac0e4533.ngrok.io/"
 #else
   var baseUrl: String {
-    return Bundle.infoPlistValue(inFile: "Endpoints", forKey: "API_URL")!
+    return Bundle.infoPlistValue(file: "Endpoints", key: "API_URL")!
   }
 #endif
   
