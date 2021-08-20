@@ -34,8 +34,8 @@ class ContentErrorView: UIView {
   let container: UIStackView = {
     let stack = UIStackView()
     stack.translatesAutoresizingMaskIntoConstraints = false
-    stack.distribution = .fillProportionally
     stack.axis = .vertical
+    stack.spacing = 12
     return stack
   }()
   
@@ -58,29 +58,25 @@ class ContentErrorView: UIView {
     return label
   }()
   
-  let messageView: UITextView = {
-    let view = UITextView()
+  let messageView: UILabel = {
+    let label = UILabel()
     let fontSize: CGFloat = 16
-    view.translatesAutoresizingMaskIntoConstraints = false
-    view.textAlignment = .center
-    view.font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
-    view.textContainer.maximumNumberOfLines = 0
-    view.textContainer.lineBreakMode = .byWordWrapping
-    view.isScrollEnabled = false
-    view.isEditable = false
-    view.isUserInteractionEnabled = false
-    view.backgroundColor = .clear
-    view.tintColor = K.Colors.Foreground
-    view.textContainerInset = UIEdgeInsets(top: (fontSize / 2), left: fontSize, bottom: 0, right: fontSize)
-    return view
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.textAlignment = .center
+    label.font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
+    label.numberOfLines = 0
+    label.isUserInteractionEnabled = false
+    label.backgroundColor = .clear
+    label.tintColor = K.Colors.Foreground
+    return label
   }()
   
   // MARK: - Initializers
   
   init(image: UIImage, title: String, message: String) {
     super.init(frame: .zero)
-    translatesAutoresizingMaskIntoConstraints = false
     
+    self.translatesAutoresizingMaskIntoConstraints = false
     self.image = image
     self.title = title
     self.message = message
