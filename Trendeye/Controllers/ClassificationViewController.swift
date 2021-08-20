@@ -313,7 +313,6 @@ final class ClassificationViewController: UITableViewController {
   }
   
   // TODO: This method needs to ensure we don't remain with 0 results
-  
   fileprivate func sanitizeClassificationResults(_ results: inout [VNClassificationObservation]) -> [VNClassificationObservation] {
     for result in results {
       let confidence = (result.confidence * 100)

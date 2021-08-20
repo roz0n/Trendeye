@@ -85,7 +85,7 @@ class InfoModalViewController: UIViewController {
     view.translatesAutoresizingMaskIntoConstraints = false
     view.textContainer.maximumNumberOfLines = 0
     view.textAlignment = .center
-    view.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+    view.font = UIFont.systemFont(ofSize: 14, weight: .medium)
     view.textColor = K.Colors.White
     view.backgroundColor = .clear
     view.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)

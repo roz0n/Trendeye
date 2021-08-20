@@ -45,13 +45,14 @@ class InfoListItemView: UIView {
   }()
   
   var bodyLabel: UILabel = {
-    let view = UILabel()
-    view.translatesAutoresizingMaskIntoConstraints = false
-    view.numberOfLines = 0
-    view.lineBreakMode = .byWordWrapping
-    view.isUserInteractionEnabled = false
-    view.textColor = K.Colors.White
-    return view
+    let label = UILabel()
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.numberOfLines = 0
+    label.lineBreakMode = .byWordWrapping
+    label.isUserInteractionEnabled = false
+    label.textColor = K.Colors.White
+    label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+    return label
   }()
   
   // MARK: - Initializers
