@@ -13,7 +13,7 @@ final class ClassificationViewController: UITableViewController {
   // MARK: - Classifier Properties
   
   var classifier = TEClassificationManager()
-  var confidenceButton = ClassifierConfidenceButton(type: .system)
+  var confidenceButton = ClassificationConfidenceButton(type: .system)
   var topResultMetric: TEClassificationMetric?
   
   var results: [VNClassificationObservation]? {

@@ -35,7 +35,7 @@ class InfoListItemView: UIView {
     view.widthAnchor.constraint(equalToConstant: 50).isActive = true
     return view
   }()
-    
+  
   var headerLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false

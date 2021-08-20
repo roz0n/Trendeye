@@ -11,8 +11,12 @@ import UIKit
 // TODO: Make this a `system` button
 class PhotoEnlargeButton: UIButton {
   
+  // MARK: - Properties
+  
   var height: CGFloat?
   var width: CGFloat?
+  
+  // MARK: - Initializers
   
   init(height: CGFloat, width: CGFloat) {
     super.init(frame: .zero)
@@ -37,6 +41,8 @@ class PhotoEnlargeButton: UIButton {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
+  // MARK: - Lifecycle
   
   override func layoutSubviews() {
     super.layoutSubviews()

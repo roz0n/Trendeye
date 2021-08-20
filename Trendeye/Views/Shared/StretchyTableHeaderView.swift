@@ -9,39 +9,16 @@ import UIKit
 
 class StretchyTableHeaderView: UIView {
   
+  // MARK: - Properties
+  
   var scrollView: UIScrollView?
   private var cachedMinimumSize: CGSize?
   
-  // For debugging purposes
-  var label: UILabel = {
+  // NOTE: This label is helpful when debugging issues with sizing and constraints (it displays the size of the view as it changes)
+  var debugLabel: UILabel = {
     let label = UILabel()
     return label
   }()
-  
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    
-    // For debugging purposes
-    // label.text = "\(frame.width)x\(frame.height)"
-  }
-  
-  fileprivate func configureDebugLabel() {
-    self.addSubview(label)
-    self.label.translatesAutoresizingMaskIntoConstraints = false
-    
-    NSLayoutConstraint.activate([
-      self.label.centerYAnchor.constraint(equalTo: centerYAnchor),
-      self.label.centerXAnchor.constraint(equalTo: centerXAnchor)
-    ])
-  }
   
   fileprivate var minimumHeight: CGFloat {
     get {
@@ -61,6 +38,37 @@ class StretchyTableHeaderView: UIView {
       cachedMinimumSize = minimumSize
       return minimumSize.height
     }
+  }
+  
+  // MARK: - Initializers
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  // MARK: - Lifecycle
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    // For debugging purposes
+    // label.text = "\(frame.width)x\(frame.height)"
+  }
+  
+  // MARK: - Helpers
+  
+  fileprivate func configureDebugLabel() {
+    self.addSubview(debugLabel)
+    self.debugLabel.translatesAutoresizingMaskIntoConstraints = false
+    
+    NSLayoutConstraint.activate([
+      self.debugLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+      self.debugLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+    ])
   }
   
   public func updatePosition() {

@@ -89,3 +89,11 @@ struct FullscreenImageStrings {
 struct ClassificationTableHeaderStrings {
   static let primaryButton = "About analysis"
 }
+
+struct ClassificationConfidenceButtonStrings {
+  static let confidenceLabel = "confidence"
+}
+
+struct ClassificationTableFooterStrings {
+  static let attribution = "Powered by images from TrendList.org"
+}

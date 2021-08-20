@@ -43,7 +43,7 @@ class BarView: UIView {
   
 }
 
-// TODO: This does not need to be a view controller, a regular UIView would suffice
+// TODO: This does not need to be a UIViewController, a regular UIView would suffice
 
 class StackedBarsView: UIViewController {
   

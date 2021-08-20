@@ -9,6 +9,8 @@ import UIKit
 
 class AppLogoView: UIView {
   
+  // MARK: - Properties
+  
   let image = UIImage(named: "AppLogo")!
   
   let imageView: UIImageView = {
@@ -17,6 +19,8 @@ class AppLogoView: UIView {
     view.contentMode = .scaleAspectFit
     return view
   }()
+  
+  // MARK: - Initializers
   
   convenience init() {
     self.init(frame: .zero)

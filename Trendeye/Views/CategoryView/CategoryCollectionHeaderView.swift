@@ -17,12 +17,12 @@ class CategoryCollectionHeaderView: UICollectionReusableView {
   
   var textView: UITextView = {
     let view = UITextView()
-    let paddingY: CGFloat = 24
-    let paddingX: CGFloat = 12
+    let yPadding: CGFloat = 24
+    let xPadding: CGFloat = 12
     view.translatesAutoresizingMaskIntoConstraints = false
     view.textContainer.maximumNumberOfLines = 0
     view.textContainer.lineBreakMode = .byCharWrapping
-    view.textContainerInset = UIEdgeInsets(top: paddingY, left: paddingX, bottom: paddingY, right: paddingX)
+    view.textContainerInset = UIEdgeInsets(top: yPadding, left: xPadding, bottom: yPadding, right: xPadding)
     view.isScrollEnabled = false
     view.isUserInteractionEnabled = false
     view.backgroundColor = K.Colors.Background

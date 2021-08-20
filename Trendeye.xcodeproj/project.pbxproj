@@ -77,7 +77,7 @@
 		2387D5A926C8C35600AF6F5E /* TEDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DEF3126C7AFF4006E38B8 /* TEDefaultsManager.swift */; };
 		2387D5AA26C8C35600AF6F5E /* CGFloat+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2371729826327B4400D29B50 /* CGFloat+Ext.swift */; };
 		2387D5AB26C8C35600AF6F5E /* TEClassificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A5525E32F0E00241206 /* TEClassificationManager.swift */; };
-		2387D5AC26C8C35600AF6F5E /* ClassifierConfidenceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EE263BE241005AB471 /* ClassifierConfidenceButton.swift */; };
+		2387D5AC26C8C35600AF6F5E /* ClassificationConfidenceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EE263BE241005AB471 /* ClassificationConfidenceButton.swift */; };
 		2387D5AD26C8C35600AF6F5E /* StackedBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DACBC826B60FF4005D02CB /* StackedBarsView.swift */; };
 		2387D5AE26C8C35600AF6F5E /* CategoryImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AAC194262ABEBA00744651 /* CategoryImageCell.swift */; };
 		2387D5AF26C8C35600AF6F5E /* ConfirmationControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23131ADE2621563500FFF2B3 /* ConfirmationControlsView.swift */; };
@@ -124,7 +124,7 @@
 		23DACBC726B527D7005D02CB /* InfoModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DACBC626B527D7005D02CB /* InfoModalViewController.swift */; };
 		23DACBC926B60FF4005D02CB /* StackedBarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DACBC826B60FF4005D02CB /* StackedBarsView.swift */; };
 		23EFD8ED263BD539005AB471 /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */; };
-		23EFD8EF263BE241005AB471 /* ClassifierConfidenceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EE263BE241005AB471 /* ClassifierConfidenceButton.swift */; };
+		23EFD8EF263BE241005AB471 /* ClassificationConfidenceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EFD8EE263BE241005AB471 /* ClassificationConfidenceButton.swift */; };
 		23F80A3925E2EE2100241206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3825E2EE2100241206 /* AppDelegate.swift */; };
 		23F80A3B25E2EE2100241206 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F80A3A25E2EE2100241206 /* SceneDelegate.swift */; };
 		23F80A4225E2EE2400241206 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F80A4125E2EE2400241206 /* Assets.xcassets */; };
@@ -203,7 +203,7 @@
 		23DACBC626B527D7005D02CB /* InfoModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModalViewController.swift; sourceTree = "<group>"; };
 		23DACBC826B60FF4005D02CB /* StackedBarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedBarsView.swift; sourceTree = "<group>"; };
 		23EFD8EC263BD539005AB471 /* UITextView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
-		23EFD8EE263BE241005AB471 /* ClassifierConfidenceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierConfidenceButton.swift; sourceTree = "<group>"; };
+		23EFD8EE263BE241005AB471 /* ClassificationConfidenceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationConfidenceButton.swift; sourceTree = "<group>"; };
 		23F80A3525E2EE2100241206 /* Trendeye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trendeye.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23F80A3825E2EE2100241206 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23F80A3A25E2EE2100241206 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -308,7 +308,7 @@
 				23131AF726219D7C00FFF2B3 /* Cells */,
 				23131B0A2623863200FFF2B3 /* ClassificationImageHeader.swift */,
 				232AA3902628FF9A00E5E8A1 /* ClassificationTableFooterView.swift */,
-				23EFD8EE263BE241005AB471 /* ClassifierConfidenceButton.swift */,
+				23EFD8EE263BE241005AB471 /* ClassificationConfidenceButton.swift */,
 				235E651826AA770A004E8B26 /* ClassificationTableHeader.swift */,
 				23775AD826AE3D8400E839DD /* ClassificationMetricChip.swift */,
 			);
@@ -689,7 +689,7 @@
 				2387D5A926C8C35600AF6F5E /* TEDefaultsManager.swift in Sources */,
 				2387D5AA26C8C35600AF6F5E /* CGFloat+Ext.swift in Sources */,
 				2387D5AB26C8C35600AF6F5E /* TEClassificationManager.swift in Sources */,
-				2387D5AC26C8C35600AF6F5E /* ClassifierConfidenceButton.swift in Sources */,
+				2387D5AC26C8C35600AF6F5E /* ClassificationConfidenceButton.swift in Sources */,
 				2387D5AD26C8C35600AF6F5E /* StackedBarsView.swift in Sources */,
 				2387D5AE26C8C35600AF6F5E /* CategoryImageCell.swift in Sources */,
 				2387D5AF26C8C35600AF6F5E /* ConfirmationControlsView.swift in Sources */,
@@ -753,7 +753,7 @@
 				230DEF3226C7AFF4006E38B8 /* TEDefaultsManager.swift in Sources */,
 				2371729926327B4400D29B50 /* CGFloat+Ext.swift in Sources */,
 				23F80A5625E32F0E00241206 /* TEClassificationManager.swift in Sources */,
-				23EFD8EF263BE241005AB471 /* ClassifierConfidenceButton.swift in Sources */,
+				23EFD8EF263BE241005AB471 /* ClassificationConfidenceButton.swift in Sources */,
 				23DACBC926B60FF4005D02CB /* StackedBarsView.swift in Sources */,
 				23AAC195262ABEBA00744651 /* CategoryImageCell.swift in Sources */,
 				23131ADF2621563500FFF2B3 /* ConfirmationControlsView.swift in Sources */,

@@ -17,7 +17,9 @@ class ClassificationViewCell: UITableViewCell {
   var resultData: VNClassificationObservation! {
     didSet {
       identifierLabel.text = TEClassificationManager.shared.indentifiers[resultData.identifier]
-      resultBars = StackedBarsView(percentage: TEClassificationManager.shared.convertConfidenceToPercent(resultData.confidence), color: K.Colors.Foreground)
+      resultBars = StackedBarsView(
+        percentage: TEClassificationManager.shared.convertConfidenceToPercent(resultData.confidence),
+        color: K.Colors.Foreground)
     }
   }
   
@@ -58,7 +60,7 @@ class ClassificationViewCell: UITableViewCell {
     view.widthAnchor.constraint(equalToConstant: StackedBarsView.contentWidth).isActive = true
     return view
   }()
-    
+  
   var disclosureIndicatorContainer: UIView = {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
@@ -108,13 +110,16 @@ fileprivate extension ClassificationViewCell {
   }
   
   func layoutContainer() {
+    let xPadding: CGFloat = 16
+    let yPadding: CGFloat = 8
+    
     contentView.addSubview(container)
     
     NSLayoutConstraint.activate([
-      container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-      container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-      container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-      container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+      container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: yPadding),
+      container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: xPadding),
+      container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(xPadding)),
+      container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(yPadding))
     ])
   }
   

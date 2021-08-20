@@ -1,5 +1,5 @@
 //
-//  ClassifierConfidenceButton.swift
+//  ClassificationConfidenceButton.swift
 //  Trendeye
 //
 //  Created by Arnaldo Rozon on 4/30/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ClassifierConfidenceButton: UIButton {
+class ClassificationConfidenceButton: UIButton {
   
   var classificationMetric: TEClassificationMetric? {
     didSet {
@@ -32,7 +32,7 @@ class ClassifierConfidenceButton: UIButton {
     guard let metric = classificationMetric else { return }
     
     let fontSize: CGFloat = 16
-    let confidenceString = "confidence".uppercased()
+    let confidenceString = ClassificationConfidenceButtonStrings.confidenceLabel.uppercased()
     let metricString = metric.rawValue.uppercased()
     let spacerAttrString = NSMutableAttributedString(string: " ")
     
