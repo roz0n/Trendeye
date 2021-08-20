@@ -98,7 +98,7 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
     return view
   }()
   
-  // MARK: - View Lifecycle
+  // MARK: - Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -130,6 +130,8 @@ final class CameraViewController: UIViewController, UINavigationControllerDelega
       configureLivePreview()
       startCaptureSession()
     }
+    
+    SHORTCUT_PRESENT_CLASSIFICATION()
   }
   
   override func viewWillDisappear(_ animated: Bool) {

@@ -37,7 +37,7 @@ final class ConfirmationViewController: UIViewController {
     return view
   }()
   
-  // MARK: - View Lifecycle
+  // MARK: - Lifecycle
   
   override func viewDidLoad() {
     configureViewController()

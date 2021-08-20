@@ -72,8 +72,9 @@ class FullscreenImageController: UIViewController, UIGestureRecognizerDelegate {
   // MARK: - Configurations
   
   fileprivate func configureHeaderControls() {
-    let closeImage = UIImage(systemName: K.Icons.Close)
-    let saveImage = UIImage(systemName: K.Icons.Save)
+    let imageConfiguration = UIImage.SymbolConfiguration(weight: .semibold)
+    let closeImage = UIImage(systemName: K.Icons.Close, withConfiguration: imageConfiguration)
+    let saveImage = UIImage(systemName: K.Icons.Save, withConfiguration: imageConfiguration)
     
     closeButton.addTarget(self, action: #selector(handleCloseTap), for: .touchUpInside)
     closeButton.setImage(closeImage, for: .normal)
@@ -121,9 +122,9 @@ class FullscreenImageController: UIViewController, UIGestureRecognizerDelegate {
         actionTitle: FullscreenImageStrings.errorAlertButton)
     } else {
       presentSimpleAlert(
-        title: FullscreenImageStrings.errorAlertTitle,
-        message: FullscreenImageStrings.errorAlertBody,
-        actionTitle: FullscreenImageStrings.errorAlertButton)
+        title: FullscreenImageStrings.saveAlertTitle,
+        message: FullscreenImageStrings.saveAlertBody,
+        actionTitle: FullscreenImageStrings.saveAlertButton)
     }
   }
   

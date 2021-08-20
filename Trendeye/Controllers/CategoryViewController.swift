@@ -70,7 +70,7 @@ final class CategoryViewController: UIViewController, UICollectionViewDelegate, 
     return button
   }()
   
-  // MARK: - View Lifecycle
+  // MARK: - Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()

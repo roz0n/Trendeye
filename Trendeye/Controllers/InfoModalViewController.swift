@@ -293,7 +293,7 @@ fileprivate extension InfoModalViewController {
       bodyContent.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 30),
       bodyContent.centerXAnchor.constraint(equalTo: scrollContainer.centerXAnchor),
       bodyContent.widthAnchor.constraint(equalTo: scrollContainer.widthAnchor),
-      bodyContent.bottomAnchor.constraint(equalTo: scrollContainer.bottomAnchor)
+      bodyContent.bottomAnchor.constraint(equalTo: scrollContainer.bottomAnchor, constant: -30)
     ])
   }
   

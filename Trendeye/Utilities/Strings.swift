@@ -9,7 +9,7 @@ import Foundation
 
 struct CameraViewStrings {
   static let welcomeModalTitle = "Hello there!"
-  static let welcomeModalBody = "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim."
+  static let welcomeModalBody = "Trendeye is an image analysis tool that uses machine learning to identify experiemental graphic design trends that might be present in a given image. It's currently in beta so it may provide unexpected results at times. \n \n For any feedback, questions, or concerns, please email arnold@rozon.org!"
   static let welcomeButton = "Get Started"
   static let conformationViewTitle = "Confirm Photo"
   static let classificationViewTitle = "Trend Analysis"
@@ -21,17 +21,17 @@ struct ConfirmationViewStrings {
 
 struct ClassificationViewStrings {
   static let aboutModalTitle = "About Analysis"
-  static let aboutModalBody = "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi. Quisque ante quam, ornare nec est sed, facilisis fermentum sapien. Aliquam non dui at mi tincidunt dignissim."
+  static let aboutModalBody = "An image classifier is a machine learning model that analyses images. The Trendeye image classifier is trained by over 15,000 images published to TrendList.org. \n \nUpon analysis, it recognizes (to a degree of confidence) trends that may be present in the given image. To learn more about a trend, tap its cell to view more examples of it. To learn more about the model's confidence metric, tap the confidence label above the image. \n \nTo provide feedback on the results of the classification, tap the thumb up/down icons and follow the on-screen instructions to help improve the model's accuracy."
   static let aboutModalButton = "Close"
   static let confidenceModalTitle = "Confidence"
-  static let confidenceBodyTitle = "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. Nullam non ante nisi."
+  static let confidenceBodyTitle = "The model's confidence metric is determined by calculating the combined average of the \"confidence\" scores ouput during the classification proccess."
   static let confidenceModalButton = "Close"
   static let highConfidenceHeader = "High Confidence"
-  static let highConfidenceBody = "Etiam sit amet urna a dolor iaculis hendrerit at id sapien."
+  static let highConfidenceBody = "The model is very confident in its analysis that most, if not all, of the trends listed are present in the image."
   static let mildConfidenceHeader = "Mild Confidence"
-  static let mildConfidenceBody = "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. "
+  static let mildConfidenceBody = "The model is only somewhat confident of its analysis. Some of the trends listed may not actually be present in the image."
   static let lowConfidenceHeader = "Low Confidence"
-  static let lowConfidenceBody = "Etiam sit amet urna a dolor iaculis hendrerit at id sapien. "
+  static let lowConfidenceBody = "The model had difficulty analysing the image and is not confident in its analysis. There is no guarantee the trends listed are relevant to the image."
   static let classificationErrorTitle = "Classification Error"
   static let classificationErrorMessage = "Failed to classify image. Please try another or try again later."
   static let classificationErrorButton = "Close"
@@ -51,7 +51,7 @@ struct FeedbackViewStrings {
 }
 
 struct NegativeFeedbackStrings {
-  static let tableHeader = "Please select the invalidly classified trends from your image analysis. Your selections will be used to better inform future analysis."
+  static let tableHeader = "Please select the invalid trends present in the image analysis. Your selections will be used to train the model's accuracy."
   static let nextButton = "Next"
   static let searchBarPlaceholder = "Search"
 }
@@ -61,7 +61,7 @@ struct NegativeFeedbackSubmissionStrings {
   static let validSectionTitle = "Valid Trends"
   static let submitButton = "Submit"
   static let successAlertTitle = "Feedback Submitted"
-  static let successAlertBody = "Thank you for helping improve image analysis."
+  static let successAlertBody = "Thank you for helping train Trendeye!"
   static let errorAlertTitle = "Oops"
   static let errorAlertBody = "Something went wrong, please try again later."
   static let submissionAlertButton = "Close"
@@ -69,19 +69,19 @@ struct NegativeFeedbackSubmissionStrings {
 
 struct PositiveFeedbackSubmissionStrings {
   static let submitButton = "Submit"
-  static let tableHeader = "Duis efficitur metus feugiat, ultrices nibh ac, imperdiet mauris. Aliquam eu justo vehicula, tristique enim ut, dignissim diam."
+  static let tableHeader = "Please confirm that the trends below are valid representations of the image. Your selections will be used to train the model's accuracy."
   static let successAlertTitle = "Feedback Submitted"
-  static let successAlertBody = "Thank you for helping improve image analysis."
-  static let errorAlertTitle = "Oops"
+  static let successAlertBody = "Thank you for helping train Trendeye!"
+  static let errorAlertTitle = "Oops!"
   static let errorAlertBody = "Something went wrong, please try again later."
   static let alertButton = "Close"
 }
 
 struct FullscreenImageStrings {
   static let errorAlertTitle = "Error"
-  static let errorAlertBody = "You must allow gallery access in Settings to save images."
+  static let errorAlertBody = "You must allow gallery access in Settings to save images to your camera roll."
   static let errorAlertButton = "Close"
-  static let saveAlertTitle = "Saved Image"
+  static let saveAlertTitle = "Saved!"
   static let saveAlertBody = "The image has been saved to your camera roll."
   static let saveAlertButton = "Close"
 }
@@ -95,5 +95,5 @@ struct ClassificationConfidenceButtonStrings {
 }
 
 struct ClassificationTableFooterStrings {
-  static let attribution = "Powered by images from TrendList.org"
+  static let attribution = "Trained with images from TrendList.org"
 }

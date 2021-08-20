@@ -60,6 +60,7 @@ final class ClassificationViewController: UITableViewController {
       buttonText: ClassificationViewStrings.aboutModalButton, dismissHandler: nil)
     view.modalPresentationStyle = .formSheet
     view.modalTransitionStyle = .crossDissolve
+    view.bodyTextView.textAlignment = .natural
     return view
   }()
   
@@ -94,7 +95,7 @@ final class ClassificationViewController: UITableViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-  // MARK: - View Lifecycle
+  // MARK: - Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
