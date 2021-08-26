@@ -21,15 +21,17 @@ Experimental graphic design trend classification on iOS powered by Vision, CoreM
 > "Trend List was a reaction to ever-present formalism and the repetitive visual language in the works that we saw online. … We wanted to catalogue this to see if there are patterns in visual trends and how those evolve over time. In the early days, we received hate emails and requests of removal, but it soon changed. Over the years Trend List became a benchmark, a reference database and a source of inspiration for up-and-coming designers. Now there are designers submitting their own creations to Trend List daily."
 
 ## Motivation
-For the better part of the last decade, Trend List has been a staple in my browser's bookmarks toolbar as a great point of reference for sparks of inspiration while also being useful to keep up with the latest trends in experimental graphic design. 
 
-Though the editors appeared to do a good job of specifically categorizing submissions, I sometimes felt many pieces were composed of **multiple** trends as opposed to a **single** trend. As of today, Trend List posts do not contain multiple tags, only single categories, which I personally found to be overly stringent and not entirely accurate at times.
+Trendeye is an attempt to leverage Vision and CoreML's image classification APIs to identify experimental trends contained in a given piece of design work.
 
-Trendeye is an attempt to leverage Vision and CoreML's image classification APIs to identify multiple experimental trends in a given image based on 15k+ Trend List posts.
+For the better part of the last decade, Trend List has been a staple in my bookmarks toolbar as a point of reference for inspiration while also being useful to keep up with burgeoning graphic design trends. Though the editors do a good job of categorizing submissions within individual trends, I find that many works are often contain *multiple* ones.
 
-Nuanced image classification is tricky and the degree of precision required to achieve the desired results is ramped up further when dealing with heavily text-based images. While early results have been promising, it's clear that there is still work to be done tuning the model for accuracy.
+Image classification is tricky and the degree of precision required to achieve the desired results increase further when dealing with heavily text-based images. While early results have been promising, it's clear that there is still work to be done tuning the classification model for accuracy.
+
+None the less, Trendeye occupies and interesting space at the intersection of artificial intelligence and graphic design, demonstrating that modern computing is perhaps now at a stage capable of interpreting the deep subtleties of one of the most rigid human art forms.
 
 ## To-Do
+
 - Continually improve the accuracy of the image classification model
 - Add unit and UI tests
 - Custom image cropping
